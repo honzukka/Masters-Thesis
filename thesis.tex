@@ -131,7 +131,7 @@
 
 % Natbib allows you to select the format of the bibliography references.
 % The first example uses numbered citations: 
-\usepackage[square,sort&compress,numbers]{natbib}
+%\usepackage[square,sort&compress,numbers]{natbib}
 % The second example uses author-year citations.
 % If you use author-year citations, change the bibliography style (below); 
 % acm style does not work with author-year citations.
@@ -139,7 +139,7 @@
 % to the author directly (\citet{blaablaa} said blaa blaa), and 
 % \citep when you wish to refer similarly than with numbered citations
 % (It has been said that blaa blaa~\citep{blaablaa}).
-% \usepackage[square]{natbib}
+\usepackage[square]{natbib}
 
 % The alltt package provides an all-teletype environment that acts
 % like verbatim but you can use LaTeX commands in it. Uncomment if 
@@ -202,6 +202,10 @@
 \usetikzlibrary{shapes}
 \usetikzlibrary{patterns}
 
+% Custom packages
+% ------------------------------------------------------------------
+% Colored text
+\usepackage{xcolor}
 
 % The aalto-thesis package provides typesetting instructions for the
 % standard master's thesis parts (abstracts, front page, and so on)
@@ -215,7 +219,8 @@
 %                     first page of the first chapter
 %   twoinstructors  - changes the title of instructors to plural form
 %   twosupervisors  - changes the title of supervisors to plural form
-\usepackage[mydraft,twosupervisors]{aalto-thesis}
+\usepackage[mydraft]{aalto-thesis}
+%\usepackage[mydraft,twosupervisors]{aalto-thesis}
 %\usepackage[mydraft,doublenumbering]{aalto-thesis}
 %\usepackage{aalto-thesis}
 
@@ -259,15 +264,15 @@
 % You can just fix the texts there. Just remember to check all the language
 % variants you use (they are all there in the same place). 
 % ------------------------------------------------------------------
-\newcommand{\TITLE}{Software Processes for Dummies:}
-\newcommand{\FTITLE}{Ohjelmistoprosessit mänteille:}
-\newcommand{\STITLE}{Den stora stygga vargen:}
-\newcommand{\SUBTITLE}{Re-inventing the Wheel}
-\newcommand{\FSUBTITLE}{Uusi organisaatio, uudet pyörät}
-\newcommand{\SSUBTITLE}{Lilla Vargens universum}
-\newcommand{\DATE}{February 14, 2018}
-\newcommand{\FDATE}{14. helmikuuta 2018}
-\newcommand{\SDATE}{Den 18 februari 2018}
+\newcommand{\TITLE}{Neural Projection Mapping of Textures}
+%\newcommand{\FTITLE}{Ohjelmistoprosessit mänteille:}
+%\newcommand{\STITLE}{Den stora stygga vargen:}
+\newcommand{\SUBTITLE}{}
+%\newcommand{\FSUBTITLE}{Uusi organisaatio, uudet pyörät}
+%\newcommand{\SSUBTITLE}{Lilla Vargens universum}
+\newcommand{\DATE}{March 3, 2021}
+%\newcommand{\FDATE}{14. helmikuuta 2018}
+%\newcommand{\SDATE}{Den 18 februari 2018}
 
 % Supervisors and instructors
 % ------------------------------------------------------------------
@@ -284,17 +289,16 @@
 %\newcommand{\FSUPERVISOR}{Professori Antti Ylä-Jääski}
 %\newcommand{\SSUPERVISOR}{Professor Antti Ylä-Jääski}
 % Example of twosupervisors:
-\newcommand{\SUPERVISOR}{Professor Antti Ylä-Jääski\\
-  Professor Petra Perustieteilijä}
-\newcommand{\FSUPERVISOR}{Professori Antti Ylä-Jääski\\
-  Professori Petra Perustieteilijä}
-\newcommand{\SSUPERVISOR}{Professor Antti Ylä-Jääski\\
-  Professor Petra Perustieteilijä}
+\newcommand{\SUPERVISOR}{Professor Jaakko Lehtinen}
+%\newcommand{\FSUPERVISOR}{Professori Antti Ylä-Jääski\\
+%  Professori Petra Perustieteilijä}
+%\newcommand{\SSUPERVISOR}{Professor Antti Ylä-Jääski\\
+%  Professor Petra Perustieteilijä}
 
 % If you have only one instructor, just write one name here
-\newcommand{\INSTRUCTOR}{Oili Ohjaaja M.Sc. (Tech.)}
-\newcommand{\FINSTRUCTOR}{Diplomi-insinööri Oili Ohjaaja}
-\newcommand{\SINSTRUCTOR}{Diplomingenjör Oili Ohjaaja}
+\newcommand{\INSTRUCTOR}{}
+%\newcommand{\FINSTRUCTOR}{Diplomi-insinööri Oili Ohjaaja}
+%\newcommand{\SINSTRUCTOR}{Diplomingenjör Oili Ohjaaja}
 % If you have two instructors, separate them with \\ to create linefeeds
 % \newcommand{\INSTRUCTOR}{Oili Ohjaaja M.Sc. (Tech.)\\
 %  Elli Opas M.Sc. (Tech)}
@@ -307,8 +311,8 @@
 % of the supervisors in the cover page. If the following command is defined,
 % then the supervisor names shown here are printed in the cover page. Otherwise,
 % the supervisor names defined above are used.
-\newcommand{\COVERSUPERVISOR}{Professor Antti Ylä-Jääski, Aalto University\\
-  Professor Petra Perustieteilijä, University of Helsinki}
+%\newcommand{\COVERSUPERVISOR}{Professor Antti Ylä-Jääski, Aalto University\\
+%  Professor Petra Perustieteilijä, University of Helsinki}
 
 % The same option is for the instructors, if you have multiple instructors.
 % \newcommand{\COVERINSTRUCTOR}{Oili Ohjaaja M.Sc. (Tech.), Aalto University\\
@@ -318,22 +322,22 @@
 % Other stuff
 % ------------------------------------------------------------------
 \newcommand{\PROFESSORSHIP}{Computer Science}
-\newcommand{\FPROFESSORSHIP}{Tietotekniikka}
-\newcommand{\SPROFESSORSHIP}{Datateknik}
+%\newcommand{\FPROFESSORSHIP}{Tietotekniikka}
+%\newcommand{\SPROFESSORSHIP}{Datateknik}
 % Professorship code is the same in all languages
 \newcommand{\PROFCODE}{SCI3042}
-\newcommand{\KEYWORDS}{ocean, sea, marine, ocean mammal, marine
-  mammal, whales, cetaceans, dolphins}
-\newcommand{\FKEYWORDS}{aineistot, aitta, akustiikka, Alankomaat,
-aluerakentaminen, aapinen, ankka, aasinsilta}
-\newcommand{\SKEYWORDS}{omsättning, kassaflöde, värdepappersmarknadslagen,
-yrkesutövare, intresseföretag, verifieringskedja}
+\newcommand{\KEYWORDS}{projection mapping, texture synthesis,
+convolutional neural networks,  optimization, light transport}
+%\newcommand{\FKEYWORDS}{aineistot, aitta, akustiikka, Alankomaat,
+%aluerakentaminen, aapinen, ankka, aasinsilta}
+%\newcommand{\SKEYWORDS}{omsättning, kassaflöde, värdepappersmarknadslagen,
+%yrkesutövare, intresseföretag, verifieringskedja}
 \newcommand{\LANGUAGE}{English}
-\newcommand{\FLANGUAGE}{Englanti}
-\newcommand{\SLANGUAGE}{Engelska}
+%\newcommand{\FLANGUAGE}{Englanti}
+%\newcommand{\SLANGUAGE}{Engelska}
 
 % Author is the same for all languages
-\newcommand{\AUTHOR}{Stella Student}
+\newcommand{\AUTHOR}{Bc. Jan Horešovský}
 
 
 % Currently the English versions are used for the PDF file metadata
@@ -371,9 +375,9 @@ yrkesutövare, intresseföretag, verifieringskedja}
 % Bibliography style
 % acm style gives you a basic reference style. It works only with numbered
 % references.
-\bibliographystyle{acm}
+%\bibliographystyle{acm}
 % Plainnat is a plain style that works with both numbered and name citations.
-% \bibliographystyle{plainnat}
+\bibliographystyle{plainnat}
 
 
 % Extra hyphenation settings
@@ -416,56 +420,23 @@ yrkesutövare, intresseföretag, verifieringskedja}
 % Abstract in English
 % ------------------------------------------------------------------
 \thesisabstract{english}{
-The abstract provides goal, motivation, background, and conclusions of
-the work. It has to fit to one page together with the bibliographical
-information. 
-
-If the thesis is in English and the language of school
-education is Finnish or Swedish, the abstract is written in English
-and in Finnish or in Swedish. If the language of school education is
-other than Finnish or Swedish, the abstract is written in English only.
-
-The thesis example file (\texttt{thesis-example.tex}), all the chapter content
-files (\texttt{1introduction.tex} and so on), and the Aalto style file
-(\texttt{aalto-thesis.sty}) are commented with explanations on how the Aalto
-thesis works. The files also contain some examples on how to customize various
-details of the thesis layout, and of course the example text works as an
-example in itself. Please read the comments and the example text; that should
-get you well on your way!
-
-In the thesis template, you can find the text of the abstract in the
-abstract in the \texttt{thesis-example.tex}
-file, together with the bibliographical information of the abstract tables.
-\fixme{This is an example how to use fixme: add your abstract here.} 
-Fixme is a command that helps you identify parts of your thesis that still
-require some work. When compiled in the custom \texttt{mydraft} mode, text
-parts tagged with fixmes are shown in bold and with fixme tags around them. When
-compiled in normal mode, the fixme-tagged text is shown normally (without
-special formatting). The draft mode also causes the ``Draft'' text to appear on
-the front page, alongside with the document compilation date. The custom
-\texttt{mydraft} mode is selected by the \texttt{mydraft} option given for the
-package \texttt{aalto-thesis}, near the top of the \texttt{thesis-example.tex}
-file.
-
-The instructions on how to compile LaTeX *.tex files to *.pdf files like this 
-are giving in the \texttt{thesis-example.tex} file as comments and also in this 
-pdf in a Section~\ref{section:compilation}.}
+{\color{red} TODO}}
 
 % Abstract in Finnish
 % ------------------------------------------------------------------
-\thesisabstract{finnish}{
-Jos koulusivistyskielesi on suomi, diplomityössä pitää olla
-suomenkielinen tiivistelmä. Tiivistelmän pitää mahtua yhdelle
-sivulle.
+%\thesisabstract{finnish}{
+%Jos koulusivistyskielesi on suomi, diplomityössä pitää olla
+%suomenkielinen tiivistelmä. Tiivistelmän pitää mahtua yhdelle
+%sivulle.
 
-Tiivistelmässä on yleensä useampia kappaleita. Tiivistelmä kertoo työn
-tavoitteet, motivaation, taustan ja johtopäätökset.
-}
+%Tiivistelmässä on yleensä useampia kappaleita. Tiivistelmä kertoo työn
+%tavoitteet, motivaation, taustan ja johtopäätökset.
+%}
 
 % Abstract in Swedish
 % ------------------------------------------------------------------
-\thesisabstract{swedish}{
-Om ditt skolespråk är svenska, måste din diplomarbetet  ha en svenskspråkig sammanfattning. Sammanfattningen måste passa på en sida.}
+%\thesisabstract{swedish}{
+%Om ditt skolespråk är svenska, måste din diplomarbetet  ha en svenskspråkig sammanfattning. Sammanfattningen måste passa på en sida.}
 
 
 % Acknowledgements
@@ -481,10 +452,7 @@ Om ditt skolespråk är svenska, måste din diplomarbetet  ha en svenskspråkig 
 % show up in the TOC
 \chapter*{Acknowledgements}
 
-I wish to thank all students who use \LaTeX\ for formatting their theses,
-because theses formatted with \LaTeX\ are just so nice.
-
-Thank you, and keep up the good work!
+{\color{red} TODO}
 \vskip 10mm
 
 \noindent Espoo, \DATE
@@ -498,7 +466,7 @@ Thank you, and keep up the good work!
 % start correctly on the right-hand side.
 \cleardoublepage
 % Example acronyms are placed in a separate file, acronyms.tex
-\input{acronyms}
+%\input{acronyms}
 
 % Table of contents
 % ------------------------------------------------------------------
@@ -544,17 +512,11 @@ Thank you, and keep up the good work!
 
 \input{2background.tex}
 
-\input{3environment.tex}
+\input{3methods.tex}
 
-\input{4methods.tex}
+\input{4results.tex}
  
-\input{5implementation.tex}
-
-\input{6evaluation.tex}
- 
-\input{7discussion.tex}
- 
-\input{8conclusions.tex}
+\input{5conclusions.tex}
 
 
 % Load the bibliographic references
@@ -567,8 +529,8 @@ Thank you, and keep up the good work!
 % Appendices go here
 % ------------------------------------------------------------------
 % If you do not have appendices, comment out the following lines
-\appendix
-\input{appendices.tex}
+%\appendix
+%\input{appendices.tex}
 
 % End of document!
 % ------------------------------------------------------------------
