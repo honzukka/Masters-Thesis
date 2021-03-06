@@ -45,7 +45,7 @@ This approach is limited by projector hardware. Every projector has finite brigh
 
 In this thesis, we present an idea to overcome this limitation by reformulating what it means that camera image and desired appearance match.
 
-\section{Key Idea of Neural Projection Mapping of Textures}
+\section{The Key Idea}
 \label{section:intro-key_idea}
 
 Textures (e.g. a stony beach) have the interesting property that when their features (e.g. individual stones) are shuffled, the texture still looks the same. For example, \citet*{Julesz1995} defines textures as classes of pictures that cannot be discriminated in preattentive vision. These pictures are not the same pixel by pixel, but they \textit{look} the same when we glance over them.
@@ -92,23 +92,24 @@ The ultimate goal of our research is to find a method of projection-mapping text
     \item How practical is this algorithm? Can we deploy it in a projector-camera system?
 \end{enumerate}
 
+{\color{red} TODO: idea - maybe change the order of "questions" to the following:
+    \begin{enumerate}
+        \item Building a procam simulator (with mirror sphere + L2 results)
+        \item Filling in the blanks
+        \item Tuning \& evaluating the synthesis algorithm
+        \item Mirror sphere with synthesis - tying it all together
+    \end{enumerate}
+}
+
 \section{Neural Projection Mapping of Textures}
 \label{section:intro-neural_projection_mapping}
 
-{\color{red} TODO: briefly explain our pipeline (via a figure?):
-    \begin{itemize}
-        \item Rendering function instead of a real projector-camera system
-        \item Computing CNN-based statistics
-        \item Comparing them to those of the desired appearance
-        \item Driving an optimization process this way
-    \end{itemize}
-}
+To answer our questions, we have implemented a virtual simulator of a projector-camera system that is differentiable. Having a simulator has allowed for fast and flexible experimentation and having gradients available has enabled us to obtain compensated projection images via LBFGS, which is a powerful optimization algorithm. While this setup cannot be practically deployed in hardware and does not run in real time, it has allowed us to isolate and study the effect of texture synthesis on projection mapping -- all other parts of the pipeline do not approximate, but rather provide correct answers.
 
-{\color{red} TODO: briefly present one interesting result:
-    \begin{itemize}
-        \item Just a single target-scene-compensation-appearance combo
-        \item Introduces the terminology and how the figures are organized
-    \end{itemize}
-}
+{\color{red} TODO: pipeline figure}
+
+We have shown that modern statistical representations of textures are powerful enough to outperform pixel-based projection mapping in certain cases. For example, the figure below shows that...
+
+{\color{red} TODO: single target-scene-compensation-appearance results teaser with a single, well described point}
 
 {\color{red} TODO: this thesis is organized as follows...}
