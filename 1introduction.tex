@@ -2,36 +2,38 @@
 \label{chapter:intro}
 
 
-Projection mapping is projecting on anything that is not a projection screen. While screens in cinemas and classrooms are made specifically for being projected onto, this is not the case for other objects, for example building façades. The geometry and material properties of these objects deform projection images and chainge their appearance. This is why projecting them is not enough -- they also need to be \textit{mapped} in a way that their final appearance is what we expect.
+Most people nowadays are familiar with \textit{projection}, the act of transferring images from film or computers onto screens in cinemas or classrooms. But while those screens are made specifically for being projected onto, this is not the case for other objects, for example building façades. The geometry and material properties of these objects deform projected images and change their appearance. This is why projecting them is not enough -- they first need to be edited (\textit{mapped}) in a way that their final appearance is what we expect. Projecting onto arbitrary objects in such a way is called \textit{projection mapping} and is the main topic of this thesis.
 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=0.8\textwidth]{images/01-projection_mapping_example_sydney.jpg}
-        \caption{Source: \citet{ImageProjectionMappingExampleSydney}}
+        \caption{Projection mapping onto the Sydney Opera House. The projected image is carefully edited (mapped) to fit the building well. Source: \citet{ImageProjectionMappingExampleSydney}}
         \label{fig:intro_example_sydney}
     \end{center}
 \end{figure}
 
-According to \citet*{WikiHauntedMansion}, one of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face is projected onto a static head. Projection mapping has become widespread in recent years. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see \ref{fig:intro_example_sydney}) which is done in cities during festivals and other special occasions.
+According to \citet*{WikiHauntedMansion}, one of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head. Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
+
+Let us now briefly describe what projection mapping entails and which of its problems we aim to address in this thesis.
 
 \section{Problem Setting}
 \label{section:intro-problem_setting}
 
-The usual workflow of projection mapping involves the following steps:
+When projection mapping, we can either aim to reproduce the exact appearance of a given image and thus hide the objects we are projecting onto, or we can use projection to complement the objects. Here, we focus on the former. Usually, this involved the following steps:
 
 \begin{enumerate}
-    \item We have an image we want to project onto a scene. If we do that directly, the appearance will not be what we want because the scene influences our projection in an unpredictable manner
-    \item We need to create a \textit{compensated projection image} that will look like our original projection image when projected onto our scene
+    \item We have an image we want to project onto a scene. If we do that directly, the result will likely look like the image because the scene influences our projection appearance in an unpredictable manner
+    \item We need to create a \textit{compensated projection image} that will look like our original image when projected onto our scene
     \item We project the compensated image
 \end{enumerate}
 
-In this thesis, we focus on creating the compensated projection image automatically. There is a wide body of research focusing on this problem. In one of the earliest papers of the field, \citet*{Grossberg2004} project a series of special calibration images onto a scene and capture their appearance using a camera. Using these \text{camera images}, they are able to estimate the parameters of a model that determines how each pixel of the projection influences the appearance in that particular scene. Once this calibration is ready, they are able to compute compensation images on the fly using the model. The combination of a projector and a camera is common in projection mapping and such systems are called \textit{projector-camera systems}.
+There is a wide body of research focusing on creating such compensated images automatically given a scene and an image (desired appearance). In one of the earliest papers of the field, \citet*{Grossberg2004} project a series of special calibration images onto a scene and capture their appearance using a camera. Using these \text{camera images}, they are able to estimate how each pixel of the projection influences the appearance of that particular scene. Once this calibration is ready, they are able to quickly compute compensation images on the fly and only project the compensations. The combination of a projector and a camera is common in projection mapping and such systems are called \textit{projector-camera systems}.
 
 {\color{red} TODO: figure of the general process}
 
-Since then, there have been many advances in the field which are summarized in a state-of-the-art report by \citet*{Grundhofer2018}. Nowadays, projector-camera systems are able to calibrate themselves automatically after they are placed in a scene and they can also re-calibrate themselves in real time, for example when scene illumination changes, or when objects in the scene are transformed, both rigidly (i.e. without deformation) and non-rigidly. It is worth noting that because of the sheer complexity of general projection mapping, no single method solves this problem completely. For example, methods that handle non-rigid transformations will often rely on object tracking which requires the object to have markers on it. Such methods might also break when illumination changes significantly.
+Since then, there have been many advances in the field, the summary of which can be found in a state-of-the-art report by \citet*{Grundhofer2018}. The latest projector-camera systems are able to calibrate themselves automatically after they are placed in a scene, re-calibrate when scene illumination changes, or when objects in the scene are transformed, both rigidly (i.e. without deformation) and non-rigidly. Some can do this in real time. Because of the sheer complexity of general projection mapping, however, no single method can do all these things at once. For example, methods that handle non-rigid transformations will often rely on object tracking which requires the object to have markers on it. Such methods might also break when illumination changes significantly.
 
-There is, however, one fundamental characteristic that all current projection-mapping methods share. When computing the compensated projection image, they are trying to ensure that the camera image will match the desired appearance pixel by pixel. Explicitly, their goal is
+There is, however, one fundamental characteristic that all current projection-mapping methods share. When computing the compensated projection image, they match the camera image with the desired appearance pixel by pixel. Explicitly, their goal is that
 
 \[
     X = Y
@@ -39,31 +41,31 @@ There is, however, one fundamental characteristic that all current projection-ma
 
 where \(X,Y \in \mathbb{R}^{n \times m}\) are the camera image and desired appearance, respectively.
 
-This approach is limited by projector hardware. Every projector has finite brightness which means that pixels of the camera image cannot be made arbitrarily bright. In scenes with external illumination (which are most scenes -- due to light pollution it is nearly impossible to find complete darkness nowadays), it is also impossible to make pixels of the camera image arbitrarily dark since projectors only add light and do not subtract it.
+This approach is limited by projector hardware. Every projector has finite brightness which means that pixels of the camera image cannot be made arbitrarily bright. In scenes with external illumination, it is also impossible to make pixels of the camera image arbitrarily dark since projectors only add light and do not subtract it. We can therefore find images that cannot be mapped onto particular scenes, for example because the projector is unable to reproduce a bright pixel on a very dark scene surface.
 
-{\color{red} TODO: figure of the limitation of pixel-by-pixel matching}
+{\color{red} TODO: figure of the limitation of pixel-by-pixel matching (maybe an extreme example where pixel fails but we succeed)}
 
-In this thesis, we present an idea to overcome this limitation by reformulating what it means that camera image and desired appearance match.
+In this thesis, we present an idea to overcome this limitation for a specific class of images -- textures.
 
 \section{The Key Idea}
 \label{section:intro-key_idea}
 
-Textures (e.g. a stony beach) have the interesting property that when their features (e.g. individual stones) are shuffled, the texture still looks the same. For example, \citet*{Julesz1995} defines textures as classes of pictures that cannot be discriminated in preattentive vision. These pictures are not the same pixel by pixel, but they \textit{look} the same when we glance over them.
+Textures (e.g. an image of a stony beach) have the interesting property that when their features (e.g. individual stones) are shuffled, the texture still looks the same. For example, \citet*{Julesz1995} defines textures as classes of images that cannot be discriminated in preattentive vision. These images are not the same pixel by pixel, but they \textit{look} the same when we glance over them.
 
 {\color{red} TODO: figure of the main idea}
 
-The projection-mapping method presented in this thesis focuses on project-mapping textures. The main idea is as follows:
+We present a method for projection mapping textures, using their properties to achieve high-quality results as follows:
 
 \begin{itemize}
     \item We assume a texture which is difficult to project-map onto a given scene because of brightness limitations of the projector
-    \item Out of all possible realizations of that texture, we find the one which is the easiest to project-map onto the scene
+    \item Out of all possible realizations of that texture, we find the one which minimizes the number of pixels which the projector would struggle to reproduce
     \item We find the appropriate compensated projection image for it
 \end{itemize}
 
-A separate research field is dedicated to generating different realizations of the same texture, a task which came to be called \textit{texture synthesis}. \citet*{Raad2018} present a state-of-the-art report of texture synthesis methods. Some of these methods derive a statistical representation of textures such that if two pictures share that representation, they are the same texture. Here are some examples of what such a statistical representation can look like:
+A separate research field is dedicated to generating different realizations of the same texture, a task which came to be called \textit{texture synthesis}. \citet*{Raad2018} present a state-of-the-art report of texture synthesis methods. Some of these methods derive a statistical representation of textures such that if two pictures share that representation, they are the same texture, even if their pixel values are different. Here are some examples of what is meant by statistical representation:
 
 \begin{itemize}
-    \item Pixel values (this is too restrictive because in this case all texture classes contain only a single image)
+    \item Pixel values (this is too restrictive because in this case all texture classes only contain a single image)
     \item Average color (this is too loose because in this case each texture class would contain e.g. a constant image of that color)
     \item Power spectrum (a better representation which works well for textures with tiny features and is used for texture synthesis in \citet*{Galerne2011})
     \item Gram matrices of feature activations of a convolutional neural network (a complex representation presented by \citet*{Gatys2015} which significantly increased the quality of texture synthesis and spurred a wave of new research in the area, including this thesis)
@@ -79,37 +81,31 @@ We build on these statistics-based synthesis methods and reformulate the goal of
 
 where \(X,Y \in \mathbb{R}^{n \times m}\) are again the camera image and desired appearance, respectively, and \(f\) is a function that assigns a statistical representation to an image.
 
-Provided that our \(f\) describes textures well and an algorithm exists that for a given \(Y\) find an \(X\), so that \(f(X) = f(Y)\), this way of formulating the problem is strictly better than the original per-pixel formulation. This is because \(X = Y\) implies \(f(X) = f(Y)\) and therefore the solution to the original formulation is also a solution to our formulation. On top of that, however, our formulation also has other solutions.
+An important observation is that images that have equal pixel values also share their statistical representation. Therefore, this formulation of the projection mapping problem is strictly more powerful than the pixel-based one if the following conditions hold:
+
+\begin{enumerate}
+    \item \(f\) describes textures well -- all textures that look the same share the same \(f\)-value and no two textures that look different share the same \(f\)-value
+    \item An algorithm exists that can find such \(X\) and \(Y\)
+\end{enumerate}
+
+We now specify what the main goals of this thesis are.
 
 \section{Research Question}
 \label{section:intro-research_question}
 
-The ultimate goal of our research is to find a method of projection-mapping textures that achieves higher image quality in challenging conditions than any current method. We have presented a theoretical formulation of the projection-mapping problem that allows for such a method to exist. In this thesis, we explore three questions that will enable us to get closer to the ultimate goal:
+Solving both the problem of texture synthesis and projection mapping is very challenging. In this thesis, we therefore focus mainly on showing that by combining existing methods from both fields, interesting results can be achieved that have not been achieved before.
 
-\begin{enumerate}
-    \item Can we find an algorithm that will give us textures that both match the statistical representation of our target and are easy to project-map?
-    \item With known statistical representations, how does such an algorithm compare to per-pixel project mapping?
-    \item How practical is this algorithm? Can we deploy it in a projector-camera system?
-\end{enumerate}
+Our contributions are the following:
 
-{\color{red} TODO: idea - maybe change the order of "questions" to the following:
-    \begin{enumerate}
-        \item Building a procam simulator (with mirror sphere + L2 results)
-        \item Filling in the blanks
-        \item Tuning \& evaluating the synthesis algorithm
-        \item Mirror sphere with synthesis - tying it all together
-    \end{enumerate}
-}
-
-\section{Neural Projection Mapping of Textures}
-\label{section:intro-neural_projection_mapping}
-
-To answer our questions, we have implemented a virtual simulator of a projector-camera system that is differentiable. Having a simulator has allowed for fast and flexible experimentation and having gradients available has enabled us to obtain compensated projection images via LBFGS, which is a powerful optimization algorithm. While this setup cannot be practically deployed in hardware and does not run in real time, it has allowed us to isolate and study the effect of texture synthesis on projection mapping -- all other parts of the pipeline do not approximate, but rather provide correct answers.
-
-{\color{red} TODO: pipeline figure}
-
-We have shown that modern statistical representations of textures are powerful enough to outperform pixel-based projection mapping in certain cases. For example, the figure below shows that...
+\begin{itemize}
+    \item We implement an experimental projection-mapping system which is agnostic to the way camera images are matched with desired appearance
+    \item We integrate our proposed statistics-based method for projection mapping textures as outlined in \ref{section:intro-key_idea} into the system
+    \item We guide the reader through three experiments whose aim is to evaluate the proposed method and compare it to current pixel-based approaches.
+\end{itemize}
 
 {\color{red} TODO: single target-scene-compensation-appearance results teaser with a single, well described point}
+
+\section{Thesis Structure}
+\label{section:intro-thesis_structure}
 
 {\color{red} TODO: this thesis is organized as follows...}
