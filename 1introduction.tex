@@ -2,7 +2,7 @@
 \label{chapter:intro}
 
 
-Most people nowadays are familiar with \textit{projection}, the act of transferring images from film or computers onto screens in cinemas or classrooms. But while those screens are made specifically for being projected onto, this is not the case for other objects, for example building façades. The geometry and material properties of these objects deform projected images and change their appearance. This is why projecting them is not enough -- they first need to be edited (\textit{mapped}) in a way that their final appearance is what we expect. Projecting onto arbitrary objects in such a way is called \textit{projection mapping} and is the main topic of this thesis.
+Most people nowadays are familiar with \textit{projection}, the act of transferring images from film or computers onto screens in cinemas or classrooms. But while those screens are made specifically for being projected onto, this is not the case for other objects, for example building façades. The geometry and material properties of these objects deform projected images and change their appearance. This is why projecting them is not enough -- they first need to be edited (\textit{mapped}) in a way that their final appearance is what we expect. Projecting onto arbitrary objects in such a way is called \textit{projection mapping} and it is the main topic of this thesis.
 
 \begin{figure}[ht]
     \begin{center}
@@ -12,7 +12,7 @@ Most people nowadays are familiar with \textit{projection}, the act of transferr
     \end{center}
 \end{figure}
 
-According to \citet*{WikiHauntedMansion}, one of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head. Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
+According to \citet*{WikiHauntedMansion}, one of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head. Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see figure \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
 
 Let us now briefly describe what projection mapping entails and which of its problems we aim to address in this thesis.
 
@@ -22,12 +22,12 @@ Let us now briefly describe what projection mapping entails and which of its pro
 When projection mapping, we can either aim to reproduce the exact appearance of a given image and thus hide the objects we are projecting onto, or we can use projection to complement the objects. Here, we focus on the former. Usually, this involved the following steps:
 
 \begin{enumerate}
-    \item We have an image we want to project onto a scene. If we do that directly, the result will likely look like the image because the scene influences our projection appearance in an unpredictable manner
+    \item We have an image we want to project onto a scene. If we do that directly, the result will likely not look like the image because our scene influences projection appearance in an unpredictable manner
     \item We need to create a \textit{compensated projection image} that will look like our original image when projected onto our scene
     \item We project the compensated image
 \end{enumerate}
 
-There is a wide body of research focusing on creating such compensated images automatically given a scene and an image (desired appearance). In one of the earliest papers of the field, \citet*{Grossberg2004} project a series of special calibration images onto a scene and capture their appearance using a camera. Using these \text{camera images}, they are able to estimate how each pixel of the projection influences the appearance of that particular scene. Once this calibration is ready, they are able to quickly compute compensation images on the fly and only project the compensations. The combination of a projector and a camera is common in projection mapping and such systems are called \textit{projector-camera systems}.
+There is a wide body of research focusing on creating such compensated images automatically given a scene and an image (desired appearance). In one of the earliest papers of the field, \citet*{Grossberg2004} project a series of special calibration images onto a scene and capture their appearance using a camera. Using these \textit{camera images}, they are able to estimate how each pixel of the projection influences the appearance of that particular scene. Once this calibration is ready, they are able to quickly compute compensation images on the fly and only project the compensations. The combination of a projector and a camera is common in projection mapping and such systems are called \textit{projector-camera systems}.
 
 {\color{red} TODO: figure of the general process}
 
@@ -47,7 +47,7 @@ This approach is limited by projector hardware. Every projector has finite brigh
 
 In this thesis, we present an idea to overcome this limitation for a specific class of images -- textures.
 
-\section{The Key Idea}
+\section{Key Idea}
 \label{section:intro-key_idea}
 
 Textures (e.g. an image of a stony beach) have the interesting property that when their features (e.g. individual stones) are shuffled, the texture still looks the same. For example, \citet*{Julesz1995} defines textures as classes of images that cannot be discriminated in preattentive vision. These images are not the same pixel by pixel, but they \textit{look} the same when we glance over them.
@@ -88,19 +88,23 @@ An important observation is that images that have equal pixel values also share 
     \item An algorithm exists that can find such \(X\) and \(Y\)
 \end{enumerate}
 
-We now specify what the main goals of this thesis are.
+We now specify what the contributions of this thesis are.
 
-\section{Research Question}
-\label{section:intro-research_question}
+\section{Contributions}
+\label{section:intro-contributions}
 
 Solving both the problem of texture synthesis and projection mapping is very challenging. In this thesis, we therefore focus mainly on showing that by combining existing methods from both fields, interesting results can be achieved that have not been achieved before.
 
 Our contributions are the following:
 
 \begin{itemize}
-    \item We implement an experimental projection-mapping system which is agnostic to the way camera images are matched with desired appearance
-    \item We integrate our proposed statistics-based method for projection mapping textures as outlined in \ref{section:intro-key_idea} into the system
-    \item We guide the reader through three experiments whose aim is to evaluate the proposed method and compare it to current pixel-based approaches.
+    \item We implement our proposed method as outlined in section \ref{section:intro-key_idea} in PyTorch as an optimization loop. No projector and camera hardware is involved.
+    \item We guide the reader through three experiments whose aim is to evaluate the proposed method and compare it to current pixel-based approaches. Here is a summary of their conclusions:
+    \begin{enumerate}
+        \item In a simplified scenario without complex geometry or global illumination effects, our optimizer is able to generate a texture that is both part of a given texture class (as defined by existing texture synthesis methods) and adapted to fit the given scene well when projected.
+        \item In a simplified scenario, our method outperforms current pixel-based methods in certain challenging conditions as expected.
+        \item Our method works just as well in scenarios with complex geometry and global illumination effects as it does in simplified scenarios.
+    \end{enumerate}
 \end{itemize}
 
 {\color{red} TODO: single target-scene-compensation-appearance results teaser with a single, well described point}
@@ -108,4 +112,4 @@ Our contributions are the following:
 \section{Thesis Structure}
 \label{section:intro-thesis_structure}
 
-{\color{red} TODO: this thesis is organized as follows...}
+This thesis is organized as follows. In chapter \ref{chapter:background}, we provide an overview of the state of the art in projection mapping and texture synthesis and explain in detail the methods which we build on later on. In chapter \ref{chapter:methods}, we describe our method, its implementation and how each of the three experiments is constructed. In chapter \ref{chapter:results}, we present the results of the experiments and analyze them. Lastly, in chapter \ref{chapter:conclusions} we conclude the thesis and discuss future work.
