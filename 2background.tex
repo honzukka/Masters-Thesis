@@ -2,5 +2,86 @@
 \label{chapter:background} 
 
 
-{\color{red} TODO}
+Projection mapping and texture synthesis are both well-established research areas and in this section, we explain the theories and methods used in later parts of this thesis.
+
+In the case of projection mapping, we largely avoid discussing the current state of the art and focus on general theory of projection mapping instead. This is because all existing methods, such as those of \citet{Siegl2017} and \citet{Willi2017}, are addressing the issue of how to calibrate and compute compensations faster while pushing the quality of projection mapping to the limits defined by projection hardware (discussed in section \ref{section:intro-problem_setting}). We want to show that statistics-based projection mapping can be fundamentally better than pixel-based projection mapping. Therefore we perform projection mapping fully in software where we set maximum projector brightness ourselves and computations can be much longer than real time. This allows us to solve any pixel-based projection mapping problem completely and then compare our method against this ideal pixel-based reference.
+
+We do, however, provide an overview of the state of the art in texture synthesis because this problem is far from solved even in theory. The reason for that is that each method has to rely on a rigorous definition of what makes two textures look alike. In our experiments, we implement some of the best current synthesis methods and evaluate their performance in the context of projection mapping.
+
+\section{Projection Mapping}
+\label{section:background-projection_mapping}
+
+We begin our journey into Neural Projection Mapping of Textures by explaining what projections are and why mapping them is sometimes necessary. The question at the core of this section that we aim to answer is
+
+\begin{itemize}
+    \item How can we predict what will our projections look like before we actually project and see for ourselves?
+\end{itemize}
+
+\subsection{Projectors}
+\label{section:background-projection_mapping-projectors}
+
+Projectors are devices that transfer images onto backgrounds, such as screens, walls and other physical objects. The more traditional kind of projectors are film projectors, that shine a bright light through a film and a set of lenses. Nowadays, digital projectors are more common, but the core principle is the same.
+
+{\color{red} TODO: maybe a figure of a projector?}
+
+As briefly mentioned in section \ref{section:intro-problem_setting}, there are limitations to the way projectors are constructed that have a large impact on how projection mapping is done. To get a better intuition of these limitations, we shall now explain how one type of digital projectors works. We will focus the so-called Digital Light Processing (DLP) projector which is widely used both in cinemas as well as home setups. Other common types of digital projectors are for example LCD or laser projectors.
+
+\subsubsection{DLP Projectors}
+\label{section:background-projection_mapping-projectors-DLP}
+
+{\color{red} TODO: somehow cite the source here?}
+% https://en.wikipedia.org/wiki/Digital_Light_Processing
+
+As mentioned in the previous paragraph, DLP projectors or principally the same as film projectors -- they have a bright lamp and a set of lenses that direct the light towards physical objects such as screens. Instead of film, however, they need a more complicated device that the light shines through to project an image.
+
+DLP projectors project images by filtering the bright white light of the lamp. First, the light goes through a Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can either reflect light directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity exactly between full and zero.
+
+Next is color. After light passes though the DMD, it hits a rapidly spinning color wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the DMD passes through a single color filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image. Coordination with the DMD is therefore needed to send each channel at a specific intensity.
+
+{\color{red} TODO: figure of how DLP projectors work}
+
+\subsubsection{Hardware Limitations}
+\label{section:background-projection_mapping-projectors-limitations}
+
+Based on the way DLPs work, it is easy to see that the process of projecting an image is fairly inefficient and limiting, especially when it comes to the maximum brightness and minimum brightness (also known as black level) of a projector.
+
+Maximum brightness is simply limited by the brightness of the lamp. The brighter the lamp, the more energy it consumes and the more energy is wasted when dark colors or blacks are being projected.
+
+Minimum brightness is related to the ability of the projector to absorb light which is not reflected directly towards the lens. The more light is absorbed inside the projector, the more the projector heats up. This is why DLP projectors with deep blacks need to be large enough to cool themselves down efficiently. If a DLP projector is not able to absorb all the light, some of it is let through towards the screen and is visible as dim gray instead of black.
+
+Different projector technologies have different limitations. For example laser projectors are generally more efficient and brighter because they produce exactly the light color which is needed, as opposed to filtering out white light. But even laser projectors cannot be infinitely bright and even a projector which can produce true black color will not be able to project it onto scenes with external illumination.
+
+It is important for projecting onto screens, but especially crucial for projection mapping, that it is impossible to reproduce arbitrary appearance. The less of a particular color a given background reflect, the more difficult it is to project that color onto it.
+
+\subsection{Projections}
+\label{section:background-projection_mapping-projections}
+
+Projected images are not the same as observed images. Before reaching our eyes, projector light is reflected from at least one surface. This reflection is important because based on the properties of the surface, it can modify projector light in almost an arbitrary way. How can we then predict what will observers see when they look at our projection as we have set out to find out at the beginning of this section?
+
+{\color{red} TODO: figure of the same projection on various surfaces (if Mulholland Drive was projected on an orange screen, the blue box would appear grey and nobody would understand the movie! \(\rightarrow \) mention in paragraph below?)}
+
+\subsubsection{Achieving desired appearance}
+\label{section:background-projection_mapping-projections-screen}
+
+It might not be immediately obvious, but this is a question not only us, projection mappers, but also movie directors and teachers are interested in. Colors in movies and lecture slides often have crucial meaning and they need to be reproduced faithfully, so that the meaning is conveyed. The solution in cinemas and classrooms is to use a screen and control ambient light (it is usually recommended to project in dark rooms). But why does it work?
+
+As a matter of fact, even in this case, some amount of projection mapping needs to be done. Even in a cinema, the projected image is not the same as the observed image. Therefore, it needs to be modified as it is projected, so that the reproduction is faithful. However, the following aspects of a controlled environment with a screen make these necessary modifications trivial:
+
+ \begin{enumerate}
+     \item The fact that a cinema hall always looks the same allows for the same modification to be used every time and not re-calibration is necessary
+     \item A screen has a uniform surface of constant color. This means that each pixel of a projection is distorted in exactly the same way and thus only global modifications are needed
+     \item A screen is designed to make the distortion as small as possible. The modifications are therefore not only global, but also very simple and can be found quickly by manual tweaking
+ \end{enumerate}
+
+What happens in a general case when projecting onto arbitrary objects? In this thesis, we assume our environment to be static because we are not interested in the speed with which we can perform calibration. Point 1) is therefore valid even in our "general" case. Point 2) and 3), however, do not hold anymore. There is nothing we can say about the compensation function which needs to be applied to each image before it is projected. It is different for each pixel and can be be arbitrarily complicated.
+
+Estimating this compensation function is at the core of projection mapping as we have defined it (that is, making objects look like the projection, rather than complementing them by the projection). If we know how a given object distorts our projection, we can obtain the compensation function by inverting this process. In the next section, we will cover the theory behind light transport which studies precisely these phenomena and which projection mapping methods including ours heavily build upon.
+
+\subsection{Light Transport -- How will our projection look?}
+\label{section:background-projection_mapping-light_transport}
+
+Ahoj!
+
+\section{Texture Synthesis}
+\label{section:background-texture_synthesis}
 
