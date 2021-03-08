@@ -2,20 +2,25 @@
 \label{chapter:background} 
 
 
-Projection mapping and texture synthesis are both well-established research areas and in this section, we explain the theories and methods used in later parts of this thesis.
+Before we present our contributions, we provide an overview of the work other researchers that we build on as well as an explanation of concepts that we use in later parts of the thesis. At the core of this chapter are the answers to the following questions:
 
-In the case of projection mapping, we largely avoid discussing the current state of the art and focus on general theory of projection mapping instead. This is because all existing methods, such as those of \citet{Siegl2017} and \citet{Willi2017}, are addressing the issue of how to calibrate and compute compensations faster while pushing the quality of projection mapping to the limits defined by projection hardware (discussed in section \ref{section:intro-problem_setting}). We want to show that statistics-based projection mapping can be fundamentally better than pixel-based projection mapping. Therefore we perform projection mapping fully in software where we set maximum projector brightness ourselves and computations can be much longer than real time. This allows us to solve any pixel-based projection mapping problem completely and then compare our method against this ideal pixel-based reference.
+\begin{itemize}
+    \item How can we predict what an image will look like when projected onto a scene?
+    \item Given a texture image, how can we generate a different image that represents the same texture?
+\end{itemize}
 
-We do, however, provide an overview of the state of the art in texture synthesis because this problem is far from solved even in theory. The reason for that is that each method has to rely on a rigorous definition of what makes two textures look alike. In our experiments, we implement some of the best current synthesis methods and evaluate their performance in the context of projection mapping.
+The former question is part of the field of projection mapping, while the latter represents the field of texture synthesis.
+
+% Projection mapping and texture synthesis are both well-established research areas and in this section, we explain the theories and methods used in later parts of this thesis.
+
+% In the case of projection mapping, we largely avoid discussing the current state of the art and focus on general theory of projection mapping instead. This is because all existing methods, such as those of \citet{Siegl2017} and \citet{Willi2017}, are addressing the issue of how to calibrate projectors and compute compensations faster while pushing the quality of projection mapping to the limits defined by projection hardware (discussed in section \ref{section:intro-problem_setting}). We want to show that statistics-based projection mapping can be fundamentally better than pixel-based projection mapping. Therefore we perform projection mapping fully in software where we set maximum projector brightness ourselves and computations can be much longer than real time. This allows us to solve any pixel-based projection mapping problem completely and then compare our method against this ideal pixel-based reference.
+
+% We do, however, provide an overview of the state of the art in texture synthesis because this problem is far from solved even in theory. The reason for that is that each method has to rely on a rigorous definition of what makes two textures look alike. In our experiments, we implement some of the best current synthesis methods and evaluate their performance in the context of projection mapping.
 
 \section{Projection Mapping}
 \label{section:background-projection_mapping}
 
-We begin our journey into Neural Projection Mapping of Textures by explaining what projections are and why mapping them is sometimes necessary. The question at the core of this section that we aim to answer is
-
-\begin{itemize}
-    \item How can we predict what will our projections look like before we actually project and see for ourselves?
-\end{itemize}
+In order to predict projection appearance, we first need to understand how projectors work, get an intuition of what to roughly expect when projecting on various surfaces and then understand the theory behind light transport. Finally, we can combine these concepts and study projector-camera systems and how they can help us answer our question.
 
 \subsection{Projectors}
 \label{section:background-projection_mapping-projectors}
@@ -34,9 +39,11 @@ As briefly mentioned in section \ref{section:intro-problem_setting}, there are l
 
 As mentioned in the previous paragraph, DLP projectors or principally the same as film projectors -- they have a bright lamp and a set of lenses that direct the light towards physical objects such as screens. Instead of film, however, they need a more complicated device that the light shines through to project an image.
 
-DLP projectors project images by filtering the bright white light of the lamp. First, the light goes through a Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can either reflect light directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity exactly between full and zero.
+DLP projectors project images by filtering the bright white light of the lamp. First, the light goes through a Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can either reflect light directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity is exactly between full and zero.
 
 Next is color. After light passes though the DMD, it hits a rapidly spinning color wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the DMD passes through a single color filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image. Coordination with the DMD is therefore needed to send each channel at a specific intensity.
+
+{\color{red} TODO: multi-chip DLPs?}
 
 {\color{red} TODO: figure of how DLP projectors work}
 
@@ -49,39 +56,87 @@ Maximum brightness is simply limited by the brightness of the lamp. The brighter
 
 Minimum brightness is related to the ability of the projector to absorb light which is not reflected directly towards the lens. The more light is absorbed inside the projector, the more the projector heats up. This is why DLP projectors with deep blacks need to be large enough to cool themselves down efficiently. If a DLP projector is not able to absorb all the light, some of it is let through towards the screen and is visible as dim gray instead of black.
 
-Different projector technologies have different limitations. For example laser projectors are generally more efficient and brighter because they produce exactly the light color which is needed, as opposed to filtering out white light. But even laser projectors cannot be infinitely bright and even a projector which can produce true black color will not be able to project it onto scenes with external illumination.
+Different projector technologies have different limitations. For example laser projectors are generally more efficient and brighter because they produce exactly the light color which is needed, as opposed to filtering out white light. But even laser projectors cannot be infinitely bright and even a projector which can produce true black color will not be able to project it onto scenes under external illumination.
 
-It is important for projecting onto screens, but especially crucial for projection mapping, that it is impossible to reproduce arbitrary appearance. The less of a particular color a given background reflect, the more difficult it is to project that color onto it.
+An important thing to keep in mind when projecting onto screens, but especially crucial for projection mapping, is that it is impossible to reproduce arbitrary appearance. The less of a particular color a given background reflects, the more difficult it is to project that color onto it.
 
-\subsection{Projections}
-\label{section:background-projection_mapping-projections}
+\subsection{Intuition on Projection Appearance}
+\label{section:background-projection_mapping-projection_intuition}
 
-Projected images are not the same as observed images. Before reaching our eyes, projector light is reflected from at least one surface. This reflection is important because based on the properties of the surface, it can modify projector light in almost an arbitrary way. How can we then predict what will observers see when they look at our projection as we have set out to find out at the beginning of this section?
+To study projection apperance rigorously, we need light transport theory which we present in the following section. First, however, we believe it is useful to provide the reader with an intuition on what to expect when we install a projector and press Play.
 
-{\color{red} TODO: figure of the same projection on various surfaces (if Mulholland Drive was projected on an orange screen, the blue box would appear grey and nobody would understand the movie! \(\rightarrow \) mention in paragraph below?)}
+The appearance of an object is given by the light it reflects. Light is the visible portion of electromagnetic radiation and consists of photons at various wavelengths. Wavelengths which human vision is sensitive to are approximately between 380 and 780 nm (\citet{PBRT3e}). Shorter wavelengths appear blue, middle ones are green and longer ones are red. Reflectance of an object is defined by the so-called \textit{spectral power distribution} (SPD) which describes what proportion of incoming light is reflected at each wavelength.
 
-\subsubsection{Achieving desired appearance}
-\label{section:background-projection_mapping-projections-screen}
+{\color{red} TODO: figure of reflectance of lemon peel from PBRT}
 
-It might not be immediately obvious, but this is a question not only us, projection mappers, but also movie directors and teachers are interested in. Colors in movies and lecture slides often have crucial meaning and they need to be reproduced faithfully, so that the meaning is conveyed. The solution in cinemas and classrooms is to use a screen and control ambient light (it is usually recommended to project in dark rooms). But why does it work?
+Projectors are then nothing but light sources. As a matter of fact, each of the millions of tiny mirrors inside the DMD of a DLP projector can be thought of as a separate light source. Projector light has an SPD of its own, describing how much power it carries at each wavelength. When it interacts with a surface, something roughly corresponding to SPD multiplication takes place. If an objects does not reflect any light at 450 nm, all of it will be absorbed and will not reach our eyes.
 
-As a matter of fact, even in this case, some amount of projection mapping needs to be done. Even in a cinema, the projected image is not the same as the observed image. Therefore, it needs to be modified as it is projected, so that the reproduction is faithful. However, the following aspects of a controlled environment with a screen make these necessary modifications trivial:
+See figure for examples of how projection interacts with various backgrounds.
 
- \begin{enumerate}
-     \item The fact that a cinema hall always looks the same allows for the same modification to be used every time and not re-calibration is necessary
-     \item A screen has a uniform surface of constant color. This means that each pixel of a projection is distorted in exactly the same way and thus only global modifications are needed
-     \item A screen is designed to make the distortion as small as possible. The modifications are therefore not only global, but also very simple and can be found quickly by manual tweaking
- \end{enumerate}
+{\color{red} TODO: figure of projection interacting with various backgrounds}
 
-What happens in a general case when projecting onto arbitrary objects? In this thesis, we assume our environment to be static because we are not interested in the speed with which we can perform calibration. Point 1) is therefore valid even in our "general" case. Point 2) and 3), however, do not hold anymore. There is nothing we can say about the compensation function which needs to be applied to each image before it is projected. It is different for each pixel and can be be arbitrarily complicated.
+We will now study this process more carefully using light transport theory.
 
-Estimating this compensation function is at the core of projection mapping as we have defined it (that is, making objects look like the projection, rather than complementing them by the projection). If we know how a given object distorts our projection, we can obtain the compensation function by inverting this process. In the next section, we will cover the theory behind light transport which studies precisely these phenomena and which projection mapping methods including ours heavily build upon.
+% Projected images are not the same as observed images. Before reaching our eyes, projector light is reflected from at least one surface. This reflection is important because based on the properties of the surface, it can modify projector light in almost an arbitrary way. How can we then predict what will observers see when they look at our projection as we have set out to find out at the beginning of this section?
 
-\subsection{Light Transport -- How will our projection look?}
+% {\color{red} TODO: figure of the same projection on various surfaces (if Mulholland Drive was projected on an orange screen, the blue box would appear grey and nobody would understand the movie! \(\rightarrow \) mention in paragraph below?)}
+
+% \subsubsection{Achieving desired appearance}
+% \label{section:background-projection_mapping-projections-screen}
+
+% It might not be immediately obvious, but this is a question not only us, projection mappers, but also movie directors and teachers are interested in. Colors in movies and lecture slides often have crucial meaning and they need to be reproduced faithfully, so that the meaning is conveyed. The solution in cinemas and classrooms is to use a screen and control ambient light (it is usually recommended to project in dark rooms). But why does it work?
+
+% As a matter of fact, even in this case, some amount of projection mapping needs to be done. Even in a cinema, the projected image is not the same as the observed image. Therefore, it needs to be modified as it is projected, so that the reproduction is faithful. However, the following aspects of a controlled environment with a screen make these necessary modifications trivial:
+
+%  \begin{enumerate}
+%      \item The fact that a cinema hall always looks the same allows for the same modification to be used every time and not re-calibration is necessary
+%      \item A screen has a uniform surface of constant color. This means that each pixel of a projection is distorted in exactly the same way and thus only global modifications are needed
+%      \item A screen is designed to make the distortion as small as possible. The modifications are therefore not only global, but also very simple and can be found quickly by manual tweaking
+%  \end{enumerate}
+
+% What happens in a general case when projecting onto arbitrary objects? In this thesis, we assume our environment to be static because we are not interested in the speed with which we can perform calibration. Point 1) is therefore valid even in our "general" case. Points 2) and 3), however, do not hold anymore. There is nothing we can say about the compensation function which needs to be applied to each image before it is projected. It is different for each pixel and can be be arbitrarily complicated.
+
+% Estimating this compensation function is at the core of projection mapping as we have defined it (that is, making objects look like the projection, rather than complementing them by the projection). If we know how a given object distorts our projection, we can obtain the compensation function by inverting this process. In the next section, we will cover the theory behind light transport which studies precisely these phenomena and which projection mapping methods, including ours, heavily build upon.
+
+\subsection{Light Transport Theory}
 \label{section:background-projection_mapping-light_transport}
 
-Ahoj!
+Predicting what an image will look like once it is projected onto a scene is crucial in knowing how to modify the image to achieve desired appearance -- in other words, in projection mapping. In this section, we will explain how to reason about light which travels from the projector through the scene. This will ultimately help us make that prediction.
+
+\subsubsection{Radiance}
+\label{section:background-projection_mapping-light_transport-radiance}
+
+Light, the visible portion of electromagnetic radiation, is all that we can see. The fact that an object appears to be blue is caused by it reflecting radiation at a wavelength that our eyes and brain register as appearing blue. For this reason, measuring the amount of light of various wavelengths that is hitting our retina (or a camera sensor, for that matter) is cruical in order to know how something looks. The study of this topic is called radiometry and a brilliant overview of it can be found in \citet{PBRT3e}. The most important quantity in radiometry is called radiance.
+
+Radiance \(L\) is essentially the amount of photons \(dQ\) per unit projected area \(dA^\perp \) per unit solid angle \(d\omega\) per unit of time \(dt\):
+
+\[
+    L = \frac{dQ}{dA^\perp d\omega dt}
+\]
+
+{\color{red} TODO: figure of radiance}
+
+An interesting property of radiance means that it is constant along straight lines in empty space. This property is very useful when computing radiance because it means that radiance leaving point \(x\) towards point \(y\) is equal to radiance arriving at point \(y\) from point \(x\):
+
+\[
+    L(x \rightarrow y) = L(y \rightarrow x)
+\]
+
+{\color{red} TODO: mention that radiance is wavelength-dependent and how this is handled in rendering?}
+
+Knowing how much radiance is hitting a camera sensor means knowing the values of image pixels and knowing how much radiance is hitting our retina means knowing how something looks ({\color{red} TODO: mention luminance?}). We will now focus on how we can compute the amount of radiance in a scene based on its geometry, materials and light sources.
+
+\subsubsection{Rendering Equation}
+\label{section:background-projection_mapping-light_transport-rendering_equation}
+
+Let us have a three-dimensional scene with objects, light sources and a camera. Let us call \(y\) a point on the camera sensor
+
+\subsection{Projector-Camera Systems}
+\label{section:background-projection_mapping-procams}
+
+{\color{red} TODO}
 
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}
 
+{\color{red} TODO}
