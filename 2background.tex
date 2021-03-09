@@ -101,40 +101,107 @@ We will now study this process more carefully using light transport theory.
 \subsection{Light Transport Theory}
 \label{section:background-projection_mapping-light_transport}
 
-Predicting what an image will look like once it is projected onto a scene is crucial in knowing how to modify the image to achieve desired appearance -- in other words, in projection mapping. In this section, we will explain how to reason about light which travels from the projector through the scene. This will ultimately help us make that prediction.
+Light transport theory is the study of how things look. This depends on a number of variables, such as object geometry and materials, light sources and a point of view. The most common application of this theory can be found in rendering, for example of architectural visualizations or video games. There, a scene is given along with a camera view and the goal is to compute what is visible and how it looks. Our case is very similar. We have a scene with a projector (i.e. a light source) and our goal is to predict what the scene will look like from a point of view that focuses on the projection. Once we know that, we are only a step away from controlling the projection in a way that the scene looks exactly the way we want -- from projection mapping.
+
+In this section, we provide a brief overview of light transport theory. For a more comprehensive coverage, we refer the reader to our source, Physically Based Rendering: From Theory to Implementation by \citet{PBRT3e}.
 
 \subsubsection{Radiance}
 \label{section:background-projection_mapping-light_transport-radiance}
 
-Light, the visible portion of electromagnetic radiation, is all that we can see. The fact that an object appears to be blue is caused by it reflecting radiation at a wavelength that our eyes and brain register as appearing blue. For this reason, measuring the amount of light of various wavelengths that is hitting our retina (or a camera sensor, for that matter) is cruical in order to know how something looks. The study of this topic is called radiometry and a brilliant overview of it can be found in \citet{PBRT3e}. The most important quantity in radiometry is called radiance.
+As mentioned in \ref{section:background-projection_mapping-projection_intuition}, all we see is light. Measuring light is therefore the crux of understanding how things look. The fundamental quantity we are interested in is \textit{radiance}. It is defined as the amount of photons \(Q\) per unit projected area \(A^\perp \) per unit solid angle \(\omega\) per unit of time \(t\):
 
-Radiance \(L\) is essentially the amount of photons \(dQ\) per unit projected area \(dA^\perp \) per unit solid angle \(d\omega\) per unit of time \(dt\):
-
-\[
+\begin{equation}
+    \label{eq:radiance}
     L = \frac{dQ}{dA^\perp d\omega dt}
-\]
+\end{equation}
 
 {\color{red} TODO: figure of radiance}
 
-An interesting property of radiance means that it is constant along straight lines in empty space. This property is very useful when computing radiance because it means that radiance leaving point \(x\) towards point \(y\) is equal to radiance arriving at point \(y\) from point \(x\):
+{\color{red} TODO: mention that radiance is wavelength-dependent and how this is handled in our equations?}
 
-\[
-    L(x \rightarrow y) = L(y \rightarrow x)
-\]
+{\color{red} TODO: mention luminance?}
 
-{\color{red} TODO: mention that radiance is wavelength-dependent and how this is handled in rendering?}
-
-Knowing how much radiance is hitting a camera sensor means knowing the values of image pixels and knowing how much radiance is hitting our retina means knowing how something looks ({\color{red} TODO: mention luminance?}). We will now focus on how we can compute the amount of radiance in a scene based on its geometry, materials and light sources.
+We will now present the relationship between objects, light sources and the radiance incoming onto our camera sensor or eye retina. This relationship is called the \textit{rendering equation}.
 
 \subsubsection{Rendering Equation}
 \label{section:background-projection_mapping-light_transport-rendering_equation}
 
-Let us have a three-dimensional scene with objects, light sources and a camera. Let us call \(y\) a point on the camera sensor
+The rendering equation describes the amount of outgoing radiance from point \(x\) in a scene towards a direction \(\mathbf{v}\):
+
+\begin{equation}
+    \label{eq:rendering_equation}
+    L(x \rightarrow \mathbf{v}) = \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) f_r(x, \mathbf{u} \rightarrow \mathbf{v}) \cos \theta d\mathbf{u} + E(x \rightarrow \mathbf{v})
+\end{equation}
+
+{\color{red} TODO: figure of rendering equation}
+
+where \(L(x \leftarrow \mathbf{u})\) is the radiance arriving at \(x\) from direction \(\mathbf{u}\), \(\Omega(x)\) is the hemisphere oriented to the direction of the surface normal at \(x\), \(f_r\) is the spatially-varying bidirectional reflectance distribution function (SVBRDF) which determines surface reflectance for each point \(x\), incoming direction \(\mathbf{u}\) and outgoing direction \(\mathbf{v}\), and \(\theta\) is the angle between \(u\) and the surface normal at \(x\). Finally, \(E(x \rightarrow \mathbf{v})\) is the radiance emitted from \(x\) towards \(\mathbf{v}\) in case \(x\) lies on a light source.
+
+The main idea of the equation is that radiance leaving towards \(\mathbf{v}\) from \(x\) is the sum of reflected and emitted radiance. It assumes empty space between objects, therefore no light scattering occurs between them. This means that radiance is constant along straight lines and the equation is recursive -- \(L(x \leftarrow \mathbf{u}) = L(y \rightarrow -\mathbf{u})\) where \(y\) is the point seen from \(x\) in the direction of \(\mathbf{u}\).
+
+Apart from assuming that our objects are in vacuum, the equation also assumes that light is reflected from the same point it arrived at. This is generally not the case as can be seen for example with human skin where light under the surface before it is reflected. Both subsurface scattering and participating media are handled in modern renderers which generalize the rendering equation to account for these phenomena ({\color{red} TODO: reference papers that do that?}). For our purposes, however, it is sufficient to be familiar with the basic form of the rendering equation.
+
+\subsubsection{Towards Projection Mapping}
+\label{section:background-projection_mapping-light_transport-towards_projection_mapping}
+
+What is the difference between rendering and projection mapping and what makes projection mapping so challenging? In rendering, Monte Carlo integration is often use to solve the rendering equation and thus determine the amount of radiance reflected towards the camera. Scene geometry, materials and the positions and properties of light sources are known ({\color{red} TODO: figure?}). In projection mapping, we do know the amount of radiance that is reflected towards the camera -- it is our desired appearance of the scene. However, everything else is unknown. From scene geometry and materials to the source of the radiance -- the projection image ({\color{red} TODO: figure?}).
+
+Projection mapping algorithms therefore do not typically solve the full light transport of the whole scene, but instead they build on top of assumptions, such as ({\color{red} TODO: 1-2 assumptions}), and provide estimates. We shall now review some of the common approaches to projection mapping found in state-of-the-art methods.
 
 \subsection{Projector-Camera Systems}
 \label{section:background-projection_mapping-procams}
 
-{\color{red} TODO}
+The key idea in projection mapping is to use a camera to observe the projection and provide information on how to adapt it to achieve desired appearance. This system as a whole is called the \textit{projector-camera system}, commonly shortened as \textit{procam}.
+
+The problem of projection mapping is usually split into two parts: \textit{geometric calibration} and \textit{radiometric calibration}. The goal of geometric calibration is to determine correspondencies between projector pixels and camera pixels in a procam. Once we know which projector pixels affect which camera pixels, and therefore the pixels of our desired appearance, we need to find our \textit{how} they affect them. This is done using radiometric calibration which determines the relationship between the intensities of each pair of corresponding projector and camera pixels.
+
+{\color{red} TODO: doesn't this implicitly require per-pixel matching? investigate and explain the consequences this would have for our method!}
+
+We will now briefly cover a few of the latest methods for geometric and radiometric calibration in order to get an idea about the way they approach the complex general problem of inverse light transport described in \ref{section:background-projection_mapping-light_transport-towards_projection_mapping}. For a complete overview of the state of the art in projection mapping, see \citet{Grundhofer2018}.
+
+\subsubsection{Geometric Calibration}
+\label{section:background-projection_mapping-procams-geometric_calibration}
+
+The goal of geometric calibration is to find a point \(M_c = [u_c, v_c]^T\) in the camera image for each point \(M_p = [u_p, v_p]^T\) in the projector image such that the value of the latter determines the value of the former. These correspondencies are usually established via a third point, \(P = [x, y, z]\) which is located in the scene.
+
+The relationship between \(M_c\) and \(P\) is determined by the \textit{intrinsic} and \textit{extrinsic} matrices:
+
+\begin{equation}
+    \label{eq:camera_equation}
+    \begin{bmatrix}
+        M_c \\
+        1
+    \end{bmatrix} =
+    \begin{bmatrix}
+        f_x & c & u \\
+        0 & f_y & v \\
+        0 & 0 & 1 
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+        \mathbf{R} & \mathbf{t}
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+        P \\
+        1
+    \end{bmatrix}
+\end{equation}
+
+{\color{red} TODO: fix the matrix, so that the dimensions check out}
+
+where the intrinsic matrix is formed by camera focal lengths \(f_x\) and \(f_y\) (there are two focal lengths because they are expressed in camera pixels which are generally rectangular), skewness \(c\) of image axes, and principal point coordinates \([u, v]^T\) (the intersection of optical axis and image plane which is generally not in the center of the image). The extrinsic matrix is then formed by rotation \(\mathbf{R}\) and translation \(t\) which convert between world coordinates and camera coordinates.
+
+The most commonly used method for finding the parameters of \ref{eq:camera_equation} was introduced by \citet{Zhang1999}. They are estimated by taking at least two photos of a planar pattern at various orientations.
+
+We will now outline two recent methods to perform geometric calibration. The first one requires user assistance, while the second one is fully automatic.
+
+\textbf{One camera, one projector and a calibration board.} The first method, introduced by \citet{Yang2016}, uses a calibration board containing a random dot pattern. First, the camera is calibrated using the approach of \citet{Zhang1999}. Then the projector is calibrated by projecting another dot pattern onto the board using the inverse camera method. The whole process needs around 10 views of the calibration board according to experiments in the paper.
+
+\textbf{Two cameras, one projector.} An entirely automatic self-calibration method was presented by \citet{Willi2017}. Their method first establishes pixel correspondencies between the two cameras and then continues to estimate the intrinsic and extrinsic matrix, as well as the 3D point cloud of the scene. Finally, the projector is calibrated using this information. It is worth noting that this method works also for any larger number of projectors and cameras in which case camera pairs are sorted by the quality of their pixel correspondencies. Calibration is first done for the best pair and other devices are incorporated iteratively, improving the overall estimate.
+
+Both methods work only on static scenes and take several minutes to complete. Real time methods also exist, but those usually rely on some prior knowledge about scene geometry ({\color{red} TODO: find example}) or on time-consuming pre-calibration followed by incremental updates ({\color{red} TODO: find example}).
+
+\subsubsection{Radiometric Calibration}
+\label{section:background-projection_mapping-procams-radiometric_calibration}
 
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}

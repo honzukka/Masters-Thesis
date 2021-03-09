@@ -35,9 +35,10 @@ Since then, there have been many advances in the field, the summary of which can
 
 There is, however, one fundamental characteristic that all current projection-mapping methods share. When computing the compensated projection image, they match the camera image with the desired appearance pixel by pixel. Explicitly, their goal is that
 
-\[
+\begin{equation}
+    \label{eq:projection_mapping-per_pixel}
     X = Y
-\]
+\end{equation}
 
 where \(X,Y \in \mathbb{R}^{n \times m}\) are the camera image and desired appearance, respectively.
 
@@ -75,9 +76,10 @@ A separate research field is dedicated to generating different realizations of t
 
 We build on these statistics-based synthesis methods and reformulate the goal of projection mapping as follows:
 
-\[
+\begin{equation}
+    \label{eq:projection_mapping-statistics}
     f(X) = f(Y)
-\]
+\end{equation}
 
 where \(X,Y \in \mathbb{R}^{n \times m}\) are again the camera image and desired appearance, respectively, and \(f\) is a function that assigns a statistical representation to an image.
 
