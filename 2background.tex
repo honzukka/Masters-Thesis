@@ -11,12 +11,6 @@ Before we present our contributions, we provide an overview of the work other re
 
 The former question is part of the field of projection mapping, while the latter represents the field of texture synthesis.
 
-% Projection mapping and texture synthesis are both well-established research areas and in this section, we explain the theories and methods used in later parts of this thesis.
-
-% In the case of projection mapping, we largely avoid discussing the current state of the art and focus on general theory of projection mapping instead. This is because all existing methods, such as those of \citet{Siegl2017} and \citet{Willi2017}, are addressing the issue of how to calibrate projectors and compute compensations faster while pushing the quality of projection mapping to the limits defined by projection hardware (discussed in section \ref{section:intro-problem_setting}). We want to show that statistics-based projection mapping can be fundamentally better than pixel-based projection mapping. Therefore we perform projection mapping fully in software where we set maximum projector brightness ourselves and computations can be much longer than real time. This allows us to solve any pixel-based projection mapping problem completely and then compare our method against this ideal pixel-based reference.
-
-% We do, however, provide an overview of the state of the art in texture synthesis because this problem is far from solved even in theory. The reason for that is that each method has to rely on a rigorous definition of what makes two textures look alike. In our experiments, we implement some of the best current synthesis methods and evaluate their performance in the context of projection mapping.
-
 \section{Projection Mapping}
 \label{section:background-projection_mapping}
 
@@ -76,27 +70,6 @@ See figure for examples of how projection interacts with various backgrounds.
 {\color{red} TODO: figure of projection interacting with various backgrounds}
 
 We will now study this process more carefully using light transport theory.
-
-% Projected images are not the same as observed images. Before reaching our eyes, projector light is reflected from at least one surface. This reflection is important because based on the properties of the surface, it can modify projector light in almost an arbitrary way. How can we then predict what will observers see when they look at our projection as we have set out to find out at the beginning of this section?
-
-% {\color{red} TODO: figure of the same projection on various surfaces (if Mulholland Drive was projected on an orange screen, the blue box would appear grey and nobody would understand the movie! \(\rightarrow \) mention in paragraph below?)}
-
-% \subsubsection{Achieving desired appearance}
-% \label{section:background-projection_mapping-projections-screen}
-
-% It might not be immediately obvious, but this is a question not only us, projection mappers, but also movie directors and teachers are interested in. Colors in movies and lecture slides often have crucial meaning and they need to be reproduced faithfully, so that the meaning is conveyed. The solution in cinemas and classrooms is to use a screen and control ambient light (it is usually recommended to project in dark rooms). But why does it work?
-
-% As a matter of fact, even in this case, some amount of projection mapping needs to be done. Even in a cinema, the projected image is not the same as the observed image. Therefore, it needs to be modified as it is projected, so that the reproduction is faithful. However, the following aspects of a controlled environment with a screen make these necessary modifications trivial:
-
-%  \begin{enumerate}
-%      \item The fact that a cinema hall always looks the same allows for the same modification to be used every time and not re-calibration is necessary
-%      \item A screen has a uniform surface of constant color. This means that each pixel of a projection is distorted in exactly the same way and thus only global modifications are needed
-%      \item A screen is designed to make the distortion as small as possible. The modifications are therefore not only global, but also very simple and can be found quickly by manual tweaking
-%  \end{enumerate}
-
-% What happens in a general case when projecting onto arbitrary objects? In this thesis, we assume our environment to be static because we are not interested in the speed with which we can perform calibration. Point 1) is therefore valid even in our "general" case. Points 2) and 3), however, do not hold anymore. There is nothing we can say about the compensation function which needs to be applied to each image before it is projected. It is different for each pixel and can be be arbitrarily complicated.
-
-% Estimating this compensation function is at the core of projection mapping as we have defined it (that is, making objects look like the projection, rather than complementing them by the projection). If we know how a given object distorts our projection, we can obtain the compensation function by inverting this process. In the next section, we will cover the theory behind light transport which studies precisely these phenomena and which projection mapping methods, including ours, heavily build upon.
 
 \subsection{Light Transport Theory}
 \label{section:background-projection_mapping-light_transport}
@@ -246,6 +219,38 @@ As a result, this method achieves very good results in scenes which have minimal
 
 \subsubsection{Inverse Light Transport}
 \label{section:background-projection_mapping-procams-inverse_lt}
+
+If the goal of light transport is to compute what a scene looks like based on its illumination (among other things), then the goal of inverse light transport is to compute how a scene is illuminated based on what it looks like. This is the most general formulation of the projection mapping problem since it does not split the problem into geometric calibration and radiometric calibration, but instead looks at it as a whole.
+
+\citet{Wetzstein2007} present a method for projection compensation via inverse light transport. They start from the observation that light transport is linear. This means that if there are two light sources in a room and two photos of it were taken, one with only one light on and the other with only the other light on, then taking a linear combination of the photos would yield a correct photo of the room with the same combination of the two lights on ({\color{red} TODO: figure would be nice, also better worded sentence would help. derive it from the rendering equation maybe?}). As a consequence, light transport can be determined by a matrix \(A\):
+
+\begin{equation}
+    \label{eq:lt_matrix}
+    A = \begin{bmatrix}
+        c_{11} & c_{21} & c_{31} & \dots & c_{m1} \\
+        c_{12} & c_{22} & c_{32} & \dots & c_{m2} \\
+        c_{13} & c_{23} & c_{33} & \dots & c_{m3} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        c_{1n} & c_{2n} & c_{3n} & \dots & c_{mn}
+    \end{bmatrix}
+\end{equation}
+
+where \(m\) is the number of light sources in a scene, \(n\) is the number of pixels in the camera sensor and \(c_{ij}\) is the value of the \(j\)-th pixel of an image that was rendered with only the \(i\)-th light source turned on. By taking a linear combination of the columns of the matrix it is then possible to obtain an image rendered by the corresponding combination of light sources.
+
+In projection mapping, this matrix is usually extremely large because \(n\) corresponds to camera resolution and \(m\) corresponds to projector resolution. In colorful images, each \(c_{ij}\) is then a 3-dimensional vector. The two main challenges are therefore to
+
+\begin{enumerate}
+    \item Capture the matrix
+    \item Obtain its inverse
+\end{enumerate}
+
+In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. There exist several methods to capture the light transport matrix, such as ({\color{red} TODO: examples}). Most of these methods use the fact that the matrix is very sparse in practice. In fact, the less inter-reflection there is in a scene, the sparser the matrix is. \citet{Wetzstein2007} use ({\color{red} TODO: cite the method they use}) which can still take up to several hours. Moreover, the matrix has to be captured again when the scene or projector position changes.
+
+It is also practically impossible to invert such a large matrix. \citet{Wetzstein2007} therefore estimate its pseudo-inverse. The drawback of this approach is that some global illumination illumination information is lost, such as projector defocus, and therefore the compensation is not accurate.
+
+The benefit of this method is, however, that it does not make any assumptions about surface material and works well even with glass and mirrors which are impossible to project on using other methods.
+
+({\color{red} TODO: bridge to synthesis? also, why did you talk about this method?})
 
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}
