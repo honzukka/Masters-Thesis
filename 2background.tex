@@ -153,11 +153,20 @@ Projection mapping algorithms therefore do not typically solve the full light tr
 
 The key idea in projection mapping is to use a camera to observe the projection and provide information on how to adapt it to achieve desired appearance. This system as a whole is called the \textit{projector-camera system}, commonly shortened as \textit{procam}.
 
-The problem of projection mapping is usually split into two parts: \textit{geometric calibration} and \textit{radiometric calibration}. The goal of geometric calibration is to determine correspondencies between projector pixels and camera pixels in a procam. Once we know which projector pixels affect which camera pixels, and therefore the pixels of our desired appearance, we need to find our \textit{how} they affect them. This is done using radiometric calibration which determines the relationship between the intensities of each pair of corresponding projector and camera pixels.
+As mentioned in section \ref{section:background-projection_mapping-light_transport-towards_projection_mapping}, general projection mapping, or solving full light transport in a scene where the only known quantity is radiance arriving at the camera sensor, is very challenging and simplifying assumptions are therefore needed to make the problem tractable. One such assumption is that each camera pixel is influenced by exactly one projector pixel, or at most by a small neighborhood around that pixel. Although this is not the case for example when light bounces around the scene multiple times, methods that use this assumption are reasonably general.
+
+Methods that assume 1:1 pixel correnpodencies between camera and projector are usually split into two parts: \textit{geometric calibration} and \textit{radiometric calibration}. The goal of geometric calibration is to determine those correspondencies. Once we know which projector pixels affect which camera pixels, and therefore the pixels of our desired appearance, we need to find our \textit{how} they affect them. This is done using radiometric calibration which determines the relationship between the intensities of each pair of corresponding projector and camera pixels.
 
 {\color{red} TODO: doesn't this implicitly require per-pixel matching? investigate and explain the consequences this would have for our method!}
 
-We will now briefly cover a few of the latest methods for geometric and radiometric calibration in order to get an idea about the way they approach the complex general problem of inverse light transport described in \ref{section:background-projection_mapping-light_transport-towards_projection_mapping}. For a complete overview of the state of the art in projection mapping, see \citet{Grundhofer2018}.
+Methods that try to account for global illumination effects typically use different assumptions to make the problem tractable, for example that a scene can only be composed of Lambertian objects of constant color ({\color{red} TODO: cite example (Siegl, 17?)}). Those that do attempt to solve general light transport take several hours to calibrate provide only an approximate solution which can only account for some global illumination effects ({\color{red} TODO: cite example (Wetzstein, 07)}).
+
+We will now briefly cover a few methods that rely on geometric and radiometric calibration and one method that attempts to solve general light transport. For a complete overview of the state of the art in projection mapping, see \citet{Grundhofer2018}. We have chosen the methods we are about to describe for the following reasons:
+
+\begin{itemize}
+    \item To show that even the latest methods working in simplified scenarios without global illumination effects are severly limited by projector hardware
+    \item To show how general light transport can be solved with procams what the challenges when taking this approach are ({\color{red} TODO: tie it together with the LT matrix stuff you're doing later on})
+\end{itemize}
 
 \subsubsection{Geometric Calibration}
 \label{section:background-projection_mapping-procams-geometric_calibration}
@@ -200,8 +209,43 @@ We will now outline two recent methods to perform geometric calibration. The fir
 
 Both methods work only on static scenes and take several minutes to complete. Real time methods also exist, but those usually rely on some prior knowledge about scene geometry ({\color{red} TODO: find example}) or on time-consuming pre-calibration followed by incremental updates ({\color{red} TODO: find example}).
 
+{\color{red} TODO: assumptions on diffuse surfaces that make the correspondencies 1:1?}
+
 \subsubsection{Radiometric Calibration}
 \label{section:background-projection_mapping-procams-radiometric_calibration}
+
+Once correspondencies between projector and camera pixels have been established using one of the methods described in section \ref{section:background-projection_mapping-procams-geometric_calibration}, radiometric calibration can be performed. In general, the goal is to find a color-mapping function \(f\) such that
+
+\begin{equation}
+    \label{eq:radiometric_calibration}
+    c_c = f(c_p)
+\end{equation}
+
+where \(c_c\) is the color of a camera pixel and \(c_p\) is the color of the corresponding projector pixel. We describe one method that assumes \(f\) to be linear and one method that allows for arbitrary \(f\).
+
+\textbf{Linear color-mapping function.} One of the first projection mapping methods was presented by \citet{Grossberg2004}. There, the relationship between \(c_c\) and \(c_p\) is specified as follows:
+
+\begin{equation}
+    \label{eq:linear_color_mapping}
+    c_c = p_c(V p_p(c_p) + F)
+\end{equation}
+
+where \(p_p\) is a non-linear projector response function which turns input pixel values into projector brightness, \(p_c\) is a non-linear camera response that converts radiance arriving at the camera sensor to an output pixel value, \(F = [F_R, F_G, F_B]\) is the environment light term which is independent of the projector, and finally \(V\) is a \(3 \times 3\) color mixing matrix which captures the relationship between projector and camera channels and their interactions with spectral reflectance.
+
+{\color{red} TODO: tidy up the notation}
+
+Both \(p_p\) and \(p_c\) are independent of the scene and can be estimated separately. \(V\) and \(F\) are per-pixel and scene-dependent and can be estimated by projecting and capturing 6 calibration images.
+
+The disadvantage of this method are that the linear color mixing matrix is not an accurate model for example when using DLP projectors described in section \ref{section:background-projection_mapping-projectors-DLP}. DLP projectors sometimes form an image by composing red, green, blue and white channels together. The extra white channel may result in non-linear behavior. Another disadvantage is that if the color gamut of the projector struggles to reproduce color required by the compensation model, it results in clipping artifacts and lowered contrast {\color{red} TODO: verify this precisely}.
+
+\textbf{Non-linear color-mapping function with a global optimization step.} To solve these problems, \citet{Grundhofer2015} presented an improved method which allows for an arbitrary color-mixing function. This function is estimated by obtaining up to \(6^3\) samples and then applying thin-plate spline interpolation on these samples. This sampling process takes several minutes but once it is completed, compensation can be performed in real time.
+
+On top of that, the paper also introduces an important idea ({\color{red} TODO: it has been used before, though\dots}) of content-based projection image compensation. This is a separate step which can also take several minutes and consists of optimizing per-pixel (or per-patch) coefficients which scale the final luminance values of the image. The goal of this optimization is to minimize clipping errors cause by limited color gamut of the projector and overall increase image contrast.
+
+As a result, this method achieves very good results in scenes which have minimal inter-reflection that cannot be modeled when 1:1 correspondence between projector and camera pixels is assumed. The idea of the global optimization step is also very important for our thesis because it suggests that algorithms that try to optimize the L2 distance between camera image and desired appearance do not always yield the best-looking results.
+
+\subsubsection{Inverse Light Transport}
+\label{section:background-projection_mapping-procams-inverse_lt}
 
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}
