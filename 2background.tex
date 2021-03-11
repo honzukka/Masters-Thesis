@@ -217,6 +217,8 @@ On top of that, the paper also introduces an important idea ({\color{red} TODO: 
 
 As a result, this method achieves very good results in scenes which have minimal inter-reflection that cannot be modeled when 1:1 correspondence between projector and camera pixels is assumed. The idea of the global optimization step is also very important for our thesis because it suggests that algorithms that try to optimize the L2 distance between camera image and desired appearance do not always yield the best-looking results.
 
+{\color{red} TODO: modify the intro to the thesis to make it clear that content-based compensation is an old idea as such}
+
 \subsubsection{Inverse Light Transport}
 \label{section:background-projection_mapping-procams-inverse_lt}
 
@@ -255,4 +257,62 @@ The benefit of this method is, however, that it does not make any assumptions ab
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}
 
-{\color{red} TODO}
+As mentioned in section \ref{section:intro-key_idea}, the aim of this thesis is to advance the idea of content-based projection mapping of textures. If, as section \ref{section:background-projection_mapping} suggests, it is very difficult with current projector hardware to find a compensated projection image such that its pixel values are are close as possible to the desired appearance while minimizing clipping errors, maybe it is a good idea to loosen up the definition of image similarity. Textures are a great candidate for that because two textures can have radically different pixel values in corresponding position but still look the same.
+
+{\color{red} TODO: example of two images that are different but show the same texture}
+
+But what exactly is a texture and what kind of image modifications can be done while preserving it? In this section, we provide an overview of texture synthesis research which is the second building block that our method relies on.
+
+\subsection{Textures}
+\label{section:background-texture_synthesis-textures}
+
+What is a texture? \citet{Julesz1995}, a prominent visual neuroscientist of the 20th century, has defined textures as classes of images that cannot be discriminated in preattentive vision, i.e. by quickly glancing over them. This definition implies that any algorithm that claims to synthesize different textures of a given class can only be evaluated empirically. Work has gone into creating models that would describe what constitues a texture class and thus help in developing synthesis algorithms and evaluating them. No single model has, however, emerged as clearly superior thus far. Each synthesis method typically defines its own model and even if convergence under such a model is proved, the quality of the results is ultimately up to the observer.
+
+In general, two approaches to texture synthesis have emerged. One is inspired by \citet{Shannon1948} and his use of a Markov chain to generate English text. There, each letter is sampled from a probability distribution conditioned on \(n\) previous letters. The result is not precisely English text, but rather a "texture" of it. ({\color{red} TODO: show example?}) \citet{Efros1999} have built on this idea by introducing a way to synthesize textures pixel by pixel where each pixel is conditioned on the previous ones. \citet{Raad2018} call this approach \textit{patch re-arrangement} or \textit{patch-based texture synthesis}.
+
+The other approach has been pioneered by Julesz himself and relies on statistical descriptions of images such that if two different images share this description, they are the same texture. Already in 1973, \citet{Julesz1973} observed that certain texture pairs cannot be discerned by human preattentive vision if they share the same second-order statistics. Building on this idea, \citet{Galerne2011} have presented a method that creates a new example of the same texture by randomizing its Fourier phase ({\color{red} TODO: explain what it is}). \citet{Raad2018} call this approach \textit{statistics-based texture synthesis}.
+
+We now discuss patch-based and statistics-based methods in more detail to find out what their strenghts and weaknesses are and how they could be used to generate content-based projection compensations.
+
+\subsection{Patch-Based Texture Synthesis}
+\label{section:background-texture_synthesis-patch_based}
+
+\citet{Efros2001} have presented a simple but powerful method called \textit{image quilting} for texture synthesis using patch re-arrangement. They start by splitting the input texture image into overlapping square blocks \(B_i\) of size \(k\) which is a user-controlled parameter. Then they build the new texture block by block in raster scan order (from the top left corner to the bottom right corner, row by row). A new block \(B^{\prime}\) is chosen at random from all \(B_i\) such that the pixel-wise error in overlapping areas (they use 1/6 of block area along the edge) with the block above \(B^{\prime}\) and to the left of \(B^{\prime}\) in below a certain threshold in the output image. Since many blocks usually satisfy this overlap constraint, one is picked at random. If \(B^{\prime}\) was pasted into the output image directly, the result would look blocky. Therefore \(B^{\prime}\) is pasted into the output image along a minimum error path inside the overlapping areas. This ensures that seams between block will be as subtle as possible.
+
+({\color{red} TODO: figure to illustrate the algorithm, especially the minimum error path!})
+
+\subsubsection{Pros and Cons}
+\label{section:background-texture_synthesis-patch_based-pros_and_cons}
+
+This method can achieve stunning visual results when the input texture is uniformly lit and contains large features, like pebbles or coffee beans. It is especially powerful when used on textures with regular structure, like a brick wall.
+
+However, it struggles with textures that have non-uniform illumination and that contain very small features, like sand or concrete. Failure cases usually manifest themselves by large areas that are directly copied from the input (so-called \textit{verbatim copying}) or areas that contain the same patch copied over and over (so-valled \textit{garbage growing}).
+
+Another drawback of this method is that its parameters need to be manually tuned based on the feature sizes and other properties of the input texture. There is also no underlying texture model that this method would work with which means that reasoning about it is somewhat less robust and limited to measuring heuristics such as the amount of verbatim copies and garbage in the output.
+
+\subsubsection{Potential Usage in Projection Mapping}
+\label{section:background-texture_synthesis-patch_based-projection_mapping}
+
+Image quilting is surprisingly flexible to adapt for other uses than texture synthesis. The authors themselves showcase the possibility of using the method for style transfer. This is a problem that considers two input images and produces a third one which has the content of one image and style of the other.
+
+({\color{red} TODO: example!})
+
+This can be achieved by adding a new term to the overlap error. In the case of style transfer, this takes the form of the difference in luminance values of corresponding pixels in the input and output images.
+
+One could imagine modifying the method to achieve projection mapping. If the output image was the compensated projection image the additional error term might be inversely proportional to how far the pixel value in the output is to the limit of the color gamut of the projector once it is radiometrically compensated. This could be built on top of methods such as \citet{Grundhofer2015} that assume 1:1 correspondence between projector image and camera image. ({\color{red} TODO: explain better\dots})
+
+\subsection{Statistics-Based Texture Synthesis}
+\label{section:background-texture_synthesis-statistics_based}
+
+All statistics-based methods for texture synthesis share the general workflow. They first extract a set of statistics from the input texture image. Then they initialize a random noise image and iteratively optimize it so that its statistics are the same as those of the input image ({\color{red} TODO: figure}). Different initializations of the noise image yield different final results (unless the statistics are too restrictive so as to represent only one image) and by computing the difference between the statistics of the input and the output we can easily argue about convergence of such methods.
+
+\citet{Gatys2015} have introduced a breakthrough method for statistics-based texture synthesis which significantly improved over the previous state of the art. This method relies on a \textit{convolutional neural network} (CNN) to produce a statistical description of a texture image that the noise initialization is then optimized to fit. Let us first briefly introduce what a CNN and what makes it so powerful at creating abstract descriptions of images.
+
+\subsubsection{Convolutional Neural Networks (CNNs)}
+\label{section:background-texture_synthesis-statistics_based-cnns}
+
+\subsubsection{Pros and Cons}
+\label{section:background-texture_synthesis-statistics_based-pros_and_cons}
+
+\subsubsection{Potential Usage in Projection Mapping}
+\label{section:background-texture_synthesis-statistics_based-projection_mapping}
