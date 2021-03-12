@@ -311,8 +311,64 @@ All statistics-based methods for texture synthesis share the general workflow. T
 \subsubsection{Convolutional Neural Networks (CNNs)}
 \label{section:background-texture_synthesis-statistics_based-cnns}
 
+\textit{Neural networks}, or more precisely \textit{feedforward neural networks}, are essentially functions
+
+\begin{equation}
+    \label{eq:neural_network}
+    y = f(x, \phi)
+\end{equation}
+
+where \(x\) is the input, \(y\) is the output and \(\phi\) are the parameters of a neural network. The idea is that \(f\) is an approximation of \(f^\star\) which is a very complex, non-linear function which tells us something about the world. For example, we can consider \(f^\star\) to be the mapping between all possible images of size \(224 \times 224\) and categories such as dog, cat, tree, house, etc. that describe the image. The goal of \textit{deep learning}, which is the study of feedforward and other kinds of neural networks, is then to find an \(f\) along with its parameters \(\phi\) that approximate \(f^\star\) as closely as possible. Because of the complexity of \(f^\star\), \(f(x) = f^{(3)}(f^{(2)}(f^{(1})(x)))\) is often composed of many functions \(f^{(i)}\) which are called \textit{layers}. Each layer usually operates on vectors and is commposed of small units that are loosely modeled on brain neurons. Together, these layers form a network where information flows from the first layer to the last. Hence the term \textit{feedforward neural network}.
+
+{\color{red} TODO: mention training?}
+
+Convolutional neural networks (CNNs) form a class of neural networks that are intended for processing grid-like inputs, for example images (2D grid) or audio (1D grid). Their layers are typically composed of three parts: convolution, nonlinearity and pooling.
+
+{\color{red} TODO: image}
+
+\textbf{Convolution}. To explain convolution in the context of neural networks, it is best to start with an example. Let us imagine that we have an image and would like to find all vertical edges in that image. This can be done using convolution ({\color{red} TODO: image}). All we need to do is take a \(3 \times 3\) matrix ({\color{red} TODO: figure out the right values\dots}), also called \(kernel\), move it across the image aligning the center of the kernel with each image pixel in turn, multiplying overlapping values, summing them together and writing them out into a new image. We will notice that the new image contains high values in places where there is a vertical edge in the original image. What has happened?
+
+The process we have gone through with our image and our kernel is called convolution in the context of deep learning, although strictly speaking, it corresponds to cross-correlation which differs from convolution by the orientation of the kernel. Our kernel happens have values which detect vertical edges when convolved with an image. Kernels with different values do different things, for example detect horizontal edges, blur the image, or even leave it untouched ({\color{red} TODO: examples!}).
+
+Kernel values are what constitutes the parameters \(\phi\) of a CNN and it turns out that they are powerful enough to achieve impressive results in tasks such as object recognition, ({\color{red} TODO: more examples}). They cannot function alone, however. As we have mentioned, neural networks usually approximate complex non-linear function and convolutions as presented here are linear. Two more building blocks are therefore needed.
+
+\textbf{Nonlinearity}. Nonlinearities are scalar functions whose purpose is to simply introduce nonlinear behavior into a CNN. Many types of nonlinearities have been proposed in recent years, for example hyperbolic tangent or ReLU ({\color{red} TODO: figures}). ReLU is used more commonly simply because it improves results ({\color{red} TODO: maybe cite some justification for this?}).
+
+\textbf{Pooling}. Pooling functions are function that accept a vector as input and return a scalar as output. They are often use to make CNNs invariant to small shifts in the input image and also reduce the size of the intermediate outputs, also called \textit{activations}, of each CNN layer. ({\color{red} TODO: a bit more explanation with images?})
+
+CNNs typically have multiple such layers and since they are trained to classify images, the have a few fully connected layers ({\color{red} TODO:  explain?}) at the end which compress the activations into an \(n\)-dimensional vector where each position of the vector corresponds to a particular image class and the value at that position tells how likely the input image is to belong to that image class. For a more comprehensive overview of neural networks and deep learning, see \citet{Goodfellow2016}. We will now focus how CNNs are related to texture synthesis.
+
+{\color{red} TODO: depth of output? number of feature maps? RGB channels?}
+
+{\color{red} TODO: biases?}
+
+{\color{red} TODO: fully connected layers? classification output?}
+
+For texture synthesis as introduced by \citet{Gatys2015}, however, it is only the activations after individual convolution layers that matter. The operation of convolution and the fact that the network is trained to classify images ({\color{red} TODO: deep image prior?}) causes those activations to contain filtered versions of the input image where particular features that define a texture are emphasized ({\color{red} TODO: now it would be great to have a visualization of which features are picked out at which levels!}).
+
+\subsubsection{Texture Synthesis Using CNNs}
+\label{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}
+
+As mentioned in \ref{section:background-texture_synthesis-statistics_based}, statistics-based texture synthesis relies on a statistical description of a texture that white noise images are optimized to match. \citet{Gatys2015} use the activations after each pooling layer of the VGG-19 CNN by \citet{Simonyan2014} to define such a description. These activations, however, contain spatial information of where each feature is located in the texture. In order to remove this spatial information, activation are correlated with each other within each layer. Correlated per-layer activations of VGG-19 therefore constitute a set of statistics completely describing a texture.
+
+To synthesize a new example of a given texture, gradient-based loss optimization is used. The loss is defined as a weighted mean square error between the description of the input texture and the image being optimized. The L-BFGS optimizer is used to drive the optimization process ({\color{red} TODO: why is it a good choice?}).
+
+Let us now summarize exactly what constitutes a texture model in \citet{Gatys2015}.
+
+{\color{red} TODO: give the details to be complete. or leave them for appendix?}
+
 \subsubsection{Pros and Cons}
 \label{section:background-texture_synthesis-statistics_based-pros_and_cons}
 
+{\color{red} TODO: show some examples from the paper where they compare to Portilla and Simoncelli}
+
+{\color{red} TODO: refer to \citet{Raad2018} for some more pros and cons\dots}
+
+This method of synthesizing textures leads to high-quality results for a large variety of input images. Compared to patch-based synthesis it also provides a texture model, as opposed to a mere algorithm to generate new textures. This makes it easier to reason about and provide theoretical justifications as to why it works.
+
+One disadvantage of this method is that it struggles with regular patterns, unline patch-based methods. It is also fairly sensitive to input and output image resolution {\color{red} TODO: explain this properly}
+
 \subsubsection{Potential Usage in Projection Mapping}
 \label{section:background-texture_synthesis-statistics_based-projection_mapping}
+
+This method could be easily adapted to projection mapping if a differentiable rendering function was added to the optimization loop. The idea is to first project initial white noise image onto a scene and then feed the resulting camera image into the CNN and ultimately compare it against the input texture image. The loss gradients would flow through both the CNN and the rendering function and would be used to update the initial image. The result of this process should be an image which once projected looks like a new example of the input texture.
