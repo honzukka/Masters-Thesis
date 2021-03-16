@@ -2,5 +2,114 @@
 \label{chapter:methods}
 
 
-{\color{red} TODO}
+We now present our proposed method and its implementation. Our goal is to projection-map a texture image while not requiring the final appearance to be identical to the given texture image, but rather requiring it to be of the same texture class.
 
+Our implementation is a software simulator of a projector-camera system. While a hardware system that can be deployed in physical spaces is the ultimate goal of all projection mapping research including ours, we have decided to work purely in software for the following reasons:
+
+\begin{itemize}
+    \item Software pipelines are easier to modify
+    \item Hardware systems come with challenges of its own, like signal-to-noise ratio, dynamic environment and time complexity constraints. We want to focus on solving one challenge at a time, starting with projection quality
+    \item A software implementation will serve as a useful reference for future work. If something does not work in a simulator, it will not work in the real world either
+\end{itemize}
+
+The decision to focus on implementing our method purely in software allows us to build directly on the recipe outlined in section \ref{section:background-texture_synthesis-statistics_based-projection_mapping}. Our system therefore consists of a texture synthesis optimization pipeline extended by a differentiable rendering function through which the optimization flows. The texture synthesis pipeline alone produces new examples of an input texture. When extended by a rendering function which projects the texture onto a scene first, it produces images which will look like new examples of the input texture once projected.
+
+The fact that the rendering function is part of the texture synthesis pipeline is crucial to our method. A brief comparison with a hypothetical pipeline where texture synthesis and projection mapping are done as two separate steps illustrates the point:
+
+{\color{red} TODO: no! \textit{figures} illustrate the point!}
+
+\textbf{Hypothetical two-step pipeline.} First, a new example of a given texture is generated. This texture is then compensated, so that it looks accurate when projected onto a given scene. This is not unlike classic pixel-based projection mapping. What if there are pixels of the generated texture that cannot be compensated while staying inside projector color gamut? We would need to detect that and then start the process all over again, hoping that the next texture will be easier to project.
+
+\textbf{Our streamlined pipeline.} The texture synthesis pipeline starts with a white noise image on which it computes some statistics, compares them to the input texture image and updates the noise image in a way that drives its statistics closer to those of the input texture in the next step. Now if we replaced statistics computation by projecting onto a scene and comparing the projection to the input texture, we would get pixel-based projection mapping. By including both modules in the pipeline, first projection and then statistics calculation and comparison, we ensure that both projection mapping and texture synthesis happen at the same time. In each step of the optimization, the algorithm is forced to adapt the inital noise image to look like the input texture when projected. The feedback loop is much tighter and the results are much better.
+
+{\color{red} TODO: big figure of the whole thing}
+
+We now describe each section of our pipeline, explaining exactly which rendering function and which texture model we have decided to use in our method. At the end of this section, we then outline three experiments that we have conducted to evaluate our method.
+
+\section{Rendering Function}
+\label{section:methods-rendering_function}
+
+The rendering function in our pipeline should have the following form:
+
+\begin{equation}
+    \label{eq:rendering_function}
+    f(x, \phi) = y  
+\end{equation}
+
+where \(x\) is the projector image, \(\phi\) are scene parameters, such as geometry, materials and projector and camera position and orientation. \(y\) is then the camera image whose statistics would be compared with those of the input texture image. It also need to be differentiable, so that gradients can flow through it in our optimization loop.
+
+\(f\) therefore represents the act of projecting an image onto a scene and then capturing that projection. This is a fairly complex task, especially if the scene can have arbitrary geometry, materials and external illumination. Luckily, in certain special scenarios, \(f\) can be very simple to formulate and fast to compute. We take advantage of this and use two different versions of \(f\) in our pipeline, one simple to verify basic functionality and obtain reference results, and one complex to support arbitrary scenes.
+
+\subsection{Simple Scenario}
+\label{section:methods-rendering_function-simple}
+
+Here is a scenario in which the light transport between the projector and the camera is easy to model:
+
+\begin{itemize}
+    \item The projector is pointed directly at a flat wall, with a right angle between its optical axis and the surface of the wall
+    \item The surface of the wall is completely diffuse, meaning it looks matte and its appearance is not view-dependent
+    \item The camera coincides with the projector
+    \item We ignore light that is reflected from the wall into the rest of the scene and back into the camera
+\end{itemize}
+
+The correct rendering function \(f\) in this case is
+
+\begin{equation}
+    \label{eq:rendering_function-simple}
+    f(x, b) = c \cdot x \cdot b = y
+\end{equation}
+
+where \(x\) and \(y\) are again the projector and camera image, respectively, \(b\) is the background -- an image (texture) representing the surface of the wall -- and \(c\) is a factor that attenuates the light travelling between the projector and the camera ({\color{red} TODO: is this \(1/r^2\)?}). In our case, we fix \(c\) to a hand-picked value (either 1 or 5 in our experiments) because it acts against the power of the projector which we also need to model somehow. Given that values of \(x\) and \(y\) lie in \([0, 1]\), choosing a larger \(c\) will make the projector brighter. We have not calibrated this value to match a real projector because we are interested in cases where the ideal \(x\) is just outside the color gamut of the projector. We therefore always choose a \(c\) so that the scene is just a little too difficult to project onto.
+
+This function is indeed very simple, easily differentiable and covers a scenario which is not too unrealistic -- it is a reasonable approximation of projecting onto a textured wall in a living room where the camera is right next to the projector and thus the projector-camera correspondence is straightforward to recover (as mentioned in section \ref{section:background-projection_mapping-procams-radiometric_calibration}, inter-reflection is minimal in this case and thus a 1:1 correspondence between projector and camera pixels can be assumed).
+
+\subsection{Complex Scenario}
+\label{section:methods-rendering_function-complex}
+
+What if we want to project on an arbitrary 3D scene? One candidate for our rendering function \(f\) in this case is simply a renderer, such as PBRT (\citet{PBRT3e}) or Mitsuba (\citet{Mitsuba}), which implements a projector and all other effects and scene materials that our scene contains:
+
+\begin{equation}
+    \label{eq:rendering_function-renderer}
+    f(x, \text{config}) = \text{renderer}(x) = y
+\end{equation}
+
+where \(x\) and \(y\) are again the projector and camera image, respectively, \textit{config} is the configuration file that describes the scene to the renderer and \textit{renderer} is an invocation of the renderer program with that input producing \(y\) as output. The problem with this setup is that such an \(f\) would not be differentiable with respect to \(x\) ({\color{red} TODO: Mitsuba 2?}). Also, a full rendering program is very computationally heavy and the time it would take to arrive at \(y\) would depend on the complexity of the scene and the resolution of the camera image, reaching up to several minutes or hours for challenging scenes. Lastly, we would need to know the exact geometry and materials of our scene in order to set up the renderer ({\color{red} TODO: could Mitsuba 2 help here as well?})
+
+Instead, we use the fact that light transport is linear and model our \(f\) with a light transport matrix, as mentioned in section \ref{section:background-projection_mapping-procams-inverse_lt}:
+
+\begin{equation}
+    \label{eq:rendering_function-lt_matrix}
+    f(x, A) = Ax = y
+\end{equation}
+
+where \(A\) is the light transport matrix (see \ref{eq:lt_matrix}). \(x\) is supposed to be a vector representing the light sources in the scene. But this is exactly our projector image where each pixel corresponds to a light source that we can control separately.
+
+Multiplication by large matrices is differentiable, very fast on modern GPUs and the matrix size (and thus the computation time) depends only on the resolution of the projector and camera images, not on scene complexity. This time, we do not need to invert the matrix as in section \ref{section:background-projection_mapping-procams-inverse_lt}, but we still need to capture it.
+
+\subsubsection{Capturing the Light Transport Matrix}
+\label{section:methods-rendering_function-complex-lt_capture}
+
+If a scene contains two lamps, then capturing a light transport matrix with respect to those lamps is nothing more than taking two photographs of the scene -- one for each lamp switched on separately. Our scene contains as many lamps as there are pixels in our projector image (we can ignore other light sources because we keep those in the same state throughout the process). Taking a photograph for each of the projector pixels being switched on would be two things:
+
+\begin{itemize}
+    \item Capturing the canonical basis of the light transport matrix
+    \item Impossible
+\end{itemize}
+
+It is impossible to do this in the real world because of the signal-to-noise ratio of cameras -- no camera is able to capture such faint signal as that coming from a single projector pixel. But as we saw in section \ref{section:background-projection_mapping-procams-inverse_lt}, there are other ways of capturing the light transport matrix, using a different basis to capture (one with more striking brightness differences in the camera images) and taking advantage of the fact that the light transport matrix is ofter very sparse.
+
+However, we are making a simulator and thus can afford to capture the light transport matrix via the canonical basis. We use the Mitsuba renderer (\citet{Mitsuba}) to render images camera images of our scene illuminated by each projector pixel turn and then assemble the images into the light transport matrix \(A\). There are, however, a few issues that need to be solved first.
+
+{\color{red} TODO: figure?}
+
+\textbf{How to simulate a projector in Mitsuba?} {\color{red} There already was a projective texture in Mitsuba, but that basically only used a pinhole camera. We added DoF via a thin lens model. That's all we simulate at the moment.}
+
+\textbf{How to render efficiently with only a single projector pixel turned on?} {\color{red} We added importance sampling to our projector and let BDPT do its magic. (Do we also do only specific path segment combinations?)}
+
+\textbf{How large is the light transport matrix and what are the implications?} {\color{red} State the sizes of some of the matrices we've worked with. 160x160 is the largest manageable image size we can get. It's fine for some experiments, but definitely a limitation in the long run.}
+
+\section{Texture Model}
+\label{section:methods-texture_model}
+
+\section{Experiments}
+\label{section:method-experiments}
