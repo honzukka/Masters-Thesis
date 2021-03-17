@@ -102,11 +102,33 @@ However, we are making a simulator and thus can afford to capture the light tran
 
 {\color{red} TODO: figure?}
 
-\textbf{How to simulate a projector in Mitsuba?} {\color{red} There already was a projective texture in Mitsuba, but that basically only used a pinhole camera. We added DoF via a thin lens model. That's all we simulate at the moment.}
+\textbf{How to simulate a projector in Mitsuba?} The Mitsuba renderer has very rudimentary projector functionality in the form of a spotlight with a projective texture ({\color{red} TODO: figure}). This is not enough for our purposes. On the other hand, it is important to set a limit on the number of projector features that we need because implementing a realistic projector is very challenging. It may involve things like realistic thick lens optics, a color model without truly deep blacks as described in section \ref{section:background-projection_mapping-projectors-DLP} and so on. We have decided to add the following two features to Mitsuba's projector implementation:
 
-\textbf{How to render efficiently with only a single projector pixel turned on?} {\color{red} We added importance sampling to our projector and let BDPT do its magic. (Do we also do only specific path segment combinations?)}
+\begin{itemize}
+    \item Rectangular projection frustum ({\color{red} TODO: figure})
+    \item Thin lens model ({\color{red} TODO: figure})
+\end{itemize}
 
-\textbf{How large is the light transport matrix and what are the implications?} {\color{red} State the sizes of some of the matrices we've worked with. 160x160 is the largest manageable image size we can get. It's fine for some experiments, but definitely a limitation in the long run.}
+Rectangular projection frustum is necessary because we want to project rectagular images. Thin lens model is a simplified lens model that allows for depth of field effects. These are also necessary because no projector image is sharp at all depths at the same time and image defocus is a common effect that we wish to compensate. No other features are needed because already with these two the projections look realistic and exhibit the main hardware limitations we wish to overcome -- brightness and blur.
+
+{\color{red} TODO: How \textit{exactly} are these implemented? Since you're not sure yourself, it would be nice to add some nice figures with descriptions into the appendix (if it's not suitable here).}
+
+\textbf{How to render efficiently with only a single projector pixel turned on?} If we want to project images with our custom projector implementation described above, we get good results. However, in order to capture the light transport matrix, we need to project images with only a single pixel turned on. And this turns out to be problematic due to the way the rendering equation (\ref{eq:rendering_equation}) is solved in renderers like Mitsuba. These methods sample random light paths, compute light travelling along those and build the full estimate via a Monte Carlo approach. This means that also our projection image needs to be sampled, so that the sampled paths cover the light provided by each of the pixels. But sampling paths is costly and if the projector image with a single white pixel was sampled uniformly, most paths would have zero contribution. This would result in noisy renderings and long rendering times ({\color{red} TODO: figure}). To fix this, we implemented a common technique called importance sampling ({\color{red} TODO: cite?}) which samples paths with larger contribution with higher probability. As a matter of fact, black pixels of the projector image should never be sampled at all.
+
+Moreover, some path sampling techniques build path starting from the camera, while others start from the emitter. When emitters are very small, like points lights or projectors with only a songle white pixel, it is important to start building the path from the light. Otherwise, the probability of sampling a path with non-zero contribution would again be too small. To do that, we use the bi-directional path tracing algorithm which is implemented in Mitsuba. {\color{red} TODO: figure with the improvement}
+
+{\color{red} TODO: Time for another appendix section on how the rendering equation is solved via path tracing?}
+
+\textbf{How large is the light transport matrix and what are the implications?} The last practical consideration we need to make is about the size of the light transport matrix. Here is how it is determined:
+
+\begin{equation}
+    \label{eq:lt_matrix_size}
+    S = p_w \cdot p_h \cdot c_w \cdot c_h \cdot 3 \cdot 4
+\end{equation}
+
+where \(S\) is the matrix size in bytes, \(p_w\) and \(p_h\) is the width and height of the projector image, respectively, \(c_w\) and \(c_h\) are the dimensions of the camera image. We then assume three color channels and four bytes to store each intensity value. It is important to store the intensity values as 32-bit floating point numbers, otherwise the basis images forming the matrix would be too noisy ({\color{red} TODO: I had an example somewhere, right?}).
+
+This means that a light transport matrix for projector and camera image of size \(160 \times 160\) is over 7.8 GB large. While this is the size we have used in our experiments because it is sufficient to demonstrate certain effects and because it fit well into the memory of our GPUs, it is clear that this approach to implementing the rendering function is not very scalable. For our purposes, this approach has the advantage of being simple and accurate which is important when evaluating the basic functionality of a new method. For practical use, a more data-efficient method is needed.
 
 \section{Texture Model}
 \label{section:methods-texture_model}
