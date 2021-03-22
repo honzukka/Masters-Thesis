@@ -24,7 +24,7 @@ The fact that the rendering function is part of the texture synthesis pipeline i
 
 {\color{red} TODO: big figure of the whole thing}
 
-We now describe each section of our pipeline, explaining exactly which rendering function and which texture model we have decided to use in our method. At the end of this section, we then outline three experiments that we have conducted to evaluate our method.
+We now describe each section of our pipeline, explaining exactly which rendering function and which texture model we have decided to use in our method.
 
 \section{Rendering Function}
 \label{section:methods-rendering_function}
@@ -195,43 +195,3 @@ To fix this, \citet{Snelgrove2017} proposes to not compute the Gram matrices on 
 {\color{red} TODO: example of the improvement in synthesis}
 
 {\color{red} TODO: use math notation to make it easier to follow?}
-
-\section{Experiments}
-\label{section:methods-experiments}
-
-To evaluate our method, we have designed and conducted three experiments. In this section, we describe the idea behind them, what their inputs are and what is their expected outcome.
-
-\subsection{Evaluating basic rendering function and basic texture model together}
-\label{section:methods-experiments-01}
-
-In the first experiment, we would like to find out whether the basic concept of combining a rendering function with texture model matching in a single optimization loop indeed produces textures that are well-suited for projection mapping in a given scene. We take advantage of our simplified rendering function (see \ref{section:methods-rendering_function-simple}) and also the basic Gatys synthesis without any additional improvements (see \ref{section:methods-texture_model}).
-
-The inputs to this experiment are pairs of scene (a background image in this case because we are working with the simplified rendering function) and texture image that we wish to projection-map. Here are the image pairs that we have chosen:
-
-{\color{red} TODO: insert image pairs here}
-
-The background images are chosen to be subsets of the texture image. The idea behind this is that a properly working neural projection mapping algorithm should build the projector images in such a way that areas where the background image pixels match the texture pixels will be white because the task is done in those areas. Moreover, the texture in the projector image should organically connect to those areas. Intuitively, this should be the easiest way for the optimizer to achieve the desired appearance and therefore it is the one we expect it to take.
-
-\subsection{Evaluating various texture models}
-\label{section:methods-experiments-02}
-
-We keep using the simplified rendering function in the second experiment as well. We would like to know whether our method lives up to the theoretical promise of better perormance in challenging situations compared to pixel-based projection mapping approaches. And these situations can also be reproduced in the simplified scenario because we are mostly interested in cases where the projector would be forced out of its color gamut by a pixel-based projection mapping algorithm. In the simplified scenario, this happens for example when we want to project a bright pixel onto a dark patch of the background.
-
-Here are our pairs of scene and background for this experiment:
-
-{\color{red} TODO: insert image pairs here}
-
-First, we want to compare the performance of our method to a reference pixel-based method. We obtain the reference pixel-based method by removing the texture model block from out pipeline and replacing it with a per-pixel L2 difference between the input texture image and the optimized image. This approach yields the optimal pixel-based projection mapping algorithm without a content-based global optimization step (as described in section \ref{section:background-projection_mapping-procams-radiometric_calibration}). ({\color{red} TODO: why leave the global step out?}).
-
-Within our method, we also want to compare the performance of the original Gatys texture model with one that incorporates imporvements described in section \ref{section:methods-texture_model-improvements}.
-
-The expectation is that our method will outperform the pixel-based reference in challenging areas of the scene by moving dark texture features into dark areas of the background and vice-versa. As a result, the background should be less recognizable when projected onto with our optimized projection image. As far as various texture models are concerned, we expect the Gatys model to adapt to the background more because its texture description is less constrained. Other than that, the question is whether the improvements bring better results in projection mapping as they do in pure texture synthesis.
-
-\subsection{Evaluating complex rendering function}
-\label{section:methods-experiments-03}
-
-So far we have only used the simplified rendering function which projects images into a flat diffuse background. The last question we will focus on here is whether the observations from the previous experiment (\ref{section:methods-experiments-02}) will also apply when projecting onto arbitrary 3D scenes. We have chosen the following textures and scenes from this experiment:
-
-{\color{red} TODO: insert textures and scenes here and explain the scenes well}
-
-As mentioned in section \ref{section:methods-rendering_function-complex-lt_capture}, our implementation of the complex rendering function only handles fairly small image resolutions. However, as can be scene from the figure above, even \(160 \times 160\) images should be sufficient to model the conditions from the previous experiment and we thus expect the behaviour to translate as well.
