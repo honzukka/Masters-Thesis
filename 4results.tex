@@ -51,29 +51,89 @@ On the other hand, in the first row of figure \ref{fig:ex01-pebbles-1000steps}, 
 \section{Evaluating various texture models}
 \label{section:results-experiments-02}
 
-{\color{red} TODO: use the notes from OrgPad, they look pretty good an even have some nice ideas for further analysis!}
+In the first experiment (section \ref{section:results-experiments-01}), we have shown that our method is able to converge to the desired result in certain toy examples. The next step is to use more challenging situations to also evaluate how well it converges in general. 
 
-% \textbf{Goal:} To project-map textures better than per-pixel algorithms can in certain scenarios. \textbf{Method:} We try various texture models in our method, comparing them to a per-pixel reference algorithm. \textbf{Question:} Will our method perform better by adapting the texture to fit the background and therefore hiding it more effectively?
+\textbf{Goal.} We want to compare our method with traditional pixel-based projection mapping. We would also like to see the effect of various texture models on the performance of our method.
 
-% We keep using the simplified rendering function in the second experiment as well. We would like to know whether our method lives up to the theoretical promise of better perormance in challenging situations compared to pixel-based projection mapping approaches. And these situations can also be reproduced in the simplified scenario because we are mostly interested in cases where the projector would be forced out of its color gamut by a pixel-based projection mapping algorithm. In the simplified scenario, this happens for example when we want to project a bright pixel onto a dark patch of the background.
+\textbf{Hypothesis.} When comparing our method with a pixel-based reference, we expect our method to perform better in challenging areas by reorganizing the input texture in a way that fits the background and therefore hides it better. When comparing original Gatys model with the improved one, we expect the improved model to be better at recovering the texture, while the original Gatys model should be more flexible in adapting to the background because its statistical texture description is less constrained.
 
-% Here are our pairs of scene and background for this experiment:
+\textbf{Setup.} We keep using the simple rendering function (see section \ref{section:methods-rendering_function-simple}) because what makes a scene challenging is the fact that the projector is forced outside its color gamut. Such conditions can be reproduced in the simplified scenario as well. As mentioned above, we use both the original Gatys texture model (see section \ref{section:methods-texture_model}) and its improved variant (\ref{section:methods-texture_model-improvements}) to compare them against each other. We obtain the pixel-based reference by removing the texture model block from our pipeline (see section \ref{chapter:methods}) and replacing it with a per-pixel L2 difference between the input texture and the optimized image. This approach yields the optimal pixel-based projection mapping algorithm without a content-based global optimization step (as described in section \ref{section:background-projection_mapping-procams-radiometric_calibration}). ({\color{red} TODO: why leave the global step out?}). The inputs to this experiment are pairs of scene (represented by a background image) and texture image that we wish to project-map.
 
-% {\color{red} TODO: insert image pairs here}
+\subsection{Results}
+\label{section:results-experiments-02-results}
 
-% First, we want to compare the performance of our method to a reference pixel-based method. We obtain the reference pixel-based method by removing the texture model block from out pipeline and replacing it with a per-pixel L2 difference between the input texture image and the optimized image. This approach yields the optimal pixel-based projection mapping algorithm without a content-based global optimization step (as described in section \ref{section:background-projection_mapping-procams-radiometric_calibration}). ({\color{red} TODO: why leave the global step out?}).
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{images/ex02-crop.png}
+        \caption{{\color{red} TODO: texture source? self-contained description! better figure! mention the brightness factor of 5 here!}}
+        \label{fig:ex02}
+    \end{center}
+\end{figure}
 
-% Within our method, we also want to compare the performance of the original Gatys texture model with one that incorporates improvements described in section \ref{section:methods-texture_model-improvements}.
+Figure \ref{fig:ex02} shows the main result of this experiment. Overall, we have tested four different backgrounds and five different input textures. Complete results of those runs can be found in the appendix \ref{chapter:appendix-results}.
 
-% The expectation is that our method will outperform the pixel-based reference in challenging areas of the scene by moving dark texture features into dark areas of the background and vice-versa. As a result, the background should be less recognizable when projected onto with our optimized projection image. As far as various texture models are concerned, we expect the Gatys model to adapt to the background more because its texture description is less constrained. Other than that, the question is whether the improvements bring better results in projection mapping as they do in pure texture synthesis.
+\subsection{Analysis}
+\label{section:results-experiments-02-analysis}
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{images/ex02-isolating_issues-crop.png}
+        \caption{{\color{red} TODO: texture source? self-contained description! better figure! compare with white background and a darker one as well! brightness factor?}}
+        \label{fig:ex02-issues}
+    \end{center}
+\end{figure}
+
+When comparing the three methods -- ours with Gatys texture model, ours with improved texture model and pixel-based reference -- it is useful to think in terms of microtexture and macrotexture ({\color{red} TODO: literature? Raad?}). For example, in a pebble texture like the one in figure \ref{section:results-experiments-01-results}, the pebbles themselves form a macrotexture while their surface is a microtexture.
+
+Starting with our method with Gatys texture model, we can see that it reproduces microtexture very well. The resulting appearance mostly contains only colors from the input texture, for example hair color is completely hidden, unlike in the pixel-based reference. On the other hand, macrotexture is recovered rather poorly and its appearance seems to deteriorate in areas where the background is darker, especially in the lower left corner.
+
+In a sense, this is an extreme case. The background in the lower left corner is clearly too dark for the projector to compensate it and at the same time it is too large for texture synthesis to place a dark part of the texture over it. On the other hand, the pixel-based reference clearly looks better in this case. Where synthesis cannot recover the color, it does not recover the macro features either, whereas the pixel-based method has the advantage of only needing to match colors and overall, darker appearance with the correct macro features looks better. We have thus conducted a separate experiment to evaluate the macro feature convergence of the two different texture models in situations where color cannot be matched. The result is shown in figure \ref{fig:ex02-issues} and suggests that the improved texture model does indeed converge a little better.
+
+This is apparent in the main result (fig. \ref{fig:ex02}) as well. Our method with the improved texture model recovers microtexture better than the pixel-based method and its macrotexture is better than that of the Gatys texture model. Overall, we believe that our method provides a more visually pleasing and balanced result than the pixel-based reference. At the same time, the results show that even our improved texture model is not perfect and any improvements in this area should improve statistics-based projection mapping as well.
+
+{\color{red} TODO: comparing loss values of various results sounds like an easy and useful thing to do! (e.g. compare vanilla Gram loss of a vanilla Gram results and improved result to disentange representation power and convergence)}
 
 \section{Evaluating complex rendering function}
 \label{section:results-experiments-03}
 
-% \textbf{Goal:} To have a rendering function that simulates a projector accurately in all possible scenarios. \textbf{Method:} Projection mapping onto arbitrary 3D scenes with our method, as well as the per-pixel reference. \textbf{Question:} Will behaviour from experiment 2 translate well into this more complex scenario?
+The second experiment (section \ref{section:results-experiments-02}) has shown that statistics-based projection mapping can be a viable alternative to traditional pixel-based approaches, outperforming them in certain situations. However, so far we have only tested our method in the simplified scenario of projecting on a flat diffuse surface. The last experiment represents a step towards real world deployment of our method and involves projecting onto arbitrary 3D scenes.
 
-% So far we have only used the simplified rendering function which projects images into a flat diffuse background. The last question we will focus on here is whether the observations from the previous experiment (\ref{section:methods-experiments-02}) will also apply when projecting onto arbitrary 3D scenes. We have chosen the following textures and scenes from this experiment:
+\textbf{Goal.} We want to see how our method copes with complex geometry and global illumination effects. These were ignored in the previous experiments where the intention was purely to stress the projector gamut. However, real scenes are full of them and our method must be evaluated in these complex scenarios as well.
 
-% {\color{red} TODO: insert textures and scenes here and explain the scenes well}
+\textbf{Hypothesis.} We expect the behavior from the previous experiments to translate well to a more complex setup. There is no longer a 1:1 correspondence between projector and camera pixels, but this should present no difficulty to the optimizer ({\color{red} TODO: go a little deeper here. what does it really mean mathematically to optimize using the complex rendering function?}).
 
-% As mentioned in section \ref{section:methods-rendering_function-complex-lt_capture}, our implementation of the complex rendering function only handles fairly small image resolutions. However, as can be seen from the figure above, even \(160 \times 160\) images should be sufficient to model the conditions from the previous experiment and we thus expect the behaviour to translate as well.
+\textbf{Setup.} We now finally use the complex rendering function (see section \ref{section:methods-rendering_function-complex}) in our pipeline. We also use the improved texture model and the pixel-based reference for comparison. We do not use the Gatys texture model ({\color{red} TODO: should you, though?}) because we have shown that it has issues and better models should be preferred. The inputs to this experiment are pairs of scene (represented by a pre-captured light transport matrix) and texture image that we wish to project-map. To keep the light transport matrix size manageable, we are using both projector and camera image size of \(160 \times 160\).
+
+\subsection{Results}
+\label{section:results-experiments-03-results}
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{images/ex03-ball-dof-crop.png}
+        \caption{{\color{red} TODO: texture source? self-contained description! better figure! brightness factor!}}
+        \label{fig:ex03-ball-dof}
+    \end{center}
+\end{figure}
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{images/ex03-staircase-illum-crop.png}
+        \caption{{\color{red} TODO: texture source? self-contained description! better figure! brightness factor!}}
+        \label{fig:ex03-staircase-illum}
+    \end{center}
+\end{figure}
+
+Figures \ref{fig:ex03-ball-dof} and \ref{fig:ex03-staircase-illum} shows the main result of this experiment. Overall, we have tested two different scenes with projector DoF on and off and with and without external illumination and four different input textures. Complete results of those runs can be found in the appendix \ref{chapter:appendix-results}.
+
+The scene used in figure \ref{fig:ex03-ball-dof} does not present any challenges regarding projector gamut, but rather it has very complicated light transport. The projector has a finite aperture which results in DoF effects and is aimed at a glass ball. The camera image is only a crop of the full view, so appearance is only optimized in the upper half of the view.
+
+The scene in figure \ref{fig:ex03-staircase-illum} features a projector without DoF pointed at a wooden staircase. It has external illumination from a lamp above the staircase, complex textured geometry and both diffuse and glossy surfaces (floor in the lower left corner). This is a complex scene which stresses both the ability of our method to handle global illumination effects and overcome the gamut limitations of the projector.
+
+\subsection{Analysis}
+\label{section:results-experiments-03-analysis}
+
+As we can see in both figures \ref{fig:ex03-ball-dof} and \ref{fig:ex03-staircase-illum}, our method handles the complex relationship between projector pixels and camera pixel well and its performance on 3D scenes is comparable to that on simple flat surfaces. Compared to the pixel-based reference, it performs worse in recovering the macro features, but it is better at recovering microtexture. For example, in the staircase scene \ref{fig:ex03-staircase-illum} in the lower left, the input texture is very bright, but the scene contains a glossy floor which is difficult to project onto. Whereas the pixel-based reference struggles to achieve the desired appearance and oversaturates corresponding projector pixels, our method instead moves the darker part of the texture into this area which provides a more satisfying result.
+
+{\color{red} TODO: projecting normal compensation via DoF matrix and vice-versa might a very cool thing to do! Also the same with illuminated/non-illuminated staircase. In general, this section would probably benefit from some discussion on at least the compensation of the DoF effect}
+
+{\color{red} TODO: about the resolution issue: might be better to leave it for the conclusion}
