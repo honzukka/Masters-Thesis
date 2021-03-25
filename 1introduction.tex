@@ -1,6 +1,7 @@
 \chapter{Introduction}
 \label{chapter:intro}
 
+{\color{red} TODO: overall, maybe skip the deeper theory here. Only present what's absolutely crucial to understanding the key idea and do that on a high level. Explain the rest in the Background section. Don't do forward references, but depth references instead... Example: Why do you explain parametric synthesis here quite in-depth, but non-parametric synthesis not at all? It's fine to handwave here if you do the depth referencing thing.}
 
 Most people nowadays are familiar with \textit{projection}, the act of transferring images from film or computers onto screens in cinemas or classrooms. But while those screens are made specifically for being projected onto, this is not the case for other objects, for example building façades. The geometry and material properties of these objects deform projected images and change their appearance. This is why projecting them is not enough -- they first need to be edited (\textit{mapped}) in a way that their final appearance is what we expect. Projecting onto arbitrary objects in such a way is called \textit{projection mapping} and it is the main topic of this thesis.
 
@@ -12,12 +13,16 @@ Most people nowadays are familiar with \textit{projection}, the act of transferr
     \end{center}
 \end{figure}
 
+{\color{red} TODO: This second paragraph shows why projection mapping is interesting -- who does it and why. Jaakko was missing this in the first paragraph already\dots}
+
 According to \citet*{WikiHauntedMansion}, one of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head. Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see figure \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
 
 Let us now briefly describe what projection mapping entails and which of its problems we aim to address in this thesis.
 
 \section{Problem Setting}
 \label{section:intro-problem_setting}
+
+{\color{red} TODO: the differences between the two should be explained much more clearly! Maybe add some figures?}
 
 When projection mapping, we can either aim to reproduce the exact appearance of a given image and thus hide the objects we are projecting onto, or we can use projection to complement the objects. Here, we focus on the former. Usually, this involved the following steps:
 
@@ -35,6 +40,13 @@ Since then, there have been many advances in the field, the summary of which can
 
 There is, however, one fundamental characteristic that all current projection-mapping methods share. When computing the compensated projection image, they match the camera image with the desired appearance pixel by pixel. Explicitly, their goal is that
 
+{\color{red} TODO: this equation doesn't really say much because the pixels are hidden very deeply in it. Also, it's not clear here how we get \(X\). Instead, formulate it as an optimization problem over projector image pixels and include the light transport function into the mix. This will create a language that will make a lot of stuff in the future easier to talk about.}
+
+\begin{equation}
+    \label{eq:projection_mapping-per_pixel-better}
+    \min_p \sum_i || x_i(p) - y_i ||
+\end{equation}
+
 \begin{equation}
     \label{eq:projection_mapping-per_pixel}
     X = Y
@@ -50,6 +62,8 @@ In this thesis, we present an idea to overcome this limitation for a specific cl
 
 \section{Key Idea}
 \label{section:intro-key_idea}
+
+{\color{red} TODO: mention the Texture Hypothesis by Julesz (texture is defined by 2nd order co-occuring stationary statistics) here}
 
 Textures (e.g. an image of a stony beach) have the interesting property that when their features (e.g. individual stones) are shuffled, the texture still looks the same. For example, \citet*{Julesz1995} defines textures as classes of images that cannot be discriminated in preattentive vision. These images are not the same pixel by pixel, but they \textit{look} the same when we glance over them.
 
