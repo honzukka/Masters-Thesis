@@ -26,7 +26,7 @@ Most people nowadays are familiar with \textit{projection}, the act of transferr
     \label{fig:intro_example_sydney}
 \end{figure}
 
-According to \citet*{WikiHauntedMansion}, one of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in the character of Madame Leota in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head (see gig. \ref{fig:intro_example_leota}). Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see figure \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
+According to \citet*{WikiHauntedMansion}, one of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in the character of Madame Leota in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head (see fig. \ref{fig:intro_example_leota}). Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see fig. \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
 
 \begin{figure}[ht]
     \centering
@@ -66,7 +66,7 @@ Simply put, projection mapping is projecting onto surfaces that are not primaril
 
 \begin{enumerate}
     \item We begin with a scene, for example fig. \ref{fig:intro_example_leota-scene}
-    \item We choose what we would want it to look like after projection (i.e the \textit{desired appearance}), for example \ref{fig:intro_example_leota-full}
+    \item We choose what we would want it to look like after projection (i.e. the \textit{desired appearance}), for example fig. \ref{fig:intro_example_leota-full}
     \item The task is to create a \textit{compensated projection image} that will look like our desired appearance when projected onto our scene, for example fig. \ref{fig:intro_example_leota-head}
     \item We project the compensated image
 \end{enumerate}
@@ -134,7 +134,7 @@ There is, however, one fundamental characteristic that all current projection ma
 
 where \(p\) is the projector image, \(x(p) \in \mathbb{R}^{m \times n}\) is the camera image when \(p\) is projected, \(y\) is the desired appearance and \((i)\) selects the \(i\)-th pixel of an image. Note that \(x\) is determined by the projector and the scene.
 
-This approach is limited by projector hardware. Every projector has finite brightness which means that pixels of the camera image cannot be made arbitrarily bright (\(x(p) \leq c;\; \forall p\)). In scenes with external illumination, it is also impossible to make pixels of the camera image arbitrarily dark since projectors only add light and do not subtract it (\(x(p) \geq 0;\; \forall p\)). In the notation introduced above this mean that for any projector image \(p\)
+This approach is limited by projector hardware. Every projector has finite brightness which means that pixels of the camera image cannot be made arbitrarily bright. In scenes with external illumination, it is also impossible to make pixels of the camera image arbitrarily dark since projectors can only add light and not subtract it. In the notation introduced above this means that for any projector image \(p\), we have
 
 \begin{equation}
     \label{eq:projection_mapping-limitations}
@@ -150,7 +150,7 @@ For every projector and scene, we can therefore find an image \(y\) whose pixels
     \exists i:\; y_{(i)} < 0 \lor y_{(i)} > c_{(i)}
 \end{equation}
 
-Figure \ref{fig:intro_pixels_vs_stats} shows images \(y_1\) and \(y_2\) where the former fulfills eq. \ref{eq:projection_mapping-hard_image} for a given projector and scene and is thus impossible to map while the latter is the opposite.
+Figure \ref{fig:intro_pixels_vs_stats} shows images \(y_1\) and \(y_2\) where the former fulfills eq. \ref{eq:projection_mapping-hard_image} for a given projector and scene and is thus impossible to map while the latter can be mapped without issues.
 
 \begin{figure}[ht]
     \centering    
@@ -216,76 +216,104 @@ Figure \ref{fig:intro_pixels_vs_stats} shows images \(y_1\) and \(y_2\) where th
     \label{fig:intro_pixels_vs_stats}
 \end{figure}
 
-In this thesis, we reformulate the projection mapping recipe in eq. \ref{eq:projection_mapping-per_pixel} to overcome this limitation and present a technique that uses our new recipe to achieve results that have not been achieved before.
+In this thesis, we reformulate the projection mapping recipe in eq. \ref{eq:projection_mapping-per_pixel} to overcome this limitation. We then present a technique that uses our new recipe to achieve results that have not been achieved before when projecting a particular class of images -- textures.
 
 \section{Key Idea}
 \label{section:intro-key_idea}
 
-{\color{red} TODO: overall, maybe skip the deeper theory here. Only present what's absolutely crucial to understanding the key idea and do that on a high level. Explain the rest in the Background section. Don't do forward references, but depth references instead... Example: Why do you explain parametric synthesis here quite in-depth, but non-parametric synthesis not at all? It's fine to handwave here if you do the depth referencing thing.}
+In this section we outline the main idea of overcoming hardware limitations of projectors as introduced above and explain why we focus on projecting textures. For clarity, we provide only a high-level explanation and leave more detailed formal treatment of textures and other concepts for section \ref{section:background-texture_synthesis}.
 
-{\color{red} TODO: mention the Texture Hypothesis by Julesz (texture is defined by 2nd order co-occuring stationary statistics) here}
-
-Textures (e.g. an image of a stony beach) have the interesting property that when their features (e.g. individual stones) are shuffled, the texture still looks the same. For example, \citet*{Julesz1995} defines textures as classes of images that cannot be discriminated in preattentive vision. These images are not the same pixel by pixel, but they \textit{look} the same when we glance over them.
-
-{\color{red} TODO: figure of the main idea}
-
-We present a method for projection mapping textures, using their properties to achieve high-quality results as follows:
+Textures (e.g. a pebble beach) have the interesting property that when their features (e.g. individual pebbles) are shuffled, the texture still looks the same. We say that a texture has multiple \textit{realizations}. Figure \ref{fig:intro_pixels_vs_stats} shows an example of two different realizations (\(y_1\) and \(y_2\)) of the same texture. Moreover, for a given scene and projector, one can be mapped, while the other cannot. This is the key idea of our thesis and here is how we apply it in projection mapping:
 
 \begin{itemize}
-    \item We assume a texture which is difficult to project-map onto a given scene because of brightness limitations of the projector
-    \item Out of all possible realizations of that texture, we find the one which minimizes the number of pixels which the projector would struggle to reproduce
+    \item We assume a texture whose given realization is difficult to map onto a given scene because of projector limitations
+    \item Out of all possible realizations of that texture we find the one that is the easiest to map
     \item We find the appropriate compensated projection image for it
 \end{itemize}
 
-A separate research field is dedicated to generating different realizations of the same texture, a task which came to be called \textit{texture synthesis}. \citet*{Raad2018} present a state-of-the-art report of texture synthesis methods. Some of these methods derive a statistical representation of textures such that if two pictures share that representation, they are the same texture, even if their pixel values are different. Here are some examples of what is meant by statistical representation:
-
-\begin{itemize}
-    \item Pixel values (this is too restrictive because in this case all texture classes only contain a single image)
-    \item Average color (this is too loose because in this case each texture class would contain e.g. a constant image of that color)
-    \item Power spectrum (a better representation which works well for textures with tiny features and is used for texture synthesis in \citet*{Galerne2011})
-    \item Gram matrices of feature activations of a convolutional neural network (a complex representation presented by \citet*{Gatys2015} which significantly increased the quality of texture synthesis and spurred a wave of new research in the area, including this thesis)
-\end{itemize}
-
-{\color{red} TODO: figure to illustrate statistical representations}
-
-We build on these statistics-based synthesis methods and reformulate the goal of projection mapping as follows:
+We use this idea to modify the projection mapping recipe from eq. \ref{eq:projection_mapping-per_pixel}. Instead of trying to match each corresponding pair of pixels of camera image \(x(p)\) and desired appearance \(y\), we try to force \(x(p)\) and \(y\) to be realizations of the same texture:
 
 \begin{equation}
     \label{eq:projection_mapping-statistics}
-    f(X) = f(Y)
+    \min_p || f(x(p)) - f(y) ||
 \end{equation}
 
-where \(X,Y \in \mathbb{R}^{n \times m}\) are again the camera image and desired appearance, respectively, and \(f\) is a function that assigns a statistical representation to an image.
+where \(f\) is a function with the property that for two given images \(y_1\) and \(y_2\), \(f(y_1) = f(y_2)\) \textit{iff} \(y_1\) and \(y_2\) are realizations of the same texture. Note that eq. \ref{eq:projection_mapping-statistics} is strictly more general than eq. \ref{eq:projection_mapping-per_pixel} because \(x(p) = y\) implies \(f(x(p)) = f(y)\), but the reverse implication does not hold.
 
-An important observation is that images that have equal pixel values also share their statistical representation. Therefore, this formulation of the projection mapping problem is strictly more powerful than the pixel-based one if the following conditions hold:
+Figure \ref{fig:intro_pixels_vs_stats} serves as an example of how our recipe could be applied. With given desired appearance \(y_1\), scene (as shown in the figure) and projector, \(p_2\) is a solution to eq. \ref{eq:projection_mapping-statistics}. \(x(p_2)\) and \(y_1\) look the same, but \(x(p_2) \neq y_1\). On the other hand, if the desired appearance was \(y_2\), then \(p_2\) would solve both eq. \ref{eq:projection_mapping-per_pixel} and \ref{eq:projection_mapping-statistics}.
 
-\begin{enumerate}
-    \item \(f\) describes textures well -- all textures that look the same share the same \(f\)-value and no two textures that look different share the same \(f\)-value
-    \item An algorithm exists that can find such \(X\) and \(Y\)
-\end{enumerate}
-
-We now specify what the contributions of this thesis are.
+A suitable function \(f\), an algorithm that can optimize according to eq. \ref{eq:projection_mapping-statistics} and the ability to integrate both into a projector-camera system are the three main components of our method for projection mapping of textures which we present in this thesis.
 
 \section{Contributions}
 \label{section:intro-contributions}
 
-Solving both the problem of texture synthesis and projection mapping is very challenging. In this thesis, we therefore focus mainly on showing that by combining existing methods from both fields, interesting results can be achieved that have not been achieved before.
-
-Our contributions are the following:
+This thesis focuses on a problem of projection mapping exemplified in the upper row of figure \ref{fig:intro_pixels_vs_stats} where a projector is not able to match desired appearance of a texture due to hardware limitations. Our contributions to solving this problem are the following:
 
 \begin{itemize}
-    \item We implement our proposed method as outlined in section \ref{section:intro-key_idea} in PyTorch as an optimization loop. No projector and camera hardware is involved.
-    \item We guide the reader through three experiments whose aim is to evaluate the proposed method and compare it to current pixel-based approaches. Here is a summary of their conclusions:
+    \item We reformulate the recipe of projection mapping as described in eq. \ref{eq:projection_mapping-per_pixel} to accommodate it better to the projection mapping of textures. Our proposed recipe is described in section \ref{section:intro-key_idea}
+    \item Our recipe needs a texture model (referred to as function \(f\) in section \ref{section:intro-key_idea}) which would determine the extent to which two different image are realizations of the same texture. We survey the field of \textit{texture synthesis} (state-of-the-art report by \citet{Raad2018}) and integrate a modified version of a powerful neural-based texture model by \citet{Gatys2015} into our method
+    \item We simulate a projector-camera system in software and implement our method on top of the simulation. It consists of an optimization algorithm that solves eq. \ref{eq:projection_mapping-statistics} in PyTorch
+    \item We guide the reader through three experiments whose aim is to evaluate the three key components of our proposed method. Here are the components and a brief summary of the related experiments:
     \begin{enumerate}
-        \item In a simplified scenario without complex geometry or global illumination effects, our optimizer is able to generate a texture that is both part of a given texture class (as defined by existing texture synthesis methods) and adapted to fit the given scene well when projected.
-        \item In a simplified scenario, our method outperforms current pixel-based methods in certain challenging conditions as expected.
-        \item Our method works just as well in scenarios with complex geometry and global illumination effects as it does in simplified scenarios.
+        \item \textbf{Algorithm to solve eq. \ref{eq:projection_mapping-statistics}.} In a toy example, our method is able to generate a texture that is both part of a given texture class (as defined by a given texture model) and adapted to fit a given scene well
+        \item \textbf{Texture model (function \(f\)).} We evaluate a few known texture models in the context of our method and conclude that in certain challenging conditions it outperforms current pixel-based projection mapping methods as expected. Example shown in fig. \ref{fig:intro_result_teaser}
+        \item \textbf{Projector-camera system integration.} Most projection mapping examples in this section project onto flat textured walls. However, our method also works well in virtual 3D scenes with complex geometry and global illumination effects. This constitutes the first step towards real-world application
     \end{enumerate}
 \end{itemize}
 
-{\color{red} TODO: single target-scene-compensation-appearance results teaser with a single, well described point}
+\begin{figure}[ht]
+    \centering    
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/01-results_teaser-target.jpg}
+            \caption{Desired appearance\footnotemark}
+            \label{fig:intro_results_teaser_target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/01-results_teaser-pixels_opt.jpg}
+            \caption{PB compensation}
+            \label{fig:intro_results_teaser_pixels_opt}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/01-results_teaser-stats_opt.jpg}
+            \caption{Our compensation}
+            \label{fig:intro_results_teaser_stats_opt}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/01-results_teaser-bg.jpg}
+            \caption{Scene}
+            \label{fig:intro_results_teaser_bg}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/01-results_teaser-pixels_proj.jpg}
+            \caption{PB final appearance}
+            \label{fig:intro_results_teaser_pixels_proj}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/01-results_teaser-stats_proj.jpg}
+            \caption{Our final appearance}
+            \label{fig:intro_results_teaser_stats_proj}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{Result from one of our experiments. Our scene is a photograph with dark areas and saturated yellow areas which our desired appearance cannot be mapped onto using a conventional pixel-based approach (middle column). Our method (right column) finds a different realization of the input texture which aligns red and beige elements with the yellow sign and dark elements with the forested part of the background. This results in easier mapping (overall lower pixel brightness in fig. \ref{fig:intro_results_teaser_stats_opt} compared to fig. \ref{fig:intro_results_teaser_pixels_opt}) and more faithful reproduction of the desired appearance}
+    \label{fig:intro_result_teaser}
+\end{figure}
 
 \section{Thesis Structure}
 \label{section:intro-thesis_structure}
 
-This thesis is organized as follows. In chapter \ref{chapter:background}, we provide an overview of the state of the art in projection mapping and texture synthesis and explain in detail the methods which we build on later on. In chapter \ref{chapter:methods}, we describe our method, its implementation and how each of the three experiments is constructed. In chapter \ref{chapter:results}, we present the results of the experiments and analyze them. Lastly, in chapter \ref{chapter:conclusions} we conclude the thesis and discuss future work.
+This thesis is organized as follows. In chapter \ref{chapter:background}, we provide an overview of the state of the art in projection mapping and texture synthesis and explain in detail the methods which we build on later on. In chapter \ref{chapter:methods}, we describe our method and its implementation. In chapter \ref{chapter:results}, we present the experiments and analyze their results. Lastly, in chapter \ref{chapter:conclusions} we conclude the thesis and discuss future work, particularly with respect to application in real-world projector-camera systems.
+
+\footnotetext{Source: \citet{Pixar128}, modified}

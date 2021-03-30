@@ -266,6 +266,10 @@ But what exactly is a texture and what kind of image modifications can be done w
 \subsection{Textures}
 \label{section:background-texture_synthesis-textures}
 
+{\color{red} TODO: mention the Texture Hypothesis by Julesz (texture is defined by 2nd order co-occuring stationary statistics) here}
+
+{\color{red} TODO: provide the deeper theory that used to be in the intro, but isn't anymore}
+
 What is a texture? \citet{Julesz1995}, a prominent visual neuroscientist of the 20th century, has defined textures as classes of images that cannot be discriminated in preattentive vision, i.e. by quickly glancing over them. This definition implies that any algorithm that claims to synthesize different textures of a given class can only be evaluated empirically. Work has gone into creating models that would describe what constitues a texture class and thus help in developing synthesis algorithms and evaluating them. No single model has, however, emerged as clearly superior thus far. Each synthesis method typically defines its own model and even if convergence under such a model is proved, the quality of the results is ultimately up to the observer.
 
 In general, two approaches to texture synthesis have emerged. One is inspired by \citet{Shannon1948} and his use of a Markov chain to generate English text. There, each letter is sampled from a probability distribution conditioned on \(n\) previous letters. The result is not precisely English text, but rather a "texture" of it. ({\color{red} TODO: show example?}) \citet{Efros1999} have built on this idea by introducing a way to synthesize textures pixel by pixel where each pixel is conditioned on the previous ones. \citet{Raad2018} call this approach \textit{patch re-arrangement} or \textit{patch-based texture synthesis}.
