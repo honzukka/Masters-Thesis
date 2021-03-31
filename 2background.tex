@@ -1,12 +1,13 @@
 \chapter{Background}
 \label{chapter:background} 
 
+As outlined in the introduction, in this thesis we present a novel method for the projection mapping of textures. Our method follows a different goal than conventional projection mapping algorithms -- instead of the matching camera image with the desired appearance pixel by pixel, we force the camera image and the desired appearance to be realizations of the same texture (see eq. \ref{eq:projection_mapping-statistics}). This gives us more flexibility and enables us to bypass some restrictions imposed on the camera image by the scene and projector hardware.
 
-Before we present our contributions, we provide an overview of the work of other researchers that we build on as well as an explanation of concepts that we use in later parts of the thesis. At the core of this chapter are the answers to the following questions:
+We do not build our method from scratch, however. Many necessary building blocks have been introduced by other researchers in various fields. In this section, we present the work we build on and explain all concepts that lie behind our approach. Specifically, at the core of this chapter are the answers to the following questions:
 
 \begin{itemize}
     \item How can we predict what an image will look like when projected onto a scene?
-    \item Given a texture image, how can we generate a different image that represents the same texture?
+    \item Given a texture, how can we generate new realizations of it?
 \end{itemize}
 
 The former question is part of the field of projection mapping, while the latter represents the field of texture synthesis.
@@ -19,27 +20,44 @@ In order to predict projection appearance, we first need to understand how proje
 \subsection{Projectors}
 \label{section:background-projection_mapping-projectors}
 
-Projectors are devices that transfer images onto backgrounds, such as screens, walls and other physical objects. The more traditional kind of projectors are film projectors, that shine a bright light through a film and a set of lenses. Nowadays, digital projectors are more common, but the core principle is the same.
+Projectors are devices that transfer images onto surfaces such as screens, walls and other physical objects. The more traditional kind of projectors are film projectors, that shine a bright light through a film and a set of lenses. Nowadays, digital projectors are more common, but the core principle of shining a bright light through a device is still the same.
 
-{\color{red} TODO: maybe a figure of a projector?}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/02-projector.jpg}
+    \caption{A projector is above all a light emitter. Source: \citet{ImageProjector}}
+    \label{fig:background_projector}
+\end{figure}
 
-As briefly mentioned in section \ref{section:intro-problem_setting}, there are limitations to the way projectors are constructed that have a large impact on how projection mapping is done. To get a better intuition of these limitations, we shall now explain how one type of digital projectors works. We will focus the so-called Digital Light Processing (DLP) projector which is widely used both in cinemas as well as home setups. Other common types of digital projectors are for example LCD or laser projectors.
+As briefly mentioned in section \ref{section:intro-problem_setting}, no projector is capable of reproducing arbitrary appearance. Each projector can only reproduce a subset of all possible colors, called the \textit{gamut}. Limited projector gamuts have a large impact on how projection mapping is done. To get a better intuition of this impact, we will now explain how a particular type of projector works. We will focus on the so-called Digital Light Processing (DLP) projector which is widely used in cinemas as well as home setups.
 
 \subsubsection{DLP Projectors}
 \label{section:background-projection_mapping-projectors-DLP}
 
-{\color{red} TODO: somehow cite the source here?}
-% https://en.wikipedia.org/wiki/Digital_Light_Processing
+Film projectors shine a bright light through film to project its contents onto a screen. But what happens when our movie is digital? What does a DLP projector shine its light through? And what impact does it have on its gamut?
 
-As mentioned in the previous paragraph, DLP projectors or principally the same as film projectors -- they have a bright lamp and a set of lenses that direct the light towards physical objects such as screens. Instead of film, however, they need a more complicated device that the light shines through to project an image.
+According to \citet{WikiDLP}, DLP projectors project images by filtering the bright white light of their lamp. First, the light goes through a rapidly spinning color wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the lamp passes through a single color filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image.
 
-DLP projectors project images by filtering the bright white light of the lamp. First, the light goes through a Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can either reflect light directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity is exactly between full and zero.
+Per-pixel intesities of this single-channel image which form its content are controlled by the Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can either reflect light from the color wheel directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity is exactly between full and zero.
 
-Next is color. After light passes though the DMD, it hits a rapidly spinning color wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the DMD passes through a single color filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image. Coordination with the DMD is therefore needed to send each channel at a specific intensity.
-
-{\color{red} TODO: multi-chip DLPs?}
-
-{\color{red} TODO: figure of how DLP projectors work}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-projector_dlp.jpg}
+        \caption{Source: \citet{ImageProjectorDLP}}
+        %\label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-projector_rainbow.JPG}
+        \caption{Source: \citet{ImageProjectorDLPRainbow}}
+        %\label{}
+    \end{subfigure}
+    \caption{Image a) shows how a DLP projector works. First, bright white light passes through the color wheel. Then it is reflected off the the DMD (red arrows) into either the lens (yellow arrow), or the heat sink (blue arrows). Image b) shows how a DLP projector with a single DMD chip sends out single channel images in rapid succession. This can result in artifacts which can be fixed by using a separate DMD chip for each primary color}
+    \label{fig:background_projector_dlp}
+\end{figure}
 
 \subsubsection{Hardware Limitations}
 \label{section:background-projection_mapping-projectors-limitations}
