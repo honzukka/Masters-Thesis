@@ -59,60 +59,160 @@ Per-pixel intesities of this single-channel image which form its content are con
     \label{fig:background_projector_dlp}
 \end{figure}
 
-\subsubsection{Hardware Limitations}
+\subsubsection{Gamut Limitations}
 \label{section:background-projection_mapping-projectors-limitations}
 
-Based on the way DLPs work, it is easy to see that the process of projecting an image is fairly inefficient and limiting, especially when it comes to the maximum brightness and minimum brightness (also known as black level) of a projector.
+Based on the way DLPs work, it is easy to see that the process of projecting an image is fairly inefficient since a bright white light is emitted at all times and based on the image being displayed a portion of it is sent into the heat sink and wasted. The main two limitations that result from this and that we are concerned with when projection mapping are limited maximum and minimum brightness.
 
-Maximum brightness is simply limited by the brightness of the lamp. The brighter the lamp, the more energy it consumes and the more energy is wasted when dark colors or blacks are being projected.
+Maximum brightness is simply limited by the brightness of the lamp. The brighter the lamp, the more energy it consumes and the less efficient it becomes when dark images are being projected.
 
-Minimum brightness is related to the ability of the projector to absorb light which is not reflected directly towards the lens. The more light is absorbed inside the projector, the more the projector heats up. This is why DLP projectors with deep blacks need to be large enough to cool themselves down efficiently. If a DLP projector is not able to absorb all the light, some of it is let through towards the screen and is visible as dim gray instead of black.
+Minimum brightness is related to the ability of the projector to absorb light which is not reflected directly towards the lens. The more light is absorbed inside the projector, the more the projector heats up. This is why DLP projectors with deep blacks need to be large enough to cool themselves down efficiently. If a DLP projector is not able to absorb all the light, some of it is let through towards the screen and results in dim gray instead of the intended black.
 
-Different projector technologies have different limitations. For example laser projectors are generally more efficient and brighter because they produce exactly the light color which is needed, as opposed to filtering out white light. But even laser projectors cannot be infinitely bright and even a projector which can produce true black color will not be able to project it onto scenes under external illumination.
+Different projector technologies have different limitations. For example, laser projectors are generally more efficient and brighter because they produce exactly the light color which is needed, as opposed to filtering out white light. But even laser projectors cannot be infinitely bright nor can they subtract light from externally illuminated scenes.
 
-An important thing to keep in mind when projecting onto screens, but especially crucial for projection mapping, is that it is impossible to reproduce arbitrary appearance. The less of a particular color a given background reflects, the more difficult it is to project that color onto it.
+Moreover, even if a particular color lies within the gamut of our projector, the scene that we are projecting onto might prevent us from reproducing that color faithfully. The study of how light interacts with matter to influence what we see around us is called the \textit{light transport theory}. We provide a brief introduction to it in order to understand what our projections look like and which colors are and are not reproducible with a particular scene and projector. But because this theory is rather complex, we begin by building intuition on what to roughly expect when we install a projector and press Play.
 
 \subsection{Intuition on Projection Appearance}
 \label{section:background-projection_mapping-projection_intuition}
 
-To study projection apperance rigorously, we need light transport theory which we present in the following section. First, however, we believe it is useful to provide the reader with an intuition on what to expect when we install a projector and press Play.
-
 The appearance of an object is given by the light it reflects. Light is the visible portion of electromagnetic radiation and consists of photons at various wavelengths. Wavelengths which human vision is sensitive to are approximately between 380 and 780 nm (\citet{PBRT3e}). Shorter wavelengths appear blue, middle ones are green and longer ones are red. Reflectance of an object is defined by the so-called \textit{spectral power distribution} (SPD) which describes what proportion of incoming light is reflected at each wavelength.
 
-{\color{red} TODO: figure of reflectance of lemon peel from PBRT}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-spd_fluorescent_light.png}
+        \caption*{}
+        %\label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-spd_lemon_peel.png}
+        \caption*{}
+        %\label{}
+    \end{subfigure}
+    \caption{Image a) shows the SPD of fluorescent light with power on the y-axis. Image b) shows the SPD of a lemon peel. Lemon peel is not an emitter hence the y-axis shows the proportion of wavelengths that are reflected off its surface. Source: \citet{PBRT3e}}
+    \label{fig:background_spd}
+\end{figure}
 
-Projectors are then nothing but light sources. As a matter of fact, each of the millions of tiny mirrors inside the DMD of a DLP projector can be thought of as a separate light source. Projector light has an SPD of its own, describing how much power it carries at each wavelength. When it interacts with a surface, something roughly corresponding to SPD multiplication takes place. If an objects does not reflect any light at 450 nm, all of it will be absorbed and will not reach our eyes.
+Projectors are above all light sources. As a matter of fact, each of the millions of tiny mirrors inside the DMD of a DLP projector can be thought of as a separate light source. Projector light has an SPD of its own, describing how much power it carries at each wavelength. When it interacts with a surface, something roughly corresponding to SPD multiplication takes place. If an object does not reflect any light at 450 nm, for example, all of it will be absorbed and will not reach our eyes. See fig. \ref{fig:background_spd_intuition} for examples of how projection interacts with various backgrounds.
 
-See figure for examples of how projection interacts with various backgrounds.
-
-{\color{red} TODO: figure of projection interacting with various backgrounds}
+\begin{figure}[ht]
+    \centering    
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_white.png}
+            \caption*{}
+            \label{fig:background_spd_intuition-white_white}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_red.png}
+            \caption*{}
+            \label{fig:background_spd_intuition-white_red}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_green.png}
+            \caption*{}
+            \label{fig:background_spd_intuition-white_green}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_blue.png}
+            \caption*{}
+            \label{fig:background_spd_intuition-white_blue}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_white.png}
+            \caption*{}
+            \label{fig:background_spd_intuition-palette_white}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_red.png}
+            \caption*{}
+            \label{fig:background_spd_intuition-palette_red}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_green.png}
+            \caption*{}
+            \label{fig:background_spd_intuition-palette_green}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_blue.png}
+            \caption*{}
+            \label{fig:background_spd_intuition-palette_blue}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{In the upper row, white light is projected onto a pure white, red, green and blue wall respectively. In the lower row, a color palette is projected onto the same backgrounds. Note that summing the last three images in each row gives the first one because each background has maximum reflectivity in one color channel and zero reflectivity in others. If a single-chip DLP projector were to project the first image, it would in fact send out the last three in rapid succession.}
+    \label{fig:background_spd_intuition}
+\end{figure}
 
 We will now study this process more carefully using light transport theory.
 
 \subsection{Light Transport Theory}
 \label{section:background-projection_mapping-light_transport}
 
-Light transport theory is the study of how things look. This depends on a number of variables, such as object geometry and materials, light sources and a point of view. The most common application of this theory can be found in rendering, for example of architectural visualizations or video games. There, a scene is given along with a camera view and the goal is to compute what is visible and how it looks. Our case is very similar. We have a scene with a projector (i.e. a light source) and our goal is to predict what the scene will look like from a point of view that focuses on the projection. Once we know that, we are only a step away from controlling the projection in a way that the scene looks exactly the way we want -- from projection mapping.
+Light transport theory is the study of how light interacts with matter -- how it travels through space, scatters in fog, reflects from surfaces, refracts in camera lenses and absorbs in black T-shirts in summer. One of the most common uses of light transport is in architectural visualizations (see fig. \ref{fig:background_light_transport_examples-rendering}) and video game and movie rendering. There, we are interested in the SPD that arrives at each pixel of a virtual camera given geometry, materials and light sources.
 
-In this section, we provide a brief overview of light transport theory. For a more comprehensive coverage, we refer the reader to our source, Physically Based Rendering: From Theory to Implementation by \citet{PBRT3e}.
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.56\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-rendering.jpg}
+        \caption{Source: \citet{ImageRendering}}
+        \label{fig:background_light_transport_examples-rendering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.42\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/01-procam.png}
+        \caption{Source: \citet{Grossberg2004}}
+        \label{fig:background_light_transport_examples-procam}
+    \end{subfigure}
+    \caption{Image a) is an architectural visualization which uses light transport theory to solve the following problem: Given scene geometry, materials and light sources and camera position, what will the camera see? Image b) is a projector-camera system calibration from section \ref{section:intro-problem_setting} and asks: Given what the camera sees when various patterns are projected onto the scene, what can we say about the geometry and materials of the scene?}
+    \label{fig:background_light_transport_examples}
+\end{figure}
+
+In this section, we provide a brief overview of light transport theory and explain how it can be used in projection mapping. For a more comprehensive coverage, we refer the reader to Physically Based Rendering: From Theory to Implementation by \citet{PBRT3e}.
 
 \subsubsection{Radiance}
 \label{section:background-projection_mapping-light_transport-radiance}
 
-As mentioned in \ref{section:background-projection_mapping-projection_intuition}, all we see is light. Measuring light is therefore the crux of understanding how things look. The fundamental quantity we are interested in is \textit{radiance}. It is defined as the amount of photons \(Q\) per unit projected area \(A^\perp \) per unit solid angle \(\omega\) per unit of time \(t\):
+As mentioned in \ref{section:background-projection_mapping-projection_intuition}, all we see is light. Measuring light is therefore the crux of understanding how things look. The fundamental quantity we are interested in when measuring light is \textit{radiance}. It is defined as the amount of photons \(Q\) per unit projected area \(A^\perp \) per unit solid angle \(\omega\) per unit of time \(t\) (see fig. \ref{fig:background_radiance}):
 
 \begin{equation}
     \label{eq:radiance}
     L = \frac{dQ}{dA^\perp d\omega dt}
 \end{equation}
 
-{\color{red} TODO: figure of radiance}
+\begin{figure}[ht]
+    \centering
+    \def\svgwidth{0.8\textwidth}
+    \input{images/figures/02-radiance.pdf_tex}
+    \caption{Illustration of radiance which is defined as the amount of photons \(Q\) per unit projected area \(A^\perp \) per unit solid angle \(\omega\) per unit of time \(t\)}
+    \label{fig:background_radiance}
+\end{figure}
 
-{\color{red} TODO: mention that radiance is wavelength-dependent and how this is handled in our equations?}
+As suggested in fig. \ref{fig:background_spd}, to see the full picture, we need to consider radiance at each visible wavelength. A common approach to simplifying this is decompose the space of all visible SPDs into three basis functions which roughly correspond to red, green and blue colors. In that case, we would be interested in radiance in each of these channels. To simplify our explanations even further, we only talk about radiance \(L\). It is, however, important to realize that there is a layer of complexity hidden behing that notation.
 
-{\color{red} TODO: mention luminance?}
+Another issue with radiance is that it is a purely physical quantity while how we perceive something is to do with psychology. Luckily, for each radiometric measurement, such as radiance, there is a corresponding \(photometric\) measurement which expresses how a stimulus is perceived by the human visual system. The photometric counterpart to radiance is \(luminance\) and can be obtained from radiance by integrating against an empirically constructed spectral response curve which describes how the human eye reacts to various wavelengths. Because luminance can be easily computed from radiance, we only discuss radiance in this thesis.
 
-We will now present the relationship between objects, light sources and the radiance incoming onto our camera sensor or eye retina. This relationship is called the \textit{rendering equation}.
+We will now present the relationship between objects, light sources and the radiance incoming onto our camera sensor or eye retina. This relationship sits at the heart of light transport theory and is called the \textit{rendering equation}.
 
 \subsubsection{Rendering Equation}
 \label{section:background-projection_mapping-light_transport-rendering_equation}
@@ -128,16 +228,20 @@ The rendering equation describes the amount of outgoing radiance from point \(x\
 
 where \(L(x \leftarrow \mathbf{u})\) is the radiance arriving at \(x\) from direction \(\mathbf{u}\), \(\Omega(x)\) is the hemisphere oriented to the direction of the surface normal at \(x\), \(f_r\) is the spatially-varying bidirectional reflectance distribution function (SVBRDF) which determines surface reflectance for each point \(x\), incoming direction \(\mathbf{u}\) and outgoing direction \(\mathbf{v}\), and \(\theta\) is the angle between \(u\) and the surface normal at \(x\). Finally, \(E(x \rightarrow \mathbf{v})\) is the radiance emitted from \(x\) towards \(\mathbf{v}\) in case \(x\) lies on a light source.
 
-The main idea of the equation is that radiance leaving towards \(\mathbf{v}\) from \(x\) is the sum of reflected and emitted radiance. It assumes empty space between objects, therefore no light scattering occurs between them. This means that radiance is constant along straight lines and the equation is recursive -- \(L(x \leftarrow \mathbf{u}) = L(y \rightarrow -\mathbf{u})\) where \(y\) is the point seen from \(x\) in the direction of \(\mathbf{u}\).
+The main idea of the equation is that radiance leaving towards \(\mathbf{v}\) from \(x\) is the sum of reflected and emitted radiance. It assumes empty space between objects, therefore no light scattering occurs between them. This means that radiance is constant along straight lines and the equation is recursive -- \(L(x \leftarrow \mathbf{u}) = L(y \rightarrow -\mathbf{u})\) where \(y\) is the point seen from \(x\) in the direction of \(\mathbf{u}\). Generalizations of the rendering equation to scenes with participating media where this is not the case are discussed in a SIGGRAPH course by \citet{Novak2018}.
 
-Apart from assuming that our objects are in vacuum, the equation also assumes that light is reflected from the same point it arrived at. This is generally not the case as can be seen for example with human skin where light under the surface before it is reflected. Both subsurface scattering and participating media are handled in modern renderers which generalize the rendering equation to account for these phenomena ({\color{red} TODO: reference papers that do that?}). For our purposes, however, it is sufficient to be familiar with the basic form of the rendering equation.
+Apart from assuming that our objects are in vacuum, the equation also assumes that light is reflected from the same point it arrived at. This is generally not the case as can be seen for example with human skin where light bounces under the surface before it is reflected. This phenomenon is known as \textit{subsurface scattering} and a generalization of the rendering equation to account for it has been presented for example by \citet{Jensen2001}. For our purposes, however, it is sufficient to be familiar with the basic form of the rendering equation.
+
+To determine the amount of radiance that hits a virtual camera sensor in scenes such as fig. \ref{fig:background_light_transport_examples-rendering}, we need to solve the rendering equation for points that lie on the sensor and directions towards points in the scene that are visible from the sensor. This is typically done by Monte Carlo integration which estimates the integral by random sampling. Each sample is a light path from a light source towards the camera with zero or more bounces on the surfaces of the scene. A strategy to choose such samples is crucial to the performance of a rendering algorithm. A brilliant overview of sampling strategies, for example bidirectional path tracing (BDPT) can be found in \citet{Veach1997}.
 
 \subsubsection{Towards Projection Mapping}
 \label{section:background-projection_mapping-light_transport-towards_projection_mapping}
 
-What is the difference between rendering and projection mapping and what makes projection mapping so challenging? In rendering, Monte Carlo integration is often use to solve the rendering equation and thus determine the amount of radiance reflected towards the camera. Scene geometry, materials and the positions and properties of light sources are known ({\color{red} TODO: figure?}). In projection mapping, we do know the amount of radiance that is reflected towards the camera -- it is our desired appearance of the scene. However, everything else is unknown. From scene geometry and materials to the source of the radiance -- the projection image ({\color{red} TODO: figure?}).
+In a sense, projection mapping is a more difficult problem than rendering. Whereas in rendering, the scene geometry, materials and light sources are known and the unknown is the radiance at the camera sensor, in projection mapping we only know the radiance at the camera sensor and everything else, including the projection image -- our light source -- is unknown.
 
-Projection mapping algorithms therefore do not typically solve the full light transport of the whole scene, but instead they build on top of assumptions, such as ({\color{red} TODO: 1-2 assumptions}), and provide estimates. We shall now review some of the common approaches to projection mapping found in state-of-the-art methods.
+{\color{red} TODO: figure that compares rendering to projection mapping}
+
+Projection mapping algorithms therefore do not typically solve the full (inverse) light transport of the whole scene, but instead they build on top of assumptions and provide estimates. Common assumptions are for example known relationship between the projector and camera orientation, no glossy surfaces whose appearance depends on view point or that each pixel of the projector image influences only one pixel of the camera image. We shall now review some common approaches to projection mapping found in state-of-the-art methods.
 
 \subsection{Projector-Camera Systems}
 \label{section:background-projection_mapping-procams}
