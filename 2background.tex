@@ -72,6 +72,8 @@ Different projector technologies have different limitations. For example, laser 
 
 Moreover, even if a particular color lies within the gamut of our projector, the scene that we are projecting onto might prevent us from reproducing that color faithfully. The study of how light interacts with matter to influence what we see around us is called the \textit{light transport theory}. We provide a brief introduction to it in order to understand what our projections look like and which colors are and are not reproducible with a particular scene and projector. But because this theory is rather complex, we begin by building intuition on what to roughly expect when we install a projector and press Play.
 
+{\color{red} TODO: DoF and the thin lens model? (also a limitation that's relevant for us) also pinhole!}
+
 \subsection{Intuition on Projection Appearance}
 \label{section:background-projection_mapping-projection_intuition}
 
@@ -237,31 +239,39 @@ To determine the amount of radiance that hits a virtual camera sensor in scenes 
 \subsubsection{Towards Projection Mapping}
 \label{section:background-projection_mapping-light_transport-towards_projection_mapping}
 
-In a sense, projection mapping is a more difficult problem than rendering. Whereas in rendering, the scene geometry, materials and light sources are known and the unknown is the radiance at the camera sensor, in projection mapping we only know the radiance at the camera sensor and everything else, including the projection image -- our light source -- is unknown.
+In a sense, projection mapping is a more difficult problem than rendering. Whereas in rendering, the scene geometry, materials and light sources are known and the radiance at the camera sensor is unknown, in projection mapping we only know the radiance at the camera sensor and everything else, including the projection image (our light source), is unknown.
 
 {\color{red} TODO: figure that compares rendering to projection mapping}
 
-Projection mapping algorithms therefore do not typically solve the full (inverse) light transport of the whole scene, but instead they build on top of assumptions and provide estimates. Common assumptions are for example known relationship between the projector and camera orientation, no glossy surfaces whose appearance depends on view point or that each pixel of the projector image influences only one pixel of the camera image. We shall now review some common approaches to projection mapping found in state-of-the-art methods.
+Projection mapping algorithms therefore do not typically solve the full (inverse) light transport of the whole scene, but instead they build on top of assumptions and provide estimates. Common assumptions are for example
+
+\begin{itemize}
+    \item A known relationship between the projector and camera orientation
+    \item Absence of glossy surfaces whose appearance depends on view point
+    \item A 1:1 correspondence between projector and camera pixels, meaning that each pixel of the camera image is influenced by only one projector pixel. Note that this does not hold for example in scenes with convex geometry where light from multiple projector pixels is concentrated into a single camera pixel
+\end{itemize}
+
+We will now review some common approaches to projection mapping found in state-of-the-art methods. Our goal is to use this information to construct a reference method that we can implement in our projector-camera system simulator and use in experiments to compare our proposed projection mapping method against.
 
 \subsection{Projector-Camera Systems}
 \label{section:background-projection_mapping-procams}
 
 The key idea in projection mapping is to use a camera to observe the projection and provide information on how to adapt it to achieve desired appearance. This system as a whole is called the \textit{projector-camera system}, commonly shortened as \textit{procam}.
 
-As mentioned in section \ref{section:background-projection_mapping-light_transport-towards_projection_mapping}, general projection mapping, or solving full light transport in a scene where the only known quantity is radiance arriving at the camera sensor, is very challenging and simplifying assumptions are therefore needed to make the problem tractable. One such assumption is that each camera pixel is influenced by exactly one projector pixel, or at most by a small neighborhood around that pixel. Although this is not the case for example when light bounces around the scene multiple times, methods that use this assumption are reasonably general.
+As mentioned in eq. \ref{eq:projection_mapping-per_pixel}, this adaptation is done by modifying the projector image until the camera image matches the desired appearance pixel by pixel. However, the relationship between projector and camera pixels is very complex, as suggested in section \ref{section:background-projection_mapping-light_transport} on light transport theory. The model of this relationship is the main differentiating factor of various projection mapping methods.
 
-Methods that assume 1:1 pixel correnpodencies between camera and projector are usually split into two parts: \textit{geometric calibration} and \textit{radiometric calibration}. The goal of geometric calibration is to determine those correspondencies. Once we know which projector pixels affect which camera pixels, and therefore the pixels of our desired appearance, we need to find our \textit{how} they affect them. This is done using radiometric calibration which determines the relationship between the intensities of each pair of corresponding projector and camera pixels.
-
-{\color{red} TODO: doesn't this implicitly require per-pixel matching? investigate and explain the consequences this would have for our method!}
-
-Methods that try to account for global illumination effects typically use different assumptions to make the problem tractable, for example that a scene can only be composed of Lambertian objects of constant color ({\color{red} TODO: cite example (Siegl, 17?)}). Those that do attempt to solve general light transport take several hours to calibrate provide only an approximate solution which can only account for some global illumination effects ({\color{red} TODO: cite example (Wetzstein, 07)}).
-
-We will now briefly cover a few methods that rely on geometric and radiometric calibration and one method that attempts to solve general light transport. For a complete overview of the state of the art in projection mapping, see \citet{Grundhofer2018}. We have chosen the methods we are about to describe for the following reasons:
+On a high level, projection mapping methods can be split into two groups:
 
 \begin{itemize}
-    \item To show that even the latest methods working in simplified scenarios without global illumination effects are severly limited by projector hardware
-    \item To show how general light transport can be solved with procams what the challenges when taking this approach are ({\color{red} TODO: tie it together with the LT matrix stuff you're doing later on})
+    \item Those that assume a 1:1 correspondence between projector and camera pixels
+    \item Those that do not and instead attempt to solve general light transport in the whole scene
 \end{itemize}
+
+The first group usually has two smaller tasks to perform. First, they need to establish those correspondencies geometrically in a step called \textit{geometric calibration}. Then, they need to model how the intensity of a projector pixel affects the intensity of the corresponding camera pixel in a step called \textit{radiometric calibration}. Despite the original assumption of 1:1 pixel correspondence, these methods are reasonably general and work quite well. They are also the most common. We will therefore review a few of them and focus on how projector hardware (along with scene complexity) limits their performance.
+
+The second group typically uses \textit{inverse light transport} to model the relationship between projector and camera as generally as possible. These methods are mostly limited by the computational complexity of such a task. Some, for example \citet{Siegl2017}, achieve real time performance at the cost of using an additional depth camera to gain more information about the scene and projecting only on matte objects of constant color. We will focus on an older method by \citet{Wetzstein2007} that works with arbitrarily complex scenes and will thus be useful for us when constructing our reference method.
+
+For a complete overview of the state of the art in projection mapping, see \citet{Grundhofer2018}.
 
 \subsubsection{Geometric Calibration}
 \label{section:background-projection_mapping-procams-geometric_calibration}
@@ -273,11 +283,12 @@ The relationship between \(M_c\) and \(P\) is determined by the \textit{intrinsi
 \begin{equation}
     \label{eq:camera_equation}
     \begin{bmatrix}
-        M_c \\
+        u_c \\
+        v_c \\
         1
     \end{bmatrix} =
     \begin{bmatrix}
-        f_x & c & u \\
+        f_x & s & u \\
         0 & f_y & v \\
         0 & 0 & 1 
     \end{bmatrix} \cdot
@@ -285,68 +296,146 @@ The relationship between \(M_c\) and \(P\) is determined by the \textit{intrinsi
         \mathbf{R} & \mathbf{t}
     \end{bmatrix} \cdot
     \begin{bmatrix}
-        P \\
-        1
+        x \\
+        y \\
+        z
     \end{bmatrix}
 \end{equation}
 
-{\color{red} TODO: fix the matrix, so that the dimensions check out}
+where the intrinsic matrix is formed by camera focal lengths \(f_x\) and \(f_y\) (focal length is expressed in pixels and if pixels are square, then \(f_x = f_y = f\)), skewness \(s\) of image axes, and principal point coordinates \([u, v]^T\) (the intersection of optical axis and image plane which is generally not in the center of the image). The extrinsic matrix is then formed by rotation \(\mathbf{R}\) and translation \(\mathbf{t}\) which convert between world coordinates and camera coordinates. See fig. \ref{fig:background_camera_calibration} for an illustration.
 
-where the intrinsic matrix is formed by camera focal lengths \(f_x\) and \(f_y\) (there are two focal lengths because they are expressed in camera pixels which are generally rectangular), skewness \(c\) of image axes, and principal point coordinates \([u, v]^T\) (the intersection of optical axis and image plane which is generally not in the center of the image). The extrinsic matrix is then formed by rotation \(\mathbf{R}\) and translation \(t\) which convert between world coordinates and camera coordinates.
+\begin{figure}[ht]
+    \centering
+    \def\svgwidth{0.8\textwidth}
+    \input{images/figures/02-camera_calibration.pdf_tex}
+    \caption{Illustration of geometric calibration of projector and camera. Points \(M_c\) and \(M_p\) on camera and projector image plane, respectively, are related via a point \(P\) in the scene. \(f\) is the focal length which is the distance between pinhole and principle point and \(u\) and \(v\) are principle point coordinates with respect to image plane origin}
+    \label{fig:background_camera_calibration}
+\end{figure}
 
-The most commonly used method for finding the parameters of \ref{eq:camera_equation} was introduced by \citet{Zhang1999}. They are estimated by taking at least two photos of a planar pattern at various orientations.
+The most commonly used method for finding the parameters of eq. \ref{eq:camera_equation} was introduced by \citet{Zhang1999}. They are estimated by taking at least two photos of a planar pattern at various orientations.
 
 We will now outline two recent methods to perform geometric calibration. The first one requires user assistance, while the second one is fully automatic.
 
-\textbf{One camera, one projector and a calibration board.} The first method, introduced by \citet{Yang2016}, uses a calibration board containing a random dot pattern. First, the camera is calibrated using the approach of \citet{Zhang1999}. Then the projector is calibrated by projecting another dot pattern onto the board using the inverse camera method. The whole process needs around 10 views of the calibration board according to experiments in the paper.
+\textbf{One camera, one projector and a calibration board.} The first method, introduced by \citet{Yang2016}, uses a calibration board containing a random dot pattern. First, the camera is calibrated using the approach of \citet{Zhang1999}. Then the projector is calibrated by projecting another dot pattern onto the board and treating the projector as an inverse camera. The whole process needs around 10 views of the calibration board according to experiments in the paper.
 
 \textbf{Two cameras, one projector.} An entirely automatic self-calibration method was presented by \citet{Willi2017}. Their method first establishes pixel correspondencies between the two cameras and then continues to estimate the intrinsic and extrinsic matrix, as well as the 3D point cloud of the scene. Finally, the projector is calibrated using this information. It is worth noting that this method works also for any larger number of projectors and cameras in which case camera pairs are sorted by the quality of their pixel correspondencies. Calibration is first done for the best pair and other devices are incorporated iteratively, improving the overall estimate.
-
-Both methods work only on static scenes and take several minutes to complete. Real time methods also exist, but those usually rely on some prior knowledge about scene geometry ({\color{red} TODO: find example}) or on time-consuming pre-calibration followed by incremental updates ({\color{red} TODO: find example}).
-
-{\color{red} TODO: assumptions on diffuse surfaces that make the correspondencies 1:1?}
 
 \subsubsection{Radiometric Calibration}
 \label{section:background-projection_mapping-procams-radiometric_calibration}
 
-Once correspondencies between projector and camera pixels have been established using one of the methods described in section \ref{section:background-projection_mapping-procams-geometric_calibration}, radiometric calibration can be performed. In general, the goal is to find a color-mapping function \(f\) such that
+Once correspondencies between projector and camera pixels have been established, radiometric calibration can be performed. In general, the goal is to find a color-mapping function \(f\) such that
 
 \begin{equation}
     \label{eq:radiometric_calibration}
-    c_c = f(c_p)
+    \begin{bmatrix}
+        C_R \\
+        C_G \\
+        C_B
+    \end{bmatrix} = f(
+        \begin{bmatrix}
+            P_R \\
+            P_G \\
+            P_B
+        \end{bmatrix}
+    )
 \end{equation}
 
-where \(c_c\) is the color of a camera pixel and \(c_p\) is the color of the corresponding projector pixel. We describe one method that assumes \(f\) to be linear and one method that allows for arbitrary \(f\).
+where \(C\) is the color of a camera pixel and \(P\) is the color of the corresponding projector pixel. We describe one method that assumes \(f\) to be linear and one method that allows for arbitrary \(f\).
 
 \textbf{Linear color-mapping function.} One of the first projection mapping methods was presented by \citet{Grossberg2004}. There, the relationship between \(c_c\) and \(c_p\) is specified as follows:
 
 \begin{equation}
     \label{eq:linear_color_mapping}
-    c_c = p_c(V p_p(c_p) + F)
+    \begin{bmatrix}
+        C_R \\
+        C_G \\
+        C_B
+    \end{bmatrix} = p_c(
+        \begin{bmatrix}
+            V_{RR} & V_{RG} & V_{RB} \\
+            V_{GR} & V_{GG} & V_{GB} \\
+            V_{BR} & V_{BG} & V_{BB}
+        \end{bmatrix} \cdot p_p(
+            \begin{bmatrix}
+                P_R \\
+                P_G \\
+                P_B
+            \end{bmatrix}
+        ) +
+        \begin{bmatrix}
+            F_R \\
+            F_G \\
+            F_B
+        \end{bmatrix}
+    )
 \end{equation}
 
-where \(p_p\) is a non-linear projector response function which turns input pixel values into projector brightness, \(p_c\) is a non-linear camera response that converts radiance arriving at the camera sensor to an output pixel value, \(F = [F_R, F_G, F_B]\) is the environment light term which is independent of the projector, and finally \(V\) is a \(3 \times 3\) color mixing matrix which captures the relationship between projector and camera channels and their interactions with spectral reflectance.
-
-{\color{red} TODO: tidy up the notation}
+where \(p_p\) is a non-linear projector response function which turns input pixel values into projector brightness, \(p_c\) is a non-linear camera response that converts radiance arriving at the camera sensor to output pixel value, \(F = [F_R, F_G, F_B]^T\) is the environment light term which is independent of the projector, and finally \(V\) is a \(3 \times 3\) color mixing matrix which captures the relationship between projector and camera channels and their interactions with spectral reflectance.
 
 Both \(p_p\) and \(p_c\) are independent of the scene and can be estimated separately. \(V\) and \(F\) are per-pixel and scene-dependent and can be estimated by projecting and capturing 6 calibration images.
 
-The disadvantage of this method are that the linear color mixing matrix is not an accurate model for example when using DLP projectors described in section \ref{section:background-projection_mapping-projectors-DLP}. DLP projectors sometimes form an image by composing red, green, blue and white channels together. The extra white channel may result in non-linear behavior. Another disadvantage is that if the color gamut of the projector struggles to reproduce color required by the compensation model, it results in clipping artifacts and lowered contrast {\color{red} TODO: verify this precisely}.
+The disadvantage of this method is that the linear color mixing matrix is not an accurate model for example when using DLP projectors described in section \ref{section:background-projection_mapping-projectors-DLP}. DLP projectors sometimes form an image by composing red, green, blue and white channels together. The extra white channel may result in non-linear behavior. Another disadvantage is related to projector brightness limitations. If the color gamut of the projector struggles to reproduce the color required by the compensation model, it results in clipping artifacts and lowered contrast. See fig. \ref{fig:background_clipping} for an illustration.
 
-\textbf{Non-linear color-mapping function with a global optimization step.} To solve these problems, \citet{Grundhofer2015} presented an improved method which allows for an arbitrary color-mixing function. This function is estimated by obtaining up to \(6^3\) samples and then applying thin-plate spline interpolation on these samples. This sampling process takes several minutes but once it is completed, compensation can be performed in real time.
+\begin{figure}[ht]
+    \centering
+    \def\svgwidth{0.6\textwidth}
+    \input{images/figures/02-clipping.pdf_tex}
+    \caption{Illustration of reduced contrast due to brightness limitations. Projector gamut is delimited by a triangle. If a compensation model requires a color which is outside the triangle, the closes color on the edge of the triangle is projected instead. Colors inside the triangle are projected as required which results in reduced contrast between the two groups}
+    \label{fig:background_clipping}
+\end{figure}
 
-On top of that, the paper also introduces an important idea ({\color{red} TODO: it has been used before, though\dots}) of content-based projection image compensation. This is a separate step which can also take several minutes and consists of optimizing per-pixel (or per-patch) coefficients which scale the final luminance values of the image. The goal of this optimization is to minimize clipping errors cause by limited color gamut of the projector and overall increase image contrast.
+\textbf{Non-linear color-mapping function with a global optimization step.} To solve these problems, \citet{Grundhofer2015} presented an improved method which allows for an arbitrary color-mixing function. This function is estimated by obtaining up to \(6^3\) samples and then applying thin-plate spline interpolation on them. This sampling process takes several minutes but once it is completed, compensation can be performed in real time.
 
-As a result, this method achieves very good results in scenes which have minimal inter-reflection that cannot be modeled when 1:1 correspondence between projector and camera pixels is assumed. The idea of the global optimization step is also very important for our thesis because it suggests that algorithms that try to optimize the L2 distance between camera image and desired appearance do not always yield the best-looking results.
+Moreover, the paper acknowledges that the contrast issues stem from the way the camera image is matched with the desired appearance pixel by pixel (see eq. \ref{eq:projection_mapping-per_pixel}). To fix this, it uses a global optimization step which compensates the image based on its higher level content. In this step, a patch size is chosen (typically \(2^n\) pixels) and a color-correcting coefficient is introduced for each patch. The coefficients are set so as to minimize clipping errors caused by limited color gamut of the projector and overall increase image contrast.
 
-{\color{red} TODO: modify the intro to the thesis to make it clear that content-based compensation is an old idea as such}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/02-grundhofer_result_compressed.jpg}
+    \caption{Results of a projection mapping method by \citet{Grundhofer2015}. (a) original input image. (e) non-uniformly colored projection surface (illuminated  uniformly white). (b) captured projection of (a) on (e). (c) captured  projected  compensation  image shows local clipping errors. (d) reduced clipping errors after applying a global optimization step. (f-h) geometrically warped projection images generating camera images (b-d). Source: \citet{Grundhofer2015}}
+    \label{fig:background_grundhofer_result}
+\end{figure}
+
+As a result, this method achieves very good results in scenes which have minimal inter-reflection that cannot be modeled when 1:1 correspondence between projector and camera pixels is assumed (see fig. \ref{fig:background_grundhofer_result}). The idea of the global optimization step is important because goes in the same direction as our method -- compensating the projection image not pixel by pixel, but based on higher-level content instead.
 
 \subsubsection{Inverse Light Transport}
 \label{section:background-projection_mapping-procams-inverse_lt}
 
-If the goal of light transport is to compute what a scene looks like based on its illumination (among other things), then the goal of inverse light transport is to compute how a scene is illuminated based on what it looks like. This is the most general formulation of the projection mapping problem since it does not split the problem into geometric calibration and radiometric calibration, but instead looks at it as a whole.
+Another approach to projection mapping that does not rely on the assumption of 1:1 correspondence between projector and camera pixels is so-called inverse light transport. The basic idea behind this approach is that radiance incoming onto camera sensor is a linear function of light sources in the scene. This can be derived directly from the rendering equation (see eq. \ref{eq:rendering_equation}) and practical examples can be seen in fig. \ref{fig:background_linear_lt}.
 
-\citet{Wetzstein2007} present a method for projection compensation via inverse light transport. They start from the observation that light transport is linear. This means that if there are two light sources in a room and two photos of it were taken, one with only one light on and the other with only the other light on, then taking a linear combination of the photos would yield a correct photo of the room with the same combination of the two lights on ({\color{red} TODO: figure would be nice, also better worded sentence would help. derive it from the rendering equation maybe?}). As a consequence, light transport can be determined by a matrix \(A\):
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-linear_lt_light01.jpg}
+        \caption*{\(a = 1.0\), \(b = 0.0\)}
+        %\label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-linear_lt_light02.jpg}
+        \caption*{\(a = 0.0\), \(b = 1.0\)}
+        %\label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-linear_lt_comb.jpg}
+        \caption*{\(a = 1.0\), \(b = 1.0\)}
+        %\label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-linear_lt_comb2.jpg}
+        \caption*{\(a = 0.5\), \(b = 2.0\)}
+        %\label{}
+    \end{subfigure}
+    \caption{Demonstration of the linearity of light transport. The scene displayed here has two light sources: on the ceiling and in the back corner. This means that its light transport can be captured using two basis images \(x_1\) and \(x_2\). Each of the above images was then created using a linear combination of the basis images: \(a \cdot x_1 + b \cdot x_2\)}
+    \label{fig:background_linear_lt}
+\end{figure}
+
+As a consequence, radiance incoming onto a given camera sensor can be determined by the \textit{light transport (LT) matrix} \(A\):
 
 \begin{equation}
     \label{eq:lt_matrix}
@@ -361,20 +450,27 @@ If the goal of light transport is to compute what a scene looks like based on it
 
 where \(m\) is the number of light sources in a scene, \(n\) is the number of pixels in the camera sensor and \(c_{ij}\) is the value of the \(j\)-th pixel of an image that was rendered with only the \(i\)-th light source turned on. By taking a linear combination of the columns of the matrix it is then possible to obtain an image rendered by the corresponding combination of light sources.
 
-In projection mapping, this matrix is usually extremely large because \(n\) corresponds to camera resolution and \(m\) corresponds to projector resolution. In colorful images, each \(c_{ij}\) is then a 3-dimensional vector. The two main challenges are therefore to
+In projection mapping, this matrix is usually extremely large because \(n\) corresponds to camera resolution and \(m\) corresponds to projector resolution. Also, in colorful images, each \(c_{ij}\) is a 3-dimensional vector. The two main challenges are therefore
 
-\begin{enumerate}
-    \item Capture the matrix
-    \item Obtain its inverse
-\end{enumerate}
+\begin{itemize}
+    \item Capturing the matrix
+    \item Obtaining its inverse
+\end{itemize}
 
-In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. There exist several methods to capture the light transport matrix, such as ({\color{red} TODO: examples}). Most of these methods use the fact that the matrix is very sparse in practice. In fact, the less inter-reflection there is in a scene, the sparser the matrix is. \citet{Wetzstein2007} use ({\color{red} TODO: cite the method they use}) which can still take up to several hours. Moreover, the matrix has to be captured again when the scene or projector position changes.
+In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. While it would be possible to project a different basis that is detectable by a camera, such a process would still be very time consuming. Methods for light transport capture usually rely on the fact that the LT matrix is often very sparse. In fact, the less inter-reflection there is in a scene, the sparser the matrix is. One example of a method that reconstructs the matrix using a limited number of samples is \citet{Peers2009}. Using that method it is possible to capture a matrix with \(m = 128^2\) using 991 measurements.
 
-It is also practically impossible to invert such a large matrix. \citet{Wetzstein2007} therefore estimate its pseudo-inverse. The drawback of this approach is that some global illumination illumination information is lost, such as projector defocus, and therefore the compensation is not accurate.
+Inverting the matrix (or, more precisely, obtaining its pseudo-inverse because it is not generally square) is also practically impossible due to the size of the matrix. The solution is again to use the sparsity of the matrix to arrive at an estimate.
 
-The benefit of this method is, however, that it does not make any assumptions about surface material and works well even with glass and mirrors which are impossible to project on using other methods.
+For example, \citet{Wetzstein2007} use the inverse light transport approach to implement a projection mapping method which works with arbitrary scenes and also compensates projector defocus which previously mentiones methods ignored. The drawbacks of this method are several hours long matrix acquisition process (during and after which the scene needs to stay static) and also the loss of some global illumination effects caused by estimates of both the LT matrix and its pseudo-inverse. Example results can be seen in fig. \ref{fig:background_wetzstein_result}.
 
-({\color{red} TODO: bridge to synthesis? also, why did you talk about this method?})
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/02-wetzstein_result_compressed.jpg}
+    \caption{Results of a projection mapping method by \citet{Wetzstein2007}. A wine glass in front of a colored wallpaper (a). The light transport matrix’s (b) pseudo-inverse (c, background) is approximated with a clustering scheme and allows a real-time compensation for displaying interactive content and movies (c) - from an angle (d), compensated with a conventional method (e) and with inverse light transport (f). Source: \citet{Wetzstein2007}}
+    \label{fig:background_wetzstein_result}
+\end{figure}
+
+This concludes the section on projection mapping which was aiming to explain how to predict what an image will look like when projected onto a scene. We now move on to the second topic that our method builds on. This time we focus on what a texture is and how to generate new realizations of a given texture sample.
 
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}
