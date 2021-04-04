@@ -212,7 +212,7 @@ Figure \ref{fig:intro_pixels_vs_stats} shows images \(y_1\) and \(y_2\) where th
             \label{fig:intro_pixels_vs_stats-stats_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{Two examples of projection mapping: failure (top row) and success (bottom row). Both examples follow the formula in eq. \ref{eq:projection_mapping-per_pixel} and both have the same scene (background) and projector. The only difference is the desired appearance. Leftmost column shows the desired appearance, middle-left column shows the background, middle-right column shows the compensated projection image and rightmost column shows the camera image.}
+    \caption{Two examples of projection mapping: failure (top row) and success (bottom row). Both examples follow the formula in eq. \ref{eq:projection_mapping-per_pixel} and both have the same scene (background) and projector. The only difference is the desired appearance. Leftmost column shows the desired appearance, middle-left column shows the background, middle-right column shows the compensated projection image and rightmost column shows the camera image. Texture source: \citet{Gatys2015}, modified}
     \label{fig:intro_pixels_vs_stats}
 \end{figure}
 
@@ -251,7 +251,7 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
 
 \begin{itemize}
     \item We reformulate the recipe of projection mapping as described in eq. \ref{eq:projection_mapping-per_pixel} to accommodate it better to the projection mapping of textures. Our proposed recipe is described in section \ref{section:intro-key_idea}
-    \item Our recipe needs a texture model (referred to as function \(f\) in section \ref{section:intro-key_idea}) which would determine the extent to which two different image are realizations of the same texture. We survey the field of \textit{texture synthesis} (state-of-the-art report by \citet{Raad2018}) and integrate a modified version of a powerful neural-based texture model by \citet{Gatys2015} into our method
+    \item Our recipe needs a \textit{texture model} (referred to as function \(f\) in section \ref{section:intro-key_idea}) which would determine the extent to which two different image are realizations of the same texture. We survey the field of \textit{texture synthesis} (state-of-the-art report by \citet{Raad2018}) and integrate a modified version of a powerful neural-based texture model by \citet{Gatys2015} into our method
     \item We simulate a projector-camera system in software and implement our method on top of the simulation. It consists of an optimization algorithm that solves eq. \ref{eq:projection_mapping-statistics} in PyTorch
     \item We guide the reader through three experiments whose aim is to evaluate the three key components of our proposed method. Here are the components and a brief summary of the related experiments:
     \begin{enumerate}
@@ -268,7 +268,7 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
         \begin{subfigure}{0.3\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-results_teaser-target.jpg}
-            \caption{Desired appearance\footnotemark}
+            \caption{Desired appearance}
             \label{fig:intro_results_teaser_target}
         \end{subfigure}
         \hfill
@@ -307,7 +307,7 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
             \label{fig:intro_results_teaser_stats_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{Result from one of our experiments. Our scene is a photograph with dark areas and saturated yellow areas which our desired appearance cannot be mapped onto using a conventional pixel-based approach (middle column). Our method (right column) finds a different realization of the input texture which aligns red and beige elements with the yellow sign and dark elements with the forested part of the background. This results in easier mapping (overall lower pixel brightness in fig. \ref{fig:intro_results_teaser_stats_opt} compared to fig. \ref{fig:intro_results_teaser_pixels_opt}) and more faithful reproduction of the desired appearance}
+    \caption{Result from one of our experiments. Our scene is a photograph with dark areas and saturated yellow areas which our desired appearance cannot be mapped onto using a conventional pixel-based approach (middle column). Our method (right column) finds a different realization of the input texture which aligns red and beige elements with the yellow sign and dark elements with the forested part of the background. This results in easier mapping (overall lower pixel brightness in fig. \ref{fig:intro_results_teaser_stats_opt} compared to fig. \ref{fig:intro_results_teaser_pixels_opt}) and more faithful reproduction of the desired appearance. Texture source: \citet{Pixar128}, modified}
     \label{fig:intro_result_teaser}
 \end{figure}
 
@@ -315,5 +315,3 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
 \label{section:intro-thesis_structure}
 
 This thesis is organized as follows. In chapter \ref{chapter:background}, we provide an overview of the state of the art in projection mapping and texture synthesis and explain in detail the methods which we build on later on. In chapter \ref{chapter:methods}, we describe our method and its implementation. In chapter \ref{chapter:results}, we present the experiments and analyze their results. Lastly, in chapter \ref{chapter:conclusions} we conclude the thesis and discuss future work, particularly with respect to application in real-world projector-camera systems.
-
-\footnotetext{Source: \citet{Pixar128}, modified}

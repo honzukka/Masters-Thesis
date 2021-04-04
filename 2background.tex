@@ -475,56 +475,104 @@ This concludes the section on projection mapping which was aiming to explain how
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}
 
-As mentioned in section \ref{section:intro-key_idea}, the aim of this thesis is to advance the idea of content-based projection mapping of textures. If, as section \ref{section:background-projection_mapping} suggests, it is very difficult with current projector hardware to find a compensated projection image such that its pixel values are are close as possible to the desired appearance while minimizing clipping errors, maybe it is a good idea to loosen up the definition of image similarity. Textures are a great candidate for that because two textures can have radically different pixel values in corresponding position but still look the same.
+As mentioned in section \ref{section:intro-key_idea}, the aim of this thesis is to advance the idea of content-based projection mapping of textures. As section \ref{section:background-projection_mapping} suggests, with current projector hardware it is not always possible to match the camera image with the desired appearance pixel by pixel while minimizing clipping errors. Hence in our method we loosen up the definition of image similarity. Textures are a great candidate for that because two textures can have radically different pixel values in corresponding position but still look the same (see fig. \ref{fig:background_similar_textures} for an example).
 
-{\color{red} TODO: example of two images that are different but show the same texture}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-flowers1.png}
+        \caption*{}
+        %\label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-flowers2.png}
+        \caption*{}
+        %\label{}
+    \end{subfigure}
+    \caption{An example of two realizations of the same texture. The image on the right was created by a texture synthesis method by \citet{Gatys2015}. Texture source: \citet{Pixar128}, modified}
+    \label{fig:background_similar_textures}
+\end{figure}
 
 But what exactly is a texture and what kind of image modifications can be done while preserving it? In this section, we provide an overview of texture synthesis research which is the second building block that our method relies on.
 
 \subsection{Textures}
 \label{section:background-texture_synthesis-textures}
 
-{\color{red} TODO: mention the Texture Hypothesis by Julesz (texture is defined by 2nd order co-occuring stationary statistics) here}
+Figures \ref{fig:intro_pixels_vs_stats} and \ref{fig:background_similar_textures} show examples of textures. Unfortunately, according to \citet{Raad2018} there is no universally accepted mathematical definition of what constitues a texture. Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field has defined textures as classes of images that cannot be discriminated in preattantive (i.e. effortless or instantaneous) vision and then attempted to characterize them mathematically.
 
-{\color{red} TODO: provide the deeper theory that used to be in the intro, but isn't anymore}
+How should then one go about doing texture synthesis (i.e. generating new examples of a given texture class) when there is no formal definition of what a texture is? Existing methods can be divided into two categories based on how they approach this problem:
 
-What is a texture? \citet{Julesz1995}, a prominent visual neuroscientist of the 20th century, has defined textures as classes of images that cannot be discriminated in preattentive vision, i.e. by quickly glancing over them. This definition implies that any algorithm that claims to synthesize different textures of a given class can only be evaluated empirically. Work has gone into creating models that would describe what constitues a texture class and thus help in developing synthesis algorithms and evaluating them. No single model has, however, emerged as clearly superior thus far. Each synthesis method typically defines its own model and even if convergence under such a model is proved, the quality of the results is ultimately up to the observer.
+\begin{enumerate}
+    \item Find a new candidate for texture definition which forms a texture model and then generate images according to that model. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis} (because the model is usually a statistical one)
+    \item Work without a model and instead define a procedure that turns one texture example into a new one. This category is also called \textit{non-parametric texture synthesis} or \textit{patch-based texture synthesis} (because the procedure usually operates on patches of the texture image)
+\end{enumerate}
 
-In general, two approaches to texture synthesis have emerged. One is inspired by \citet{Shannon1948} and his use of a Markov chain to generate English text. There, each letter is sampled from a probability distribution conditioned on \(n\) previous letters. The result is not precisely English text, but rather a "texture" of it. ({\color{red} TODO: show example?}) \citet{Efros1999} have built on this idea by introducing a way to synthesize textures pixel by pixel where each pixel is conditioned on the previous ones. \citet{Raad2018} call this approach \textit{patch re-arrangement} or \textit{patch-based texture synthesis}.
-
-The other approach has been pioneered by Julesz himself and relies on statistical descriptions of images such that if two different images share this description, they are the same texture. Already in 1973, \citet{Julesz1973} observed that certain texture pairs cannot be discerned by human preattentive vision if they share the same second-order statistics. Building on this idea, \citet{Galerne2011} have presented a method that creates a new example of the same texture by randomizing its Fourier phase ({\color{red} TODO: explain what it is}). \citet{Raad2018} call this approach \textit{statistics-based texture synthesis}.
-
-We now discuss patch-based and statistics-based methods in more detail to find out what their strenghts and weaknesses are and how they could be used to generate content-based projection compensations.
+In the following sections we explain the theoretical background of both approaches to texture synthesis and describe the most important methods in each category. Specifically, we focus on strengths and weaknesses of each method and on how suitable it is for our purpose of projection mapping of textures as outlined in section \ref{section:intro-key_idea}. For a more in-depth review of the state of the art in texture synthesis, see \citet{Raad2018}.
 
 \subsection{Patch-Based Texture Synthesis}
 \label{section:background-texture_synthesis-patch_based}
 
-\citet{Efros2001} have presented a simple but powerful method called \textit{image quilting} for texture synthesis using patch re-arrangement. They start by splitting the input texture image into overlapping square blocks \(B_i\) of size \(k\) which is a user-controlled parameter. Then they build the new texture block by block in raster scan order (from the top left corner to the bottom right corner, row by row). A new block \(B^{\prime}\) is chosen at random from all \(B_i\) such that the pixel-wise error in overlapping areas (they use 1/6 of block area along the edge) with the block above \(B^{\prime}\) and to the left of \(B^{\prime}\) in below a certain threshold in the output image. Since many blocks usually satisfy this overlap constraint, one is picked at random. If \(B^{\prime}\) was pasted into the output image directly, the result would look blocky. Therefore \(B^{\prime}\) is pasted into the output image along a minimum error path inside the overlapping areas. This ensures that seams between block will be as subtle as possible.
+We begin with patch-based texture synthesis because it is conceptually simpler and achieves very good results for particular kind of textures. The basic idea was introduced by \citet{Efros1999} and was inspired by \citet{Shannon1948} and his use of a Markov chain to generate English text. Here is an example of Shannon's method (taken from \citet{Raad2018}):
 
-({\color{red} TODO: figure to illustrate the algorithm, especially the minimum error path!})
+\begin{itemize}
+    \item in no ist lat whey cratict froure birs grocid pondenome of demonstures of the reptagin is regoactiona of cre
+\end{itemize}
+
+Analogously to two different texture realizations, this sentence is not English, but looks like it. It is generated letter by letter by sampling from a probability distribution of an English text sample conditioned on the previous \(n = 3\) letters.
+
+In their texture synthesis method, \citet{Efros1999} generate an image pixel by pixel based on a probability distribution of the given texture sample. We will desribe how exactly this method works on an improved version of it, called \textit{image quilting}, which was introduced by \citet{Efros2001}.
+
+\subsubsection{Image Quilting}
+\label{section:background-texture_synthesis-patch_based-quilting}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{images/02-quilting_method_compressed.jpg}
+    \caption{Illustration of image quilting. The leftmost image was generated by choosing block \(B_i\) at random. The middle image was generated by choosing a block with low pixel-wise error in an overlap with the previous block. The rightmost image was generated by choosing blocks as in the middle, only the new block is pasted along a minimum error path instead of a straight line.  Source: \citet{Efros2001}}
+    \label{fig:background_quilting_method}
+\end{figure}
+
+Image quilting starts by splitting the input texture image into overlapping square blocks \(B_i\) of size \(k\) (a user-controlled parameter). Then it builds a new texture block by block in raster scan order (from the top left corner to the bottom right corner, row by row). A new block \(B^{\prime}\) is chosen at random from all \(B_i\) such that the pixel-wise error in overlapping areas (they use 1/6 of block area along the edge) with the block above \(B^{\prime}\) and to the left of \(B^{\prime}\) in below a certain threshold in the output image. Since many blocks usually satisfy this overlap constraint, one is picked at random. If \(B^{\prime}\) was pasted into the output image directly, the result would look blocky. Therefore \(B^{\prime}\) is pasted into the output image along a minimum error path inside the overlapping areas. This ensures that seams between block will be as subtle as possible. See fig. \ref{fig:background_quilting_method} for an illustration of the method.
 
 \subsubsection{Pros and Cons}
 \label{section:background-texture_synthesis-patch_based-pros_and_cons}
 
-This method can achieve stunning visual results when the input texture is uniformly lit and contains large features, like pebbles or coffee beans. It is especially powerful when used on textures with regular structure, like a brick wall.
+This method can achieve stunning visual results when the input texture is uniformly lit and contains large features, like pebbles or coffee beans. It is especially powerful when used on textures with regular structure, like a brick wall. See fig. \ref{fig:background_quilting_pros_cons} for an example.
 
-However, it struggles with textures that have non-uniform illumination and that contain very small features, like sand or concrete. Failure cases usually manifest themselves by large areas that are directly copied from the input (so-called \textit{verbatim copying}) or areas that contain the same patch copied over and over (so-valled \textit{garbage growing}).
+However, it struggles with textures that have non-uniform illumination and that contain very small features, like sand or concrete. Failure cases usually manifest themselves by large areas that are directly copied from the input (so-called \textit{verbatim copying}) or areas that contain the same patch copied over and over (so-called \textit{garbage growing}). See fig. \ref{fig:background_quilting_pros_cons} for an example.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{images/02-quilting_pros_cons_compressed.jpg}
+    \caption{Examples of image quilting. On the left is a failure with the garbage growing effect highlighted in blue. On the right is a success. However, some verbatim copies (highlighted in red) are clearly visible in the rightmost image. Source: \citet{Raad2018}, highlighting own}
+    \label{fig:background_quilting_pros_cons}
+\end{figure}
 
 Another drawback of this method is that its parameters need to be manually tuned based on the feature sizes and other properties of the input texture. There is also no underlying texture model that this method would work with which means that reasoning about it is somewhat less robust and limited to measuring heuristics such as the amount of verbatim copies and garbage in the output.
 
 \subsubsection{Potential Usage in Projection Mapping}
 \label{section:background-texture_synthesis-patch_based-projection_mapping}
 
-Image quilting is surprisingly flexible to adapt for other uses than texture synthesis. The authors themselves showcase the possibility of using the method for style transfer. This is a problem that considers two input images and produces a third one which has the content of one image and style of the other.
+Image quilting is surprisingly flexible to adapt for other uses than texture synthesis. The authors themselves showcase the possibility of using the method for style transfer. This is a problem that considers two input images and produces a third one which has the content of one image and style of the other. This can be achieved by adding a new term to the overlap error. In the case of style transfer, it takes the form of the difference in pixel intensities of the candidate patch and a corresponding patch of the target image. See fig. \ref{fig:background_quilting_transfer} for an example.
 
-({\color{red} TODO: example!})
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/02-quilting_transfer_compressed.jpg}
+    \caption{Example of style transfer using image quilting. The output (right) is generated just like during texture synthesis except for two changes: 1) the output image size is chosen to be that of the target image (left) and 2) an extra term is added to the overlap error. This term represents the difference between the pixel intensities of the candidate patch and a corresponding patch of the target image. Source: \citet{Efros2001}}
+    \label{fig:background_quilting_transfer}
+\end{figure}
 
-This can be achieved by adding a new term to the overlap error. In the case of style transfer, this takes the form of the difference in luminance values of corresponding pixels in the input and output images.
-
-One could imagine modifying the method to achieve projection mapping. If the output image was the compensated projection image the additional error term might be inversely proportional to how far the pixel value in the output is to the limit of the color gamut of the projector once it is radiometrically compensated. This could be built on top of methods such as \citet{Grundhofer2015} that assume 1:1 correspondence between projector image and camera image. ({\color{red} TODO: explain better\dots})
+One could imagine using this method for projection mapping by modifying the overlap error term. Roughly speaking, the additional error term could be proportional to how difficult it would be to radiometrically compensate the candidate patch. More specifically, the candiate patch would first be radiometrically compensated and then the error would be set to the inverse distance of the compensation and the limit of the projector gamut. This could be built on top of methods such as \citet{Grundhofer2015} that assume 1:1 correspondence between projector image and camera image.
 
 \subsection{Statistics-Based Texture Synthesis}
 \label{section:background-texture_synthesis-statistics_based}
+
+{\color{red} TODO: mention the Texture Hypothesis by Julesz (texture is defined by 2nd order co-occuring stationary statistics) here}
+
+{\color{red} TODO: provide the deeper theory that used to be in the intro, but isn't anymore}
 
 All statistics-based methods for texture synthesis share the general workflow. They first extract a set of statistics from the input texture image. Then they initialize a random noise image and iteratively optimize it so that its statistics are the same as those of the input image ({\color{red} TODO: figure}). Different initializations of the noise image yield different final results (unless the statistics are too restrictive so as to represent only one image) and by computing the difference between the statistics of the input and the output we can easily argue about convergence of such methods.
 
