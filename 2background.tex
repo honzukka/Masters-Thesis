@@ -475,7 +475,7 @@ This concludes the section on projection mapping which was aiming to explain how
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}
 
-As mentioned in section \ref{section:intro-key_idea}, the aim of this thesis is to advance the idea of content-based projection mapping of textures. As section \ref{section:background-projection_mapping} suggests, with current projector hardware it is not always possible to match the camera image with the desired appearance pixel by pixel while minimizing clipping errors. Hence in our method we loosen up the definition of image similarity. Textures are a great candidate for that because two textures can have radically different pixel values in corresponding position but still look the same (see fig. \ref{fig:background_similar_textures} for an example).
+As mentioned in section \ref{section:intro-key_idea}, the aim of this thesis is to advance the idea of content-based projection mapping of textures. As section \ref{section:background-projection_mapping} suggests, with current projector hardware it is not always possible to match the camera image with the desired appearance pixel by pixel while minimizing clipping errors. Hence in our method we loosen up the definition of image similarity. Textures are a great candidate to start with because two textures can have radically different pixel values in corresponding position but still look the same (see fig. \ref{fig:background_similar_textures} for an example).
 
 \begin{figure}[ht]
     \centering
@@ -492,7 +492,7 @@ As mentioned in section \ref{section:intro-key_idea}, the aim of this thesis is 
         \caption*{}
         %\label{}
     \end{subfigure}
-    \caption{An example of two realizations of the same texture. The image on the right was created by a texture synthesis method by \citet{Gatys2015}. Texture source: \citet{Pixar128}, modified}
+    \caption{An example of two realizations of the same texture. The image on the right was created by a texture synthesis method of \citet{Gatys2015}. Texture source: \citet{Pixar128}, modified}
     \label{fig:background_similar_textures}
 \end{figure}
 
@@ -501,13 +501,13 @@ But what exactly is a texture and what kind of image modifications can be done w
 \subsection{Textures}
 \label{section:background-texture_synthesis-textures}
 
-Figures \ref{fig:intro_pixels_vs_stats} and \ref{fig:background_similar_textures} show examples of textures. Unfortunately, according to \citet{Raad2018} there is no universally accepted mathematical definition of what constitues a texture. Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field has defined textures as classes of images that cannot be discriminated in preattantive (i.e. effortless or instantaneous) vision and then attempted to characterize them mathematically.
+Figures \ref{fig:intro_pixels_vs_stats} and \ref{fig:background_similar_textures} show examples of textures. Unfortunately, according to \citet{Raad2018} there is no universally accepted mathematical definition of what constitues a texture. Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field, has defined textures as classes of images that cannot be discriminated in preattantive (i.e. effortless or instantaneous) vision and then attempted to characterize them mathematically.
 
 How should then one go about doing texture synthesis (i.e. generating new examples of a given texture class) when there is no formal definition of what a texture is? Existing methods can be divided into two categories based on how they approach this problem:
 
 \begin{enumerate}
-    \item Find a new candidate for texture definition which forms a texture model and then generate images according to that model. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis} (because the model is usually a statistical one)
-    \item Work without a model and instead define a procedure that turns one texture example into a new one. This category is also called \textit{non-parametric texture synthesis} or \textit{patch-based texture synthesis} (because the procedure usually operates on patches of the texture image)
+    \item Find a new candidate for texture definition which forms a texture model and then generate images according to that model. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis} (because the models are usually statistical)
+    \item Work without a model and instead define a procedure that turns a given texture example into a new one. This category is also called \textit{non-parametric texture synthesis} or \textit{patch-based texture synthesis} (because the procedure usually generates the texture image patch by patch)
 \end{enumerate}
 
 In the following sections we explain the theoretical background of both approaches to texture synthesis and describe the most important methods in each category. Specifically, we focus on strengths and weaknesses of each method and on how suitable it is for our purpose of projection mapping of textures as outlined in section \ref{section:intro-key_idea}. For a more in-depth review of the state of the art in texture synthesis, see \citet{Raad2018}.
@@ -515,7 +515,7 @@ In the following sections we explain the theoretical background of both approach
 \subsection{Patch-Based Texture Synthesis}
 \label{section:background-texture_synthesis-patch_based}
 
-We begin with patch-based texture synthesis because it is conceptually simpler and achieves very good results for particular kind of textures. The basic idea was introduced by \citet{Efros1999} and was inspired by \citet{Shannon1948} and his use of a Markov chain to generate English text. Here is an example of Shannon's method (taken from \citet{Raad2018}):
+We begin with patch-based texture synthesis because it is conceptually simpler and achieves very good results for particular kinds of textures. The basic idea was introduced by \citet{Efros1999} and was inspired by \citet{Shannon1948} and his use of a Markov chain to generate English text. Here is an example of Shannon's method (taken from \citet{Raad2018}):
 
 \begin{itemize}
     \item in no ist lat whey cratict froure birs grocid pondenome of demonstures of the reptagin is regoactiona of cre
@@ -570,75 +570,105 @@ One could imagine using this method for projection mapping by modifying the over
 \subsection{Statistics-Based Texture Synthesis}
 \label{section:background-texture_synthesis-statistics_based}
 
-{\color{red} TODO: mention the Texture Hypothesis by Julesz (texture is defined by 2nd order co-occuring stationary statistics) here}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-julesz-1st_order_compressed.jpg}
+        \caption{}
+        %\label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.29\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-julesz-2nd_order_compressed.jpg}
+        \caption{}
+        %\label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.39\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-julesz-3rd_order_compressed.jpg}
+        \caption{}
+        %\label{}
+    \end{subfigure}
+    \caption{Image a) shows two textures with different first-order statistics. The left half contains black pixels with probabilty \(5/8\) and white pixels with probability \(3/8\) while the right half has the inverse distribution. Image b) shows two textures with identical second-order statistics. Specifically, there are four brightness levels in the image each with equal probability (first-order). Moreover, any two pixels are chosen independently (second-order). However, the probability \(P(k | i,j)\) of a pixel conditioned on two other pixels differs between the left and right half which makes third-order statistics different. Image c) shows two textures with identical third-order statistics, meaning that any three squares are chosen independently. However, the left half has \(2 \times 2\) patches with even number of black squares while the left half has an odd number of black squares per patch. This makes the textures easily distinguishable. Texture sources: \citet{Julesz1962} (a, b) and \citet{Julesz1973} (c)}
+    \label{fig:background_julesz_textures}
+\end{figure}
 
-{\color{red} TODO: provide the deeper theory that used to be in the intro, but isn't anymore}
+Statistics-based texture synthesis is an older and more established approach to generating new realizations of textures because it combines two goals:
 
-All statistics-based methods for texture synthesis share the general workflow. They first extract a set of statistics from the input texture image. Then they initialize a random noise image and iteratively optimize it so that its statistics are the same as those of the input image ({\color{red} TODO: figure}). Different initializations of the noise image yield different final results (unless the statistics are too restrictive so as to represent only one image) and by computing the difference between the statistics of the input and the output we can easily argue about convergence of such methods.
+\begin{itemize}
+    \item Finding a mathematical characterization of textures
+    \item Synthesizing new texture examples based on that characterization
+\end{itemize}
 
-\citet{Gatys2015} have introduced a breakthrough method for statistics-based texture synthesis which significantly improved over the previous state of the art. This method relies on a \textit{convolutional neural network} (CNN) to produce a statistical description of a texture image that the noise initialization is then optimized to fit. Let us first briefly introduce what a CNN and what makes it so powerful at creating abstract descriptions of images.
+As mentioned in section \ref{section:background-texture_synthesis}, a formal texture model should be compatible with the notion that textures are classes of images that are indistinguishable in preattentive vision. A famous attempt at such a model was introduced by \citet{Julesz1962} who formulated a hypothesis that two textures with identical second-order statistics are preattentively indistinguishable from each other (see fig. \ref{fig:background_julesz_textures} for an example). This hypothesis was later disproved in \citet{Julesz1973} by counter-examples of distinguishable textures with identical third-order statistics (also fig. \ref{fig:background_julesz_textures}). However, the distinguishing features in those counter-examples are local. A modified Julesz hypothesis says that "the pre-attentive textural system cannot globally compute third- or higher-order statistics" (\citet{Julesz1981}) and the idea that global statistics characterize textures well is still prevalent today. See fig. \ref{fig:background_statistics_example} for an illustration of how global statistics can be used for texture synthesis.
 
-\subsubsection{Convolutional Neural Networks (CNNs)}
-\label{section:background-texture_synthesis-statistics_based-cnns}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{images/02-statistics_example_compressed.jpg}
+    \caption{Illustration of texture synthesis via global image statistics. The leftmost image shows an example generated by keeping every pixel identical. The middle-left image shows an example that uses identical average color as a descriptive statistic. The middle image uses first-ordr statistics by simply shuffling the pixels of the input. The middle-right image uses a method by \citet{Galerne2011} which keeps Fourier modulus identical while randomizing the phase. The rightmost image shows a recent method by \citet{Gatys2015} that uses the Gram matrices of CNN activations as a descriptive statistic. Texture source: \citet{Gatys2015}}
+    \label{fig:background_statistics_example}
+\end{figure}
 
-\textit{Neural networks}, or more precisely \textit{feedforward neural networks}, are essentially functions
+In line with the modified Julesz hypothesis, we can see from the examples above that while some synthesis methods are good at creating textures with distinct local features but struggle with more homogeneous texture (e.g. \citet{Efros2001} in fig. \ref{fig:background_quilting_pros_cons}), others are the opposite (e.g. \citet{Galerne2011} and its failure on a macro-texture in fig. \ref{fig:background_statistics_example}). In literature, texture with distinct local features are called \textit{macro-texture} and more homogeneous textures are called \textit{micro-texture}. For a long time there was no method that could reliably generate both types of texture. However, a recent statistics-based method by \citet{Gatys2015} achieves very good results on both micro-textures and macro-textures and we will now provide its overview and explain how it could be used in projection mapping.
 
-\begin{equation}
-    \label{eq:neural_network}
-    y = f(x, \phi)
-\end{equation}
-
-where \(x\) is the input, \(y\) is the output and \(\phi\) are the parameters of a neural network. The idea is that \(f\) is an approximation of \(f^\star\) which is a very complex, non-linear function which tells us something about the world. For example, we can consider \(f^\star\) to be the mapping between all possible images of size \(224 \times 224\) and categories such as dog, cat, tree, house, etc. that describe the image. The goal of \textit{deep learning}, which is the study of feedforward and other kinds of neural networks, is then to find an \(f\) along with its parameters \(\phi\) that approximate \(f^\star\) as closely as possible. Because of the complexity of \(f^\star\), \(f(x) = f^{(3)}(f^{(2)}(f^{(1})(x)))\) is often composed of many functions \(f^{(i)}\) which are called \textit{layers}. Each layer usually operates on vectors and is commposed of small units that are loosely modeled on brain neurons. Together, these layers form a network where information flows from the first layer to the last. Hence the term \textit{feedforward neural network}.
-
-{\color{red} TODO: mention training?}
-
-Convolutional neural networks (CNNs) form a class of neural networks that are intended for processing grid-like inputs, for example images (2D grid) or audio (1D grid). Their layers are typically composed of three parts: convolution, nonlinearity and pooling.
-
-{\color{red} TODO: image}
-
-\textbf{Convolution}. To explain convolution in the context of neural networks, it is best to start with an example. Let us imagine that we have an image and would like to find all vertical edges in that image. This can be done using convolution ({\color{red} TODO: image}). All we need to do is take a \(3 \times 3\) matrix ({\color{red} TODO: figure out the right values\dots}), also called \(kernel\), move it across the image aligning the center of the kernel with each image pixel in turn, multiplying overlapping values, summing them together and writing them out into a new image. We will notice that the new image contains high values in places where there is a vertical edge in the original image. What has happened?
-
-The process we have gone through with our image and our kernel is called convolution in the context of deep learning, although strictly speaking, it corresponds to cross-correlation which differs from convolution by the orientation of the kernel. Our kernel happens have values which detect vertical edges when convolved with an image. Kernels with different values do different things, for example detect horizontal edges, blur the image, or even leave it untouched ({\color{red} TODO: examples!}).
-
-Kernel values are what constitutes the parameters \(\phi\) of a CNN and it turns out that they are powerful enough to achieve impressive results in tasks such as object recognition, ({\color{red} TODO: more examples}). They cannot function alone, however. As we have mentioned, neural networks usually approximate complex non-linear function and convolutions as presented here are linear. Two more building blocks are therefore needed.
-
-\textbf{Nonlinearity}. Nonlinearities are scalar functions whose purpose is to simply introduce nonlinear behavior into a CNN. Many types of nonlinearities have been proposed in recent years, for example hyperbolic tangent or ReLU ({\color{red} TODO: figures}). ReLU is used more commonly simply because it improves results ({\color{red} TODO: maybe cite some justification for this?}).
-
-\textbf{Pooling}. Pooling functions are function that accept a vector as input and return a scalar as output. They are often use to make CNNs invariant to small shifts in the input image and also reduce the size of the intermediate outputs, also called \textit{activations}, of each CNN layer. ({\color{red} TODO: a bit more explanation with images?})
-
-CNNs typically have multiple such layers and since they are trained to classify images, the have a few fully connected layers ({\color{red} TODO:  explain?}) at the end which compress the activations into an \(n\)-dimensional vector where each position of the vector corresponds to a particular image class and the value at that position tells how likely the input image is to belong to that image class. For a more comprehensive overview of neural networks and deep learning, see \citet{Goodfellow2016}. We will now focus how CNNs are related to texture synthesis.
-
-{\color{red} TODO: depth of output? number of feature maps? RGB channels?}
-
-{\color{red} TODO: biases?}
-
-{\color{red} TODO: fully connected layers? classification output?}
-
-For texture synthesis as introduced by \citet{Gatys2015}, however, it is only the activations after individual convolution layers that matter. The operation of convolution and the fact that the network is trained to classify images ({\color{red} TODO: deep image prior?}) causes those activations to contain filtered versions of the input image where particular features that define a texture are emphasized ({\color{red} TODO: now it would be great to have a visualization of which features are picked out at which levels!}).
-
-\subsubsection{Texture Synthesis Using CNNs}
+\subsubsection{Texture Synthesis Using Convolutional Neural Networks}
 \label{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}
 
-As mentioned in \ref{section:background-texture_synthesis-statistics_based}, statistics-based texture synthesis relies on a statistical description of a texture that white noise images are optimized to match. \citet{Gatys2015} use the activations after each pooling layer of the VGG-19 CNN by \citet{Simonyan2014} to define such a description. These activations, however, contain spatial information of where each feature is located in the texture. In order to remove this spatial information, activation are correlated with each other within each layer. Correlated per-layer activations of VGG-19 therefore constitute a set of statistics completely describing a texture.
+\citet{Gatys2015} have introduced a method for texture synthesis that defines a set of statistics that can be computed from an image and then generates new examples of a given texture by imposing those statistics on white noise images. This happens in an optimization loop that minimizes a loss function which represents the difference between the statistics of the generated image and the input texture (see fig. \ref{fig:background_gatys_method} for an illustration).
 
-To synthesize a new example of a given texture, gradient-based loss optimization is used. The loss is defined as a weighted mean square error between the description of the input texture and the image being optimized. The L-BFGS optimizer is used to drive the optimization process ({\color{red} TODO: why is it a good choice?}).
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{images/02-gatys_method_compressed.jpg}
+    \caption{Illustration of CNN-based texture synthesis by \citet{Gatys2015}. At the bottom we can see the input texture, the initial white noise image and the progressively refined image. The diagram above represents the computation of the CNN activations and their Gram matrices \(G\). The loss \(\mathcal{L}\) that drives the optimization via gradient descent is defined as a weighted sum of the differences between Gram matrices of individual CNN layers. Source \citet{Gatys2015}}
+    \label{fig:background_gatys_method}
+\end{figure}
 
-Let us now summarize exactly what constitutes a texture model in \citet{Gatys2015}.
+The set of statistics is computed using a \textit{convolutional neural network} (abbreviated as CNN and covered in more detail in appendix \ref{chapter:appendix-cnns}) which is trained on an image classification task. It is determined by the activations after each pooling layer of the VGG-19 CNN by \citet{Simonyan2014}. These activations, however, contain spatial information of where each feature is located in the texture. This is not desirable because textures are stationary (i.e. their features can be shuffled around without making them a different texture). In order to remove this spatial information, activations are correlated with each other within each layer, forming a so-called \textit{Gram matrix}. Gram matrices of VGG-19 activations therefore constitute a set of statistics completely describing a texture.
 
-{\color{red} TODO: give the details to be complete. or leave them for appendix?}
+To synthesize a new example of a given texture, gradient-based loss optimization is used. The loss is defined as a weighted mean square error between the statistics the input texture and the image being optimized. The L-BFGS optimizer is used to drive the optimization process. See fig. \ref{fig:background_gatys_method} for an illustration of how this method works.
 
 \subsubsection{Pros and Cons}
 \label{section:background-texture_synthesis-statistics_based-pros_and_cons}
 
-{\color{red} TODO: show some examples from the paper where they compare to Portilla and Simoncelli}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-big_comparison_input_compressed.jpg}
+        \caption*{}
+        %\label{}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-big_comparison_rpn_compressed.jpg}
+        \caption*{}
+        %\label{}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-big_comparison_quilting_compressed.jpg}
+        \caption*{}
+        %\label{}
+    \end{subfigure}
 
-{\color{red} TODO: refer to \citet{Raad2018} for some more pros and cons\dots}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02-big_comparison_gatys_compressed.jpg}
+        \caption*{}
+        %\label{}
+    \end{subfigure}
+    \caption{A comparison of Gatys synthesis, Random Phase Noise (RPN, \citet{Galerne2011}) and image quilting (EF, \citet{Efros2001}). The chosen input textures are not very suitable for synthesis with Random Phase Noise as they contain fairly large features. Image quilting and Gatys seem to perform much better. Upon closer inspection, we can see that Gatys suffers from desaturated artifacts in the leftmost texture. Also, Gatys sometimes creates implausible shapes (e.g. deformed flower blooms). On the other hand, it is statistically closer to the input than EF (e.g. the flower texture generated by EF has too few blooms). Source: \citet{Raad2018}}
+    \label{fig:background_synthesis_comparison}
+\end{figure}
 
-This method of synthesizing textures leads to high-quality results for a large variety of input images. Compared to patch-based synthesis it also provides a texture model, as opposed to a mere algorithm to generate new textures. This makes it easier to reason about and provide theoretical justifications as to why it works.
-
-One disadvantage of this method is that it struggles with regular patterns, unline patch-based methods. It is also fairly sensitive to input and output image resolution {\color{red} TODO: explain this properly}
+This method of synthesizing textures leads to high-quality results for a large variety of input images. Compared to patch-based synthesis it also provides a texture model, as opposed to a mere algorithm to generate new textures. This makes it easier to reason about and provide theoretical justifications as to why it works. Fig. \ref{fig:background_synthesis_comparison} taken from \citet{Raad2018} compares this method to others that we have discussed here and highlights their relative strengths and weaknesses.
 
 \subsubsection{Potential Usage in Projection Mapping}
 \label{section:background-texture_synthesis-statistics_based-projection_mapping}
 
-This method could be easily adapted to projection mapping if a differentiable rendering function was added to the optimization loop. The idea is to first project initial white noise image onto a scene and then feed the resulting camera image into the CNN and ultimately compare it against the input texture image. The loss gradients would flow through both the CNN and the rendering function and would be used to update the initial image. The result of this process should be an image which once projected looks like a new example of the input texture.
+This method can easily be adapted to projection mapping by modifying the optimization pipeline. The idea is to first project initial white noise image onto a scene using a differentiable rendering function. Then the resulting camera image would be fed into the CNN and ultimately compared against the input texture image. The loss gradients would flow through both the CNN and the rendering function to update the initial image. The result of this process would be an image would look like a new example of the input texture once projected.
