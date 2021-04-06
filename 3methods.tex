@@ -1,30 +1,47 @@
 \chapter{Methods}
 \label{chapter:methods}
 
+We now have all the building blocks needed to construct our method that implements projection mapping of textures by forcing the camera image to be a realization of the same texture as the desired appearance, instead of matching them pixel by pixel which is the usual approach (see section \ref{section:intro-key_idea} for more details on our key idea).
 
-We now present our proposed method and its implementation. Our goal is to projection-map a texture image while not requiring the final appearance to be identical to the given texture image, but rather requiring it to be of the same texture class.
+We will first present an overview of our projection mapping pipeline and then focus on its main components.
 
-Our implementation is a software simulator of a projector-camera system. While a hardware system that can be deployed in physical spaces is the ultimate goal of all projection mapping research including ours, we have decided to work purely in software for the following reasons:
+\section{Pipeline Overview}
+\label{section:methods-pipeline_overview}
+
+\begin{figure}[]
+    \centering
+    \def\svgwidth{\textwidth}
+    \input{images/figures/03-pipeline.pdf_tex}
+    \caption{An overview of our pipeline with \(y\) as input and \(p\) that minimizes eq. \ref{eq:projection_mapping-statistics} as output. The blue part of the diagram is essentially a texture synthesis pipeline by \citet{Gatys2015}. The green part (the rendering function) is our extension that enables projection mapping. Instead of computing a set of statistics \(f\) on the synthesized image \(p\) directly as \citet{Gatys2015} does (blue arrow), we first project \(p\) to obtain \(x(p)\) and only then compute \(f\). The red projector symbol shows how \(p\) is projected onto a glass ball in our scene and the white scissors symbol shows how the camera image is cropped because we only want to match a portion of the scene. The whole process is an optimization loop with \(p\) initialized to white noise and progressively refined until \(x(p)\) is a realization of the same texture as \(y\) is. Texture source: \citet{Pixar128}}
+    \label{fig:methods_pipeline}
+\end{figure}
+
+Projection mapping is typically done with a projector-camera system (see fig. \ref{fig:intro_procam} for an example). However, we have decided to implements our system entirely as a software pipeline with simulated projector and camera for the following reasons:
 
 \begin{itemize}
-    \item Software pipelines are easier to modify
-    \item Hardware systems come with challenges of its own, like signal-to-noise ratio, dynamic environment and time complexity constraints. We want to focus on solving one challenge at a time, starting with projection quality
-    \item A software implementation will serve as a useful reference for future work. If something does not work in a simulator, it will not work in the real world either
+    \item A software implementation serves as necessary reference for future work. If something does not work in the controlled environment of a simulator, it will not work in the real world either
+    \item Hardware systems come with challenges of its own, like signal-to-noise ratio, dynamic environment and time constraints. We want to focus on solving one challenge at a time, starting with projection quality
+    \item Software pipelines are easier to modify and allow for rapid prototyping and experimentation
 \end{itemize}
 
-The decision to focus on implementing our method purely in software allows us to build directly on the recipe outlined in section \ref{section:background-texture_synthesis-statistics_based-projection_mapping} ({\color{red} TODO: why that and not image quilting, or any other method for that matter?}). Our system therefore consists of a texture synthesis optimization pipeline extended by a differentiable rendering function through which the optimization flows. The texture synthesis pipeline alone produces new examples of an input texture. When extended by a rendering function which projects the texture onto a scene first, it produces images which will look like new examples of the input texture once projected.
+% 1) MAKE THE BIG FIGURE
+% 2) DESCRIBE IT
+% 3) PROVIDE A FEW JUSTIFICATIONS OF THE DESIGN (why not quilting and so on...)
 
-The fact that the rendering function is part of the texture synthesis pipeline is crucial to our method. A brief comparison with a hypothetical pipeline where texture synthesis and projection mapping are done as two separate steps illustrates the point:
+The goal of our pipeline is to minimize the expression in eq. \ref{eq:projection_mapping-statistics}. The main input is an image \(y\) which represents the desired appearance for our scene. Other inputs are the scene and projector which determine a rendering function \(x\) which creates a camera image \(x(p)\) out of a projector image \(p\). A projector image \(p\) which minimizes eq. \ref{eq:projection_mapping-statistics} is the output of the pipeline. See fig. \ref{fig:methods_pipeline} an illustration of how the pipeline works.
 
-{\color{red} TODO: no! \textit{figures} illustrate the point!}
+We build on top of a pipeline for texture synthesis used in \citet{Gatys2015} and extend it by the rendering function \(x\). The original synthesis pipeline is differentiable and relies on the gradient-based L-BFGS optimizer to synthesize a texture. Therefore, it is key that our \(x\) differentiable as well. This allows us to rely on L-BFGS to minimize eq. \ref{eq:projection_mapping-statistics}.
 
-\textbf{Hypothetical two-step pipeline.} First, a new example of a given texture is generated. This texture is then compensated, so that it looks accurate when projected onto a given scene. This is not unlike classic pixel-based projection mapping. What if there are pixels of the generated texture that cannot be compensated while staying inside projector color gamut? We would need to detect that and then start the process all over again, hoping that the next texture will be easier to project.
+In section \ref{section:background-texture_synthesis}, we have reviewed several texture synthesis methods that could potentially be used in our method. We have decided to use \citet{Gatys2015} over a patch-based method such as \citet{Efros2001} for the following reasons:
 
-\textbf{Our streamlined pipeline.} The texture synthesis pipeline starts with a white noise image on which it computes some statistics, compares them to the input texture image and updates the noise image in a way that drives its statistics closer to those of the input texture in the next step. Now if we replaced statistics computation by projecting onto a scene and comparing the projection to the input texture, we would get pixel-based projection mapping. By including both modules in the pipeline, first projection and then statistics calculation and comparison, we ensure that both projection mapping and texture synthesis happen at the same time. In each step of the optimization, the algorithm is forced to adapt the inital noise image to look like the input texture when projected. The feedback loop is much tighter and the results are much better.
+\begin{itemize}
+    \item It achieves good results for a large variety of textures
+    \item It defines a texture model which can be (and has been, as we will discuss later) improved to achieve better results while keeping the rest of the pipeline fixed
+    \item It is very easy to adapt for projection mapping and does not impose any restrictions on the rendering function. In fact, a gradient-free version of the pipeline could theoretically be run on a physical projector-camera system
+    \item Using an optimizer to gradually improve the result allows us to obtain a reasonable result quickly and improve it if more time is available
+\end{itemize}
 
-{\color{red} TODO: big figure of the whole thing}
-
-We now describe each section of our pipeline, explaining exactly which rendering function and which texture model we have decided to use in our method.
+We will now describe the two main components of our pipeline -- the rendering function \(x\) and the texture model \(f\) -- in more detail.
 
 \section{Rendering Function}
 \label{section:methods-rendering_function}
