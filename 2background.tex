@@ -452,6 +452,27 @@ As a consequence, radiance incoming onto a given camera sensor can be determined
 
 where \(m\) is the number of light sources in a scene, \(n\) is the number of pixels in the camera sensor and \(c_{ij}\) is the value of the \(j\)-th pixel of an image that was rendered with only the \(i\)-th light source turned on. By taking a linear combination of the columns of the matrix it is then possible to obtain an image rendered by the corresponding combination of light sources.
 
+\begin{figure}[]
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \def\svgwidth{\textwidth}
+        \input{images/figures/02-lt_capture_simple.pdf_tex}
+        \caption{}
+        %\label{}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \def\svgwidth{\textwidth}
+        \input{images/figures/02-lt_capture.pdf_tex}
+        \caption{}
+        %\label{}
+    \end{subfigure}
+    \caption{Illustration of an LT matrix. In figure a), a \(2 \times 2\) image is being projected onto a textured wall. In figure b), the same image is being projected from the ceiling onto a glass ball (area delimited by the red square). The matrix has canonical basis which means that each column corresponds to a camera image obtained by projecting a single white pixel of the projector image. Images in the bottom right corners show how a sum of the columns yields a new image that corresponds to a projection of all four white pixels at once. An arbitrary linear combination can be applied to yield a new image. Lastly, the scene in a) has no inter-reflection which consequently leads to the LT matrix being sparse (i.e. basis images at the top have many black pixels). On the other hand, scene b) has a lot of inter-reflections from the glass ball and therefore the matrix is not sparse anymore. Texture source: \citet{Pixar128}}
+    \label{fig:background_lt_capture}
+\end{figure}
+
 In projection mapping, this matrix is usually extremely large because \(n\) corresponds to camera resolution and \(m\) corresponds to projector resolution. Also, in colorful images, each \(c_{ij}\) is a 3-dimensional vector. The two main challenges are therefore
 
 \begin{itemize}
@@ -459,7 +480,7 @@ In projection mapping, this matrix is usually extremely large because \(n\) corr
     \item Obtaining its inverse
 \end{itemize}
 
-In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. While it would be possible to project a different basis that is detectable by a camera, such a process would still be very time consuming. Methods for light transport capture usually rely on the fact that the LT matrix is often very sparse. In fact, the less inter-reflection there is in a scene, the sparser the matrix is. One example of a method that reconstructs the matrix using a limited number of samples is \citet{Peers2009}. Using that method it is possible to capture a matrix with \(m = 128^2\) using 991 measurements.
+In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. While it would be possible to project a different basis that is detectable by a camera, such a process would still be very time consuming. Methods for light transport capture usually rely on the fact that the LT matrix is often very sparse. In fact, the less inter-reflection there is in a scene, the sparser the matrix is (see fig. \ref{fig:background_lt_capture} for an illustration). One example of a method that reconstructs the matrix using a limited number of samples is \citet{Peers2009}. Using that method it is possible to capture a matrix with \(m = 128^2\) using 991 measurements.
 
 Inverting the matrix (or, more precisely, obtaining its pseudo-inverse because it is not generally square) is also practically impossible due to the size of the matrix. The solution is again to use the sparsity of the matrix to arrive at an estimate.
 
@@ -467,8 +488,8 @@ For example, \citet{Wetzstein2007} use the inverse light transport approach to i
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/02-wetzstein_result_compressed.jpg}
-    \caption{Results of a projection mapping method by \citet{Wetzstein2007}. A wine glass in front of a colored wallpaper (a). The light transport matrix’s (b) pseudo-inverse (c, background) is approximated with a clustering scheme and allows a real-time compensation for displaying interactive content and movies (c) - from an angle (d), compensated with a conventional method (e) and with inverse light transport (f). Source: \citet{Wetzstein2007}}
+    \includegraphics[width=\textwidth]{images/02-wetzstein_result_crop_compressed.jpg}
+    \caption{Results of a projection mapping method by \citet{Wetzstein2007}. Leftmost image shows a wine glass in front of a colored wallpaper that is being projected onto. Middle image shows the projection compensated with a conventional method. Rightmost image shows the projection compensated with inverse light transport. Source: \citet{Wetzstein2007}}
     \label{fig:background_wetzstein_result}
 \end{figure}
 
@@ -624,7 +645,7 @@ In line with the modified Julesz hypothesis, we can see from the examples above 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{images/02-gatys_method_compressed.jpg}
-    \caption{Illustration of CNN-based texture synthesis by \citet{Gatys2015}. At the bottom we can see the input texture, the initial white noise image and the progressively refined image. The diagram above represents the computation of the CNN activations and their Gram matrices \(G\). The loss \(\mathcal{L}\) that drives the optimization via gradient descent is defined as a weighted sum of the differences between Gram matrices of individual CNN layers. Source \citet{Gatys2015}}
+    \caption{Illustration of CNN-based texture synthesis by \citet{Gatys2015}. At the bottom we can see the input texture, the initial white noise image and the progressively refined image. The diagram above represents the computation of the CNN activations and their Gram matrices \(G\). The loss \(\mathcal{L}\) that drives the optimization via gradient descent is defined as a weighted sum of the differences between Gram matrices of individual CNN layers. Source: \citet{Gatys2015}}
     \label{fig:background_gatys_method}
 \end{figure}
 

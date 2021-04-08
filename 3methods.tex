@@ -119,10 +119,10 @@ Both points are nowadays being addressed by differentiable renderers such as Mit
 
 \begin{equation}
     \label{eq:rendering_function-lt_matrix}
-    x(p, A) = Ax = y
+    x(p, A) = c \cdot Ax = y
 \end{equation}
 
-where \(A\) is the light transport matrix (see \ref{eq:lt_matrix}) and \(p\) is supposed to be a vector representing the light sources in the scene. But this is exactly our projector image where each pixel corresponds to a light source that we can control separately.
+where \(A\) is the light transport matrix (see \ref{eq:lt_matrix}) and \(p\) is supposed to be a vector representing the light sources in the scene. But this is exactly our projector image where each pixel corresponds to a light source that we can control separately. \(c\) is the same multiplier as in eq. \ref{eq:rendering_function-simple} whose purpose is to tune the overall brightness of the projector.
 
 Multiplication by large matrices is differentiable, very fast on modern GPUs and the matrix size (and thus the computation time) depends only on the resolution of the projector and camera images, not on scene complexity. This makes them easy to use in a texture synthesis pipeline. However, the process of acquiring them is not entirely straightforward. We focus on it in the next section.
 
@@ -131,7 +131,7 @@ Multiplication by large matrices is differentiable, very fast on modern GPUs and
 
 If a scene contains two lamps as light sources, then capturing a light transport matrix with respect to those lamps is nothing more than taking two photographs of the scene -- one for each lamp switched on separately. Our scene contains as many lamps as there are pixels in our projector image \(p\) (we can ignore other light sources because those are fixed). Taking a photograph for each of the projector pixels being switched on separately is practically impossible because of the signal-to-noise ratio of cameras -- no camera is able to capture such tiny signal as that coming from a single projector pixel.
 
-If the goal is to capture an LT matrix of a real scene using a camera, there are other ways of doing it. Capturing one projector pixel at a time corresponds to capturing the canonical basis of the matrix (see fig. {\color{red} TODO}) for an illustration). As we saw in section \ref{section:background-projection_mapping-procams-inverse_lt}, different bases that comprise brighter pattern can be used as well. The fact that the matrix is often very sparse can also be used.
+If the goal is to capture an LT matrix of a real scene using a camera, there are other ways of doing it. Capturing one projector pixel at a time corresponds to capturing the canonical basis of the matrix (see fig. \ref{fig:background_lt_capture} for an illustration). As we saw in section \ref{section:background-projection_mapping-procams-inverse_lt}, different bases that comprise brighter pattern can be used as well. The fact that the matrix is often very sparse can also be used.
 
 However, our projector-camera system is simulated fully in software which means that our scenes are virtual and we know precisely which geometry and materials they have. We can thus capture the canonical basis directly using a renderer whose floating-point arithmetic can handle tiny signals. We use Mitsuba to render camera images of our scene illuminated by each projector pixel separately and then assemble the images into the LT matrix \(A\). Note that the LT matrix capture is the main part of our pipeline that we simulate. The rest of the pipeline could work just as well with a different LT matrix \(A\) that would be captured from a real scene by a physical camera. See fig. {\color{red} TODO} for an illustration.
 
@@ -143,22 +143,72 @@ We now describe the capture process in more detail, focusing on how to configure
     \item How large is the light transport matrix and what are the implications?
 \end{itemize}
 
-\textbf{How to implement a projector in Mitsuba?} The Mitsuba renderer has very rudimentary projector functionality in the form of a spotlight with a projective texture ({\color{red} TODO: figure}). This is not enough for our purposes. On the other hand, it is important to set a limit on the number of projector features that we need because implementing a realistic projector is very challenging. It may involve things like realistic thick lens optics, a color model without truly deep blacks as described in section \ref{section:background-projection_mapping-projectors-DLP} and so on. We have decided to add the following two features to Mitsuba's projector implementation:
+\textbf{How to implement a projector in Mitsuba?} The Mitsuba renderer has very rudimentary projector functionality in the form of a spotlight with a projective texture (see fig. \ref{fig:methods_projector_features_spotlight}). This is not enough for our purposes. On the other hand, it is important to set a limit on the number of projector features that we need because some features like realistic optics with multiple thick lenses are difficult to implement while not adding much value to our experiments. Our goal is to have reasonably good-looking projections where the basic limitations we wish to overcome are present: limited gamut and depth of field. We have thus decided to add the following two features to Mitsuba's projector implementation:
 
 \begin{itemize}
-    \item Rectangular projection frustum ({\color{red} TODO: figure})
-    \item Thin lens model ({\color{red} TODO: figure})
+    \item Rectangular projection frustum (see fig. \ref{fig:methods_projector_features_frustum})
+    \item Thin lens optics (see fig. \ref{fig:methods_projector_features_thin_lens})
 \end{itemize}
 
-Rectangular projection frustum is necessary because we want to project rectagular images. Thin lens model is a simplified lens model that allows for depth of field effects. These are also necessary because no projector image is sharp at all depths at the same time and image defocus is a common effect that we wish to compensate. No other features are needed because already with these two the projections look realistic and exhibit the main hardware limitations we wish to overcome -- brightness and blur.
+Rectangular projection frustum is necessary because we want to project rectagular images. The thin lens model (described in section \ref{section:background-projection_mapping-projectors-limitations}) allows us to simulate the depth of field effect with sufficient accuracy. We focus on the upper limit of projector gamut by simply restricting the values of projector image \(p\) to \([0, 1]\) and a suitable choice of multiplier \(c\) (see eq. \ref{eq:rendering_function-lt_matrix}).
 
-{\color{red} TODO: How \textit{exactly} are these implemented? Since you're not sure yourself, it would be nice to add some nice figures with descriptions into the appendix (if it's not suitable here).}
+\begin{figure}[]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-projector_features-spotlight.jpg}
+        \caption{}
+        \label{fig:methods_projector_features_spotlight}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-projector_features-frustum.jpg}
+        \caption{}
+        \label{fig:methods_projector_features_frustum}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-projector_features-thin_lens.jpg}
+        \caption{}
+        \label{fig:methods_projector_features_thin_lens}
+    \end{subfigure}
+    \caption{Projector features that we have implemented in Mitsuba to support the needs of our projection mapping pipeline. Image \ref{fig:methods_projector_features_spotlight} shows  a spotlight with a projective texture that Mitsuba already supported but was not sufficient for us. Image \ref{fig:methods_projector_features_frustum} shows a rectangular projection frustum that we have added to support rectangular projections. Image \ref{fig:methods_projector_features_thin_lens} shows our final projector implementation with a thin lens optics model that enables the depth of field effect}
+    \label{fig:methods_projector_features}
+\end{figure}
 
-\textbf{How to solve the rendering equation efficiently with only a single active projector pixel?} If we want to project images with our custom projector implementation described above, we get good results. However, in order to capture the light transport matrix, we need to project images with only a single pixel turned on. And this turns out to be problematic due to the way the rendering equation (\ref{eq:rendering_equation}) is solved in renderers like Mitsuba. These methods sample random light paths, compute light travelling along those and build the full estimate via a Monte Carlo approach. This means that also our projection image needs to be sampled, so that the sampled paths cover the light provided by each of the pixels. But sampling paths is costly and if the projector image with a single white pixel was sampled uniformly, most paths would have zero contribution. This would result in noisy renderings and long rendering times ({\color{red} TODO: figure}). To fix this, we implemented a common technique called importance sampling ({\color{red} TODO: cite?}) which samples paths with larger contribution with higher probability. As a matter of fact, black pixels of the projector image should never be sampled at all.
+\textbf{How to solve the rendering equation efficiently with only a single active projector pixel?} Projecting images with our custom projector implementation yields good results (see fig. \ref{fig:methods_projector_features_thin_lens}). However, in order to capture the light transport matrix, we need to project images with only a single active pixel. And this turns out to be problematic due to the way the rendering equation (\ref{eq:rendering_equation}) is typically solved. A \textit{path tracer} (PT), which is the default Monte Carlo solver in Mitsuba and most other renderers, samples random paths from camera, computes radiance travelling along them in the opposite direction and builds an estimate of the final image. In our case, this means that a random walk from the camera needs to sample a single pixel on the projector to yield a light-carrying path. The probability of this happening is extremely low and most paths thus do not contribute anything to the estimate. This results in poor convergence and extremely long rendering time. See fig. \ref{fig:methods_sampling_path} for an example.
 
-Moreover, some path sampling techniques build path starting from the camera, while others start from the emitter. When emitters are very small, like points lights or projectors with only a songle white pixel, it is important to start building the path from the light. Otherwise, the probability of sampling a path with non-zero contribution would again be too small. To do that, we use the bi-directional path tracing algorithm which is implemented in Mitsuba. {\color{red} TODO: figure with the improvement}
+However, while some path sampling techniques build path starting from the camera, others start from the emitter. When emitters are very small, like points lights or projectors with only a single white pixel, it is important to start building the path from the light. We therefore use the bi-directional path tracing (BDPT) algorithm which combines paths that start both from the camera and from emitters and which is already implemented in Mitsuba. More on BDPT can be found in \citet{Veach1997}. See fig. \ref{fig:methods_sampling_bdpt} for an example.
 
-{\color{red} TODO: Time for another appendix section on how the rendering equation is solved via path tracing?}
+Another issue is with sampling a point on the projector where a path could start from. If uniform sampling is used, the only active pixel would be sampled in 1 out of \(m \cdot n\) samples on average where \(m\) and \(n\) are the dimensions of \(p\). This would again yield many paths with zero contribution. To fix this, we have implemented a common variance reduction technique technique used in Monte Carlo integration called \textit{importance sampling}. Importance sampling chooses samples with larger contribution with higher probability. In our case, we base the probability of choosing a projector pixel on the relative contribution of the pixel to the brightness of the whole projector image. This means that when capturing the canonical basis of an LT matrix, the only active pixel is sampled with probability 1 and other pixels are not sampled at all. See fig. \ref{fig:methods_sampling_bdpt_importance} for an example.
+
+\begin{figure}[]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-sampling_path.jpg}
+        \caption{}
+        \label{fig:methods_sampling_path}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-sampling_bdpt.jpg}
+        \caption{}
+        \label{fig:methods_sampling_bdpt}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-sampling_bdpt_importance.jpg}
+        \caption{}
+        \label{fig:methods_sampling_bdpt_importance}
+    \end{subfigure}
+    \caption{A comparison of various sampling techniques to solve the rendering equation. The scene is being projected onto by a \(640 \times 480\) image with only a small \(20 \times 20\) patch of active pixels. All images were rendered using 16 path samples per pixel. Image \ref{fig:methods_sampling_path} shows a basic path tracer which samples random light-carrying paths starting from the camera. Image \ref{fig:methods_sampling_bdpt} is bi-directional path tracing (BDPT), a better technique which combines paths from both camera and light sources. Image \ref{fig:methods_sampling_bdpt_importance} shows BDPT with importance sampling of the projector image which greatly reduces noise. This is the method we use in our pipeline}
+    \label{fig:methods_sampling}
+\end{figure}
 
 \textbf{How large is the light transport matrix and what are the implications?} The last practical consideration we need to make is about the size of the light transport matrix. Here is how it is determined:
 
@@ -167,9 +217,30 @@ Moreover, some path sampling techniques build path starting from the camera, whi
     S = p_w \cdot p_h \cdot c_w \cdot c_h \cdot 3 \cdot 4
 \end{equation}
 
-where \(S\) is the matrix size in bytes, \(p_w\) and \(p_h\) is the width and height of the projector image, respectively, \(c_w\) and \(c_h\) are the dimensions of the camera image. We then assume three color channels and four bytes to store each intensity value. It is important to store the intensity values as 32-bit floating point numbers, otherwise the basis images forming the matrix would be too noisy ({\color{red} TODO: I had an example somewhere, right?}).
+where \(S\) is the matrix size in bytes, \(p_w\) and \(p_h\) is the width and height of the projector image, respectively, \(c_w\) and \(c_h\) are the dimensions of the camera image. We then assume three color channels and four bytes to store each intensity value. It is important to store the intensity values as 32-bit floating point numbers to capture the tiny signal coming from individual projector pixels. See an example of how value precision influences the noise level of basis images in fig. \ref{fig:methods_float}.
 
-This means that a light transport matrix for projector and camera image of size \(160 \times 160\) is over 7.8 GB large. While this is the size we have used in our experiments because it is sufficient to demonstrate certain effects and because it fit well into the memory of our GPUs, it is clear that this approach to implementing the rendering function is not very scalable. For our purposes, this approach has the advantage of being simple and accurate which is important when evaluating the basic functionality of a new method. For practical use, a more data-efficient method is needed.
+This means that an LT matrix for projector and camera image of size \(160 \times 160\) is over 7.8 GB large. This is the size we have used in our experiments because it is sufficient to demonstrate the performance of our method and because it fit well into the memory of our GPUs. However, it is clear that this approach to implementing the rendering function is not very scalable. For our purposes, this approach has the advantage of being simple and accurate which is important when evaluating the basic functionality of a new method. For practical use, more data-efficient methods like those mentioned in section \ref{section:background-projection_mapping-procams-inverse_lt} are needed.
+
+\begin{figure}[]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-floating_point16.jpg}
+        \caption{}
+        \label{fig:methods_float16}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-floating_point32.jpg}
+        \caption{}
+        \label{fig:methods_float32}
+    \end{subfigure}
+    \caption{An illustration of how pixel value precision influences noise level in basis images. The scene is illuminated by a \(640 \times 480\) image where only a single pixel is active. The resulting images are scaled by \(1000000\) for visualization purposes. Image \ref{fig:methods_float16} is stored in 16-bit floating point, while image \ref{fig:methods_float32} is stored in 32-bit floating point}
+    \label{fig:methods_float}
+\end{figure}
+
+This concludes the section on our rendering function \(x\). In the following section we cover the second building block of our projection mapping pipeline, the texture model \(f\).
 
 \section{Texture Model}
 \label{section:methods-texture_model}
