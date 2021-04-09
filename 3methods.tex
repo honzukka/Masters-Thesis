@@ -37,7 +37,7 @@ In section \ref{section:background-texture_synthesis}, we have reviewed several 
     \item Using an optimizer to gradually improve the result allows us to obtain a reasonable result quickly and improve it if more time is available
 \end{itemize}
 
-We will now describe the two main components of our pipeline -- the rendering function \(x\) and the texture model \(f\) -- in more detail.
+We will now describe the two main components of our pipeline -- the rendering function \(x\) and the texture model which determines a set of statistics \(f(y)\) that fully describe a texture \(y\) -- in more detail.
 
 \section{Rendering Function}
 \label{section:methods-rendering_function}
@@ -245,65 +245,189 @@ This concludes the section on our rendering function \(x\). In the following sec
 \section{Texture Model}
 \label{section:methods-texture_model}
 
-Our texture model is built on top of the CNN-based texture synthesis of \citet{Gatys2015} (described in section \ref{section:background-texture_synthesis-statistics_based}) with minor improvements introduced by other authors in recent years. Let us first explain why we have chosen this model over other altenatives outlined in section \ref{section:background-texture_synthesis}.
+Our texture model is built on top of that used in \citet{Gatys2015} and described in section \ref{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}. While the vanilla Gatys model achieves very good results, it also has several shortcomings, such as desaturated patches when synthesizing textures larger than input or physically implausible feature deformation (see figs. \ref{fig:methods_comparison_small-vanilla} and \ref{fig:methods_comparison_large-vanilla} for examples).
 
-As mentioned in section \ref{section:background-texture_synthesis-patch_based-projection_mapping}, patch-based texture synthesis could theoretically be adapted for projection mapping purposes. However, this approach would result in sub-optimal performance mostly for two reasons:
+These shortcomings are well known and have been studied by several authors who have introduced improvements to the original model which result in higher quality texture synthesis. It is unclear, however, whether improvements in texture synthesis also translate into improvements in the projection mapping of textures. We have thus decided to reimplement the original Gatys model along with the improvements and evaluate how each of them peforms in our setup.
 
-\begin{itemize}
-    \item Assumption of 1:1 correspondence between projector and camera image pixels would be needed
-    \item Patch-based methods perform very well for certain textures, but the latest statistics-based methods perform better overall as they are more general ({\color{red} TODO: some examples to illustrate this?})
-\end{itemize}
-
-Statistics-based methods have the great advantage of usually consisting of an optimization loop that our rendering function (as described in section \ref{section:methods-rendering_function}) can be integrated into. We can thus easily account for general light transport without any simplifying assumptions.
-
-Out of all statistics-based methods, those that are based on CNNs achieve the best results. We have chosen that of \citet{Gatys2015} as our basis because it is well studied and simple to implement. Other authors have also introduced many techniques to improve it which we wanted to test to see if they also provide improvements in projection mapping.
-
-\citet{Gatys2015} have provided an implementation of their algorithm in the Caffe (\citet{Jia2014}) deep learning framework. Because this framework is not very commonly used anymore, we have ported the algorithm to PyTorch which is currently the most commonly used deep learning framework ({\color{red} TODO: some proof for this and for Caffe being obscure?}). As a result, our method will be easier to work with and expand upon in the future.
-
-While the original Gatys texture synthesis provides very high quality results, it also has several shortcomings that have been identified in recent years ({\color{red} TODO: example images!}). We have thus also implemented various known improvements with the intention of evaluating them in our projection mapping setup.
+\citet{Gatys2015} have provided an implementation of their algorithm in the Caffe (\citet{Jia2014}) deep learning framework. Because this framework is not very commonly used anymore (last stable version was released in 2017, according to \citet{CaffeGitHub}), we have ported the algorithm to PyTorch which is currently more actively maintained and therefore easier to work with.
 
 \subsection{Improving Gatys Texture Synthesis}
 \label{section:methods-texture_model-improvements}
 
-We have implemented three different improvements to the original Gatys algorithm. In general, all of them then to tighten the statistical description of a texture (i.e. reduce the size of texture classes as defined by their texture model) and thus better enforce texture structure while maintaining high variance of outputs. We now briefly describe each of the three improvements.
+As discussed in section \ref{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}, the original Gatys algorithm synthesizes a texture \(y_2\) from an example \(y_1\) by minimizing the difference between their statistics \(f(y_2)\) and \(f(y_1)\) which fully describe a texture under the Gatys texture model. The specific form of \(f\) determines the performance of the synthesis algorithm.
+
+We have implemented three different improvements to the original Gatys statistics. In general, all of them tend to reduce the ambiguity of the texture description (i.e. reduce the size of texture classes as defined by their texture model) and thus better enforce texture structure while maintaining high variance of reasonable outputs. We now briefly describe each of the three improvements.
 
 \subsubsection{Activation Shift}
 \label{section:methods-texture_model-improvements-activation_shift}
 
-\citet{Novak2016} have introduced various improvements to the algorithm of style transfer ({\color{red} TODO: citation}) which is very similar to texture synthesis. In its core, it optimizes a white noise image to match the statistics of two input images (as opposed to only one in texture synthesis). The goal is to match the \textit{style} of one image and \textit{content} of the other. The style of an image is defined in exactly the same way as the description of a texture in Gatys synthesis. This is why the improvements of \citet{Novak2016} that concern image style are directly applicable to texture synthesis as well.
+In the original Gatys model, a set Gram matrices of VGG-19 layer activations form the set of descriptive statistics \(f\):
 
-One of their improvements is called activation shift. The activations of VGG-19 that are used to compute Gram matrices and thus the description of a texture image are non-negative with mean 1. Also, the resulting Gram matrices tend to be very sparse with a lot of zeroes. And since each Gram matrix entry comes from the multiplication of entries from different activations in a VGG-19 layer, \citet{Novak2016} argue that these zeroes are a source of ambiguity because they could have many causes:
+\begin{equation}
+    \label{eq:gatys_statistics}
+    f(y) = \{G^1(y), \dots, G^L(y)\}
+\end{equation}
+
+where \(L\) is a chosen number of VGG-19 layers that are used for synthesis and a Gram matrix \(G^l(y)\) is defined as
+
+\begin{equation}
+    \label{eq:gram_style}
+    G_{ij}^l(y) = \sum_k F_{ik}^l(y) F_{jk}^l(y)
+\end{equation}
+
+where \(i\) and \(j\) are filters in layer \(l\) and \(F_{jk}^l\) is the activation of the \(j\)-th filter at position \(k\) in layer \(l\). A Gram matrix thus represents the correlations between feature reponses in a network layer.
+
+\citet{Novak2016} have introduced a number of simple improvements to the way Gram matrices are calculated from VGG-19 activations. One of them is called \textit{activation shift}. In the original Gatys model, activations \(F_{jk}^l\) are non-negative with mean 1. Also, the resulting Gram matrices \(G^l\) tend to be very sparse with many zero entries. \citet{Novak2016} argue that these zero entries are a source of ambiguity in texture description because they could have many causes:
 
 \begin{itemize}
-    \item Both features that the activations represent are missing from the image (\(0 \cdot 0\))
-    \item Only one of the features is present (\(0 \cdot a\))
-    \item Both of them are present but never appear together (\(0 \cdot a\))
+    \item Both features that the activations represent are missing from the image
+    \item Only one of the features is present
+    \item Both of them are present but never appear together
 \end{itemize}
 
-To remove this ambiguity, \citet{Novak2016} suggest to offset the activations by \(-1\) before computing the Gram matrices. This is extremely simple to implement and brings clear improvements to synthesis quality.
+To remove this ambiguity, \citet{Novak2016} suggest to offset the activations by \(-1\) before computing the Gram matrices:
 
-{\color{red} TODO: example of the improvement in synthesis}
+\begin{equation}
+    \label{eq:gram_style_activation_shift}
+    G_{ij}^l = \sum_k (F_{ik}^l - 1) (F_{jk}^l - 1)
+\end{equation}
 
-{\color{red} TODO: use math notation to make it easier to follow?}
+This is extremely simple to implement and brings clear improvements to synthesis quality (see figs. \ref{fig:methods_comparison_small-shift} and \ref{fig:methods_comparison_large-shift}).
 
 \subsubsection{Correlation Chain}
 \label{section:methods-texture_model-improvements-correlation_chain}
 
-The next improvement also comes from \citet{Novak2016}. It modifies the way Gram matrices are calculated. In the original algorithm, only activations from the same layer are correlated with each other to form a Gram matrix. \citet{Novak2016} suggest to correlate activations from different layers together, specifically neighbouring layers. For example, instead of having Gram matrices that correspond to correlations of layers 1:1, 2:2, 3:3 and 4:4, using a correlation chain means to build Gram matrices 1:2, 2:3, 3:4 instead, possibly to use them alongside the original ones to further lower the ambiguity of the resulting texture description.
+\citet{Novak2016} present one more useful modification to Gram matrix computation. In the original algorithm, only activations from the same layer are correlated with each other to form a Gram matrix. \citet{Novak2016} suggest to correlate activations from neighbouring layers as well. Because activation maps \(F^l\) and \(F^k\) where \(l\) and \(k\) are neighbouring layers may have different dimensions, the smaller map needs to be upsampled first. As a result a new set of matrices \(G^{lk}\) is added to the original set \(G^l\) to further lower the ambiguity of the texture description:
 
-There is, however, one caveat here. Activations of neighbouring layers might have different dimensions. To be able to correlate them together, \citet{Novak2016} therefore upsample the smaller matrix of activations to match the dimensions of the larger one ({\color{red} TODO: which filter? box?}).
+\begin{equation}
+    \label{eq:gram_style_chain}
+    G^{lk} = F^l [\textit{up}(F^k)]^T
+\end{equation}
 
-{\color{red} TODO: example of the improvement in synthesis}
-
-{\color{red} TODO: use math notation to make it easier to follow?}
+where \(l = 1 \dots L - 1\), \(L\) is the number of chosen layers, \(k = l + 1\) and \textit{up} is an upsampling procedure. The contribution of this modification to texture synthesis can be seen in figs. \ref{fig:methods_comparison_small-chain} and \ref{fig:methods_comparison_large-chain}.
 
 \subsubsection{Gaussian Pyramid}
 \label{section:methods-texture_model-improvements-gaussian_pyramid}
 
-\citet{Snelgrove2017} has noticed that Gatys' synthesis algorithm struggles to reproduce texture features of certain sizes, particularly when a variety of them is present in a single texture ({\color{red} TODO: example images!}). He attributes this to the limited receptive field of the underlying VGG-19 that was trained on images of size \(224 \times 224\). Indeed, the original algorithm does not work very well when synthesizing images that are much larger than \(224 \times 224\) and it is also true that larger images tend to have larger features.
+\citet{Snelgrove2017} has observed that the performance of Gatys synthesis is greatly limited by the receptive fields of the underlying VGG-19 network. The network was trained on images of size \(224 \times 224\) and its capability to capture information about large features is larger images is thus limited (see \ref{fig:methods_receptive_field} for an illustration).
 
-To fix this, \citet{Snelgrove2017} proposes to not compute the Gram matrices on images, but rather on Gaussian pyramids of these images. This means that instead of feeding an image to the VGG-19 network, we downsample the image to multiple smaller scales (using proper pre-filtering, for example Lanczos ({\color{red} TODO: cite?})) and feed each of these to the network, computing Gram matrices for each scale of the original image. This tightens the texture description yet again, this time ensuring that features of multiple sizes are correctly matched.
+\begin{figure}[]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-receptive_field-level0.jpg}
+        \caption{}
+        \label{fig:methods_receptive_field_lvl0}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/03-receptive_field-level1.jpg}
+        \caption{}
+        \label{fig:methods_receptive_field_lvl1}
+    \end{subfigure}
+    \caption{A comparison of the receptive fields of the last layer of VGG-19 used in the Gatys texture model. A receptive field of a network layer activation is essentially a patch of pixels of the input image which has an effect on that particular activation. If a texture feature is larger than the receptive field of a given activation, then it cannot be captured by statistics computed on the activation. Figure \ref{fig:methods_receptive_field_lvl0} uses an input image of size \(640 \times 480\) while figure \ref{fig:methods_receptive_field_lvl1} uses size \(320 \times 320\). Texture source: \citet{Pixar128}}
+    \label{fig:methods_receptive_field}
+\end{figure}
 
-{\color{red} TODO: example of the improvement in synthesis}
+To fix this, he proposes to not compute the Gram matrices on images, but rather on Gaussian pyramids of images. This means that instead of eq. \ref{eq:gatys_statistics}, he uses
 
-{\color{red} TODO: use math notation to make it easier to follow?}
+\begin{equation}
+    \label{eq:snelgrove_statistics}
+    f(y) = \{\{G^1(y_i) | i = 1, \dots, s\}, \dots, \{G^L(y_i) | i = 1, \dots, s\}\}
+\end{equation}
+
+where \(y_i\) is image \(y_{i - 1}\) downsampled by half using proper pre-filtering, such as Lanczos. \(s\) is a chosen number of scales which depends on the size of the texture we wish to synthesize. As a result, even more Gram matrices are used to further disambiguate the texture description. Results of this modification can be seen in figs. \ref{fig:methods_comparison_small-pyramid} and \ref{fig:methods_comparison_large-pyramid}.
+
+\begin{figure}[ht]
+    \centering    
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_small_target.jpg}
+            \caption{Input}
+            \label{fig:methods_comparison_small-target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_small_vanilla.jpg}
+            \caption{Gatys}
+            \label{fig:methods_comparison_small-vanilla}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_small_shift.jpg}
+            \caption{Shift}
+            \label{fig:methods_comparison_small-shift}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_small_chain.jpg}
+            \caption{Chain}
+            \label{fig:methods_comparison_small-chain}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_small_pyramid.jpg}
+            \caption{Pyramid}
+            \label{fig:methods_comparison_small-pyramid}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_small_pyramid_shift.jpg}
+            \caption{Pyramid + Shift}
+            \label{fig:methods_comparison_small-pyramid_shift}
+        \end{subfigure}
+        \vskip 20pt
+        % -------------------------------------------
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_large_target.jpg}
+            \caption{Input}
+            \label{fig:methods_comparison_large-target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_large_vanilla.jpg}
+            \caption{Gatys}
+            \label{fig:methods_comparison_large-vanilla}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_large_shift.jpg}
+            \caption{Shift}
+            \label{fig:methods_comparison_large-shift}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_large_chain.jpg}
+            \caption{Chain}
+            \label{fig:methods_comparison_large-chain}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_large_pyramid.jpg}
+            \caption{Pyramid}
+            \label{fig:methods_comparison_large-pyramid}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/03-comparison_large_pyramid_shift.jpg}
+            \caption{Pyramid + Shift}
+            \label{fig:methods_comparison_large-pyramid_shift}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{A comparison of synthesis under various texture models described in this section. The upper two rows contain images of size \(256 \times 256\) while the lower two rows contain images of size \(512 \times 512\). Note desaturated patches and inaccurate colors when Shift is not used and large feature distortion under the Gatys texture model. Lastly, note that Pyramid describes the small texture so accurately that it synthesizes an image identical to the input. Texture source: \citet{Pixar128}}
+    \label{fig:methods_comparison_small}
+\end{figure}
