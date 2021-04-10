@@ -36,7 +36,7 @@ As briefly mentioned in section \ref{section:intro-problem_setting}, no projecto
 
 Film projectors shine a bright light through film to project its contents onto a screen. But what happens when our movie is digital? What does a DLP projector shine its light through? And what impact does it have on its gamut?
 
-According to \citet{WikiDLP}, DLP projectors project images by filtering the bright white light of their lamp. First, the light goes through a rapidly spinning color wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the lamp passes through a single color filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image.
+DLP projectors project images by filtering the bright white light of their lamp. First, the light goes through a rapidly spinning color wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the lamp passes through a single color filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image.
 
 Per-pixel intesities of this single-channel image which form its content are controlled by the Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can either reflect light from the color wheel directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity is exactly between full and zero.
 
@@ -201,7 +201,7 @@ As mentioned in \ref{section:background-projection_mapping-projection_intuition}
 
 \begin{equation}
     \label{eq:radiance}
-    L = \frac{dQ}{dA^\perp d\omega dt}
+    L = \frac{\mathrm{d}Q}{\mathrm{d}A^\perp \mathrm{d}\omega \mathrm{d}t}
 \end{equation}
 
 \begin{figure}[ht]
@@ -225,7 +225,7 @@ The rendering equation describes the amount of outgoing radiance from point \(x\
 
 \begin{equation}
     \label{eq:rendering_equation}
-    L(x \rightarrow \mathbf{v}) = \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) f_r(x, \mathbf{u} \rightarrow \mathbf{v}) \cos \theta d\mathbf{u} + E(x \rightarrow \mathbf{v})
+    L(x \rightarrow \mathbf{v}) = \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) f_r(x, \mathbf{u} \rightarrow \mathbf{v}) \cos \theta \mathrm{d}\mathbf{u} + E(x \rightarrow \mathbf{v})
 \end{equation}
 
 {\color{red} TODO: figure of rendering equation}
@@ -524,12 +524,14 @@ But what exactly is a texture and what kind of image modifications can be done w
 \subsection{Textures}
 \label{section:background-texture_synthesis-textures}
 
-Figures \ref{fig:intro_pixels_vs_stats} and \ref{fig:background_similar_textures} show examples of textures. Unfortunately, according to \citet{Raad2018} there is no universally accepted mathematical definition of what constitues a texture. Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field, has defined textures as classes of images that cannot be discriminated in preattantive (i.e. effortless or instantaneous) vision and then attempted to characterize them mathematically.
+Figures \ref{fig:intro_pixels_vs_stats} and \ref{fig:background_similar_textures} show examples of textures. Unfortunately, there is no currently no universally accepted mathematical definition of what constitues a texture (\citet{Raad2018}). Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field, has defined textures as classes of images that cannot be discriminated in preattantive (i.e. effortless or instantaneous) vision and then attempted to characterize them mathematically.
 
-How should then one go about doing texture synthesis (i.e. generating new examples of a given texture class) when there is no formal definition of what a texture is? Existing methods can be divided into two categories based on how they approach this problem:
+Various formal texture definitons agree on the fact that they are two-dimesional random fields which are \textit{stationary}, meaning that their joint probability distribution is not spatially dependent. For example, a texture can be made non-stationary under uneven illumination. Furthermore, the probability of a single texture value typically depends only on a fairly small neighbourhood (constituting a \textit{feature}). For example, a leaf in fig. \ref{fig:background_similar_textures} can be anywhere in the texture, but when a contour of a leaf is found somewhere, it is very likely that the inside of it will be green.
+
+To summarize, there are many similar texture defintions, but not a single prevalent one. Based on this, texture synthesis methods which generate new examples of a given texture class can be divided into two categories. Here is the common recipe which methods in each category follow:
 
 \begin{enumerate}
-    \item Find a new candidate for texture definition which forms a texture model and then generate images according to that model. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis} (because the models are usually statistical)
+    \item Find a new candidate for a texture definition which build on the previous ones. This definition forms a texture model and new images are generated according to that model. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis}
     \item Work without a model and instead define a procedure that turns a given texture example into a new one. This category is also called \textit{non-parametric texture synthesis} or \textit{patch-based texture synthesis} (because the procedure usually generates the texture image patch by patch)
 \end{enumerate}
 
@@ -639,6 +641,8 @@ In line with the modified Julesz hypothesis, we can see from the examples above 
 
 \subsubsection{Texture Synthesis Using Convolutional Neural Networks}
 \label{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}
+
+{\color{red} TODO: no need for a CNN appendix, but do explain a bit more. focus only on the relevant stuff like filters and what activations are}
 
 \citet{Gatys2015} have introduced a method for texture synthesis that defines a set of statistics that can be computed from an image and then generates new examples of a given texture by imposing those statistics on white noise images. This happens in an optimization loop that minimizes a loss function which represents the difference between the statistics of the generated image and the input texture (see fig. \ref{fig:background_gatys_method} for an illustration).
 

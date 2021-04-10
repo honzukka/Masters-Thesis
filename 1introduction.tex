@@ -30,7 +30,7 @@ Most people nowadays are familiar with \textit{projection}, the act of transferr
     \label{fig:intro_example_sydney}
 \end{figure}
 
-According to \citet*{WikiHauntedMansion}, one of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in the character of Madame Leota in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head (see fig. \ref{fig:intro_example_leota}). Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see fig. \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
+One of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in the character of Madame Leota in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head (see fig. \ref{fig:intro_example_leota}). Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see fig. \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
 
 \begin{figure}[ht]
     \centering
@@ -57,7 +57,7 @@ According to \citet*{WikiHauntedMansion}, one of the first uses of projection ma
             \label{fig:intro_example_leota-head}
         \end{subfigure}
     \end{subfigure}
-    \caption{The character of Madame Leota in Disneyland's Haunted Mansion ride is one of the earliest examples of projection mapping. A video of her face is projected onto a round disk to give an illusion of a head inside a crystal ball. Included is our simplified decomposition of the scene (\ref{fig:intro_example_leota-full}) into background (\ref{fig:intro_example_leota-scene}) and projection image (\ref{fig:intro_example_leota-head})}
+    \caption{The character of Madame Leota in Disneyland's Haunted Mansion ride is one of the earliest examples of projection mapping. A video of her face is projected onto a neutrally colored static form inside a glass ball to give an illusion that the form speaks (\citet{MadameLeota}). Included is our simplified decomposition of the scene (\ref{fig:intro_example_leota-full}) into background (\ref{fig:intro_example_leota-scene}) and projection image (\ref{fig:intro_example_leota-head})}
     \label{fig:intro_example_leota}
 \end{figure}
 
@@ -75,7 +75,7 @@ Simply put, projection mapping is projecting onto surfaces that are not primaril
     \item We project the compensated image
 \end{enumerate}
 
-There is a wide body of research focusing on creating such compensated images automatically given a scene and a desired appearance. In one of the earliest papers of the field, \citet*{Grossberg2004} project a series of special calibration images onto a scene and capture their appearance using a camera. Using these \textit{camera images}, they are able to estimate how each pixel of the projection influences the appearance of that particular scene. Once this calibration is ready, they are able to quickly compute compensation images on the fly and only project the compensations (see fig. \ref{fig:intro_grossberg} for an example). The combination of a projector and a camera is common in projection mapping and such systems are called \textit{projector-camera systems} (see fig. \ref{fig:intro_procam}).
+There is a wide body of research focusing on creating such compensated images automatically given a scene and a desired appearance. In one of the earliest papers of the field, \citet{Grossberg2004} project a series of special calibration images onto a scene and capture their appearance using a camera. Using these \textit{camera images}, they are able to estimate how each pixel of the projection influences the appearance of that particular scene. Once this calibration is ready, they are able to quickly compute compensation images on the fly and only project the compensations (see fig. \ref{fig:intro_grossberg} for an example). The combination of a projector and a camera is common in projection mapping and such systems are called \textit{projector-camera systems} (see fig. \ref{fig:intro_procam}).
 
 \begin{figure}[ht]
     \centering    
@@ -127,7 +127,7 @@ There is a wide body of research focusing on creating such compensated images au
     \label{fig:intro_procam}
 \end{figure}
 
-Since then, there have been many advances in the field, the summary of which can be found in a state-of-the-art report by \citet*{Grundhofer2018}. The latest projector-camera systems are able to calibrate themselves automatically after they are placed in a scene, re-calibrate when scene illumination changes, or when objects in the scene are transformed, both rigidly (i.e. without deformation) and non-rigidly. Some can do this in real time. Because of the sheer complexity of general projection mapping, however, no single method can do all these things at once. For example, methods that handle non-rigid transformations will often rely on object tracking which requires the object to have markers on it. Such methods might also break when illumination changes significantly.
+Since then, there have been many advances in the field, the summary of which can be found in a state-of-the-art report by \citet{Grundhofer2018}. The latest projector-camera systems are able to calibrate themselves automatically after they are placed in a scene, re-calibrate when scene illumination changes, or when objects in the scene are transformed, both rigidly (i.e. without deformation) and non-rigidly. Some can do this in real time. Because of the sheer complexity of general projection mapping, however, no single method can do all these things at once. For example, methods that handle non-rigid transformations will often rely on object tracking which requires the object to have markers on it. Such methods might also break when illumination changes significantly.
 
 There is, however, one fundamental characteristic that all current projection mapping methods share. When computing the compensated projection image, they match the camera image with the desired appearance pixel by pixel. Explicitly, their goal is the following:
 
@@ -154,7 +154,7 @@ For every projector and scene, we can therefore find an image \(y\) whose pixels
     \exists i:\; y_{(i)} < 0 \lor y_{(i)} > c_{(i)}
 \end{equation}
 
-Figure \ref{fig:intro_pixels_vs_stats} shows images \(y_1\) and \(y_2\) where the former fulfills eq. \ref{eq:projection_mapping-hard_image} for a given projector and scene and is thus impossible to map while the latter can be mapped without issues.
+See fig. \ref{fig:intro_pixels_vs_stats} for examples.
 
 \begin{figure}[ht]
     \centering    
@@ -216,7 +216,7 @@ Figure \ref{fig:intro_pixels_vs_stats} shows images \(y_1\) and \(y_2\) where th
             \label{fig:intro_pixels_vs_stats-stats_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{Two examples of projection mapping: failure (top row) and success (bottom row). Both examples follow the formula in eq. \ref{eq:projection_mapping-per_pixel} and both have the same scene (background) and projector. The only difference is the desired appearance. Leftmost column shows the desired appearance, middle-left column shows the background, middle-right column shows the compensated projection image and rightmost column shows the camera image. Texture source: \citet{Gatys2015}, modified}
+    \caption{This illustration shows two examples of projection mapping. In the top row, image \(y_1\) cannot be mapped onto the given scene because of the dark areas that reflect little light. Even when projector brightness is set to maximum in those areas (white pixels in image \(p_1\)) according to eq. \ref{eq:projection_mapping-per_pixel}, the final appearance \(x(p_1)\) does not match the desired appearance \(y_1\). In other terms, \(y_1\) fulfills eq. \ref{eq:projection_mapping-hard_image}. On the other hand, image \(y_2\) can be mapped without issues because its bright areas are well aligned with highly reflective parts of the scene and vice versa. Texture source: \citet{Gatys2015}, modified}
     \label{fig:intro_pixels_vs_stats}
 \end{figure}
 
@@ -227,7 +227,7 @@ In this thesis, we reformulate the projection mapping recipe in eq. \ref{eq:proj
 
 In this section we outline the main idea of overcoming hardware limitations of projectors as introduced above and explain why we focus on projecting textures. For clarity, we provide only a high-level explanation and leave more detailed formal treatment of textures and other concepts for section \ref{section:background-texture_synthesis}.
 
-Textures (e.g. a pebble beach) have the interesting property that when their features (e.g. individual pebbles) are shuffled, the texture still looks the same. We say that a texture has multiple \textit{realizations}. Figure \ref{fig:intro_pixels_vs_stats} shows an example of two different realizations (\(y_1\) and \(y_2\)) of the same texture. Moreover, for a given scene and projector, one can be mapped, while the other cannot. This is the key idea of our thesis and here is how we apply it in projection mapping:
+Textures (e.g. a pebble beach) have the interesting property that when their features (e.g. individual pebbles) are shuffled, the texture still looks the same. We say that a texture has multiple \textit{realizations}. Figure \ref{fig:intro_pixels_vs_stats} shows an example of two different realizations (\(y_1\) and \(y_2\)) of the same texture. Moreover, in that particular example, one can be mapped, while the other cannot. This is the key idea of our thesis and here is how we apply it in projection mapping:
 
 \begin{itemize}
     \item We assume a texture whose given realization is difficult to map onto a given scene because of projector limitations
@@ -242,11 +242,11 @@ We use this idea to modify the projection mapping recipe from eq. \ref{eq:projec
     \min_p || f(x(p)) - f(y) ||
 \end{equation}
 
-where \(f\) is a function with the property that for two given images \(y_1\) and \(y_2\), \(f(y_1) = f(y_2)\) \textit{iff} \(y_1\) and \(y_2\) are realizations of the same texture. Note that eq. \ref{eq:projection_mapping-statistics} is strictly more general than eq. \ref{eq:projection_mapping-per_pixel} because \(x(p) = y\) implies \(f(x(p)) = f(y)\), but the reverse implication does not hold.
+where \(f\) represents a set of summary statistics of an image and has the property that \(f(y_1) \sim f(y_2)\) \textit{iff} images \(y_1\) and \(y_2\) are realizations of the same texture. Note that eq. \ref{eq:projection_mapping-statistics} is strictly more general than eq. \ref{eq:projection_mapping-per_pixel} because \(x(p) = y\) implies \(f(x(p)) = f(y)\), but the reverse implication does not hold.
 
-Figure \ref{fig:intro_pixels_vs_stats} serves as an example of how our recipe could be applied. With given desired appearance \(y_1\), scene (as shown in the figure) and projector, \(p_2\) is a solution to eq. \ref{eq:projection_mapping-statistics}. \(x(p_2)\) and \(y_1\) look the same, but \(x(p_2) \neq y_1\). On the other hand, if the desired appearance was \(y_2\), then \(p_2\) would solve both eq. \ref{eq:projection_mapping-per_pixel} and \ref{eq:projection_mapping-statistics}.
+Figure \ref{fig:intro_pixels_vs_stats} serves as an example of how our recipe could be applied. With given desired appearance \(y_1\), scene (as shown in the figure) and projector, \(p_2\) is a solution to eq. \ref{eq:projection_mapping-statistics}. \(f(x(p_2)) \sim f(y_1)\), but \(x(p_2) \neq y_1\). On the other hand, if the desired appearance was \(y_2\), then \(p_2\) would solve both eq. \ref{eq:projection_mapping-per_pixel} and \ref{eq:projection_mapping-statistics}.
 
-A suitable function \(f\), an algorithm that can optimize according to eq. \ref{eq:projection_mapping-statistics} and the ability to integrate both into a projector-camera system are the three main components of our method for projection mapping of textures which we present in this thesis.
+A suitable set of statistics \(f\), an algorithm that can optimize according to eq. \ref{eq:projection_mapping-statistics} and the ability to integrate both into a projector-camera system are the three main components of our method for projection mapping of textures which we present in this thesis.
 
 \section{Contributions}
 \label{section:intro-contributions}
@@ -255,12 +255,12 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
 
 \begin{itemize}
     \item We reformulate the recipe of projection mapping as described in eq. \ref{eq:projection_mapping-per_pixel} to accommodate it better to the projection mapping of textures. Our proposed recipe is described in section \ref{section:intro-key_idea}
-    \item Our recipe needs a \textit{texture model} (referred to as function \(f\) in section \ref{section:intro-key_idea}) which would determine the extent to which two different image are realizations of the same texture. We survey the field of \textit{texture synthesis} (state-of-the-art report by \citet{Raad2018}) and integrate a modified version of a powerful neural-based texture model by \citet{Gatys2015} into our method
+    \item Our recipe need a suitable set of summary statistics (referred to as \(f\) in eq. \ref{eq:projection_mapping-statistics}) which would capture the essence of a texture and be the same across all realizations of the same texture. This problem has been well studied in the field of \textit{texture synthesis} (state-of-the-art report by \citet{Raad2018}) which we introduce and integrate a modified version of neural-based summary statistics by \citet{Gatys2015} into our method
     \item We simulate a projector-camera system in software and implement our method on top of the simulation. It consists of an optimization algorithm that solves eq. \ref{eq:projection_mapping-statistics} in PyTorch
     \item We guide the reader through three experiments whose aim is to evaluate the three key components of our proposed method. Here are the components and a brief summary of the related experiments:
     \begin{enumerate}
         \item \textbf{Algorithm to solve eq. \ref{eq:projection_mapping-statistics}.} In a toy example, our method is able to generate a texture that is both part of a given texture class (as defined by a given texture model) and adapted to fit a given scene well
-        \item \textbf{Texture model (function \(f\)).} We evaluate a few known texture models in the context of our method and conclude that in certain challenging conditions it outperforms current pixel-based projection mapping methods as expected. Example shown in fig. \ref{fig:intro_result_teaser}
+        \item \textbf{Texture statistics \(f\).} We evaluate a few known texture models in the context of our method and conclude that in certain challenging conditions our method outperforms current pixel-based projection mapping methods as expected. Example shown in fig. \ref{fig:intro_result_teaser}
         \item \textbf{Projector-camera system integration.} Most projection mapping examples in this section project onto flat textured walls. However, our method also works well in virtual 3D scenes with complex geometry and global illumination effects. This constitutes the first step towards real-world application
     \end{enumerate}
 \end{itemize}

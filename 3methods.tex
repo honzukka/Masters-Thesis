@@ -78,10 +78,10 @@ This scenario (see fig. \ref{fig:methods_simple_scenario} for an illustration) i
 Let us now derive a rendering function that handles this simple scenario directly from the rendering equation:
 
 \begin{align}
-    L(x \rightarrow \mathbf{v}) &= \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) f_r(x, \mathbf{u} \rightarrow \mathbf{v}) \cos \theta d\mathbf{u} + E(x \rightarrow \mathbf{v}) \label{eq:simple_x_from_rendering_eq01} \\
-    &= \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) f_r(x, \mathbf{u} \rightarrow \mathbf{v}) \cos \theta d\mathbf{u} \label{eq:simple_x_from_rendering_eq02} \\
-    &= \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) \rho \frac{\cos \theta}{\pi} d\mathbf{u} \label{eq:simple_x_from_rendering_eq03} \\
-    &= \int_{\Omega(x)} E(x \leftarrow \mathbf{u}) \rho \frac{\cos \theta}{\pi} d\mathbf{u} \label{eq:simple_x_from_rendering_eq04} \\
+    L(x \rightarrow \mathbf{v}) &= \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) f_r(x, \mathbf{u} \rightarrow \mathbf{v}) \cos \theta \mathrm{d}\mathbf{u} + E(x \rightarrow \mathbf{v}) \label{eq:simple_x_from_rendering_eq01} \\
+    &= \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) f_r(x, \mathbf{u} \rightarrow \mathbf{v}) \cos \theta \mathrm{d}\mathbf{u} \label{eq:simple_x_from_rendering_eq02} \\
+    &= \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) \rho \frac{\cos \theta}{\pi} \mathrm{d}\mathbf{u} \label{eq:simple_x_from_rendering_eq03} \\
+    &= \int_{\Omega(x)} E(x \leftarrow \mathbf{u}) \rho \frac{\cos \theta}{\pi} \mathrm{d}\mathbf{u} \label{eq:simple_x_from_rendering_eq04} \\
     &\approx E(x \leftarrow \mathbf{-v}) \rho \frac{\cos \theta}{\pi r^2} \label{eq:simple_x_from_rendering_eq05}
 \end{align}
 
