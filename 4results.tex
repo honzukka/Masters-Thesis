@@ -1,52 +1,183 @@
 \chapter{Results}
 \label{chapter:results}
 
-As mentioned in section \ref{section:intro-contributions}, at the core of our thesis are three experiments whose goal is to evaluate our method, show results that have not been achieved with conventional per-pixel projection mapping methods and show that statistics-based projection mapping is worth pursuing further.
+We now present three experiments whose overarching goal is to evaluate our method and show results that cannot be achieved with conventional per-pixel projection mapping. Each section in this chapter corresponds to one experiment and is structured into three parts: 
 
-In this chapter, we guide the reader through each experiment, first explaining its goal, hypothesis and setup, then showing the results and finally providing an analysis.
+\begin{itemize}
+    \item Introduction which explains the high-level goal, the hypothesis and the setup of the experiment
+    \item Results
+    \item Analysis
+\end{itemize}
 
-{\color{red} TODO: mention that analysis is only subjective and relies on visual inspection!}
+We mostly provide a subjective analysis of our results because we have no metric that would determine how similar two textures look apart from the texture model itself that is used to generate the results. Visual inspection is thus our main method of analysis.
 
 \section{Evaluating basic rendering function and basic texture model together}
 \label{section:results-experiments-01}
 
-The basic idea of our proposed method is that when projecting a texture, is that instead of mapping it directly, we use a texture synthesis algorithm to generate another example of the same texture so that it is easier to map than the original texture. Assuming our texture model is good and we are able to push it to generate textures that are easy to map, our method is better than conventional pixel-based projection mapping methods (when projecting textures).
+The basic idea of our proposed method is that when projecting a texture, instead of mapping it directly we use a texture synthesis algorithm to generate another realization of the same texture which is easier to map than the original texture. This process is superior to conventional per-pixel projection mapping of textures if the following assumptions hold:
 
-\textbf{Goal.} In the first experiment, the goal is to find out whether our method is indeed able to push the synthesis algorithm to generate textures that map well onto a given scene.
+\begin{itemize}
+    \item Our texture model is sufficiently powerful
+    \item Our algorithm is able to generate texture that both respect the model and are easy to map
+\end{itemize}
 
-\textbf{Hypothesis}. We consider a simple projection scenario described in section \ref{section:methods-rendering_function-simple}. Next, we set our background to be a subset of the input texture. If our method works as expected, it will generate an image which has white pixels where the background matches the texture and continue organically around this area. This is because such a solution is that of least effort.
+In this experiment, we explore the second point.
 
-\textbf{Setup.} In our pipeline, we use the simple rendering function (see \ref{section:methods-rendering_function-simple}) because it is sufficient to reproduce the conditions of our experiment. We will also use the original unmodified Gatys texture model (see \ref{section:methods-texture_model}) because we are not interested in overall performance, but simply whether it is possible to add restrictions to the texture model to make it generate only textures that match the background. The inputs to this experiment are pairs of scene (represented by a background image) and texture image that we wish to project-map.
+\textbf{Goal.} The goal is to find out whether our method is indeed able to push the synthesis algorithm to generate textures that map well onto a given scene.
+
+\textbf{Hypothesis}. We consider a simple projection scenario of projecting onto a flat wall as described in section \ref{section:methods-rendering_function-simple}. We set our background to be a subset of the input texture. If our method works as expected, it will generate an image which has white pixels where the background matches the texture because mapping is already done there and we expect the algorithm to choose the least-effort solution. Furthermore, the texture should continue organically around this area to comply with the underlying texture model.
+
+\textbf{Setup.} In our pipeline, we use the simple rendering function (see \ref{section:methods-rendering_function-simple}) because it is sufficient for reproducing the conditions of our experiment. We also use the original unmodified Gatys texture model (see \ref{section:methods-texture_model}) because we are not interested in overall performance, but simply whether it is possible to add restrictions to the texture model to make it generate only textures that match the background. The inputs to this experiment are pairs of scene (represented by a background image) and texture image that we wish to map onto the scene.
+
+\begin{figure}[]
+    \centering    
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
+            \caption{Input}
+            \label{fig:ex01-pebbles-1000steps-some_target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/some_bg.jpg}
+            \caption{Background}
+            \label{fig:ex01-pebbles-1000steps-some_bg}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/1000/some_im.jpg}
+            \caption{Compensation}
+            \label{fig:ex01-pebbles-1000steps-some_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/1000/some_proj.jpg}
+            \caption{Camera image}
+            \label{fig:ex01-pebbles-1000steps-some_proj}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
+            \caption{Input}
+            \label{fig:ex01-pebbles-1000steps-threshold_target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/threshold_bg.jpg}
+            \caption{Background}
+            \label{fig:ex01-pebbles-1000steps-threshold_bg}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/1000/threshold_im.jpg}
+            \caption{Compensation}
+            \label{fig:ex01-pebbles-1000steps-threshold_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/1000/threshold_proj.jpg}
+            \caption{Camera image}
+            \label{fig:ex01-pebbles-1000steps-threshold_proj}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{Results of experiment 1. We use the simple rendering function (see \ref{section:methods-rendering_function-simple}) and unmodified Gatys texture model (see \ref{section:methods-texture_model}). Note how feature outlines in background \ref{fig:ex01-pebbles-1000steps-threshold_bg} completely determine the inner values in the final appearance \ref{fig:ex01-pebbles-1000steps-threshold_proj}. Also note that the area in \ref{fig:ex01-pebbles-1000steps-some_proj} where the background matches the input is slightly darker. This is likely caused by \ref{fig:ex01-pebbles-1000steps-threshold_im} being initialized by white noise with mean 0.5 and only a global brightness enforcement in the texture model. Texture source: \citet{Gatys2015}}
+    \label{fig:ex01-pebbles-1000steps}
+\end{figure}
 
 \subsection{Results}
 \label{section:results-experiments-01-results}
 
-\begin{figure}[ht]
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{images/ex01-pebbles-1000steps-crop.png}
-        \caption{{\color{red} TODO: texture source? self-contained description! better figure!}}
-        \label{fig:ex01-pebbles-1000steps}
-    \end{center}
-\end{figure}
-
-Figure \ref{fig:ex01-pebbles-1000steps} shows the main result of this experiment. Overall, we have tested five different backgrounds and two different input texture. Complete results of those runs can be found in the appendix \ref{chapter:appendix-results}.
+Figure \ref{fig:ex01-pebbles-1000steps} shows the main result of this experiment. Overall, we have tested five different backgrounds and two different input texture. Complete results of those runs can be found in appendix \ref{chapter:appendix-results} in figs. \ref{fig:ex01-complete-pebbles-1000steps} and \ref{fig:ex01-complete-flowers-1000steps}.
 
 \subsection{Analysis}
 \label{section:results-experiments-01-analysis}
 
-\begin{figure}[ht]
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{images/ex01-pebbles-5steps-crop.png}
-        \caption{{\color{red} TODO: texture source? self-contained description! better figure!}}
-        \label{fig:ex01-pebbles-5steps}
-    \end{center}
+\begin{figure}[]
+    \centering    
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
+            \caption{Input}
+            \label{fig:ex01-pebbles-5steps-some_target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/some_bg.jpg}
+            \caption{Background}
+            \label{fig:ex01-pebbles-5steps-some_bg}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/5/some_im.jpg}
+            \caption{Compensation}
+            \label{fig:ex01-pebbles-5steps-some_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/5/some_proj.jpg}
+            \caption{Camera image}
+            \label{fig:ex01-pebbles-5steps-some_proj}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
+            \caption{Input}
+            \label{fig:ex01-pebbles-5steps-threshold_target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/threshold_bg.jpg}
+            \caption{Background}
+            \label{fig:ex01-pebbles-5steps-threshold_bg}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/5/threshold_im.jpg}
+            \caption{Compensation}
+            \label{fig:ex01-pebbles-5steps-threshold_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/5/threshold_proj.jpg}
+            \caption{Camera image}
+            \label{fig:ex01-pebbles-5steps-threshold_proj}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{A snapshot of experiment 1 after the first five optimization steps which illustrates how the algortihm is initialized and how it converges. Texture source: \citet{Gatys2015}}
+    \label{fig:ex01-pebbles-5steps}
 \end{figure}
 
-It can be said that our method is indeed capable of controlling the synthesis in a way that yields those textures that match the background well. The algorithm largely respects the texture features which are already present in the background and continues the texture smoothly around them. 
+It can be said that our method is indeed capable of controlling the synthesis in a way that yields only such textures that match the background well. The algorithm largely respects the texture features which are already present in the background and continues the texture smoothly around them. 
 
-Especially interesting is the second row in figure \ref{fig:ex01-pebbles-1000steps} where the outlines of all the pebbles are fixed by the background. Our method not only respects those boundaries, but also reproduces the input texture almost perfectly. This means that the second background restricts the Gatys texture model much more than the first background. ({\color{red} TODO: analyze a bit more -- micro vs. macro features, some literature, \dots})
+Especially interesting is the second row in figure \ref{fig:ex01-pebbles-1000steps} where the outlines of all the pebbles are fixed by the background. Our method not only respects those boundaries, but also reproduces the input texture almost perfectly. This is in line with texture theory as discussed in section \ref{section:background-texture_synthesis-textures}. The Gatys texture model treats individual pebbles as features that can be shuffled around and their shape can be modified (as in the first row), but once their positions and outlines are fixed, the inner values are largely determined.
 
-On the other hand, in the first row of figure \ref{fig:ex01-pebbles-1000steps}, we can see that the area where the background matches the input is not fully saturated as expected. A possible explanation for this is that the algorithm starts from a white noise image with mean \(0.5\) (see figure \ref{fig:ex01-pebbles-5steps}). Combined with the fact that the loss decreases the fastest at the beginning of the optimization process ({\color{red} TODO: graph?}), this likely translated into the algorithm prefering to leave the middle area of the image darker and compensating overall brightness by making the surrounding pebbles brighter, rather than matching the exact appearance of the middle area to that of the input. From the perspective of this experiment, however, this is not a major issue.
+In the first row of figure \ref{fig:ex01-pebbles-1000steps}, we can see that the area where the background matches the input is not fully saturated as expected and as a result, the final appearance is slightly darker in this area. A possible explanation for this is that the algorithm starts from a white noise image with mean \(0.5\) (see figure \ref{fig:ex01-pebbles-5steps}). Combined with the fact that the loss decreases the fastest at the beginning of the optimization process (see fig. \ref{fig:ex01-loss_plot}), this likely translates into the algorithm preferring to leave the middle area of the image darker and compensating overall brightness by making the surrounding pebbles brighter, rather than matching the exact appearance of the middle area to that of the input. From the perspective of this experiment, however, this is not a major issue.
+
+\begin{figure}[ht]
+    \centering
+    \def\svgwidth{0.8\textwidth}
+    \input{images/04-experiment01/loss_plot_inkscape.pdf_tex}
+    \caption{Loss plot of our projection mapping optimization process suggests that most of the final appearance is determined already after the first few steps. Our loss is defined as the mean square error of the set of statistics of the input (desired appearance) and the final camera image (see fig \ref{fig:methods_pipeline} for more details)}
+    \label{fig:ex01-loss_plot}
+\end{figure}
 
 \section{Evaluating various texture models}
 \label{section:results-experiments-02}
