@@ -390,44 +390,253 @@ The improved texture model is clearly better than the original Gatys model in th
 \section{Evaluating a general rendering function}
 \label{section:results-experiments-03}
 
-The second experiment (section \ref{section:results-experiments-02}) has shown that statistics-based projection mapping can be a viable alternative to traditional pixel-based approaches, outperforming them in certain situations. However, so far we have only tested our method in the simplified scenario of projecting on a flat diffuse surface. The last experiment represents a step towards real world deployment of our method and involves projecting onto arbitrary 3D scenes.
+The second experiment has shown that statistics-based projection mapping can be a viable alternative to traditional pixel-based approaches, outperforming them in certain situations. However, so far we have only tested our method in the simplified scenario of projecting onto a flat diffuse surface. The last experiment represents a step towards real world deployment of our method and involves projecting onto arbitrary 3D scenes.
 
-\textbf{Goal.} We want to see how our method copes with complex geometry and global illumination effects. These were ignored in the previous experiments where the intention was purely to stress the projector gamut. However, real scenes are full of them and our method must be evaluated in these complex scenarios as well.
+\textbf{Goal.} We want to see how the behaviour of our method from previous experiments translates into a more general case of projecting onto arbitrary 3D scenes.
 
-\textbf{Hypothesis.} We expect the behavior from the previous experiments to translate well to a more complex setup. There is no longer a 1:1 correspondence between projector and camera pixels, but this should present no difficulty to the optimizer ({\color{red} TODO: go a little deeper here. what does it really mean mathematically to optimize using the complex rendering function?}).
-
-\textbf{Setup.} We now finally use the complex rendering function (see section \ref{section:methods-rendering_function-general}) in our pipeline. We also use the improved texture model and the pixel-based reference for comparison. We do not use the Gatys texture model ({\color{red} TODO: should you, though?}) because we have shown that it has issues and better models should be preferred. The inputs to this experiment are pairs of scene (represented by a pre-captured light transport matrix) and texture image that we wish to project-map. To keep the light transport matrix size manageable, we are using both projector and camera image size of \(160 \times 160\).
+\textbf{Setup.} We now use the general rendering function (see section \ref{section:methods-rendering_function-general}) in our pipeline. We also use the improved texture model and the pixel-based reference for comparison. The inputs to this experiment are pairs of scene (represented by a pre-captured light transport matrix) and texture image that we wish to map onto the scene. To keep the light transport matrix size manageable, we use projector and camera image size of \(160 \times 160\).
 
 \subsection{Results}
 \label{section:results-experiments-03-results}
 
-\begin{figure}[ht]
-    \begin{center}
-        \includegraphics[width=0.95\textwidth]{images/ex03-ball-dof-crop.png}
-        \caption{{\color{red} TODO: texture source? self-contained description! better figure! brightness factor!}}
-        \label{fig:ex03-ball-dof}
-    \end{center}
+\begin{figure}[]
+    \centering    
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/scene.jpg}
+            \caption{Scene}
+            \label{fig:ex03-ball_dof-scene}
+        \end{subfigure}
+
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_pebble_target.jpg}
+            \caption{Input}
+            \label{fig:ex03-ball_dof-pebbles-target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_im.jpg}
+            \caption{O. comp.}
+            \label{fig:ex03-ball_dof-pebbles-stats_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_proj.jpg}
+            \caption{O. cam.}
+            \label{fig:ex03-ball_dof-pebbles-stats_proj}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_im.jpg}
+            \caption{P. comp.}
+            \label{fig:ex03-ball_dof-pebbles-pixel_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_proj.jpg}
+            \caption{P. cam.}
+            \label{fig:ex03-ball_dof-pebbles-pixel_proj}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_marble_target.jpg}
+            \caption{Input}
+            \label{fig:ex03-ball_dof-marble-target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_im.jpg}
+            \caption{O. comp.}
+            \label{fig:ex03-ball_dof-marble-stats_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_proj.jpg}
+            \caption{O. cam.}
+            \label{fig:ex03-ball_dof-marble-stats_proj}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_im.jpg}
+            \caption{P. comp.}
+            \label{fig:ex03-ball_dof-marble-pixel_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_proj.jpg}
+            \caption{P. cam.}
+            \label{fig:ex03-ball_dof-marble-pixel_proj}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{Results of experiment 3. We use the general rendering function (see section  \ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see section \ref{section:methods-texture_model-improvements}; marked as "O.") against a pixel-based reference (marked as "P."). \(c = 5\). The scene contains a mirror ball which is being projected onto from the ceiling as suggested in image \ref{fig:ex03-ball_dof-scene}. The projector has depth of field enabled and the camera image is cropped (see the scissors symbol) before computing the loss to match the input texture image. Overall, our pipeline handles this complex light transport well. Note how the box is missing one wall (the black patch inside the mirror ball) which causes the optimization to leave the corresponding part of the compensation image untouched. Texture source: \citet{Pixar128}}
+    \label{fig:ex03-ball_dof}
 \end{figure}
 
-\begin{figure}[ht]
-    \begin{center}
-        \includegraphics[width=0.95\textwidth]{images/ex03-staircase-illum-crop.png}
-        \caption{{\color{red} TODO: texture source? self-contained description! better figure! brightness factor!}}
-        \label{fig:ex03-staircase-illum}
-    \end{center}
+\begin{figure}[]
+    \centering    
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene.jpg}
+            \caption{Scene}
+            \label{fig:ex03-staircase_illum-scene}
+        \end{subfigure}
+
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_wood_target.jpg}
+            \caption{Input}
+            \label{fig:ex03-staircase_illum-wood-target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im.jpg}
+            \caption{O. comp.}
+            \label{fig:ex03-staircase_illum-wood-stats_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj.jpg}
+            \caption{O. cam.}
+            \label{fig:ex03-staircase_illum-wood-stats_proj}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im.jpg}
+            \caption{P. comp.}
+            \label{fig:ex03-staircase_illum-wood-pixel_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj.jpg}
+            \caption{P. cam.}
+            \label{fig:ex03-staircase_illum-wood-pixel_proj}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target.jpg}
+            \caption{Input}
+            \label{fig:ex03-staircase_illum-beams-target}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im.jpg}
+            \caption{O. comp.}
+            \label{fig:ex03-staircase_illum-beams-stats_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}
+            \caption{O. cam.}
+            \label{fig:ex03-staircase_illum-beams-stats_proj}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im.jpg}
+            \caption{P. comp.}
+            \label{fig:ex03-staircase_illum-beams-pixel_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.19\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}
+            \caption{P. cam.}
+            \label{fig:ex03-staircase_illum-beams-pixel_proj}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{Results of experiment 3. We use the general rendering function (see section  \ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see section \ref{section:methods-texture_model-improvements}; marked as "O.") against a pixel-based reference (marked as "P."). \(c = 5\). The scene contains a wooden staircase which is being projected onto from the point of view of the camera as suggested in image \ref{fig:ex03-staircase_illum-scene}. The projector has depth of field disabled and the camera image is not cropped before computing the loss. Note how the performance of our method corresponds to previous experiments. For example, the wooden floor in the lower left corner is difficult to project onto. While the pixel-based reference tries to compensated by oversaturating projector image pixels (see image \ref{fig:ex03-staircase_illum-beams-pixel_im}), our method simply moves the dark patch of the input texture to the area which results in a more pleasing final appearance (see image \ref{fig:ex03-staircase_illum-beams-stats_proj}). Texture source: \citet{Pixar128}}
+    \label{fig:ex03-staircase_illum}
 \end{figure}
 
-Figures \ref{fig:ex03-ball-dof} and \ref{fig:ex03-staircase-illum} shows the main result of this experiment. Overall, we have tested two different scenes with projector DoF on and off and with and without external illumination and four different input textures. Complete results of those runs can be found in the appendix \ref{chapter:appendix-results}.
+Figures \ref{fig:ex03-ball_dof} and \ref{fig:ex03-staircase_illum} show the main results of this experiment. Overall, we have tested two different scenes:
 
-The scene used in figure \ref{fig:ex03-ball-dof} does not present any challenges regarding projector gamut, but rather it has very complicated light transport. The projector has a finite aperture which results in DoF effects and is aimed at a glass ball. The camera image is only a crop of the full view, so appearance is only optimized in the upper half of the view.
+\begin{itemize}
+    \item A box with a glass mirror that reflects the projection onto the surrounding walls
+    \item A wooden staircase with external illumination at the top
+\end{itemize}
 
-The scene in figure \ref{fig:ex03-staircase-illum} features a projector without DoF pointed at a wooden staircase. It has external illumination from a lamp above the staircase, complex textured geometry and both diffuse and glossy surfaces (floor in the lower left corner). This is a complex scene which stresses both the ability of our method to handle global illumination effects and overcome the gamut limitations of the projector.
+with projector DoF on and off and with and without external illumination and four different input textures.
+
+The mirror ball scene (fig. \ref{fig:ex03-ball_dof}) is not challenging from the perspective of projector gamut and the input texture can thus be easily mapped onto it using the per-pixel method as well. The purpose of the scene is to test how our pipeline deals with complex light transport as it contains a large amount of specular reflections and its projector has depth of field enabled. As suggested in fig. \ref{fig:methods_pipeline}, the final \(160 \times 160\) camera image is cropped before computing the loss because we do not want to reproduce the desired appearance across the whole field of view of the camera.
+
+The staircase scene \ref{fig:ex03-staircase_illum} is a realistic scene which contains a large variety of both diffuse and glossy materials and areas which are challenging for the projector. The depth of field effect is disabled this time and the camera image is not cropped before computing the loss.
+
+Complete results can be found in appendix \ref{chapter:appendix-results} in figs. \ref{fig:ex03-complete-ball}, \ref{fig:ex03-complete-ball_dof} and \ref{fig:ex03-complete-staircase_illum}.
 
 \subsection{Analysis}
 \label{section:results-experiments-03-analysis}
 
-As we can see in both figures \ref{fig:ex03-ball-dof} and \ref{fig:ex03-staircase-illum}, our method handles the complex relationship between projector pixels and camera pixel well and its performance on 3D scenes is comparable to that on simple flat surfaces. Compared to the pixel-based reference, it performs worse in recovering the macro features, but it is better at recovering micro-texture. For example, in the staircase scene \ref{fig:ex03-staircase-illum} in the lower left, the input texture is very bright, but the scene contains a glossy floor which is difficult to project onto. Whereas the pixel-based reference struggles to achieve the desired appearance and oversaturates corresponding projector pixels, our method instead moves the darker part of the texture into this area which provides a more satisfying result.
+\begin{figure}[]
+    \centering    
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal.jpg}
+            \caption{Normal comp.}
+            \label{fig:ex03-dof-normal_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal_on_normal.jpg}
+            \caption{Normal cam.}
+            \label{fig:ex03-dof-normal_normal_proj}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal_on_dof.jpg}
+            \caption{DoF cam.}
+            \label{fig:ex03-dof-normal_dof_proj}
+        \end{subfigure}
+        
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused.jpg}
+            \caption{Defocused comp.}
+            \label{fig:ex03-dof-defocused_im}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused_on_normal.jpg}
+            \caption{Normal cam.}
+            \label{fig:ex03-dof-defocused_normal_proj}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused_on_dof.jpg}
+            \caption{DoF cam.}
+            \label{fig:ex03-dof-defocused_defocused_proj}
+        \end{subfigure}
+    \end{subfigure}
+    \caption{A study of how our pipeline handles defocus in a scene where the projector has depth of field enabled. The upper row shows a compensated projector image which is optimized for a projector without depth field, while the lower row features a projector image which was compensated for depth of field. In the middle column, both images are projected by a projector without depth of field. In the right column, a projector with depth of field is used. Images \ref{fig:ex03-dof-normal_normal_proj} and \ref{fig:ex03-dof-defocused_defocused_proj} thus show the optimized appearance, while images \ref{fig:ex03-dof-defocused_normal_proj} and \ref{fig:ex03-dof-normal_dof_proj} are sharper and more blurred than they should be, respectively. Texture source: \citet{Pixar128}}
+    \label{fig:ex03-dof}
+\end{figure}
 
-{\color{red} TODO: projecting normal compensation via DoF matrix and vice-versa might a very cool thing to do! Also the same with illuminated/non-illuminated staircase. In general, this section would probably benefit from some discussion on at least the compensation of the DoF effect}
+Figure \ref{fig:ex03-ball_dof} shows that our pipeline is able to handle complex light transport well. We analyzed the amount of defocus which is performed in more detail by running an alternative version of this experiment with a projector with disabled depth of field effect (see fig. \ref{fig:ex03-complete-ball} for complete results). We have then projected the compensated images from both experiments using both projectors. The resulted in four camera images which demonstrate how our pipeline performs defocus (see fig. \ref{fig:ex03-dof}).
 
-{\color{red} TODO: about the resolution issue: might be better to leave it for the conclusion}
+In the staircase scene (fig. \ref{fig:ex03-staircase_illum}), we see similar trends as in the previous experiments. Compared to the pixel-based reference, our method performs worse in recovering large features, but it is better at recovering micro-texture. For example, in the lower left corner of the scene, there is a glossy floor which is difficult to project onto and at the same time the input texture \ref{fig:ex03-staircase_illum-beams-target} is very bright. Whereas the pixel-based reference struggles to achieve the desired appearance and oversaturates corresponding projector pixels (see image \ref{fig:ex03-staircase_illum-wood-pixel_im}), our method moves the darker part of the texture into this area which provides a more satisfying result (see image \ref{fig:ex03-staircase_illum-beams-stats_proj}).
