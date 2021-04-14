@@ -1,23 +1,23 @@
 \chapter{Conclusions}
 \label{chapter:conclusions}
 
-{\color{red} So far, these are only notes which should be updated as I refine the draft. At the end, the conclusion can be written based on them.}
+In this thesis, we have presented a novel method for the projection mapping of textures. In conventional projection mapping, the goal is to match the appearance of the scene (i.e. the camera image) with the desired appearance pixel by pixel. By focusing on projecting textures, our method is able to leverage texture synthesis and instead force the camera image to be a realization of the same texture as the desired appearance. This is achieved by matching summary statistics of both images. This statistics-based approach is more flexible than a traditional pixel-based approach and is thus able to map a larger variety of appearances onto a given scene.
+
+We have shown that it is possible to integrate modern neural texture models such as \citet{Gatys2015} into a projector-camera system to generate only such realizations of a given texture that are easy to map onto a given scene (see experiment in section \ref{section:results-experiments-01}).
+
+Moreover, we have also shown that with certain well-known improvements (section \ref{section:methods-texture_model-improvements}) the Gatys texture model is powerful enough achieve better projection mapping results than traditional pixel-based methods in certain scenarios (see experiment in section \ref{section:results-experiments-02}).
+
+Lastly, we have implemented the projector-camera system we used for our experiments as a software simulator where the projector, the camera and the scene are all virtual. This allowd us to easily perform experiments in simplified scenarios to evaluate various parts of the system. However, projection mapping is ultimately done in the real world. As the first step towards real world deployment, we have evaluated our system on 3D scenes with complex light transport and shown that the behaviour from simpler experiments translates into such a case as well (see experiment in section \ref{section:results-experiments-03}).
+
+\section{Future Work}
+\label{section:conclusions-future_work}
+
+Real world deployment is where most of the future work lies. Our method currently has several issues in this area which remain to be solved. Here are a few of them:
 
 \begin{itemize}
-    \item We assume that our projector is 100\% calibrated
-        \begin{itemize}
-            \item That's fine because our goal is just to improve pure compensation power
-            \item But the reader should realize this and keep it in mind throughout reading the thesis!
-        \end{itemize}
-    \item Current texture models are not perfect, but already good enough to achieve interesting results.
-        \begin{itemize}
-            \item Likely a good idea to know what exactly some of the drawbacks of these texture models are! (Literature can help, but they can also some from our experiments. Just be specific.)
-        \end{itemize}
-    \item FUTURE WORK
-        \begin{itemize}
-            \item How to calibrate (i.e. capture the LT matrix) in real life?
-            \item Pushing texture models further
-            \item By the way, is this the way to go? Rendering function + texture model? Or can the statistics-based projection mapping pipeline look differently in the future?
-            \item Resolution issues
-        \end{itemize}
+    \item We assume that we have captured the full light transport of the scene with respect to a given camera and projector in all our experiments. This corresponds to the projector-camera system always being fully calibrated. As \citet{Wetzstein2007} have shown in their work, this makes calibration very time-consuming, requires large memory capacity to store the light transport matrix and the whole process need to be repeated when the scene changes. A possible next direction would be to utilize techniques such as compressive light transport sensing (\citet{Peers2009}) to approximate light transport (and therefore calibrate) more quickly and efficiently and thus enable capture from real environments
+    \item Another area for improvement is the speed of the optimization process. We currently optimize over all individal pixels of the projector image using a gradient-based optimizer L-BFGS to achieve the desired appearance. This essentially requires a model for light transport from the previous point in order to compute the gradients, even if the light transport is captured from real environment and not a virtual one (like in our system). Could gradient-free optimization be used to bypass the need for a light transport model? Could the projector image be iteratively refined at the same time as light transport is being captured? Or, alternatively, could the number of parameters (projector image pixels in our case) be reduced by re-parameterizing the space to disallow meaningless pixel values and speed up the process?
+    \item In our last experiment (section \ref{section:results-experiments-03}), we have worked with desired appearance and camera image of identical resolution and projector image of at least the resolution of the two. This is because our method is currently not stable enough to handle arbitrary resolutions and more work is thus needed in this area as well. Resolution is not the only important variable here -- feature size and the level of detail of the desired appearance and camera image matter too. For example, if camera image and desired appearance have higher resolution than the projector, then the projector will not be able to achieve the level of detail required by the loss function and convergence issues may arise
 \end{itemize}
+
+Apart from this, our method will also improve with further advances in the field of texture synthesis as better texture models will lead to better projection mapping results.

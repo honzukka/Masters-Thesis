@@ -320,8 +320,7 @@
 % of the supervisors in the cover page. If the following command is defined,
 % then the supervisor names shown here are printed in the cover page. Otherwise,
 % the supervisor names defined above are used.
-%\newcommand{\COVERSUPERVISOR}{Professor Antti Ylä-Jääski, Aalto University\\
-%  Professor Petra Perustieteilijä, University of Helsinki}
+\newcommand{\COVERSUPERVISOR}{Professor Jaakko Lehtinen, Aalto University}
 
 % The same option is for the instructors, if you have multiple instructors.
 % \newcommand{\COVERINSTRUCTOR}{Oili Ohjaaja M.Sc. (Tech.), Aalto University\\
@@ -346,7 +345,7 @@ convolutional neural networks,  optimization, light transport}
 %\newcommand{\SLANGUAGE}{Engelska}
 
 % Author is the same for all languages
-\newcommand{\AUTHOR}{Bc. Jan Horešovský}
+\newcommand{\AUTHOR}{Jan Horešovský}
 
 
 % Currently the English versions are used for the PDF file metadata
@@ -429,7 +428,12 @@ convolutional neural networks,  optimization, light transport}
 % Abstract in English
 % ------------------------------------------------------------------
 \thesisabstract{english}{
-{\color{red} TODO}}
+Projection mapping is a widespread reality augmentation technique used by artists all over the world. It is typically done using a projector and a camera which captures the appearance of a projection in a scene. The actual appearance is then matched with a desired apparance pixel by pixel. This approach is limited by projector brightness when some pixels cannot be made as bright (or dark) as would be required to match those appearances.
+
+In this thesis, we propose a method which focuses on projecting textures to overcome this problem to a certain extent. Modern techniques for texture synthesis based on neural networks can be used to generate new examples of an input texture that look the same but their pixel values may be radically different. We use such a technique to require that the actual appearance of a projection is merely a realization of the same texture as the desired appearance instead of a per-pixel match. As a result, our method is more flexible and thus able to reproduce a larger variety of appearances for a given scene.
+
+We guide the reader through three experiments in which we evaluate our method in a software simulator, both on simple flat surfaces and arbitrary 3D scenes. We highlight cases where our method outperforms conventional projection mapping techniques, discuss its limitations and outline steps which are needed to achieve real world deployment.
+}
 
 % Abstract in Finnish
 % ------------------------------------------------------------------
@@ -461,7 +465,7 @@ convolutional neural networks,  optimization, light transport}
 % show up in the TOC
 \chapter*{Acknowledgements}
 
-{\color{red} TODO}
+{\color{red} TODO (don't forget Aalto IT resources!)}
 \vskip 10mm
 
 \noindent Espoo, \DATE

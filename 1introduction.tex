@@ -251,11 +251,11 @@ A suitable set of statistics \(f\), an algorithm that can optimize according to 
 \section{Contributions}
 \label{section:intro-contributions}
 
-This thesis focuses on a problem of projection mapping exemplified in the upper row of figure \ref{fig:intro_pixels_vs_stats} where a projector is not able to match desired appearance of a texture due to hardware limitations. Our contributions to solving this problem are the following:
+This thesis focuses on a problem of projection mapping exemplified in the upper row of figure \ref{fig:intro_pixels_vs_stats} where a projector is not able to match the desired appearance of a texture due to hardware limitations. Our contributions to solving this problem are the following:
 
 \begin{itemize}
     \item We reformulate the recipe of projection mapping as described in eq. \ref{eq:projection_mapping-per_pixel} to accommodate it better to the projection mapping of textures. Our proposed recipe is described in section \ref{section:intro-key_idea}
-    \item Our recipe need a suitable set of summary statistics (referred to as \(f\) in eq. \ref{eq:projection_mapping-statistics}) which would capture the essence of a texture and be the same across all realizations of the same texture. This problem has been well studied in the field of \textit{texture synthesis} (state-of-the-art report by \citet{Raad2018}) which we introduce and integrate a modified version of neural-based summary statistics by \citet{Gatys2015} into our method
+    \item Our recipe needs a suitable set of summary statistics (referred to as \(f\) in eq. \ref{eq:projection_mapping-statistics}) which would capture the essence of a texture and be the same across all realizations of the same texture. This problem has been well studied in the field of \textit{texture synthesis} (state-of-the-art report by \citet{Raad2018}) which we introduce and integrate a modified version of neural-based summary statistics by \citet{Gatys2015} into our method
     \item We simulate a projector-camera system in software and implement our method on top of the simulation. It consists of an optimization algorithm that solves eq. \ref{eq:projection_mapping-statistics} in PyTorch
     \item We guide the reader through three experiments whose aim is to evaluate the three key components of our proposed method. Here are the components and a brief summary of the related experiments:
     \begin{enumerate}

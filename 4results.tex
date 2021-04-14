@@ -96,6 +96,8 @@ In this experiment, we explore the second point.
 
 Figure \ref{fig:ex01-pebbles-1000steps} shows the main result of this experiment. Overall, we have tested five different backgrounds and two different input texture. Complete results can be found in appendix \ref{chapter:appendix-results} in figs. \ref{fig:ex01-complete-pebbles-1000steps} and \ref{fig:ex01-complete-flowers-1000steps}.
 
+{\color{red} TODO: memory requirements, execution time and hardware}
+
 \subsection{Analysis}
 \label{section:results-experiments-01-analysis}
 
@@ -261,6 +263,8 @@ In the first experiment, we have shown that our method is able to converge to th
 
 Figure \ref{fig:ex02-human-marble} shows the main result of this experiment. Overall, we have tested four different backgrounds and five different input textures. The brightness constant \(c\) was set to \(5\) in all cases, meaning that the texture was first multiplied by \(5\) before being projected (see eq. \ref{eq:rendering_function-simple}). Complete results of those runs can be found in appendix \ref{chapter:appendix-results} in figs. \ref{fig:ex02-complete-human-marble_wood}, \ref{fig:ex02-complete-human-flowers_flowers2}, \ref{fig:ex02-complete-human-pebbles}, \ref{fig:ex02-complete-carpet-marble_wood_pebbles}, \ref{fig:ex02-complete-carpet-flowers_flowers2}, \ref{fig:ex02-complete-sofa-marble_wood_pebbles}, \ref{fig:ex02-complete-sofa-flowers_flowers2}, \ref{fig:ex02-complete-photo-marble_wood_pebbles} and \ref{fig:ex02-complete-photo-flowers_flowers2}.
 
+{\color{red} TODO: memory requirements, execution time and hardware}
+
 \subsection{Analysis}
 \label{section:results-experiments-02-analysis}
 
@@ -385,7 +389,7 @@ In a sense, this is an extreme case. The background in the lower left corner is 
 
 The improved texture model is clearly better than the original Gatys model in the main result (fig. \ref{fig:ex02-human-marble}) as well. It recovers micro-texture better than the pixel-based method and its macro-texture is better than that of the Gatys texture model. Overall, we believe that our method provides a more visually pleasing and balanced result than both other methods. At the same time, it seems that potential future improvements in the performance of texture synthesis will also translate into improved statistics-based projection mapping.
 
-{\color{red} TODO: compare Gatys loss of Gatys results and improved results to disentangle representation power and convergence}
+{\color{red} TODO: compare Gatys loss of Gatys results and improved results to disentangle representation power and convergence?}
 
 \section{Evaluating a general rendering function}
 \label{section:results-experiments-03}
@@ -583,6 +587,8 @@ The mirror ball scene (fig. \ref{fig:ex03-ball_dof}) is not challenging from the
 The staircase scene \ref{fig:ex03-staircase_illum} is a realistic scene which contains a large variety of both diffuse and glossy materials and areas which are challenging for the projector. The depth of field effect is disabled this time and the camera image is not cropped before computing the loss.
 
 Complete results can be found in appendix \ref{chapter:appendix-results} in figs. \ref{fig:ex03-complete-ball}, \ref{fig:ex03-complete-ball_dof} and \ref{fig:ex03-complete-staircase_illum}.
+
+{\color{red} TODO: memory requirements, execution time and hardware}
 
 \subsection{Analysis}
 \label{section:results-experiments-03-analysis}

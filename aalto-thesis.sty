@@ -49,7 +49,7 @@
 % The lastpage package calculates the position of the LastPage label. 
 % A plain label may not work if last pages contain floats that are placed 
 % after text.
-\newcommand{\PAGES}{\pageref{LastPage}}
+\newcommand{\PAGES}{\pageref*{LastPage}}
 
 
 % From Samwise, edited by JLarja. Fixme can be used to wrote something that should be fixed later. 
@@ -292,9 +292,9 @@
 \ATSUPERVISORNAME: & \allowlinebreaks{10cm}{%
 \ifthenelse{\isundefined{\COVERSUPERVISOR}}%
 {\ATSUPERVISOR}{\COVERSUPERVISOR}}\\
-\ATINSTRUCTORNAME: & \allowlinebreaks{10cm}{%
-\ifthenelse{\isundefined{\COVERINSTRUCTOR}}%
-{\ATINSTRUCTOR}{\COVERINSTRUCTOR}}\\
+% \ATINSTRUCTORNAME: & \allowlinebreaks{10cm}{%
+% \ifthenelse{\isundefined{\COVERINSTRUCTOR}}%
+% {\ATINSTRUCTOR}{\COVERINSTRUCTOR}}\\
 \end{tabular}
 }
 \newpage%
@@ -346,8 +346,8 @@
 \hline
 \textbf{\ATSUPERVISORNAME:} &
 \multicolumn{3}{l|}{\allowlinebreaks{11cm}{\ATSUPERVISOR}}\\
-\textbf{\ATINSTRUCTORNAME:} & 
-\multicolumn{3}{l|}{\allowlinebreaks{11cm}{\ATINSTRUCTOR}}\\
+% \textbf{\ATINSTRUCTORNAME:} & 
+% \multicolumn{3}{l|}{\allowlinebreaks{11cm}{\ATINSTRUCTOR}}\\
 \hline
 \multicolumn{4}{|l|}{\allowlinebreaks{14.5cm}{%
 % The abstract text is here
