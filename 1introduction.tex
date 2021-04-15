@@ -9,6 +9,8 @@
 
 {\color{red} TODO: acknowledgements for ALL scenes, images, Mitsuba, \dots}
 
+{\color{red} TODO: image compression!}
+
 Most people nowadays are familiar with \textit{projection}, the act of transferring images from film or computer memory onto screens in cinemas and classrooms. But while those screens are made specifically for being projected onto, this is not the case for other objects, for example building façades. The geometry and material properties of these objects deform projected images and change their appearance. This is why projecting them is not enough -- they first need to be edited (\textit{mapped}) in a way that their final appearance is what we expect. Projecting onto arbitrary objects in such a way is called \textit{projection mapping} and it is the main topic of this thesis.
 
 \begin{figure}[ht]
@@ -26,11 +28,11 @@ Most people nowadays are familiar with \textit{projection}, the act of transferr
         \caption{Source: \citet{ImageProjectionMappingExampleSydney}}
         %\label{}
     \end{subfigure}
-    \caption{The Sydney Opera House with (b) and without (a) projection mapping.}
+    \caption{The Sydney Opera House without (a) and with (b) projection mapping.}
     \label{fig:intro_example_sydney}
 \end{figure}
 
-One of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in the character of Madame Leota in The Haunted Mansion Disneyland ride which opened in 1969. There, a video of a human face was projected onto a static head (see fig. \ref{fig:intro_example_leota}). Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see fig. \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
+One of the first uses of projection mapping (also sometimes called \textit{video mapping} or \textit{spatial augmented reality}) was in the character of Madame Leota in The Haunted Mansion Disneyland ride, which opened in 1969. There, a video of a human face was projected onto a static head (see fig. \ref{fig:intro_example_leota}). Nowadays, projection mapping has become widespread. It is used to augment reality by artists from all over the world in galleries, museums and outdoor spaces. One prominent example is projection mapping on buildings (see fig. \ref{fig:intro_example_sydney}) which is done in cities during festivals and on other special occasions.
 
 \begin{figure}[ht]
     \centering
@@ -127,7 +129,7 @@ There is a wide body of research focusing on creating such compensated images au
     \label{fig:intro_procam}
 \end{figure}
 
-Since then, there have been many advances in the field, the summary of which can be found in a state-of-the-art report by \citet{Grundhofer2018}. The latest projector-camera systems are able to calibrate themselves automatically after they are placed in a scene, re-calibrate when scene illumination changes, or when objects in the scene are transformed, both rigidly (i.e. without deformation) and non-rigidly. Some can do this in real time. Because of the sheer complexity of general projection mapping, however, no single method can do all these things at once. For example, methods that handle non-rigid transformations will often rely on object tracking which requires the object to have markers on it. Such methods might also break when illumination changes significantly.
+Since then, there have been many advances in the field, the summary of which can be found in a state-of-the-art report by \citet{Grundhofer2018}. The latest projector-camera systems are able to calibrate themselves automatically after they are placed in a scene, recalibrate when scene illumination changes, or when objects in the scene are transformed, both rigidly (i.e. without deformation) and non-rigidly. Some can do this in real time. Because of the sheer complexity of general projection mapping, however, no single method can do all these things at once. For example, methods that handle non-rigid transformations will often rely on object tracking which requires the object to have markers on it. Such methods might also break when illumination changes significantly.
 
 There is, however, one fundamental characteristic that all current projection mapping methods share. When computing the compensated projection image, they match the camera image with the desired appearance pixel by pixel. Explicitly, their goal is the following:
 
@@ -257,7 +259,7 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
     \item We reformulate the recipe of projection mapping as described in eq. \ref{eq:projection_mapping-per_pixel} to accommodate it better to the projection mapping of textures. Our proposed recipe is described in section \ref{section:intro-key_idea}
     \item Our recipe needs a suitable set of summary statistics (referred to as \(f\) in eq. \ref{eq:projection_mapping-statistics}) which would capture the essence of a texture and be the same across all realizations of the same texture. This problem has been well studied in the field of \textit{texture synthesis} (state-of-the-art report by \citet{Raad2018}) which we introduce and integrate a modified version of neural-based summary statistics by \citet{Gatys2015} into our method
     \item We simulate a projector-camera system in software and implement our method on top of the simulation. It consists of an optimization algorithm that solves eq. \ref{eq:projection_mapping-statistics} in PyTorch
-    \item We guide the reader through three experiments whose aim is to evaluate the three key components of our proposed method. Here are the components and a brief summary of the related experiments:
+    \item We guide the reader through three experiments, whose aim is to evaluate the three key components of our proposed method. Here are the components and a brief summary of the related experiments:
     \begin{enumerate}
         \item \textbf{Algorithm to solve eq. \ref{eq:projection_mapping-statistics}.} In a toy example, our method is able to generate a texture that is both part of a given texture class (as defined by a given texture model) and adapted to fit a given scene well
         \item \textbf{Texture statistics \(f\).} We evaluate a few known texture models in the context of our method and conclude that in certain challenging conditions our method outperforms current pixel-based projection mapping methods as expected. Example shown in fig. \ref{fig:intro_result_teaser}

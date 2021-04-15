@@ -1,7 +1,7 @@
 \chapter{Background}
 \label{chapter:background} 
 
-As outlined in the introduction, in this thesis we present a novel method for the projection mapping of textures. Our method follows a different goal than conventional projection mapping algorithms -- instead of the matching camera image with the desired appearance pixel by pixel, we force the camera image and the desired appearance to be realizations of the same texture (see eq. \ref{eq:projection_mapping-statistics}). This gives us more flexibility and enables us to bypass some restrictions imposed on the camera image by the scene and projector hardware.
+As outlined in the introduction, in this thesis we present a novel method for the projection mapping of textures. Our method follows a different goal than conventional projection mapping algorithms -- instead of matching the camera image with the desired appearance pixel by pixel, we force them to be realizations of the same texture (see eq. \ref{eq:projection_mapping-statistics}). This gives us more flexibility and enables us to bypass some restrictions imposed on the camera image by the scene and projector hardware.
 
 We do not build our method from scratch, however. Many necessary building blocks have been introduced by other researchers in various fields. In this section, we present the work we build on and explain all concepts that lie behind our approach. Specifically, at the core of this chapter are the answers to the following questions:
 
@@ -38,7 +38,7 @@ Film projectors shine a bright light through film to project its contents onto a
 
 DLP projectors project images by filtering the bright white light of their lamp. First, the light goes through a rapidly spinning color wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the lamp passes through a single color filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image.
 
-Per-pixel intesities of this single-channel image which form its content are controlled by the Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can either reflect light from the color wheel directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity is exactly between full and zero.
+Per-pixel intesities of this single-channel image which form its content are controlled by the Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can reflect light from the color wheel either directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity is exactly between full and zero.
 
 \begin{figure}[ht]
     \centering
@@ -70,9 +70,22 @@ Minimum brightness is related to the ability of the projector to absorb light wh
 
 Different projector technologies have different limitations. For example, laser projectors are generally more efficient and brighter because they produce exactly the light color which is needed, as opposed to filtering out white light. But even laser projectors cannot be infinitely bright nor can they subtract light from externally illuminated scenes.
 
-Moreover, even if a particular color lies within the gamut of our projector, the scene that we are projecting onto might prevent us from reproducing that color faithfully. The study of how light interacts with matter to influence what we see around us is called the \textit{light transport theory}. We provide a brief introduction to it in order to understand what our projections look like and which colors are and are not reproducible with a particular scene and projector. But because this theory is rather complex, we begin by building intuition on what to roughly expect when we install a projector and press Play.
+\subsubsection{Depth of Field}
+\label{section:background-projection_mapping-projectors-dof}
 
-{\color{red} TODO: DoF and the thin lens model? (also a limitation that's relevant for us) also pinhole!}
+\begin{figure}[ht]
+    \centering
+    \def\svgwidth{0.8\textwidth}
+    \input{images/figures/02-thin_lens.pdf_tex}
+    \caption{Projector depth of field illustrated using the thin lens model. The red and blue point can be thought of as tiny light sources that shine light of a particular color into a hemisphere of directions. The portion of this light that exits the projector through the aperture and lens is highlighted. The lens focuses all this light onto the focus plane. The blue point is projected onto a point that coincides with this plane and is thus sharp. The red point is projected slightly further which causes it to blur over a larger area. The amount of this blur depends on the size of the aperture diameter. The smaller it is, the sharper all points that are projected outside the focus plane are.}
+    \label{fig:background_thin_lens}
+\end{figure}
+
+Another limitation of projectors of their depth of field. In order to be sufficiently bright, projectors need to have a large aperture through which light exits them. However, the larger the aperture is, the blurrier are all points which are not projected exactly on the focus plane of the projector. In practice, this means that when projecting onto a 3D surface, only a limited subset of the projection can be in focus, while the rest will be more or less blurry.
+
+See fig. \ref{fig:background_thin_lens} for an illustration of this phenomenon on a \textit{thin lens model} of projector optics. This model assumes that light rays parallel with the optical axis bend towards the focus point and light rays the pass through the center of the lens continue in a straight line. It is powerful enough to capture most of the behaviour of a lens while being simple to reason about.
+
+Even if our projection is in perfect focus and all its colors lie within the gamut of our projector, the scene that we are projecting onto might prevent us from reproducing that color faithfully. The study of how light interacts with matter to influence what we see around us is called the \textit{light transport theory}. We provide a brief introduction to it in order to understand what our projections look like and which colors are and are not reproducible with a particular scene and projector. But because this theory is rather complex, we begin by building intuition on what to roughly expect when we install a projector and press Play.
 
 \subsection{Intuition on Projection Appearance}
 \label{section:background-projection_mapping-projection_intuition}
@@ -190,9 +203,7 @@ Light transport theory is the study of how light interacts with matter -- how it
     \label{fig:background_light_transport_examples}
 \end{figure}
 
-In this section, we provide a brief overview of light transport theory and explain how it can be used in projection mapping. For a more comprehensive coverage, we refer the reader to Physically Based Rendering: From Theory to Implementation by \citet{PBRT3e}.
-
-{\color{red} TODO: we assume the ray optics model as well (no polarization, fluorescence, quantum phenomena, \dots)}
+In this section, we provide a brief overview of light transport theory and explain how it can be used in projection mapping. Note that for the purpose of this these we assume the so-called ray optics model of light. This means that we ignore light polarization, effects such as fluorescence and quantum phenomena that occur on geometry the size of which is similar to light wavelength. For a more comprehensive coverage, we refer the reader to Physically Based Rendering: From Theory to Implementation by \citet{PBRT3e}.
 
 \subsubsection{Radiance}
 \label{section:background-projection_mapping-light_transport-radiance}
@@ -310,7 +321,7 @@ where the intrinsic matrix is formed by camera focal lengths \(f_x\) and \(f_y\)
     \centering
     \def\svgwidth{0.8\textwidth}
     \input{images/figures/02-camera_calibration.pdf_tex}
-    \caption{Illustration of geometric calibration of projector and camera. Points \(M_c\) and \(M_p\) on camera and projector image plane, respectively, are related via a point \(P\) in the scene. \(f\) is the focal length which is the distance between pinhole and principle point and \(u\) and \(v\) are principle point coordinates with respect to image plane origin}
+    \caption{Illustration of geometric calibration of projector and camera. Points \(M_c\) and \(M_p\) on camera and projector image plane, respectively, are related via a point \(P\) in the scene. \(f\) is the focal length which is the distance between center of the lens and principle point and \(u\) and \(v\) are principle point coordinates with respect to image plane origin}
     \label{fig:background_camera_calibration}
 \end{figure}
 
@@ -642,7 +653,7 @@ In line with the modified Julesz hypothesis, we can see from the examples above 
 \subsubsection{Texture Synthesis Using Convolutional Neural Networks}
 \label{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}
 
-{\color{red} TODO: no need for a CNN appendix, but do explain a bit more. focus only on the relevant stuff like filters and what activations are}
+{\color{red} TODO: explain more about related CNN stuff, such as filters and activations}
 
 \citet{Gatys2015} have introduced a method for texture synthesis that defines a set of statistics that can be computed from an image and then generates new examples of a given texture by imposing those statistics on white noise images. This happens in an optimization loop that minimizes a loss function which represents the difference between the statistics of the generated image and the input texture (see fig. \ref{fig:background_gatys_method} for an illustration).
 
