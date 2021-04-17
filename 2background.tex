@@ -249,6 +249,8 @@ Apart from assuming that our objects are in vacuum, the equation also assumes th
 
 To determine the amount of radiance that hits a virtual camera sensor in scenes such as fig. \ref{fig:background_light_transport_examples-rendering}, we need to solve the rendering equation for points that lie on the sensor and directions towards points in the scene that are visible from the sensor. This is typically done by Monte Carlo integration which estimates the integral by random sampling. Each sample is a light path from a light source towards the camera with zero or more bounces on the surfaces of the scene. A strategy to choose such samples is crucial to the performance of a rendering algorithm. A brilliant overview of sampling strategies, for example bidirectional path tracing (BDPT) can be found in \citet{Veach1997}.
 
+{\color{red} TODO: add an image from a lt capture paper that shows interreflection}
+
 \subsubsection{Towards Projection Mapping}
 \label{section:background-projection_mapping-light_transport-towards_projection_mapping}
 
@@ -461,6 +463,8 @@ As a consequence, radiance incoming onto a given camera sensor can be determined
     \end{bmatrix}
 \end{equation}
 
+{\color{red} TODO: refer to figure \ref{fig:background_lt_capture} here}
+
 where \(m\) is the number of light sources in a scene, \(n\) is the number of pixels in the camera sensor and \(c_{ij}\) is the value of the \(j\)-th pixel of an image that was rendered with only the \(i\)-th light source turned on. By taking a linear combination of the columns of the matrix it is then possible to obtain an image rendered by the corresponding combination of light sources.
 
 \begin{figure}[]
@@ -480,7 +484,7 @@ where \(m\) is the number of light sources in a scene, \(n\) is the number of pi
         \caption{}
         %\label{}
     \end{subfigure}
-    \caption{Illustration of an LT matrix. In figure a), a \(2 \times 2\) image is being projected onto a textured wall. In figure b), the same image is being projected from the ceiling onto a glass ball (area delimited by the red square). The matrix has canonical basis which means that each column corresponds to a camera image obtained by projecting a single white pixel of the projector image. Images in the bottom right corners show how a sum of the columns yields a new image that corresponds to a projection of all four white pixels at once. An arbitrary linear combination can be applied to yield a new image. Lastly, the scene in a) has no inter-reflection which consequently leads to the LT matrix being sparse (i.e. basis images at the top have many black pixels). On the other hand, scene b) has a lot of inter-reflections from the glass ball and therefore the matrix is not sparse anymore. Texture source: \citet{Pixar128}}
+    \caption{{\color{red} TODO: show also where the projector is projecting from and make it clear which illumination is direct and which is reflected} Illustration of an LT matrix. In figure a), a \(2 \times 2\) image is being projected onto a textured wall. In figure b), the same image is being projected from the ceiling onto a mirror ball (area delimited by the red square). The matrix has canonical basis which means that each column corresponds to a camera image obtained by projecting a single white pixel of the projector image. Images in the bottom right corners show how a sum of the columns yields a new image that corresponds to a projection of all four white pixels at once. An arbitrary linear combination can be applied to yield a new image. Lastly, the scene in a) has no inter-reflection which consequently leads to the LT matrix being sparse (i.e. basis images at the top have many black pixels). On the other hand, scene b) has a lot of inter-reflections from the mirror ball and therefore the matrix is not sparse anymore. Texture source: \citet{Pixar128}}
     \label{fig:background_lt_capture}
 \end{figure}
 
@@ -491,7 +495,7 @@ In projection mapping, this matrix is usually extremely large because \(n\) corr
     \item Obtaining its inverse
 \end{itemize}
 
-In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. While it would be possible to project a different basis that is detectable by a camera, such a process would still be very time consuming. Methods for light transport capture usually rely on the fact that the LT matrix is often very sparse. In fact, the less inter-reflection there is in a scene, the sparser the matrix is (see fig. \ref{fig:background_lt_capture} for an illustration). One example of a method that reconstructs the matrix using a limited number of samples is \citet{Peers2009}. Using that method it is possible to capture a matrix with \(m = 128^2\) using 991 measurements.
+In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. While it would be possible to project a different basis that is detectable by a camera, such a process would still be very time consuming. Methods for light transport capture usually rely on the fact that the LT matrix is often very sparse. In fact, the less inter-reflection there is in a scene, the sparser the matrix is (see fig. \ref{fig:background_lt_capture} for an illustration). One example of a method that reconstructs the matrix using a limited number of samples is \citet{Peers2009}. Using that method it is possible to capture a matrix with \(m = 128^2\) using 991 measurements. ({\color{red} TODO: depends on scene!})
 
 Inverting the matrix (or, more precisely, obtaining its pseudo-inverse because it is not generally square) is also practically impossible due to the size of the matrix. The solution is again to use the sparsity of the matrix to arrive at an estimate.
 
@@ -537,9 +541,13 @@ But what exactly is a texture and what kind of image modifications can be done w
 
 Figures \ref{fig:intro_pixels_vs_stats} and \ref{fig:background_similar_textures} show examples of textures. Unfortunately, there is no currently no universally accepted mathematical definition of what constitues a texture (\citet{Raad2018}). Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field, has defined textures as classes of images that cannot be discriminated in preattantive (i.e. effortless or instantaneous) vision and then attempted to characterize them mathematically.
 
+{\color{red} TODO: the definition below is too vague, tie everything to intuition just like with the leaves}
+
 Various formal texture definitons agree on the fact that they are two-dimesional random fields which are \textit{stationary}, meaning that their joint probability distribution is not spatially dependent. For example, a texture can be made non-stationary under uneven illumination. Furthermore, the probability of a single texture value typically depends only on a fairly small neighbourhood (constituting a \textit{feature}). For example, a leaf in fig. \ref{fig:background_similar_textures} can be anywhere in the texture, but when a contour of a leaf is found somewhere, it is very likely that the inside of it will be green.
 
 To summarize, there are many similar texture defintions, but not a single prevalent one. Based on this, texture synthesis methods which generate new examples of a given texture class can be divided into two categories. Here is the common recipe which methods in each category follow:
+
+{\color{red} TODO: defs below not entirely accurate, 1) applies to non-parametric as well}
 
 \begin{enumerate}
     \item Find a new candidate for a texture definition which build on the previous ones. This definition forms a texture model and new images are generated according to that model. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis}

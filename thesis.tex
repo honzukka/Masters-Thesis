@@ -210,9 +210,13 @@
 \usepackage{amsmath}
 % Mathematical symbols, including \mathbb{R}, the "real numbers" symbol
 \usepackage{amssymb}
+% Bold math symbols
+\usepackage{bm}
 % Subfigures
 \usepackage{caption}
 \usepackage{subcaption}
+% Wraps text around figures
+\usepackage{wrapfig}
 % Footnotes at the bottom of the page
 \usepackage[bottom]{footmisc}
 
@@ -428,9 +432,9 @@ convolutional neural networks,  optimization, light transport}
 % Abstract in English
 % ------------------------------------------------------------------
 \thesisabstract{english}{
-Projection mapping is a widespread reality augmentation technique used by artists all over the world. It is typically done using a projector and a camera which captures the appearance of a projection in a scene. The actual appearance is then matched with a desired apparance pixel by pixel. This approach is limited by projector brightness when some pixels cannot be made as bright (or dark) as would be required to match those appearances.
+Projection mapping is a widespread reality augmentation technique used by artists all over the world. It can be done automatically using a projector and a camera which captures the appearance of a projection in a scene. The actual appearance is then matched with a desired apparance pixel by pixel. However, this approach is limited by projector brightness when some pixels cannot be made as bright (or dark) as would be required to match those appearances.
 
-In this thesis, we propose a method which focuses on projecting textures to overcome this problem to a certain extent. Modern techniques for texture synthesis based on neural networks can be used to generate new examples of an input texture that look the same but their pixel values may be radically different. We use such a technique to require that the actual appearance of a projection is merely a realization of the same texture as the desired appearance instead of a per-pixel match. As a result, our method is more flexible and thus able to reproduce a larger variety of appearances for a given scene.
+In this thesis, we propose a method which focuses on projecting textures to overcome this problem to a certain extent. Simply put, textures are images with repetitive structure such as pebble beach, tree bark or brick wall. Modern techniques for texture synthesis based on neural networks can be used to generate new examples of an input texture that look the same but their pixel values may be radically different. We use such a technique to require that the actual appearance of a projection is merely a realization of the same texture as the desired appearance instead of a per-pixel match. As a result, our method is more flexible and thus able to reproduce a larger variety of appearances for a given scene.
 
 We guide the reader through three experiments in which we evaluate our method in a software simulator, both on simple flat surfaces and arbitrary 3D scenes. We highlight cases where our method outperforms conventional projection mapping techniques, discuss its limitations and outline steps which are needed to achieve real world deployment.
 }
@@ -464,8 +468,9 @@ We guide the reader through three experiments in which we evaluate our method in
 % The star means that the chapter isn't numbered and does not 
 % show up in the TOC
 \chapter*{Acknowledgements}
+I would like to thank my supervisor Professor Jaakko Lehtinen and the members of his research group for their support, valuable discussions and feedback and for showing me what the world of research looks like. I would also like to acknowledge the computational resources provided by the Aalto Science-IT project.
 
-{\color{red} TODO (don't forget Aalto IT resources!)}
+Special thanks belong to Ida, Lenka and Petr for their love and support.
 \vskip 10mm
 
 \noindent Espoo, \DATE
