@@ -1,7 +1,7 @@
 \chapter{Background}
 \label{chapter:background} 
 
-As outlined in the introduction, in this thesis we present a novel method for the projection mapping of textures. Our method follows a different goal than conventional projection mapping algorithms -- instead of matching the camera image with the desired appearance pixel by pixel, we force them to be realizations of the same texture (see eq. \ref{eq:projection_mapping-statistics}). This gives us more flexibility and enables us to bypass some restrictions imposed on the camera image by the scene and projector hardware.
+As outlined in the introduction, in this thesis we present a novel method for the projection mapping of textures. Our method follows a different goal than conventional projection mapping algorithms -- instead of matching the camera image with the desired appearance pixel by pixel, we force them to be realizations of the same texture (see eq.~\ref{eq:projection_mapping-statistics}). This gives us more flexibility and enables us to bypass some restrictions imposed on the camera image by the scene and projector hardware.
 
 We do not build our method from scratch, however. Many necessary building blocks have been introduced by other researchers in various fields. In this section, we present the work we build on and explain all concepts that lie behind our approach. Specifically, at the core of this chapter are the answers to the following questions:
 
@@ -29,7 +29,7 @@ Projectors are devices that transfer images onto surfaces such as screens, walls
     \label{fig:background_projector}
 \end{figure}
 
-As briefly mentioned in section \ref{section:intro-problem_setting}, no projector is capable of reproducing arbitrary appearance. Each projector can only reproduce a subset of all possible colors, called the \textit{gamut}. Limited projector gamuts have a large impact on how projection mapping is done. To get a better intuition of this impact, we will now explain how a particular type of projector works. We will focus on the so-called Digital Light Processing (DLP) projector which is widely used in cinemas as well as home setups.
+As briefly mentioned in Section~\ref{section:intro-problem_setting}, no projector is capable of reproducing arbitrary appearance. Each projector can only reproduce a subset of all possible colors, called the \textit{gamut}. Limited projector gamuts have a large impact on how projection mapping is done. To get a better intuition of this impact, we will now explain how a particular type of projector works. We will focus on the so-called Digital Light Processing (DLP) projector which is widely used in cinemas as well as home setups.
 
 \subsubsection{DLP Projectors}
 \label{section:background-projection_mapping-projectors-DLP}
@@ -73,7 +73,7 @@ Different projector technologies have different limitations. For example, laser 
 \subsubsection{Depth of Field}
 \label{section:background-projection_mapping-projectors-dof}
 
-\begin{figure}[ht]
+\begin{figure}[t]
     \centering
     \def\svgwidth{0.8\textwidth}
     \input{images/figures/02-thin_lens.pdf_tex}
@@ -83,7 +83,7 @@ Different projector technologies have different limitations. For example, laser 
 
 Another limitation of projectors of their depth of field. In order to be sufficiently bright, projectors need to have a large aperture through which light exits them. However, the larger the aperture is, the blurrier are all points which are not projected exactly on the focus plane of the projector. In practice, this means that when projecting onto a 3D surface, only a limited subset of the projection can be in focus, while the rest will be more or less blurry.
 
-See fig. \ref{fig:background_thin_lens} for an illustration of this phenomenon on a \textit{thin lens model} of projector optics. This model assumes that light rays parallel with the optical axis bend towards the focus point and light rays the pass through the center of the lens continue in a straight line. It is powerful enough to capture most of the behaviour of a lens while being simple to reason about.
+See fig.~\ref{fig:background_thin_lens} for an illustration of this phenomenon on a \textit{thin lens model} of projector optics. This model assumes that light rays parallel with the optical axis bend towards the focus point and light rays the pass through the center of the lens continue in a straight line. It is powerful enough to capture most of the behaviour of a lens while being simple to reason about.
 
 Even if our projection is in perfect focus and all its colors lie within the gamut of our projector, the scene that we are projecting onto might prevent us from reproducing that color faithfully. The study of how light interacts with matter to influence what we see around us is called the \textit{light transport theory}. We provide a brief introduction to it in order to understand what our projections look like and which colors are and are not reproducible with a particular scene and projector. But because this theory is rather complex, we begin by building intuition on what to roughly expect when we install a projector and press Play.
 
@@ -111,7 +111,7 @@ The appearance of an object is given by the light it reflects. Light is the visi
     \label{fig:background_spd}
 \end{figure}
 
-Projectors are above all light sources. As a matter of fact, each of the millions of tiny mirrors inside the DMD of a DLP projector can be thought of as a separate light source. Projector light has an SPD of its own, describing how much power it carries at each wavelength. When it interacts with a surface, something roughly corresponding to SPD multiplication takes place. If an object does not reflect any light at 450 nm, for example, all of it will be absorbed and will not reach our eyes. See fig. \ref{fig:background_spd_intuition} for examples of how projection interacts with various backgrounds.
+Projectors are above all light sources. As a matter of fact, each of the millions of tiny mirrors inside the DMD of a DLP projector can be thought of as a separate light source. Projector light has an SPD of its own, describing how much power it carries at each wavelength. When it interacts with a surface, something roughly corresponding to SPD multiplication takes place. If an object does not reflect any light at 450 nm, for example, all of it will be absorbed and will not reach our eyes. See fig.~\ref{fig:background_spd_intuition} for examples of how projection interacts with various backgrounds.
 
 \begin{figure}[ht]
     \centering    
@@ -182,7 +182,7 @@ We will now study this process more carefully using light transport theory.
 \subsection{Light Transport Theory}
 \label{section:background-projection_mapping-light_transport}
 
-Light transport theory is the study of how light interacts with matter -- how it travels through space, scatters in fog, reflects from surfaces, refracts in camera lenses and absorbs in black T-shirts in summer. One of the most common uses of light transport is in architectural visualizations (see fig. \ref{fig:background_light_transport_examples-rendering}) and video game and movie rendering. There, we are interested in the SPD that arrives at each pixel of a virtual camera given geometry, materials and light sources.
+Light transport theory is the study of how light interacts with matter -- how it travels through space, scatters in fog, reflects from surfaces, refracts in camera lenses and absorbs in black T-shirts in summer. One of the most common uses of light transport is in architectural visualizations (see fig.~\ref{fig:background_light_transport_examples-rendering}) and video game and movie rendering. There, we are interested in the SPD that arrives at each pixel of a virtual camera given geometry, materials and light sources.
 
 \begin{figure}[ht]
     \centering
@@ -199,7 +199,7 @@ Light transport theory is the study of how light interacts with matter -- how it
         \caption{Source: \citet{Grossberg2004}}
         \label{fig:background_light_transport_examples-procam}
     \end{subfigure}
-    \caption{Image a) is an architectural visualization which uses light transport theory to solve the following problem: Given scene geometry, materials and light sources and camera position, what will the camera see? Image b) is a projector-camera system calibration from section \ref{section:intro-problem_setting} and asks: Given what the camera sees when various patterns are projected onto the scene, what can we say about the geometry and materials of the scene?}
+    \caption{Image a) is an architectural visualization which uses light transport theory to solve the following problem: Given scene geometry, materials and light sources and camera position, what will the camera see? Image b) is a projector-camera system calibration from Section~\ref{section:intro-problem_setting} and asks: Given what the camera sees when various patterns are projected onto the scene, what can we say about the geometry and materials of the scene?}
     \label{fig:background_light_transport_examples}
 \end{figure}
 
@@ -208,7 +208,7 @@ In this section, we provide a brief overview of light transport theory and expla
 \subsubsection{Radiance}
 \label{section:background-projection_mapping-light_transport-radiance}
 
-As mentioned in \ref{section:background-projection_mapping-projection_intuition}, all we see is light. Measuring light is therefore the crux of understanding how things look. The fundamental quantity we are interested in when measuring light is \textit{radiance}. It is defined as the amount of photons \(Q\) per unit projected area \(A^\perp \) per unit solid angle \(\omega\) per unit of time \(t\) (see fig. \ref{fig:background_radiance}):
+As mentioned in~\ref{section:background-projection_mapping-projection_intuition}, all we see is light. Measuring light is therefore the crux of understanding how things look. The fundamental quantity we are interested in when measuring light is \textit{radiance}. It is defined as the amount of photons \(Q\) per unit projected area \(A^\perp \) per unit solid angle \(\omega\) per unit of time \(t\) (see fig.~\ref{fig:background_radiance}):
 
 \begin{equation}
     \label{eq:radiance}
@@ -217,13 +217,13 @@ As mentioned in \ref{section:background-projection_mapping-projection_intuition}
 
 \begin{figure}[ht]
     \centering
-    \def\svgwidth{0.8\textwidth}
+    \def\svgwidth{0.5\textwidth}
     \input{images/figures/02-radiance.pdf_tex}
     \caption{Illustration of radiance which is defined as the amount of photons \(Q\) per unit projected area \(A^\perp \) per unit solid angle \(\omega\) per unit of time \(t\)}
     \label{fig:background_radiance}
 \end{figure}
 
-As suggested in fig. \ref{fig:background_spd}, to see the full picture, we need to consider radiance at each visible wavelength. A common approach to simplifying this is decompose the space of all visible SPDs into three basis functions which roughly correspond to red, green and blue colors. In that case, we would be interested in radiance in each of these channels. To simplify our explanations even further, we only talk about radiance \(L\). It is, however, important to realize that there is a layer of complexity hidden behing that notation.
+As suggested in fig.~\ref{fig:background_spd}, to see the full picture, we need to consider radiance at each visible wavelength. A common approach to simplifying this is decompose the space of all visible SPDs into three basis functions which roughly correspond to red, green and blue colors. In that case, we would be interested in radiance in each of these channels. To simplify our explanations even further, we only talk about radiance \(L\). It is, however, important to realize that there is a layer of complexity hidden behing that notation.
 
 Another issue with radiance is that it is a purely physical quantity while how we perceive something is to do with psychology. Luckily, for each radiometric measurement, such as radiance, there is a corresponding \(photometric\) measurement which expresses how a stimulus is perceived by the human visual system. The photometric counterpart to radiance is \(luminance\) and can be obtained from radiance by integrating against an empirically constructed spectral response curve which describes how the human eye reacts to various wavelengths. Because luminance can be easily computed from radiance, we only discuss radiance in this thesis.
 
@@ -232,31 +232,54 @@ We will now present the relationship between objects, light sources and the radi
 \subsubsection{Rendering Equation}
 \label{section:background-projection_mapping-light_transport-rendering_equation}
 
-The rendering equation describes the amount of outgoing radiance from point \(x\) in a scene towards a direction \(\mathbf{v}\):
+The rendering equation describes the amount of outgoing radiance from point \(x\) in a scene towards a direction \(\bm{v}\):
 
 \begin{equation}
     \label{eq:rendering_equation}
-    L(x \rightarrow \mathbf{v}) = \int_{\Omega(x)} L(x \leftarrow \mathbf{u}) f_r(x, \mathbf{u} \rightarrow \mathbf{v}) \cos \theta \mathrm{d}\mathbf{u} + E(x \rightarrow \mathbf{v})
+    L(x \rightarrow \bm{v}) = \int_{\Omega(x)} L(x \leftarrow \bm{u}) f_r(x, \bm{u} \rightarrow \bm{v}) \cos \theta \mathrm{d}\bm{u} + E(x \rightarrow \bm{v})
 \end{equation}
 
-{\color{red} TODO: figure of rendering equation}
+\begin{figure}[t]
+    \centering
+    \def\svgwidth{0.6\textwidth}
+    \input{images/figures/02-rendering_eq.pdf_tex}
+    \caption{An illustration of the rendering equation (eq.~\ref{eq:rendering_equation}). The amount of radiance \(L(x \rightarrow \bm{v})\) exiting point \(x\) in direction \(\bm{v}\) can be computed by considering the radiance \(L(x \leftarrow \bm{u})\) that arrives at \(x\) from all directions \(\bm{u} \in \Omega(x)\). Thanks to constancy along straight lines, \(L(x \leftarrow \bm{u}) = L(y \rightarrow \bm{-u})\) which makes the rendering equation recursive}
+    \label{fig:background_rendering_eq}
+\end{figure}
 
-where \(L(x \leftarrow \mathbf{u})\) is the radiance arriving at \(x\) from direction \(\mathbf{u}\), \(\Omega(x)\) is the hemisphere oriented to the direction of the surface normal at \(x\), \(f_r\) is the spatially-varying bidirectional reflectance distribution function (SVBRDF) which determines surface reflectance for each point \(x\), incoming direction \(\mathbf{u}\) and outgoing direction \(\mathbf{v}\), and \(\theta\) is the angle between \(u\) and the surface normal at \(x\). Finally, \(E(x \rightarrow \mathbf{v})\) is the radiance emitted from \(x\) towards \(\mathbf{v}\) in case \(x\) lies on a light source.
+where \(L(x \leftarrow \bm{u})\) is the radiance arriving at \(x\) from direction \(\bm{u}\), \(\Omega(x)\) is the hemisphere oriented to the direction of the surface normal at \(x\), \(f_r\) is the spatially-varying bidirectional reflectance distribution function (SVBRDF) which determines surface reflectance for each point \(x\), incoming direction \(\bm{u}\) and outgoing direction \(\bm{v}\), and \(\theta\) is the angle between \(u\) and the surface normal at \(x\). Finally, \(E(x \rightarrow \bm{v})\) is the radiance emitted from \(x\) towards \(\bm{v}\) in case \(x\) lies on a light source. See fig.~\ref{fig:background_rendering_eq} for an illustration.
 
-The main idea of the equation is that radiance leaving towards \(\mathbf{v}\) from \(x\) is the sum of reflected and emitted radiance. It assumes empty space between objects, therefore no light scattering occurs between them. This means that radiance is constant along straight lines and the equation is recursive -- \(L(x \leftarrow \mathbf{u}) = L(y \rightarrow -\mathbf{u})\) where \(y\) is the point seen from \(x\) in the direction of \(\mathbf{u}\). Generalizations of the rendering equation to scenes with participating media where this is not the case are discussed in a SIGGRAPH course by \citet{Novak2018}.
+The main idea of the equation is that radiance leaving towards \(\bm{v}\) from \(x\) is the sum of reflected and emitted radiance. It assumes empty space between objects, therefore no light scattering occurs between them. This means that radiance is constant along straight lines and the equation is recursive -- \(L(x \leftarrow \bm{u}) = L(y \rightarrow -\bm{u})\) where \(y\) is the point seen from \(x\) in the direction of \(\bm{u}\). Generalizations of the rendering equation to scenes with participating media where this is not the case are discussed in a SIGGRAPH course by \citet{Novak2018}.
 
 Apart from assuming that our objects are in vacuum, the equation also assumes that light is reflected from the same point it arrived at. This is generally not the case as can be seen for example with human skin where light bounces under the surface before it is reflected. This phenomenon is known as \textit{subsurface scattering} and a generalization of the rendering equation to account for it has been presented for example by \citet{Jensen2001}. For our purposes, however, it is sufficient to be familiar with the basic form of the rendering equation.
 
-To determine the amount of radiance that hits a virtual camera sensor in scenes such as fig. \ref{fig:background_light_transport_examples-rendering}, we need to solve the rendering equation for points that lie on the sensor and directions towards points in the scene that are visible from the sensor. This is typically done by Monte Carlo integration which estimates the integral by random sampling. Each sample is a light path from a light source towards the camera with zero or more bounces on the surfaces of the scene. A strategy to choose such samples is crucial to the performance of a rendering algorithm. A brilliant overview of sampling strategies, for example bidirectional path tracing (BDPT) can be found in \citet{Veach1997}.
-
-{\color{red} TODO: add an image from a lt capture paper that shows interreflection}
+To determine the amount of radiance that hits a virtual camera sensor in scenes such as fig.~\ref{fig:background_light_transport_examples-rendering}, we need to solve the rendering equation for points that lie on the sensor and directions towards points in the scene that are visible from the sensor. This is typically done by Monte Carlo integration which estimates the integral by random sampling. Each sample is a light path from a light source towards the camera with zero or more bounces on the surfaces of the scene. A strategy to choose such samples is crucial to the performance of a rendering algorithm. A brilliant overview of sampling strategies, for example bidirectional path tracing (BDPT) can be found in \citet{Veach1997}.
 
 \subsubsection{Towards Projection Mapping}
 \label{section:background-projection_mapping-light_transport-towards_projection_mapping}
 
-In a sense, projection mapping is a more difficult problem than rendering. Whereas in rendering, the scene geometry, materials and light sources are known and the radiance at the camera sensor is unknown, in projection mapping we only know the radiance at the camera sensor and everything else, including the projection image (our light source), is unknown.
+In a sense, projection mapping is a more difficult problem than rendering. Whereas in rendering, the scene geometry, materials and light sources are known and the radiance at the camera sensor is unknown, in projection mapping we only know the radiance at the camera sensor and everything else, including the projection image (our light source), is unknown. See fig.~\ref{fig:background_proj_map_vs_rendering} for an illustration.
 
-{\color{red} TODO: figure that compares rendering to projection mapping}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \def\svgwidth{\textwidth}
+        \input{images/figures/02-rendering.pdf_tex}
+        \caption*{}
+        %\label{fig:background_light_transport_examples-rendering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \def\svgwidth{\textwidth}
+        \input{images/figures/02-projection_mapping.pdf_tex}
+        \caption*{}
+        %\label{fig:background_light_transport_examples-procam}
+    \end{subfigure}
+    \caption{An illustration of the difference between rendering (left) and projection mapping (right). Recall fig.~\ref{fig:intro_procam} that we build on here. When rendering, light sources (here projection \(\bm{p}\)), materials and geometry are known and radiance at the camera sensor (here camera image \(r(\bm{p})\) is unknown). On the other hand, in a projection mapping scenario we know only what our camera image should look like (\(\bm{y}\)) and sometimes we know the relative position of projector and camera. Everything else is unknown}
+    \label{fig:background_proj_map_vs_rendering}
+\end{figure}
 
 Projection mapping algorithms therefore do not typically solve the full (inverse) light transport of the whole scene, but instead they build on top of assumptions and provide estimates. Common assumptions are for example
 
@@ -273,7 +296,7 @@ We will now review some common approaches to projection mapping found in state-o
 
 The key idea in projection mapping is to use a camera to observe the projection and provide information on how to adapt it to achieve desired appearance. This system as a whole is called the \textit{projector-camera system}, commonly shortened as \textit{procam}.
 
-As mentioned in eq. \ref{eq:projection_mapping-per_pixel}, this adaptation is done by modifying the projector image until the camera image matches the desired appearance pixel by pixel. However, the relationship between projector and camera pixels is very complex, as suggested in section \ref{section:background-projection_mapping-light_transport} on light transport theory. The model of this relationship is the main differentiating factor of various projection mapping methods.
+As mentioned in eq.~\ref{eq:projection_mapping-per_pixel}, this adaptation is done by modifying the projector image until the camera image matches the desired appearance pixel by pixel. However, the relationship between projector and camera pixels is very complex, as suggested in Section~\ref{section:background-projection_mapping-light_transport} on light transport theory. The model of this relationship is the main differentiating factor of various projection mapping methods.
 
 On a high level, projection mapping methods can be split into two groups:
 
@@ -308,7 +331,7 @@ The relationship between \(M_c\) and \(P\) is determined by the \textit{intrinsi
         0 & 0 & 1 
     \end{bmatrix} \cdot
     \begin{bmatrix}
-        \mathbf{R} & \mathbf{t}
+        \bm{R} & \bm{t}
     \end{bmatrix} \cdot
     \begin{bmatrix}
         x \\
@@ -317,7 +340,7 @@ The relationship between \(M_c\) and \(P\) is determined by the \textit{intrinsi
     \end{bmatrix}
 \end{equation}
 
-where the intrinsic matrix is formed by camera focal lengths \(f_x\) and \(f_y\) (focal length is expressed in pixels and if pixels are square, then \(f_x = f_y = f\)), skewness \(s\) of image axes, and principal point coordinates \([u, v]^T\) (the intersection of optical axis and image plane which is generally not in the center of the image). The extrinsic matrix is then formed by rotation \(\mathbf{R}\) and translation \(\mathbf{t}\) which convert between world coordinates and camera coordinates. See fig. \ref{fig:background_camera_calibration} for an illustration.
+where the intrinsic matrix is formed by camera focal lengths \(f_x\) and \(f_y\) (focal length is expressed in pixels and if pixels are square, then \(f_x = f_y = f\)), skewness \(s\) of image axes, and principal point coordinates \([u, v]^T\) (the intersection of optical axis and image plane which is generally not in the center of the image). The extrinsic matrix is then formed by rotation \(\bm{R}\) and translation \(\bm{t}\) which convert between world coordinates and camera coordinates. See fig.~\ref{fig:background_camera_calibration} for an illustration.
 
 \begin{figure}[ht]
     \centering
@@ -327,7 +350,7 @@ where the intrinsic matrix is formed by camera focal lengths \(f_x\) and \(f_y\)
     \label{fig:background_camera_calibration}
 \end{figure}
 
-The most commonly used method for finding the parameters of eq. \ref{eq:camera_equation} was introduced by \citet{Zhang1999}. They are estimated by taking at least two photos of a planar pattern at various orientations.
+The most commonly used method for finding the parameters of eq.~\ref{eq:camera_equation} was introduced by \citet{Zhang1999}. They are estimated by taking at least two photos of a planar pattern at various orientations.
 
 We will now outline two recent methods to perform geometric calibration. The first one requires user assistance, while the second one is fully automatic.
 
@@ -389,11 +412,11 @@ where \(p_p\) is a non-linear projector response function which turns input pixe
 
 Both \(p_p\) and \(p_c\) are independent of the scene and can be estimated separately. \(V\) and \(F\) are per-pixel and scene-dependent and can be estimated by projecting and capturing 6 calibration images.
 
-The disadvantage of this method is that the linear color mixing matrix is not an accurate model for example when using DLP projectors described in section \ref{section:background-projection_mapping-projectors-DLP}. DLP projectors sometimes form an image by composing red, green, blue and white channels together. The extra white channel may result in non-linear behavior. Another disadvantage is related to projector brightness limitations. If the color gamut of the projector struggles to reproduce the color required by the compensation model, it results in clipping artifacts and lowered contrast. See fig. \ref{fig:background_clipping} for an illustration.
+The disadvantage of this method is that the linear color mixing matrix is not an accurate model for example when using DLP projectors described in Section~\ref{section:background-projection_mapping-projectors-DLP}. DLP projectors sometimes form an image by composing red, green, blue and white channels together. The extra white channel may result in non-linear behavior. Another disadvantage is related to projector brightness limitations. If the color gamut of the projector struggles to reproduce the color required by the compensation model, it results in clipping artifacts and lowered contrast. See fig.~\ref{fig:background_clipping} for an illustration.
 
 \begin{figure}[ht]
     \centering
-    \def\svgwidth{0.6\textwidth}
+    \def\svgwidth{0.4\textwidth}
     \input{images/figures/02-clipping.pdf_tex}
     \caption{Illustration of reduced contrast due to brightness limitations. Projector gamut is delimited by a triangle. If a compensation model requires a color which is outside the triangle, the closes color on the edge of the triangle is projected instead. Colors inside the triangle are projected as required which results in reduced contrast between the two groups}
     \label{fig:background_clipping}
@@ -401,7 +424,7 @@ The disadvantage of this method is that the linear color mixing matrix is not an
 
 \textbf{Non-linear color-mapping function with a global optimization step.} To solve these problems, \citet{Grundhofer2015} presented an improved method which allows for an arbitrary color-mixing function. This function is estimated by obtaining up to \(6^3\) samples and then applying thin-plate spline interpolation on them. This sampling process takes several minutes but once it is completed, compensation can be performed in real time.
 
-Moreover, the paper acknowledges that the contrast issues stem from the way the camera image is matched with the desired appearance pixel by pixel (see eq. \ref{eq:projection_mapping-per_pixel}). To fix this, it uses a global optimization step which compensates the image based on its higher level content. In this step, a patch size is chosen (typically \(2^n\) pixels) and a color-correcting coefficient is introduced for each patch. The coefficients are set so as to minimize clipping errors caused by limited color gamut of the projector and overall increase image contrast.
+Moreover, the paper acknowledges that the contrast issues stem from the way the camera image is matched with the desired appearance pixel by pixel (see eq.~\ref{eq:projection_mapping-per_pixel}). To fix this, it uses a global optimization step which compensates the image based on its higher level content. In this step, a patch size is chosen (typically \(2^n\) pixels) and a color-correcting coefficient is introduced for each patch. The coefficients are set so as to minimize clipping errors caused by limited color gamut of the projector and overall increase image contrast.
 
 \begin{figure}[ht]
     \centering
@@ -410,12 +433,12 @@ Moreover, the paper acknowledges that the contrast issues stem from the way the 
     \label{fig:background_grundhofer_result}
 \end{figure}
 
-As a result, this method achieves very good results in scenes which have minimal inter-reflection that cannot be modeled when 1:1 correspondence between projector and camera pixels is assumed (see fig. \ref{fig:background_grundhofer_result}). The idea of the global optimization step is important because goes in the same direction as our method -- compensating the projection image not pixel by pixel, but based on higher-level content instead.
+As a result, this method achieves very good results in scenes which have minimal interreflection that cannot be modeled when 1:1 correspondence between projector and camera pixels is assumed (see fig.~\ref{fig:background_grundhofer_result}). The idea of the global optimization step is important because goes in the same direction as our method -- compensating the projection image not pixel by pixel, but based on higher-level content instead.
 
 \subsubsection{Inverse Light Transport}
 \label{section:background-projection_mapping-procams-inverse_lt}
 
-Another approach to projection mapping that does not rely on the assumption of 1:1 correspondence between projector and camera pixels is so-called inverse light transport. The basic idea behind this approach is that radiance incoming onto camera sensor is a linear function of light sources in the scene. This can be derived directly from the rendering equation (see eq. \ref{eq:rendering_equation}) and practical examples can be seen in fig. \ref{fig:background_linear_lt}.
+Another approach to projection mapping that does not rely on the assumption of 1:1 correspondence between projector and camera pixels is so-called inverse light transport. The basic idea behind this approach is that radiance incoming onto camera sensor is a linear function of light sources in the scene. This can be derived directly from the rendering equation (see eq.~\ref{eq:rendering_equation}) and practical examples can be seen in fig.~\ref{fig:background_linear_lt}.
 
 \begin{figure}[ht]
     \centering
@@ -463,9 +486,7 @@ As a consequence, radiance incoming onto a given camera sensor can be determined
     \end{bmatrix}
 \end{equation}
 
-{\color{red} TODO: refer to figure \ref{fig:background_lt_capture} here}
-
-where \(m\) is the number of light sources in a scene, \(n\) is the number of pixels in the camera sensor and \(c_{ij}\) is the value of the \(j\)-th pixel of an image that was rendered with only the \(i\)-th light source turned on. By taking a linear combination of the columns of the matrix it is then possible to obtain an image rendered by the corresponding combination of light sources.
+where \(m\) is the number of light sources in a scene, \(n\) is the number of pixels in the camera sensor and \(c_{ij}\) is the value of the \(j\)-th pixel of an image that was rendered with only the \(i\)-th light source turned on. By taking a linear combination of the columns of the matrix it is then possible to obtain an image rendered by the corresponding combination of light sources. See fig.~\ref{fig:background_lt_capture} for an illustration.
 
 \begin{figure}[]
     \centering
@@ -484,7 +505,7 @@ where \(m\) is the number of light sources in a scene, \(n\) is the number of pi
         \caption{}
         %\label{}
     \end{subfigure}
-    \caption{{\color{red} TODO: show also where the projector is projecting from and make it clear which illumination is direct and which is reflected} Illustration of an LT matrix. In figure a), a \(2 \times 2\) image is being projected onto a textured wall. In figure b), the same image is being projected from the ceiling onto a mirror ball (area delimited by the red square). The matrix has canonical basis which means that each column corresponds to a camera image obtained by projecting a single white pixel of the projector image. Images in the bottom right corners show how a sum of the columns yields a new image that corresponds to a projection of all four white pixels at once. An arbitrary linear combination can be applied to yield a new image. Lastly, the scene in a) has no inter-reflection which consequently leads to the LT matrix being sparse (i.e. basis images at the top have many black pixels). On the other hand, scene b) has a lot of inter-reflections from the mirror ball and therefore the matrix is not sparse anymore. Texture source: \citet{Pixar128}}
+    \caption{Illustration of an LT matrix. In figure a), a white \(2 \times 2\) image is being projected onto a textured wall. In figure b), the same image is being projected from the ceiling onto a mirror ball (area delimited by the red square). The matrix has canonical basis which means that each column corresponds to a camera image obtained by projecting a single white pixel of the projector image. Images in the bottom right corners show how a sum of the columns yields a new image that corresponds to a projection of all four white pixels at once. An arbitrary linear combination can be applied to yield a new image. Lastly, all illumination in a) is direct (hence no interreflection) which consequently leads to the LT matrix being sparse (i.e. basis images at the top have many black pixels). On the other hand, scene b) is illuminated directly only in the red square. The rest is indirect illumination from the mirror ball and therefore the matrix is not sparse anymore. Texture source: \citet{Pixar128}}
     \label{fig:background_lt_capture}
 \end{figure}
 
@@ -495,11 +516,11 @@ In projection mapping, this matrix is usually extremely large because \(n\) corr
     \item Obtaining its inverse
 \end{itemize}
 
-In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. While it would be possible to project a different basis that is detectable by a camera, such a process would still be very time consuming. Methods for light transport capture usually rely on the fact that the LT matrix is often very sparse. In fact, the less inter-reflection there is in a scene, the sparser the matrix is (see fig. \ref{fig:background_lt_capture} for an illustration). One example of a method that reconstructs the matrix using a limited number of samples is \citet{Peers2009}. Using that method it is possible to capture a matrix with \(m = 128^2\) using 991 measurements. ({\color{red} TODO: depends on scene!})
+In practice, it is impossible to capture the matrix by projecting a canonical basis because this would mean projecting with only a single pixel turned on and the signal-noise ratio of camera sensors is too high to capture such faint light. While it would be possible to project a different basis that is detectable by a camera, such a process would still be very time consuming. Methods for light transport capture usually rely on the fact that the LT matrix is often very sparse. In fact, the less interreflection there is in a scene, the sparser the matrix is (see fig.~\ref{fig:background_lt_capture} for an illustration). One example of a method that reconstructs the matrix using a limited number of samples is \citet{Peers2009}. Its performance depends on the scene (sparser matrices are easier to capture), but \citet{Peers2009} present an example with a motorbike scene that contains many shiny surfaces and capture its light transport with \(m = 128^2\) using 991 measurements.
 
 Inverting the matrix (or, more precisely, obtaining its pseudo-inverse because it is not generally square) is also practically impossible due to the size of the matrix. The solution is again to use the sparsity of the matrix to arrive at an estimate.
 
-For example, \citet{Wetzstein2007} use the inverse light transport approach to implement a projection mapping method which works with arbitrary scenes and also compensates projector defocus which previously mentiones methods ignored. The drawbacks of this method are several hours long matrix acquisition process (during and after which the scene needs to stay static) and also the loss of some global illumination effects caused by estimates of both the LT matrix and its pseudo-inverse. Example results can be seen in fig. \ref{fig:background_wetzstein_result}.
+For example, \citet{Wetzstein2007} use the inverse light transport approach to implement a projection mapping method which works with arbitrary scenes and also compensates projector defocus which previously mentiones methods ignored. The drawbacks of this method are several hours long matrix acquisition process (during and after which the scene needs to stay static) and also the loss of some global illumination effects caused by estimates of both the LT matrix and its pseudo-inverse. Example results can be seen in fig.~\ref{fig:background_wetzstein_result}.
 
 \begin{figure}[ht]
     \centering
@@ -513,7 +534,7 @@ This concludes the section on projection mapping which was aiming to explain how
 \section{Texture Synthesis}
 \label{section:background-texture_synthesis}
 
-As mentioned in section \ref{section:intro-key_idea}, the aim of this thesis is to advance the idea of content-based projection mapping of textures. As section \ref{section:background-projection_mapping} suggests, with current projector hardware it is not always possible to match the camera image with the desired appearance pixel by pixel while minimizing clipping errors. Hence in our method we loosen up the definition of image similarity. Textures are a great candidate to start with because two textures can have radically different pixel values in corresponding position but still look the same (see fig. \ref{fig:background_similar_textures} for an example).
+As mentioned in Section~\ref{section:intro-key_idea}, the aim of this thesis is to advance the idea of content-based projection mapping of textures. As Section~\ref{section:background-projection_mapping} suggests, with current projector hardware it is not always possible to match the camera image with the desired appearance pixel by pixel while minimizing clipping errors. Hence in our method we loosen up the definition of image similarity. Textures are a great candidate to start with because two textures can have radically different pixel values in corresponding position but still look the same (see fig.~\ref{fig:background_similar_textures} for an example).
 
 \begin{figure}[ht]
     \centering
@@ -539,22 +560,18 @@ But what exactly is a texture and what kind of image modifications can be done w
 \subsection{Textures}
 \label{section:background-texture_synthesis-textures}
 
-Figures \ref{fig:intro_pixels_vs_stats} and \ref{fig:background_similar_textures} show examples of textures. Unfortunately, there is no currently no universally accepted mathematical definition of what constitues a texture (\citet{Raad2018}). Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field, has defined textures as classes of images that cannot be discriminated in preattantive (i.e. effortless or instantaneous) vision and then attempted to characterize them mathematically.
+Figures~\ref{fig:intro_pixels_vs_stats} and~\ref{fig:background_similar_textures} show examples of textures. Unfortunately, there is no currently no universally accepted mathematical definition of what constitues a texture (\citet{Raad2018}). Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field, has defined textures as classes of images that cannot be discriminated in preattantive (i.e. effortless or instantaneous) vision and then attempted to characterize them mathematically.
 
-{\color{red} TODO: the definition below is too vague, tie everything to intuition just like with the leaves}
-
-Various formal texture definitons agree on the fact that they are two-dimesional random fields which are \textit{stationary}, meaning that their joint probability distribution is not spatially dependent. For example, a texture can be made non-stationary under uneven illumination. Furthermore, the probability of a single texture value typically depends only on a fairly small neighbourhood (constituting a \textit{feature}). For example, a leaf in fig. \ref{fig:background_similar_textures} can be anywhere in the texture, but when a contour of a leaf is found somewhere, it is very likely that the inside of it will be green.
+Various formal texture definitons agree on the fact that they are two-dimesional random fields which are \textit{stationary}, meaning that their joint probability distribution is not spatially dependent. For example, in fig.~\ref{fig:background_similar_textures}, a single leaf is equally likely to be anywhere in the image. If the image was not stationary, there would be areas where the leaf would be more likely to appear. Also note that textures under uneven illumination are not stationary. Furthermore, the probability of a single texture value typically depends only on a fairly small neighbourhood (comprising a \textit{feature}). For example, a leaf in fig.~\ref{fig:background_similar_textures} can be anywhere in the texture, but when a contour of a leaf is found somewhere, it is very likely that the inside of it will be green. 
 
 To summarize, there are many similar texture defintions, but not a single prevalent one. Based on this, texture synthesis methods which generate new examples of a given texture class can be divided into two categories. Here is the common recipe which methods in each category follow:
 
-{\color{red} TODO: defs below not entirely accurate, 1) applies to non-parametric as well}
-
 \begin{enumerate}
-    \item Find a new candidate for a texture definition which build on the previous ones. This definition forms a texture model and new images are generated according to that model. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis}
-    \item Work without a model and instead define a procedure that turns a given texture example into a new one. This category is also called \textit{non-parametric texture synthesis} or \textit{patch-based texture synthesis} (because the procedure usually generates the texture image patch by patch)
+    \item Find a set of summary statistics such that two texture images belong to the same texture class \textit{iff} they share them. Then create new examples of an input texture by drawing random samples and imposing the statistics of the input onto them. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis}. Note that the summary statistics define a texture
+    \item Work without an explicit model and instead reorganize local neighbourhoods of the input texture image according to a set procedure to create new examples. This category is also called \textit{non-parametric texture synthesis} or \textit{patch-based texture synthesis} (because the procedure usually generates the texture image patch by patch)
 \end{enumerate}
 
-In the following sections we explain the theoretical background of both approaches to texture synthesis and describe the most important methods in each category. Specifically, we focus on strengths and weaknesses of each method and on how suitable it is for our purpose of projection mapping of textures as outlined in section \ref{section:intro-key_idea}. For a more in-depth review of the state of the art in texture synthesis, see \citet{Raad2018}.
+In the following sections we explain the theoretical background of both approaches to texture synthesis and describe the most important methods in each category. Specifically, we focus on strengths and weaknesses of each method and on how suitable it is for our purpose of projection mapping of textures as outlined in Section~\ref{section:intro-key_idea}. For a more in-depth review of the state of the art in texture synthesis, see \citet{Raad2018}.
 
 \subsection{Patch-Based Texture Synthesis}
 \label{section:background-texture_synthesis-patch_based}
@@ -579,14 +596,14 @@ In their texture synthesis method, \citet{Efros1999} generate an image pixel by 
     \label{fig:background_quilting_method}
 \end{figure}
 
-Image quilting starts by splitting the input texture image into overlapping square blocks \(B_i\) of size \(k\) (a user-controlled parameter). Then it builds a new texture block by block in raster scan order (from the top left corner to the bottom right corner, row by row). A new block \(B^{\prime}\) is chosen at random from all \(B_i\) such that the pixel-wise error in overlapping areas (they use 1/6 of block area along the edge) with the block above \(B^{\prime}\) and to the left of \(B^{\prime}\) in below a certain threshold in the output image. Since many blocks usually satisfy this overlap constraint, one is picked at random. If \(B^{\prime}\) was pasted into the output image directly, the result would look blocky. Therefore \(B^{\prime}\) is pasted into the output image along a minimum error path inside the overlapping areas. This ensures that seams between block will be as subtle as possible. See fig. \ref{fig:background_quilting_method} for an illustration of the method.
+Image quilting starts by splitting the input texture image into overlapping square blocks \(B_i\) of size \(k\) (a user-controlled parameter). Then it builds a new texture block by block in raster scan order (from the top left corner to the bottom right corner, row by row). A new block \(B^{\prime}\) is chosen at random from all \(B_i\) such that the pixel-wise error in overlapping areas (they use 1/6 of block area along the edge) with the block above \(B^{\prime}\) and to the left of \(B^{\prime}\) in below a certain threshold in the output image. Since many blocks usually satisfy this overlap constraint, one is picked at random. If \(B^{\prime}\) was pasted into the output image directly, the result would look blocky. Therefore \(B^{\prime}\) is pasted into the output image along a minimum error path inside the overlapping areas. This ensures that seams between block will be as subtle as possible. See fig.~\ref{fig:background_quilting_method} for an illustration of the method.
 
 \subsubsection{Pros and Cons}
 \label{section:background-texture_synthesis-patch_based-pros_and_cons}
 
-This method can achieve stunning visual results when the input texture is uniformly lit and contains large features, like pebbles or coffee beans. It is especially powerful when used on textures with regular structure, like a brick wall. See fig. \ref{fig:background_quilting_pros_cons} for an example.
+This method can achieve stunning visual results when the input texture is uniformly lit and contains large features, like pebbles or coffee beans. It is especially powerful when used on textures with regular structure, like a brick wall. See fig.~\ref{fig:background_quilting_pros_cons} for an example.
 
-However, it struggles with textures that have non-uniform illumination and that contain very small features, like sand or concrete. Failure cases usually manifest themselves by large areas that are directly copied from the input (so-called \textit{verbatim copying}) or areas that contain the same patch copied over and over (so-called \textit{garbage growing}). See fig. \ref{fig:background_quilting_pros_cons} for an example.
+However, it struggles with textures that have non-uniform illumination and that contain very small features, like sand or concrete. Failure cases usually manifest themselves by large areas that are directly copied from the input (so-called \textit{verbatim copying}) or areas that contain the same patch copied over and over (so-called \textit{garbage growing}). See fig.~\ref{fig:background_quilting_pros_cons} for an example.
 
 \begin{figure}[ht]
     \centering
@@ -600,7 +617,7 @@ Another drawback of this method is that its parameters need to be manually tuned
 \subsubsection{Potential Usage in Projection Mapping}
 \label{section:background-texture_synthesis-patch_based-projection_mapping}
 
-Image quilting is surprisingly flexible to adapt for other uses than texture synthesis. The authors themselves showcase the possibility of using the method for style transfer. This is a problem that considers two input images and produces a third one which has the content of one image and style of the other. This can be achieved by adding a new term to the overlap error. In the case of style transfer, it takes the form of the difference in pixel intensities of the candidate patch and a corresponding patch of the target image. See fig. \ref{fig:background_quilting_transfer} for an example.
+Image quilting is surprisingly flexible to adapt for other uses than texture synthesis. The authors themselves showcase the possibility of using the method for style transfer. This is a problem that considers two input images and produces a third one which has the content of one image and style of the other. This can be achieved by adding a new term to the overlap error. In the case of style transfer, it takes the form of the difference in pixel intensities of the candidate patch and a corresponding patch of the target image. See fig.~\ref{fig:background_quilting_transfer} for an example.
 
 \begin{figure}[ht]
     \centering
@@ -647,7 +664,7 @@ Statistics-based texture synthesis is an older and more established approach to 
     \item Synthesizing new texture examples based on that characterization
 \end{itemize}
 
-As mentioned in section \ref{section:background-texture_synthesis}, a formal texture model should be compatible with the notion that textures are classes of images that are indistinguishable in preattentive vision. A famous attempt at such a model was introduced by \citet{Julesz1962} who formulated a hypothesis that two textures with identical second-order statistics are preattentively indistinguishable from each other (see fig. \ref{fig:background_julesz_textures} for an example). This hypothesis was later disproved in \citet{Julesz1973} by counter-examples of distinguishable textures with identical third-order statistics (also fig. \ref{fig:background_julesz_textures}). However, the distinguishing features in those counter-examples are local. A modified Julesz hypothesis says that "the pre-attentive textural system cannot globally compute third- or higher-order statistics" (\citet{Julesz1981}) and the idea that global statistics characterize textures well is still prevalent today. See fig. \ref{fig:background_statistics_example} for an illustration of how global statistics can be used for texture synthesis.
+As mentioned in Section~\ref{section:background-texture_synthesis}, a formal texture model should be compatible with the notion that textures are classes of images that are indistinguishable in preattentive vision. A famous attempt at such a model was introduced by \citet{Julesz1962} who formulated a hypothesis that two textures with identical second-order statistics are preattentively indistinguishable from each other (see fig.~\ref{fig:background_julesz_textures} for an example). This hypothesis was later disproved in \citet{Julesz1973} by counter-examples of distinguishable textures with identical third-order statistics (also fig.~\ref{fig:background_julesz_textures}). However, the distinguishing features in those counter-examples are local. A modified Julesz hypothesis says that "the pre-attentive textural system cannot globally compute third- or higher-order statistics" (\citet{Julesz1981}) and the idea that global statistics characterize textures well is still prevalent today. See fig.~\ref{fig:background_statistics_example} for an illustration of how global statistics can be used for texture synthesis.
 
 \begin{figure}[ht]
     \centering
@@ -656,14 +673,24 @@ As mentioned in section \ref{section:background-texture_synthesis}, a formal tex
     \label{fig:background_statistics_example}
 \end{figure}
 
-In line with the modified Julesz hypothesis, we can see from the examples above that while some synthesis methods are good at creating textures with distinct local features but struggle with more homogeneous texture (e.g. \citet{Efros2001} in fig. \ref{fig:background_quilting_pros_cons}), others are the opposite (e.g. \citet{Galerne2011} and its failure on a macro-texture in fig. \ref{fig:background_statistics_example}). In literature, texture with distinct local features are called \textit{macro-texture} and more homogeneous textures are called \textit{micro-texture}. For a long time there was no method that could reliably generate both types of texture. However, a recent statistics-based method by \citet{Gatys2015} achieves very good results on both micro-textures and macro-textures and we will now provide its overview and explain how it could be used in projection mapping.
+In line with the modified Julesz hypothesis, we can see from the examples above that while some synthesis methods are good at creating textures with distinct local features but struggle with more homogeneous texture (e.g. \citet{Efros2001} in fig.~\ref{fig:background_quilting_pros_cons}), others are the opposite (e.g. \citet{Galerne2011} and its failure on a macro-texture in fig.~\ref{fig:background_statistics_example}). In literature, texture with distinct local features are called \textit{macro-texture} and more homogeneous textures are called \textit{micro-texture}. For a long time there was no method that could reliably generate both types of texture. However, a recent statistics-based method by \citet{Gatys2015} achieves very good results on both micro-textures and macro-textures and we will now provide its overview and explain how it could be used in projection mapping.
 
 \subsubsection{Texture Synthesis Using Convolutional Neural Networks}
 \label{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}
 
-{\color{red} TODO: explain more about related CNN stuff, such as filters and activations}
+\citet{Gatys2015} have introduced a method for texture synthesis that defines a set of statistics that can be computed from an image and then generates new examples of a given texture by imposing those statistics on white noise images. This happens in an optimization loop that minimizes a loss function which represents the difference between the statistics of the generated image and the input texture (see fig.~\ref{fig:background_gatys_method} for an illustration).
 
-\citet{Gatys2015} have introduced a method for texture synthesis that defines a set of statistics that can be computed from an image and then generates new examples of a given texture by imposing those statistics on white noise images. This happens in an optimization loop that minimizes a loss function which represents the difference between the statistics of the generated image and the input texture (see fig. \ref{fig:background_gatys_method} for an illustration).
+The set of statistics is computed using a \textit{convolutional neural network} (CNN) which is trained on an image classification task. A CNN is a function that takes an image as input and applies a series of filters to it. These filters are grouped into layers and are depicted in fig.~\ref{fig:background_cnn}. The outputs of each filter are called \textit{activations} or \textit{feature maps} and filter kernels form the trainable parameters of a CNN. Typically, each filter retains feature map size, but maps can also be downsampled by a \textit{pooling layer} which aggregates activations together by averaging them or taking their maximum. A common use case for a CNN is to identify the content of an image. This is achieved by additional layers at the end of the network which output a vector where each element represents a probability that a certain object is in the image. To work properly, networks must be trained by optimizing their parameters to output correct probabilities for images with known content. A more detailed coverage of CNNs can be found in \citet{Goodfellow2016}. For our purposes it is enough to know what CNN activations are.
+
+\begin{figure}
+    \centering
+    \def\svgwidth{0.6\textwidth}
+    \input{images/figures/02-cnn.pdf_tex}
+    \caption{A simplified illustration of a single CNN layer. The input is either an image or activations from the previous layer. The filter kernel is cross-correlated with the input to form the output activations. This corresponds to placing the filter over a portion of the image, multiplying overlaying values and summing them together. In a real CNN, the input image is typically padded to keep input and output sizes the same. Also, an extra per-element computation is added to introduce non-linear behaviour into the CNN.}
+    \label{fig:background_cnn}
+\end{figure}
+
+It turns out that when a CNN is trained to classify images, filters in individual layers tend to specialize to detect particular types of features. Initial layers typically detect colors and small features while later layers detect larger features. \citet{Gatys2015} use the fact that activations contain information about whether a particular feature was detected in an image to define their set of statistics that describe a texture. Specifically, the statistics are determined by the activations after each pooling layer of the VGG-19 CNN by \citet{Simonyan2014}. These activations, however, contain spatial information of where each feature is located in the texture. This is not desirable because textures are stationary (i.e. their features can be shuffled around without making them a different texture). In order to remove this spatial information, activations are correlated with each other within each layer, forming a so-called \textit{Gram matrix}. Gram matrices of VGG-19 activations therefore constitute a set of statistics completely describing a texture.
 
 \begin{figure}[ht]
     \centering
@@ -672,9 +699,7 @@ In line with the modified Julesz hypothesis, we can see from the examples above 
     \label{fig:background_gatys_method}
 \end{figure}
 
-The set of statistics is computed using a \textit{convolutional neural network} (abbreviated as CNN and covered in more detail in appendix \ref{chapter:appendix-cnns}) which is trained on an image classification task. It is determined by the activations after each pooling layer of the VGG-19 CNN by \citet{Simonyan2014}. These activations, however, contain spatial information of where each feature is located in the texture. This is not desirable because textures are stationary (i.e. their features can be shuffled around without making them a different texture). In order to remove this spatial information, activations are correlated with each other within each layer, forming a so-called \textit{Gram matrix}. Gram matrices of VGG-19 activations therefore constitute a set of statistics completely describing a texture.
-
-To synthesize a new example of a given texture, gradient-based loss optimization is used. The loss is defined as a weighted mean square error between the statistics the input texture and the image being optimized. The L-BFGS optimizer is used to drive the optimization process. See fig. \ref{fig:background_gatys_method} for an illustration of how this method works.
+To synthesize a new example of a given texture, gradient-based loss optimization is used. The loss is defined as a weighted mean square error between the statistics the input texture and the image being optimized. The L-BFGS optimizer is used to drive the optimization process. See fig.~\ref{fig:background_gatys_method} for an illustration of how this method works.
 
 \subsubsection{Pros and Cons}
 \label{section:background-texture_synthesis-statistics_based-pros_and_cons}
@@ -712,7 +737,7 @@ To synthesize a new example of a given texture, gradient-based loss optimization
     \label{fig:background_synthesis_comparison}
 \end{figure}
 
-This method of synthesizing textures leads to high-quality results for a large variety of input images. Compared to patch-based synthesis it also provides a texture model, as opposed to a mere algorithm to generate new textures. This makes it easier to reason about and provide theoretical justifications as to why it works. Fig. \ref{fig:background_synthesis_comparison} taken from \citet{Raad2018} compares this method to others that we have discussed here and highlights their relative strengths and weaknesses.
+This method of synthesizing textures leads to high-quality results for a large variety of input images. Compared to patch-based synthesis it also provides a texture model, as opposed to a mere algorithm to generate new textures. This makes it easier to reason about and provide theoretical justifications as to why it works. Fig.~\ref{fig:background_synthesis_comparison} taken from \citet{Raad2018} compares this method to others that we have discussed here and highlights their relative strengths and weaknesses.
 
 \subsubsection{Potential Usage in Projection Mapping}
 \label{section:background-texture_synthesis-statistics_based-projection_mapping}

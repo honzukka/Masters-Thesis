@@ -59,20 +59,20 @@
     \put(0.41644509,0.12007702){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\cdot\)\end{tabular}}}}%
     \put(0.51841047,0.12007715){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(=\)\end{tabular}}}}%
     \put(0.14191289,0.17204721){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{11}\)\end{tabular}}}}%
-    \put(0.20960398,0.17256944){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{21}\)\end{tabular}}}}%
+    \put(0.20960398,0.17256945){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{21}\)\end{tabular}}}}%
     \put(0.57403559,0.17351355){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(p_{11}\)\end{tabular}}}}%
-    \put(0.57592383,0.06116284){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(p_{1n}\)\end{tabular}}}}%
+    \put(0.57592382,0.06116284){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(p_{1n}\)\end{tabular}}}}%
     \put(0.27758083,0.17351355){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{31}\)\end{tabular}}}}%
     \put(0.3446136,0.1735135){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{41}\)\end{tabular}}}}%
     \put(0.14224208,0.06137382){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{1n}\)\end{tabular}}}}%
     \put(0.20993317,0.06189601){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{2n}\)\end{tabular}}}}%
-    \put(0.27790995,0.06284015){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{3n}\)\end{tabular}}}}%
-    \put(0.34494279,0.06284003){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{4n}\)\end{tabular}}}}%
+    \put(0.27790995,0.06284016){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{3n}\)\end{tabular}}}}%
+    \put(0.34494278,0.06284003){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(c_{4n}\)\end{tabular}}}}%
     \put(0.15919293,0.11608951){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\vdots\)\end{tabular}}}}%
-    \put(0.22688402,0.11661174){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\vdots\)\end{tabular}}}}%
+    \put(0.22688401,0.11661175){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\vdots\)\end{tabular}}}}%
     \put(0.29486087,0.11755585){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\vdots\)\end{tabular}}}}%
     \put(0.36189363,0.1175558){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\vdots\)\end{tabular}}}}%
-    \put(0.590964,0.11587857){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\vdots\)\end{tabular}}}}%
+    \put(0.590964,0.11587858){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\vdots\)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{images/figures/02-lt_capture.pdf}}%
     \put(0.46782734,0.18417044){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
     \put(0.46877155,0.05199309){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%

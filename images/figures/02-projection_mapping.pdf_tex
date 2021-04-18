@@ -1,6 +1,6 @@
 %% Creator: Inkscape 1.0.2 (e86c8708, 2021-01-15), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file '02-radiance.pdf' (pdf, eps, ps)
+%% Accompanies image file '02-projection_mapping.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{249.31834544bp}%
+    \setlength{\unitlength}{768.3273003bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,13 +50,20 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.65676353)%
+  \begin{picture}(1,0.65747906)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/02-radiance.pdf}}%
-    \put(0.6949105,0.31750051){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(d\omega\)\end{tabular}}}}%
-    \put(0.35305758,0.20791361){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(dA^{\perp}\)\end{tabular}}}}%
-    \put(0.23973197,0.07007545){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(dA\)\end{tabular}}}}%
-    \put(0.89506554,0.6201951){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}light\end{tabular}}}}%
+    \put(0.47237514,0.12823423){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/02-projection_mapping.pdf}}%
+    \put(0.45856063,0.01194249){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}camera\end{tabular}}}}%
+    \put(-0.00141084,0.08654059){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}projector\end{tabular}}}}%
+    \put(0.27735676,0.33156597){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\bm{p}\)\end{tabular}}}}%
+    \put(0.89048102,0.64431052){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(r(\bm{p})\)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{images/figures/02-projection_mapping.pdf}}%
+    \put(0.12331928,0.41922955){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\bm{y}\)\end{tabular}}}}%
+    \put(0.6174353,0.36050612){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Huge{?}\end{tabular}}}}%
+    \put(0.23153823,0.23467017){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}?\end{tabular}}}}%
+    \put(0.93041813,0.40171781){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
+    \put(0.76934805,0.08209439){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
   \end{picture}%
 \endgroup%
