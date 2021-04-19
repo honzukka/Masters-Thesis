@@ -25,7 +25,7 @@ In this experiment, we explore the second point.
 
 \textbf{Goal.} The goal is to find out whether our method is indeed able to push the synthesis algorithm to generate textures that map well onto a given scene.
 
-\textbf{Setup.} In our pipeline, we use the simple rendering function (see \ref{section:methods-rendering_function-simple}) because it is sufficient for reproducing the conditions of our experiment. We also use the original unmodified Gatys texture model (see \ref{section:methods-texture_model}) because we are not interested in overall performance, but simply whether it is possible to add restrictions to the texture model to make it generate only textures that match the background. The inputs to this experiment are pairs of scene (represented by a background image) and texture image that we wish to map onto the scene. The background is a subset of the texture image
+\textbf{Setup.} In our pipeline, we use the simple rendering function (see~\ref{section:methods-rendering_function-simple}) because it is sufficient for reproducing the conditions of our experiment. We also use the original unmodified Gatys texture model (see~\ref{section:methods-texture_model}) because we are not interested in overall performance, but simply whether it is possible to add restrictions to the texture model to make it generate only textures that match the background. The inputs to this experiment are pairs of scene (represented by a background image) and texture image that we wish to map onto the scene. The background is a subset of the texture image
 
 \begin{figure}[]
     \centering    
@@ -87,16 +87,16 @@ In this experiment, we explore the second point.
             \label{fig:ex01-pebbles-1000steps-threshold_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{Results of experiment 1. We use the simple rendering function (see section \ref{section:methods-rendering_function-simple}) and unmodified Gatys texture model (see section \ref{section:methods-texture_model}). The background is always a subset of the input texture. Note how feature outlines in background \ref{fig:ex01-pebbles-1000steps-threshold_bg} completely determine the inner values in the final appearance \ref{fig:ex01-pebbles-1000steps-threshold_proj}. Also note that the area in \ref{fig:ex01-pebbles-1000steps-some_proj} where the background matches the input is slightly darker. This is likely caused by \ref{fig:ex01-pebbles-1000steps-threshold_im} being initialized by white noise with mean 0.5 and only a global brightness enforcement in the texture model. Texture source: \citet{Gatys2015}}
+    \caption{Results of experiment 1. We use the simple rendering function (see Section~\ref{section:methods-rendering_function-simple}) and unmodified Gatys texture model (see Section~\ref{section:methods-texture_model}). The background is always a subset of the input texture. Note how feature outlines in background~\ref{fig:ex01-pebbles-1000steps-threshold_bg} completely determine the inner values in the final appearance~\ref{fig:ex01-pebbles-1000steps-threshold_proj}. Also note that the area in~\ref{fig:ex01-pebbles-1000steps-some_proj} where the background matches the input is slightly darker. This is likely caused by~\ref{fig:ex01-pebbles-1000steps-threshold_im} being initialized by white noise with mean 0.5 and only a global brightness enforcement in the texture model. Texture source: \citet{Gatys2015}}
     \label{fig:ex01-pebbles-1000steps}
 \end{figure}
 
 \subsection{Results}
 \label{section:results-experiments-01-results}
 
-Figure \ref{fig:ex01-pebbles-1000steps} shows the main result of this experiment. Overall, we have tested five different backgrounds and two different input texture. Complete results can be found in appendix \ref{chapter:appendix-results} in figs. \ref{fig:ex01-complete-pebbles-1000steps} and \ref{fig:ex01-complete-flowers-1000steps}.
+Figure~\ref{fig:ex01-pebbles-1000steps} shows the main result of this experiment. Overall, we have tested five different backgrounds and two different input textures. Complete results can be found in appendix~\ref{chapter:appendix-results} in figs.~\ref{fig:ex01-complete-pebbles-1000steps} and~\ref{fig:ex01-complete-flowers-1000steps}.
 
-{\color{red} TODO: memory requirements, execution time and hardware}
+Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large. A single run (one background, one input texture) lasted around {\color{red} TODO} per 10 optimization steps. All runs were set to run for 1000 steps and reasonable results have started appearing already after around 100 steps (see fig.~\ref{fig:ex01-loss_plot}). The GPU used was Nvidia Tesla K80.
 
 \subsection{Analysis}
 \label{section:results-experiments-01-analysis}
@@ -167,15 +167,15 @@ Figure \ref{fig:ex01-pebbles-1000steps} shows the main result of this experiment
 
 It can be said that our method is indeed capable of controlling the synthesis in a way that yields only such textures that match the background well. The algorithm largely respects the texture features which are already present in the background and continues the texture smoothly around them.
 
-Especially interesting is the second row in figure \ref{fig:ex01-pebbles-1000steps} where the outlines of all the pebbles are fixed by the background. Our method not only respects those boundaries, but also reproduces the input texture almost perfectly. This is in line with texture theory as discussed in section \ref{section:background-texture_synthesis-textures}. The Gatys texture model treats individual pebbles as features that can be shuffled around and their shape can be modified (as in the first row), but once their positions and outlines are fixed, the inner values are largely determined.
+Especially interesting is the second row in figure~\ref{fig:ex01-pebbles-1000steps} where the outlines of all the pebbles are fixed by the background. Our method not only respects those boundaries, but also reproduces the input texture almost perfectly. This is in line with texture theory as discussed in Section~\ref{section:background-texture_synthesis-textures}. The Gatys texture model treats individual pebbles as features that can be shuffled around and their shape can be modified (as in the first row), but once their positions and outlines are fixed, the inner values are largely determined.
 
-In the first row of figure \ref{fig:ex01-pebbles-1000steps}, we can see that the area where the background matches the input is not fully saturated as expected and as a result, the final appearance is slightly darker in this area. A possible explanation for this is that the algorithm starts from a white noise image with mean \(0.5\) (see figure \ref{fig:ex01-pebbles-5steps}). Combined with the fact that the loss decreases the fastest at the beginning of the optimization process (see fig. \ref{fig:ex01-loss_plot}), this likely translates into the algorithm preferring to leave the middle area of the image darker and compensating overall brightness by making the surrounding pebbles brighter, rather than matching the exact appearance of the middle area to that of the input. From the perspective of this experiment, however, this is not a major issue.
+In the first row of figure~\ref{fig:ex01-pebbles-1000steps}, we can see that the area where the background matches the input is not fully saturated as expected and as a result, the final appearance is slightly darker in this area. A possible explanation for this is that the algorithm starts from a white noise image with mean \(0.5\) (see figure~\ref{fig:ex01-pebbles-5steps}). Combined with the fact that the loss decreases the fastest at the beginning of the optimization process (see fig.~\ref{fig:ex01-loss_plot}), this likely translates into the algorithm preferring to leave the middle area of the image darker and compensating overall brightness by making the surrounding pebbles brighter, rather than matching the exact appearance of the middle area to that of the input. From the perspective of this experiment, however, this is not a major issue.
 
 \begin{figure}[ht]
     \centering
     \def\svgwidth{0.8\textwidth}
     \input{images/04-experiment01/loss_plot_inkscape.pdf_tex}
-    \caption{Loss plot of our projection mapping optimization process suggests that most of the final appearance is determined already after the first few steps. Our loss is defined as the mean square error of the set of statistics of the input (desired appearance) and the final camera image (see fig. \ref{fig:methods_pipeline} for more details)}
+    \caption{Loss plot of our projection mapping optimization process suggests that most of the final appearance is determined already after the first few steps. Our loss is defined as the mean square error of the set of statistics of the input (desired appearance) and the final camera image (see fig.~\ref{fig:methods_pipeline} for more details)}
     \label{fig:ex01-loss_plot}
 \end{figure}
 
@@ -189,17 +189,17 @@ In the first experiment, we have shown that our method is able to converge to th
 \begin{itemize}
     \item Conventional pixel-based projection mapping (reference)
     \item Ours with the original Gatys texture model
-    \item Ours with the improved texture model (we use the Pyramid + Shift variant from section \ref{section:methods-texture_model-improvements} because it performs best when synthesizing textures)
+    \item Ours with the improved texture model (we use the Pyramid + Shift variant from Section~\ref{section:methods-texture_model-improvements} because it performs best when synthesizing textures)
 \end{itemize}
 
-\textbf{Setup.} We keep using the simple rendering function (see section \ref{section:methods-rendering_function-simple}) because what makes a scene challenging is the fact that the projector is not bright enough to achieve a particular appearance. The simple rendering function is sufficient to reproduce these conditions. We set the constant \(c\) (see eq. \ref{eq:rendering_function-simple}) to adjust the difficulty of each scene. As for the texture models, we use both the original Gatys texture model (see section \ref{section:methods-texture_model}) and its improved variant (in particular, we use the Pyramid + Shift variant as described in \ref{section:methods-texture_model-improvements}). We obtain the pixel-based reference by removing the statistics-based loss from our pipeline (see section \ref{section:methods-pipeline_overview}) and replacing it with a per-pixel L2 difference between the input texture and the camera image. This approach yields an algorithm which solves eq. \ref{eq:projection_mapping-per_pixel} and is thus the optimal pixel-based projection mapping algorithm. ({\color{red} TODO: Jaakko misses details on the parameterization here as well. are the pixel values constrained?}) The inputs to this experiment are pairs of scene (represented by a background image) and texture image that we wish to map onto the scene.
+\textbf{Setup.} We keep using the simple rendering function (see Section~\ref{section:methods-rendering_function-simple}) because what makes a scene challenging is the fact that the projector is not bright enough to achieve a particular appearance. The simple rendering function is sufficient to reproduce these conditions. We set the constant \(c\) (see eq.~\ref{eq:rendering_function-simple}) to adjust the difficulty of each scene. As for the texture models, we use both the original Gatys texture model (see Section~\ref{section:methods-texture_model}) and its improved variant (in particular, we use the Pyramid + Shift variant as described in~\ref{section:methods-texture_model-improvements}). We obtain the pixel-based reference by removing the statistics-based loss from our pipeline (see Section~\ref{section:methods-pipeline_overview}) and replacing it with a per-pixel L2 difference between the input texture and the camera image. This approach yields an algorithm which solves eq.~\ref{eq:projection_mapping-per_pixel} and is thus the optimal pixel-based projection mapping algorithm. The inputs to this experiment are pairs of scene (represented by a background image) and texture image that we wish to map onto the scene.
 
 \subsection{Results}
 \label{section:results-experiments-02-results}
 
 {\color{red} TODO: in figures, highlight what the final output is. now it blends in with the baseline too much}
 
-{\color{red} TODO: Jaakko finds it strange that the optimizer pushes pixel values all the way to max (mostly in the staircase scene) commenting on this will help!}
+{\color{red} TODO: ask Jaakko if we should comment on the fact that the optimizer pushes pixel values all the way to max (mostly in the staircase scene)?}
 
 \begin{figure}[]
     \centering    
@@ -261,13 +261,13 @@ In the first experiment, we have shown that our method is able to converge to th
             \label{fig:ex02-human-marble-pixel_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{{\color{red} TODO: what's our optimized result? individual image labels should be clear even without reading figure caption or text around it!} Results of experiment 2. We use the simple rendering function (see section \ref{section:methods-rendering_function-simple}) and compare our method with the original Gatys texture model (see section \ref{section:methods-texture_model}) against our method with the improved texture model (specifically, the Pyramid + Shift variant from section \ref{section:methods-texture_model-improvements}) and a conventional pixel-based projection mapping method. Brightness \(c\) is set to \(5\) to adjust the difficulty of the scene. Note how our method with the improved model is better than Gatys at matching the large features of the input (e.g. the outline of the woman is not visible and the size of the marble grain stays roughly the same). It is also better than the pixel-based method at matching the colors (e.g. the blond hair is not visible in the final camera image). {\color{red} TODO: show more results here, so that it's possible to see the relative performance and draw better conclusions} Texture source: \citet{Pixar128}}
+    \caption{{\color{red} TODO: what's our optimized result? individual image labels should be clear even without reading figure caption or text around it!} Results of experiment 2. We use the simple rendering function (see Section~\ref{section:methods-rendering_function-simple}) and compare our method with the original Gatys texture model (see Section~\ref{section:methods-texture_model}) against our method with the improved texture model (specifically, the Pyramid + Shift variant from Section~\ref{section:methods-texture_model-improvements}) and a conventional pixel-based projection mapping method. Brightness \(c\) is set to \(5\) to adjust the difficulty of the scene. Note how our method with the improved model is better than Gatys at matching the large features of the input (e.g. the outline of the woman is not visible and the size of the marble grain stays roughly the same). It is also better than the pixel-based method at matching the colors (e.g. the blond hair is not visible in the final camera image). {\color{red} TODO: show more results here, so that it's possible to see the relative performance and draw better conclusions} Texture source: \citet{Pixar128}}
     \label{fig:ex02-human-marble}
 \end{figure}
 
-Figure \ref{fig:ex02-human-marble} shows the main result of this experiment. Overall, we have tested four different backgrounds and five different input textures. The brightness constant \(c\) was set to \(5\) in all cases, meaning that the texture was first multiplied by \(5\) before being projected (see eq. \ref{eq:rendering_function-simple}). Complete results of those runs can be found in appendix \ref{chapter:appendix-results} in figs. \ref{fig:ex02-complete-human-marble_wood}, \ref{fig:ex02-complete-human-flowers_flowers2}, \ref{fig:ex02-complete-human-pebbles}, \ref{fig:ex02-complete-carpet-marble_wood_pebbles}, \ref{fig:ex02-complete-carpet-flowers_flowers2}, \ref{fig:ex02-complete-sofa-marble_wood_pebbles}, \ref{fig:ex02-complete-sofa-flowers_flowers2}, \ref{fig:ex02-complete-photo-marble_wood_pebbles} and \ref{fig:ex02-complete-photo-flowers_flowers2}.
+Figure~\ref{fig:ex02-human-marble} shows the main result of this experiment. Overall, we have tested four different backgrounds and five different input textures. The brightness constant \(c\) was set to \(5\) in all cases, meaning that the texture was first multiplied by \(5\) before being projected (see eq.~\ref{eq:rendering_function-simple}). Complete results of those runs can be found in appendix~\ref{chapter:appendix-results} in figs.~\ref{fig:ex02-complete-human-marble_wood},~\ref{fig:ex02-complete-human-flowers_flowers2},~\ref{fig:ex02-complete-human-pebbles},~\ref{fig:ex02-complete-carpet-marble_wood_pebbles},~\ref{fig:ex02-complete-carpet-flowers_flowers2},~\ref{fig:ex02-complete-sofa-marble_wood_pebbles},~\ref{fig:ex02-complete-sofa-flowers_flowers2},~\ref{fig:ex02-complete-photo-marble_wood_pebbles} and~\ref{fig:ex02-complete-photo-flowers_flowers2}.
 
-{\color{red} TODO: memory requirements, execution time and hardware}
+Generated compensated projection images \(\bm{p}\) were \(640 \times 480\) large. A single run (one background, one input texture) lasted around 11s per 10 optimization steps. All runs were set to run for 1000 steps and reasonable results have started appearing already after around 100 steps (see fig.~\ref{fig:ex01-loss_plot}). The GPU used was Nvidia Tesla K80.
 
 \subsection{Analysis}
 \label{section:results-experiments-02-analysis}
@@ -385,17 +385,128 @@ Figure \ref{fig:ex02-human-marble} shows the main result of this experiment. Ove
     \label{fig:ex02-issues}
 \end{figure}
 
-When comparing the three methods -- ours with the Gatys texture model, ours with the improved texture model and the pixel-based reference -- it is useful to think in terms of micro- and macro-textures (as introduced in section \ref{section:background-texture_synthesis-statistics_based}). For example, in a pebble texture like the one in figure \ref{section:results-experiments-01-results}, the pebbles themselves form a macro-texture while their surface is a micro-texture. 
+\begin{figure}[]
+    \centering    
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \begin{subfigure}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_proj_highlighted.jpg}
+            \caption*{}
+            %\label{fig:ex02-human-marble-detail-highlighted}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\textwidth}
+            \centering
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_proj_crop_red.jpg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-red}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.6\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_proj_crop_green.jpg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-green}
+            \end{subfigure}
 
-Starting with our method with the Gatys texture model in fig. \ref{fig:ex02-human-marble}, we can see that it reproduces micro-texture very well. The resulting appearance contains mostly colors from the input texture and colors of the background, for example the blond hair, are hidden, unlike in the pixel-based reference. On the other hand, macro-texture is recovered rather poorly as the outline of the woman is visible quite clearly. The appearance of large texture features seems to further deteriorate in areas where the background is darker (and thus less reflective), especially in the lower left corner.
+            \begin{subfigure}{\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_proj_crop_yellow.jpg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-yellow}
+            \end{subfigure}
+            %\caption{}
+            %\label{fig:ex02-human-marble-detail-crops}
+        \end{subfigure}
+        %\caption{Gatys}
+    \end{subfigure}
 
-{\color{red} TODO: indicate the description below in a zoomed-in image?}
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \begin{subfigure}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_proj_highlighted.jpg}
+            \caption*{}
+            %\label{fig:ex02-human-marble-detail-highlighted}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\textwidth}
+            \centering
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_proj_crop_red.jpeg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-red}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.6\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_proj_crop_green.jpeg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-green}
+            \end{subfigure}
 
-In a sense, this is an extreme case. The background in the lower left corner is clearly too dark for the projector to compensate it and at the same time it is too large for texture synthesis to place a dark part of the texture over it. On the other hand, the pixel-based reference clearly looks better in this area. Where synthesis cannot recover the color, it does not recover the macro features either, whereas the pixel-based method has the advantage of only needing to match colors and overall, darker appearance with the correct macro features looks better. We have conducted a separate experiment to evaluate the macro feature recovery of the two different texture models in situations where color cannot be matched. The result is shown in figure \ref{fig:ex02-issues} and suggests that there are indeed issues with convergence when the overall intensity cannot be achieved. It also shows, however, that the improved texture model performs slightly better in this case.
+            \begin{subfigure}{\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_proj_crop_yellow.jpeg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-yellow}
+            \end{subfigure}
+            %\caption{}
+            %\label{fig:ex02-human-marble-detail-crops}
+        \end{subfigure}
+        %\caption{Improved}
+    \end{subfigure}
 
-The improved texture model is clearly better than the original Gatys model in the main result (fig. \ref{fig:ex02-human-marble}) as well. It recovers micro-texture better than the pixel-based method and its macro-texture is better than that of the Gatys texture model. Overall, we believe that our method provides a more visually pleasing and balanced result than both other methods. At the same time, it seems that potential future improvements in the performance of texture synthesis will also translate into improved statistics-based projection mapping.
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \begin{subfigure}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_proj_highlighted.jpg}
+            \caption*{}
+            %\label{fig:ex02-human-marble-detail-highlighted}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\textwidth}
+            \centering
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_proj_crop_red.jpeg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-red}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.6\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_proj_crop_green.jpeg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-green}
+            \end{subfigure}
 
-{\color{red} TODO: compare Gatys loss of Gatys results and improved results to disentangle representation power and convergence?}
+            \begin{subfigure}{\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_proj_crop_yellow.jpeg}
+                \caption*{}
+                %\label{fig:ex02-human-marble-detail-crops-yellow}
+            \end{subfigure}
+        \end{subfigure}
+        %\caption{Pixel}
+        %\label{fig:ex02-human-marble-detail-crops}
+    \end{subfigure}
+    \caption{{\color{red} TODO: label + caption + reference from text} Texture source: \citet{Pixar128}}
+    \label{fig:ex02-human-marble-detail}
+\end{figure}
+
+When comparing the three methods -- ours with the Gatys texture model, ours with the improved texture model and the pixel-based reference -- it is useful to think in terms of micro- and macro-textures (as introduced in Section~\ref{section:background-texture_synthesis-statistics_based}). For example, in a pebble texture like the one in figure~\ref{section:results-experiments-01-results}, the pebbles themselves form a macro-texture while their surface is a micro-texture. 
+
+Starting with our method with the Gatys texture model in fig.~\ref{fig:ex02-human-marble}, we can see that it reproduces micro-texture very well. The resulting appearance contains mostly colors from the input texture and colors of the background, for example the blond hair, are hidden, unlike in the pixel-based reference. On the other hand, macro-texture is recovered rather poorly as the outline of the woman is visible quite clearly. The appearance of large texture features seems to further deteriorate in areas where the background is darker (and thus less reflective), especially in the lower left corner.
+
+In a sense, this is an extreme case. The background in the lower left corner is clearly too dark for the projector to compensate it and at the same time it is too large for texture synthesis to place a dark part of the texture over it. On the other hand, the pixel-based reference clearly looks better in this area. Where synthesis cannot recover the color, it does not recover the macro features either, whereas the pixel-based method has the advantage of only needing to match colors and overall, darker appearance with the correct macro features looks better. We have conducted a separate experiment to evaluate the macro feature recovery of the two different texture models in situations where color cannot be matched. The result is shown in figure~\ref{fig:ex02-issues} and suggests that there are indeed issues with convergence when the overall intensity cannot be achieved. It also shows, however, that the improved texture model performs slightly better in this case.
+
+The improved texture model is clearly better than the original Gatys model in the main result (fig.~\ref{fig:ex02-human-marble}) as well. It recovers micro-texture better than the pixel-based method and its macro-texture is better than that of the Gatys texture model. Overall, we believe that our method provides a more visually pleasing and balanced result than both other methods. At the same time, it seems that potential future improvements in the performance of texture synthesis will also translate into improved statistics-based projection mapping.
 
 \section{Evaluating a general rendering function}
 \label{section:results-experiments-03}
@@ -404,7 +515,7 @@ The second experiment has shown that statistics-based projection mapping can be 
 
 \textbf{Goal.} We want to see how the behaviour of our method from previous experiments translates into a more general case of projecting onto arbitrary 3D scenes.
 
-\textbf{Setup.} We now use the general rendering function (see section \ref{section:methods-rendering_function-general}) in our pipeline. We also use the improved texture model and the pixel-based reference for comparison. The inputs to this experiment are pairs of scene (represented by a pre-captured light transport matrix) and texture image that we wish to map onto the scene. To keep the light transport matrix size manageable, we use projector and camera image size of \(160 \times 160\).
+\textbf{Setup.} We now use the general rendering function (see Section~\ref{section:methods-rendering_function-general}) in our pipeline. We also use the improved texture model and the pixel-based reference for comparison. The inputs to this experiment are pairs of scene (represented by a pre-captured light transport matrix) and texture image that we wish to map onto the scene. To keep the light transport matrix size manageable, we use projector and camera image size of \(160 \times 160\).
 
 \subsection{Results}
 \label{section:results-experiments-03-results}
@@ -490,7 +601,7 @@ The second experiment has shown that statistics-based projection mapping can be 
             \label{fig:ex03-ball_dof-marble-pixel_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{{\color{red} TODO: still a bit hard to parse. emphasize that the loss is only computed in the cropped region!} Results of experiment 3. We use the general rendering function (see section  \ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see section \ref{section:methods-texture_model-improvements}; marked as "O.") against a pixel-based reference (marked as "P."). \(c = 5\). The scene contains a mirror ball which is being projected onto from the ceiling as suggested in image \ref{fig:ex03-ball_dof-scene}. The projector has depth of field enabled and the camera image is cropped (see the scissors symbol) before computing the loss to match the input texture image. Overall, our pipeline handles this complex light transport well. Note how the box is missing one wall (the black patch inside the mirror ball) which causes the optimization to leave the corresponding part of the compensation image untouched. Texture source: \citet{Pixar128}}
+    \caption{{\color{red} TODO: still a bit hard to parse. emphasize that the loss is only computed in the cropped region!} Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}; marked as "O.") against a pixel-based reference (marked as "P."). \(c = 5\). The scene contains a mirror ball which is being projected onto from the ceiling as suggested in image~\ref{fig:ex03-ball_dof-scene}. The projector has depth of field enabled and the camera image is cropped (see the scissors symbol) before computing the loss to match the input texture image. Overall, our pipeline handles this complex light transport well. Note how the box is missing one wall (the black patch inside the mirror ball) which causes the optimization to leave the corresponding part of the compensation image untouched. Texture source: \citet{Pixar128}}
     \label{fig:ex03-ball_dof}
 \end{figure}
 
@@ -500,7 +611,8 @@ The second experiment has shown that statistics-based projection mapping can be 
         \centering
         \begin{subfigure}{0.5\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene.jpg}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene_highlighted.jpg}
             \caption{Scene}
             \label{fig:ex03-staircase_illum-scene}
         \end{subfigure}
@@ -542,7 +654,8 @@ The second experiment has shown that statistics-based projection mapping can be 
         
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target.jpg}
+            % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target_highlighted.jpg}
             \caption{Input}
             \label{fig:ex03-staircase_illum-beams-target}
         \end{subfigure}
@@ -556,7 +669,8 @@ The second experiment has shown that statistics-based projection mapping can be 
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}
+            % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj_highlighted.jpg}
             \caption{O. cam.}
             \label{fig:ex03-staircase_illum-beams-stats_proj}
         \end{subfigure}
@@ -570,16 +684,17 @@ The second experiment has shown that statistics-based projection mapping can be 
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}
+            % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj_highlighted.jpg}
             \caption{P. cam.}
             \label{fig:ex03-staircase_illum-beams-pixel_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{{\color{red} TODO: what's up with the red rectangle? :D} Results of experiment 3. We use the general rendering function (see section  \ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see section \ref{section:methods-texture_model-improvements}; marked as "O.") against a pixel-based reference (marked as "P."). \(c = 5\). The scene contains a wooden staircase which is being projected onto from the point of view of the camera as suggested in image \ref{fig:ex03-staircase_illum-scene}. The projector has depth of field disabled and the camera image is not cropped before computing the loss. Note how the performance of our method corresponds to previous experiments. For example, the wooden floor in the lower left corner is difficult to project onto. While the pixel-based reference tries to compensated by oversaturating projector image pixels (see image \ref{fig:ex03-staircase_illum-beams-pixel_im}), our method simply moves the dark patch of the input texture to the area which results in a more pleasing final appearance (see image \ref{fig:ex03-staircase_illum-beams-stats_proj}). {\color{red} TODO: indicate the areas of the images you talk about visually as well!} Texture source: \citet{Pixar128}}
+    \caption{{\color{red} TODO: what's up with the red rectangle? :D} Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}; marked as "O.") against a pixel-based reference (marked as "P."). \(c = 5\). The scene contains a wooden staircase which is being projected onto from the point of view of the camera as suggested in image~\ref{fig:ex03-staircase_illum-scene}. The projector has depth of field disabled and the camera image is not cropped before computing the loss. Note how the performance of our method corresponds to previous experiments. An example is highlighted by green ellipses. The glossy wooden floor in the lower left corner of the scene is difficult to project onto. The dark patch of the input texture (highlighted) is easy to project onto the corner because it already looks like it. This is what our method does (see image~\ref{fig:ex03-staircase_illum-beams-stats_proj}). On the other hand, the pixel-based reference cannot do this and instead oversaturates corresponding projector image pixels (see image ~\ref{fig:ex03-staircase_illum-beams-pixel_im}). Texture source: \citet{Pixar128}}
     \label{fig:ex03-staircase_illum}
 \end{figure}
 
-Figures \ref{fig:ex03-ball_dof} and \ref{fig:ex03-staircase_illum} show the main results of this experiment. Overall, we have tested two different scenes:
+Figures~\ref{fig:ex03-ball_dof} and~\ref{fig:ex03-staircase_illum} show the main results of this experiment. Overall, we have tested two different scenes:
 
 \begin{itemize}
     \item A box with a glass mirror that reflects the projection onto the surrounding walls
@@ -588,13 +703,13 @@ Figures \ref{fig:ex03-ball_dof} and \ref{fig:ex03-staircase_illum} show the main
 
 with projector DoF on and off and with and without external illumination and four different input textures.
 
-The mirror ball scene (fig. \ref{fig:ex03-ball_dof}) is not challenging from the perspective of projector gamut and the input texture can thus be easily mapped onto it using the per-pixel method as well. The purpose of the scene is to test how our pipeline deals with complex light transport as it contains a large amount of specular reflections and its projector has depth of field enabled. As suggested in fig. \ref{fig:methods_pipeline}, the final \(160 \times 160\) camera image is cropped before computing the loss because we do not want to reproduce the desired appearance across the whole field of view of the camera.
+The mirror ball scene (fig.~\ref{fig:ex03-ball_dof}) is not challenging from the perspective of projector gamut and the input texture can thus be easily mapped onto it using the per-pixel method as well. The purpose of the scene is to test how our pipeline deals with complex light transport as it contains a large amount of specular reflections and its projector has depth of field enabled. As suggested in fig.~\ref{fig:methods_pipeline}, the final \(160 \times 160\) camera image is cropped before computing the loss because we do not want to reproduce the desired appearance across the whole field of view of the camera.
 
-The staircase scene \ref{fig:ex03-staircase_illum} is a realistic scene which contains a large variety of both diffuse and glossy materials and areas which are challenging for the projector. The depth of field effect is disabled this time and the camera image is not cropped before computing the loss.
+The staircase scene~\ref{fig:ex03-staircase_illum} is a realistic scene which contains a large variety of both diffuse and glossy materials and areas which are challenging for the projector. The depth of field effect is disabled this time and the camera image is not cropped before computing the loss.
 
-Complete results can be found in appendix \ref{chapter:appendix-results} in figs. \ref{fig:ex03-complete-ball}, \ref{fig:ex03-complete-ball_dof} and \ref{fig:ex03-complete-staircase_illum}.
+Complete results can be found in appendix~\ref{chapter:appendix-results} in figs.~\ref{fig:ex03-complete-ball},~\ref{fig:ex03-complete-ball_dof} and~\ref{fig:ex03-complete-staircase_illum}.
 
-{\color{red} TODO: memory requirements, execution time and hardware}
+Generated compensated projection images \(\bm{p}\) were \(160 \times 93\) large. A single run (one background, one input texture) lasted around 1s per 10 optimization steps. All runs were set to run for 1000 steps and reasonable results have started appearing already after around 100 steps (see fig.~\ref{fig:ex01-loss_plot}). The GPU used was Nvidia Tesla K80.
 
 \subsection{Analysis}
 \label{section:results-experiments-03-analysis}
@@ -645,10 +760,10 @@ Complete results can be found in appendix \ref{chapter:appendix-results} in figs
             \label{fig:ex03-dof-defocused_defocused_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{{\color{red} TODO: what's the cam. in the labels??} A study of how our pipeline handles defocus in a scene where the projector has depth of field enabled. The upper row shows a compensated projector image which is optimized for a projector without depth field, while the lower row features a projector image which was compensated for depth of field. In the middle column, both images are projected by a projector without depth of field. In the right column, a projector with depth of field is used. Images \ref{fig:ex03-dof-normal_normal_proj} and \ref{fig:ex03-dof-defocused_defocused_proj} thus show the optimized appearance, while images \ref{fig:ex03-dof-defocused_normal_proj} and \ref{fig:ex03-dof-normal_dof_proj} are sharper and more blurred than they should be, respectively. Texture source: \citet{Pixar128}}
+    \caption{{\color{red} TODO: what's the cam. in the labels??} A study of how our pipeline handles defocus in a scene where the projector has depth of field enabled. The upper row shows a compensated projector image which is optimized for a projector without depth field, while the lower row features a projector image which was compensated for depth of field. In the middle column, both images are projected by a projector without depth of field. In the right column, a projector with depth of field is used. Images~\ref{fig:ex03-dof-normal_normal_proj} and~\ref{fig:ex03-dof-defocused_defocused_proj} thus show the optimized appearance, while images~\ref{fig:ex03-dof-defocused_normal_proj} and~\ref{fig:ex03-dof-normal_dof_proj} are sharper and more blurred than they should be, respectively. Texture source: \citet{Pixar128}}
     \label{fig:ex03-dof}
 \end{figure}
 
-Figure \ref{fig:ex03-ball_dof} shows that our pipeline is able to handle complex light transport well. We analyzed the amount of defocus which is performed in more detail by running an alternative version of this experiment with a projector with disabled depth of field effect (see fig. \ref{fig:ex03-complete-ball} for complete results). We have then projected the compensated images from both experiments using both projectors. The resulted in four camera images which demonstrate how our pipeline performs defocus (see fig. \ref{fig:ex03-dof}).
+Figure~\ref{fig:ex03-ball_dof} shows that our pipeline is able to handle complex light transport well. We analyzed the amount of defocus which is performed in more detail by running an alternative version of this experiment with a projector with disabled depth of field effect (see fig.~\ref{fig:ex03-complete-ball} for complete results). We have then projected the compensated images from both experiments using both projectors. The resulted in four camera images which demonstrate how our pipeline performs defocus (see fig.~\ref{fig:ex03-dof}).
 
-In the staircase scene (fig. \ref{fig:ex03-staircase_illum}), we see similar trends as in the previous experiments. Compared to the pixel-based reference, our method performs worse in recovering large features, but it is better at recovering micro-texture. For example, in the lower left corner of the scene, there is a glossy floor which is difficult to project onto and at the same time the input texture \ref{fig:ex03-staircase_illum-beams-target} is very bright. Whereas the pixel-based reference struggles to achieve the desired appearance and oversaturates corresponding projector pixels (see image \ref{fig:ex03-staircase_illum-wood-pixel_im}), our method moves the darker part of the texture into this area which provides a more satisfying result (see image \ref{fig:ex03-staircase_illum-beams-stats_proj}).
+In the staircase scene (fig.~\ref{fig:ex03-staircase_illum}), we see similar trends as in the previous experiments. Compared to the pixel-based reference, our method performs worse in recovering large features, but it is better at recovering micro-texture. For example, in the lower left corner of the scene, there is a glossy floor which is difficult to project onto and at the same time the input texture~\ref{fig:ex03-staircase_illum-beams-target} is very bright. Whereas the pixel-based reference struggles to achieve the desired appearance and oversaturates corresponding projector pixels (see image~\ref{fig:ex03-staircase_illum-wood-pixel_im}), our method moves the darker part of the texture into this area which provides a more satisfying result (see image~\ref{fig:ex03-staircase_illum-beams-stats_proj}).
