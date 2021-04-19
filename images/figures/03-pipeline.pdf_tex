@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{678.50641206bp}%
+    \setlength{\unitlength}{782.84638172bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,30 +50,33 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.91911003)%
+  \begin{picture}(1,0.85911538)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/03-pipeline.pdf}}%
-    \put(0.10964972,0.88401006){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}desired appearance \(y\)\end{tabular}}}}%
-    \put(0.10312187,0.64010731){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}projector image \(p\)\end{tabular}}}}%
-    \put(0.08169091,0.08946459){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0*\end{tabular}}}}%
-    \put(0.30308462,0.08863262){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
-    \put(0.08446896,0.394269){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0\end{tabular}}}}%
-    \put(0.29811975,0.39547084){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
-    \put(0.82159069,0.12973539){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
-    \put(0.60519422,0.13505565){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0\end{tabular}}}}%
-    \put(0.63424318,0.3290247){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}camera image \(x(p)\)\end{tabular}}}}%
+    \put(-0.00867618,0.50320006){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}OUTPUT\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{images/figures/03-pipeline.pdf}}%
-    \put(0.71772443,0.88332365){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(f(y)\)\end{tabular}}}}%
-    \put(0.71034875,0.59484564){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(f(x(p))\)\end{tabular}}}}%
+    \put(0.22791616,0.80060667){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}desired appearance \(\bm{y}\)\end{tabular}}}}%
+    \put(0.22225836,0.58921196){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}projector image \(\bm{p}\)\end{tabular}}}}%
+    \put(0.20368378,0.11196046){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0*\end{tabular}}}}%
+    \put(0.39556951,0.11123937){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
+    \put(0.20609156,0.37613967){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0\end{tabular}}}}%
+    \put(0.39126637,0.37718133){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
+    \put(0.84414935,0.12804305){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
+    \put(0.65659481,0.13265421){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0\end{tabular}}}}%
+    \put(0.68177205,0.30077053){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}camera image \(r(\bm{p})\)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{images/figures/03-pipeline.pdf}}%
-    \put(0.71087371,0.68245201){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}MSE(f(y), f(x(p)))\end{tabular}}}}%
-    \put(0.4700566,0.71344845){\color[rgb]{0,0,0}\rotatebox{-2}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textit{gradient-based}\end{tabular}}}}}%
+    \put(0.75494496,0.80001175){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(f(\bm{y})\)\end{tabular}}}}%
+    \put(0.74855233,0.54998289){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(f(r(\bm{p}))\)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{images/figures/03-pipeline.pdf}}%
-    \put(0.76435725,0.39833917){\color[rgb]{0,0.57254902,0.80784314}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Gatys synthesis\end{tabular}}}}%
-    \put(0.72399957,0.03758221){\color[rgb]{0.24313725,0.67058824,0.13333333}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Rendering function\end{tabular}}}}%
-    \put(0.0874138,0.04240096){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}{\tiny *lower exposure for visualization purposes}\end{tabular}}}}%
-    \put(0.4758535,0.67362939){\color[rgb]{0,0,0}\rotatebox{-2}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{update step}\end{tabular}}}}}%
+    \put(0.74900732,0.62591284){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\text{MSE}(f(\bm{y}), f(r(\bm{p})))\)\end{tabular}}}}%
+    \put(0.540287,0.65277799){\color[rgb]{0,0,0}\rotatebox{-2}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textit{gradient-based}\end{tabular}}}}}%
+    \put(0.72519701,0.003166){\color[rgb]{0.24313725,0.67058824,0.13333333}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Rendering function}\end{tabular}}}}%
+    \put(0.20864391,0.0711696){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}{\tiny *lower exposure for visualization purposes}\end{tabular}}}}%
+    \put(0.54531127,0.61826613){\color[rgb]{0,0,0}\rotatebox{-2}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textit{update step}\end{tabular}}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{images/figures/03-pipeline.pdf}}%
+    \put(0.76706057,0.84739434){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Gatys synthesis}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{images/figures/03-pipeline.pdf}}%
+    \put(0.00270312,0.77401256){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}INPUT\end{tabular}}}}%
   \end{picture}%
 \endgroup%
