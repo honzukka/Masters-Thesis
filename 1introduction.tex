@@ -11,10 +11,6 @@
 
 {\color{red} TODO: image compression!}
 
-{\color{red} TODO: math notation: images and function are confusing. maybe bold for images and call rendering function somethign else than \(x\)?}
-
-{\color{red} TODO: section 2.2 \(\rightarrow\) make references stick together by tilde and capitalize Section! (capitalize also fig. and eq.???)}
-
 Most people nowadays are familiar with \textit{projection}, the act of transferring images from film or computer memory onto screens in cinemas and classrooms. But while those screens are made specifically for being projected onto, this is not the case for other objects, for example building façades. The geometry and material properties of these objects deform projected images and change their appearance. This is why projecting them is not enough -- they first need to be edited (\textit{mapped}) in a way that their final appearance is what we expect. Projecting onto arbitrary objects in such a way is called \textit{projection mapping} and it is the main topic of this thesis.
 
 \begin{figure}[ht]
@@ -279,46 +275,47 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
         \begin{subfigure}{0.3\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-results_teaser-target.jpg}
-            \caption{Desired appearance}
+            \caption{\(\bm{y}\)}
             \label{fig:intro_results_teaser_target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-pixels_opt.jpg}
-            \caption{PB compensation}
-            \label{fig:intro_results_teaser_pixels_opt}
+            \includegraphics[width=\textwidth]{images/01-results_teaser-stats_opt_label.jpg}
+            \caption{\(\bm{p}\)}
+            \label{fig:intro_results_teaser_stats_opt}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-stats_opt.jpg}
-            \caption{Our compensation}
-            \label{fig:intro_results_teaser_stats_opt}
+            \includegraphics[width=\textwidth]{images/01-results_teaser-pixels_opt_label.jpg}
+            \caption{\(\bm{p}\)}
+            \label{fig:intro_results_teaser_pixels_opt}
         \end{subfigure}
         
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-bg.jpg}
+            \includegraphics[width=\textwidth]{images/01-results_teaser-bg_highlighted.jpg}
             \caption{Scene}
             \label{fig:intro_results_teaser_bg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-pixels_proj.jpg}
-            \caption{PB final appearance}
-            \label{fig:intro_results_teaser_pixels_proj}
+            \includegraphics[width=\textwidth]{images/01-results_teaser-stats_proj_highlighted2.jpg}
+            \caption{\(r(\bm{p})\)}
+            \label{fig:intro_results_teaser_stats_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-stats_proj.jpg}
-            \caption{Our final appearance}
-            \label{fig:intro_results_teaser_stats_proj}
+            \includegraphics[width=\textwidth]{images/01-results_teaser-pixels_proj_highlighted2.jpg}
+            \caption{\(r(\bm{p})\)}
+            \label{fig:intro_results_teaser_pixels_proj}
         \end{subfigure}
+        
     \end{subfigure}
-    \caption{{\color{red} TODO: explain out more, have a unified way of presenting these results} Result from one of our experiments. Our scene is a photograph with dark areas and saturated yellow areas which our desired appearance cannot be mapped onto using a conventional pixel-based approach (middle column). Our method (right column) finds a different realization of the input texture which aligns red and beige elements with the yellow sign and dark elements with the forested part of the background. This results in easier mapping (overall lower pixel brightness in fig.~\ref{fig:intro_results_teaser_stats_opt} compared to fig.~\ref{fig:intro_results_teaser_pixels_opt}) and more faithful reproduction of the desired appearance. Texture source: \citet{Pixar128}, modified}
+    \caption{Result from one of our experiments. Our scene is a photograph with a dark background (highlighted in pink) and a bright yellow sign (highlighted in white). The goal is to make it look like the flower texture \(\bm{y}\) by projecting an image \(\bm{p}\) onto it. This is difficult to achieve in the highlighted areas where the scene is still visible when using a conventional per-pixel projection mapping approach (see image~\ref{fig:intro_results_teaser_pixels_proj}). Our method, on the other hand, handles these areas better by aligning a red bloom with the yellow sign (in white) and darker leaves with the background (in pink). As a result, appearance \ref{fig:intro_results_teaser_stats_proj} is a more faithful reproduction of the desired our final appearance \(\bm{y}\) than the reference \ref{fig:intro_results_teaser_pixels_proj}. Texture source: \citet{Pixar128}, modified}
     \label{fig:intro_result_teaser}
 \end{figure}
 

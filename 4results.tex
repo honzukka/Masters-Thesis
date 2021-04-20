@@ -34,7 +34,7 @@ In this experiment, we explore the second point.
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
-            \caption{Input}
+            \caption{\(\bm{y}\)}
             \label{fig:ex01-pebbles-1000steps-some_target}
         \end{subfigure}
         \hfill
@@ -48,21 +48,21 @@ In this experiment, we explore the second point.
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/1000/some_im.jpg}
-            \caption{Compensation}
+            \caption{\(\bm{p}\)}
             \label{fig:ex01-pebbles-1000steps-some_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/1000/some_proj.jpg}
-            \caption{Camera image}
+            \caption{\(r(\bm{p})\)}
             \label{fig:ex01-pebbles-1000steps-some_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
-            \caption{Input}
+            \caption{\(\bm{y}\)}
             \label{fig:ex01-pebbles-1000steps-threshold_target}
         \end{subfigure}
         \hfill
@@ -76,18 +76,18 @@ In this experiment, we explore the second point.
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/1000/threshold_im.jpg}
-            \caption{Compensation}
+            \caption{\(\bm{p}\)}
             \label{fig:ex01-pebbles-1000steps-threshold_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/1000/threshold_proj.jpg}
-            \caption{Camera image}
+            \caption{\(r(\bm{p})\)}
             \label{fig:ex01-pebbles-1000steps-threshold_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{Results of experiment 1. We use the simple rendering function (see Section~\ref{section:methods-rendering_function-simple}) and unmodified Gatys texture model (see Section~\ref{section:methods-texture_model}). The background is always a subset of the input texture. Note how feature outlines in background~\ref{fig:ex01-pebbles-1000steps-threshold_bg} completely determine the inner values in the final appearance~\ref{fig:ex01-pebbles-1000steps-threshold_proj}. Also note that the area in~\ref{fig:ex01-pebbles-1000steps-some_proj} where the background matches the input is slightly darker. This is likely caused by~\ref{fig:ex01-pebbles-1000steps-threshold_im} being initialized by white noise with mean 0.5 and only a global brightness enforcement in the texture model. Texture source: \citet{Gatys2015}}
+    \caption{Results of experiment 1. We use the simple rendering function (see Section~\ref{section:methods-rendering_function-simple}) and unmodified Gatys texture model (see Section~\ref{section:methods-texture_model}). The background is always a subset of the input texture. Note how feature outlines in background~\ref{fig:ex01-pebbles-1000steps-threshold_bg} completely determine the inner values in the final appearance~\ref{fig:ex01-pebbles-1000steps-threshold_proj}. Also note that the area in~\ref{fig:ex01-pebbles-1000steps-some_proj} where the background matches the input is slightly darker. This is likely caused by~\ref{fig:ex01-pebbles-1000steps-threshold_im} being initialized by white noise with mean 0.5 and only global brightness enforcement in the texture model. Texture source: \citet{Gatys2015}}
     \label{fig:ex01-pebbles-1000steps}
 \end{figure}
 
@@ -96,7 +96,7 @@ In this experiment, we explore the second point.
 
 Figure~\ref{fig:ex01-pebbles-1000steps} shows the main result of this experiment. Overall, we have tested five different backgrounds and two different input textures. Complete results can be found in appendix~\ref{chapter:appendix-results} in figs.~\ref{fig:ex01-complete-pebbles-1000steps} and~\ref{fig:ex01-complete-flowers-1000steps}.
 
-Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large. A single run (one background, one input texture) lasted around {\color{red} TODO} per 10 optimization steps. All runs were set to run for 1000 steps and reasonable results have started appearing already after around 100 steps (see fig.~\ref{fig:ex01-loss_plot}). The GPU used was Nvidia Tesla K80.
+Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large. A single run (one background, one input texture) lasted around 2.5s per 10 optimization steps. All runs were set to run for 1000 steps and reasonable results have started appearing already after around 100 steps (see fig.~\ref{fig:ex01-loss_plot}). The GPU used was Nvidia Tesla K80.
 
 \subsection{Analysis}
 \label{section:results-experiments-01-analysis}
@@ -108,7 +108,7 @@ Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
-            \caption{Input}
+            \caption{\(\bm{y}\)}
             \label{fig:ex01-pebbles-5steps-some_target}
         \end{subfigure}
         \hfill
@@ -122,21 +122,21 @@ Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/5/some_im.jpg}
-            \caption{Compensation}
+            \caption{\(\bm{p}\)}
             \label{fig:ex01-pebbles-5steps-some_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/5/some_proj.jpg}
-            \caption{Camera image}
+            \caption{\(r(\bm{p})\)}
             \label{fig:ex01-pebbles-5steps-some_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
-            \caption{Input}
+            \caption{\(\bm{y}\)}
             \label{fig:ex01-pebbles-5steps-threshold_target}
         \end{subfigure}
         \hfill
@@ -150,14 +150,14 @@ Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/5/threshold_im.jpg}
-            \caption{Compensation}
+            \caption{\(\bm{p}\)}
             \label{fig:ex01-pebbles-5steps-threshold_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/5/threshold_proj.jpg}
-            \caption{Camera image}
+            \caption{\(r(\bm{p})\)}
             \label{fig:ex01-pebbles-5steps-threshold_proj}
         \end{subfigure}
     \end{subfigure}
@@ -197,9 +197,7 @@ In the first experiment, we have shown that our method is able to converge to th
 \subsection{Results}
 \label{section:results-experiments-02-results}
 
-{\color{red} TODO: in figures, highlight what the final output is. now it blends in with the baseline too much}
-
-{\color{red} TODO: ask Jaakko if we should comment on the fact that the optimizer pushes pixel values all the way to max (mostly in the staircase scene)?}
+{\color{red} TODO: more results here?}
 
 \begin{figure}[]
     \centering    
@@ -208,60 +206,60 @@ In the first experiment, we have shown that our method is able to converge to th
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/target.jpg}
-            \caption{Input}
-            \label{fig:ex02-human-marble-target}
+            \caption*{\(\bm{y}\)}
+            %\label{fig:ex02-human-marble-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/human/bg.jpg}
-            \caption{Background}
-            \label{fig:ex02-human-marble-bg}
+            \caption*{Background}
+            %\label{fig:ex02-human-marble-bg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_im.jpg}
-            \caption{Gatys comp.}
-            \label{fig:ex02-human-marble-gatys_im}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_im_label.jpg}
+            \caption*{\(\bm{p}\)}
+            %\label{fig:ex02-human-marble-gatys_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_proj.jpg}
-            \caption{Gatys camera}
-            \label{fig:ex02-human-marble-gatys_proj}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_proj_label.jpg}
+            \caption*{\(r(\bm{p})\)}
+            %\label{fig:ex02-human-marble-gatys_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_im.jpg}
-            \caption{Improved comp.}
-            \label{fig:ex02-human-marble-improved_im}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_im_label.jpg}
+            \caption*{\(\bm{p}\)}
+            %\label{fig:ex02-human-marble-improved_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_proj.jpg}
-            \caption{Improved cam.}
-            \label{fig:ex02-human-marble-improved_proj}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_proj_label.jpg}
+            \caption*{\(r(\bm{p})\)}
+            %\label{fig:ex02-human-marble-improved_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_im.jpg}
-            \caption{Pixel comp.}
-            \label{fig:ex02-human-marble-pixel_im}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_im_label.jpg}
+            \caption*{\(\bm{p}\)}
+            %\label{fig:ex02-human-marble-pixel_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_proj.jpg}
-            \caption{Pixel camera}
-            \label{fig:ex02-human-marble-pixel_proj}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_proj_label.jpg}
+            \caption*{\(r(\bm{p})\)}
+            %\label{fig:ex02-human-marble-pixel_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{{\color{red} TODO: what's our optimized result? individual image labels should be clear even without reading figure caption or text around it!} Results of experiment 2. We use the simple rendering function (see Section~\ref{section:methods-rendering_function-simple}) and compare our method with the original Gatys texture model (see Section~\ref{section:methods-texture_model}) against our method with the improved texture model (specifically, the Pyramid + Shift variant from Section~\ref{section:methods-texture_model-improvements}) and a conventional pixel-based projection mapping method. Brightness \(c\) is set to \(5\) to adjust the difficulty of the scene. Note how our method with the improved model is better than Gatys at matching the large features of the input (e.g. the outline of the woman is not visible and the size of the marble grain stays roughly the same). It is also better than the pixel-based method at matching the colors (e.g. the blond hair is not visible in the final camera image). {\color{red} TODO: show more results here, so that it's possible to see the relative performance and draw better conclusions} Texture source: \citet{Pixar128}}
+    \caption{Results of experiment 2. We use the simple rendering function (see Section~\ref{section:methods-rendering_function-simple}) and compare our method with the original Gatys texture model (see Section~\ref{section:methods-texture_model}) against our method with the improved texture model (specifically, the Pyramid + Shift variant from Section~\ref{section:methods-texture_model-improvements}) and a conventional pixel-based projection mapping method. Brightness \(c\) is set to \(5\) to adjust the difficulty of the scene. Note how our method with the improved model is better than Gatys at matching the large features of the input (e.g. the outline of the woman is not visible and the size of the marble grain stays roughly the same). It is also better than the pixel-based method at matching the colors (e.g. the blond hair is not visible in the final camera image). See fig.~\ref{fig:ex02-human-marble-detail} for a magnified detail of these differences. Texture source: \citet{Pixar128}}
     \label{fig:ex02-human-marble}
 \end{figure}
 
@@ -349,7 +347,7 @@ Generated compensated projection images \(\bm{p}\) were \(640 \times 480\) large
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
             %\label{fig:ex02-issues-190-target}
         \end{subfigure}
         \hfill
@@ -363,35 +361,42 @@ Generated compensated projection images \(\bm{p}\) were \(640 \times 480\) large
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_gatys.jpg}
-            \caption*{Gatys}
+            \caption*{\textbf{Ours (Gatys)}}
             %\label{fig:ex02-issues-190-gatys}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_improved.jpg}
-            \caption*{Improved}
+            \caption*{\textbf{Ours (Imp.)}}
             %\label{fig:ex02-issues-190-improved}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_pixel.jpg}
-            \caption*{Pixel}
+            \caption*{Reference}
             %\label{fig:ex02-issues-190-pixel}
         \end{subfigure}
     \end{subfigure}
-    \caption{A study of convergence of our method when the overall intensity of the input cannot be recovered by the projector due to dark background. \(c = 1\) in this case. The upper row corresponds to pure texture synthesis since the background is white. Background in the middle row has gray level of 210 out of 255, while background in the lower row has gray level of 190 out of 255. Note how the ability to recover large texture features rapidly degrades with darkening background. Also note how the improved texture model performs better than the Gatys model. The pixel-based method handles these extreme situations better since it only tries to match the intensity of each pixel while texture features are simply equal to the input. Texture source: \citet{Pixar128}}
+    \caption{A study of convergence of our method when the overall intensity of the input cannot be recovered by the projector due to dark background. \(c = 1\) in this case. The last three images in each row show \(r(\bm{p})\) for each compared method. The upper row corresponds to pure texture synthesis since the background is white. Background in the middle row has gray level of 210 out of 255, while background in the lower row has gray level of 190 out of 255. Note how the ability to recover large texture features rapidly degrades with darkening background. Also note how the improved texture model performs better than the Gatys model. The pixel-based reference handles these extreme situations better since it only tries to match the intensity of each pixel while texture features are simply equal to the input. Texture source: \citet{Pixar128}}
     \label{fig:ex02-issues}
 \end{figure}
 
 \begin{figure}[]
-    \centering    
-    \begin{subfigure}{0.7\textwidth}
+    \centering
+    \begin{subfigure}{0.285\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/target.jpg}
+        \caption*{}
+        %\label{fig:ex02-human-marble-detail-highlighted}
+    \end{subfigure}
+    \hspace*{1mm}
+    \begin{subfigure}{0.6\textwidth}
         \centering
         \begin{subfigure}{0.48\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_proj_highlighted.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/gatys_proj_highlighted2.jpg}
             \caption*{}
             %\label{fig:ex02-human-marble-detail-highlighted}
         \end{subfigure}
@@ -424,11 +429,18 @@ Generated compensated projection images \(\bm{p}\) were \(640 \times 480\) large
         %\caption{Gatys}
     \end{subfigure}
 
-    \begin{subfigure}{0.7\textwidth}
+    \begin{subfigure}{0.285\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/target.jpg}
+        \caption*{}
+        %\label{fig:ex02-human-marble-detail-highlighted}
+    \end{subfigure}
+    \hspace*{1mm}
+    \begin{subfigure}{0.6\textwidth}
         \centering
         \begin{subfigure}{0.48\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_proj_highlighted.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/improved_proj_highlighted2.jpg}
             \caption*{}
             %\label{fig:ex02-human-marble-detail-highlighted}
         \end{subfigure}
@@ -461,11 +473,18 @@ Generated compensated projection images \(\bm{p}\) were \(640 \times 480\) large
         %\caption{Improved}
     \end{subfigure}
 
-    \begin{subfigure}{0.7\textwidth}
+    \begin{subfigure}{0.285\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/target.jpg}
+        \caption*{}
+        %\label{fig:ex02-human-marble-detail-highlighted}
+    \end{subfigure}
+    \hspace*{1mm}
+    \begin{subfigure}{0.6\textwidth}
         \centering
         \begin{subfigure}{0.48\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_proj_highlighted.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment02/human/marble/pixel_proj_highlighted2.jpg}
             \caption*{}
             %\label{fig:ex02-human-marble-detail-highlighted}
         \end{subfigure}
@@ -493,14 +512,14 @@ Generated compensated projection images \(\bm{p}\) were \(640 \times 480\) large
                 %\label{fig:ex02-human-marble-detail-crops-yellow}
             \end{subfigure}
         \end{subfigure}
-        %\caption{Pixel}
+        %\caption*{\(r(\bm{p})\)}
         %\label{fig:ex02-human-marble-detail-crops}
     \end{subfigure}
-    \caption{{\color{red} TODO: label + caption + reference from text} Texture source: \citet{Pixar128}}
+    \caption{A magnified detail of results from fig.~\ref{fig:ex02-human-marble} showing the desired appearance \(\bm{y}\) in the first column and the actual appearance \(r(\bm{p})\) in the other columns for each method. Note how both micro-texture (color) is best reproduced by our method (top and middle). Macro-texture (marble structure) is best reproduced by our method with the improved texture model (middle) and the pixel-based reference (bottom). Texture source: \citet{Pixar128}}
     \label{fig:ex02-human-marble-detail}
 \end{figure}
 
-When comparing the three methods -- ours with the Gatys texture model, ours with the improved texture model and the pixel-based reference -- it is useful to think in terms of micro- and macro-textures (as introduced in Section~\ref{section:background-texture_synthesis-statistics_based}). For example, in a pebble texture like the one in figure~\ref{section:results-experiments-01-results}, the pebbles themselves form a macro-texture while their surface is a micro-texture. 
+When comparing the three methods -- ours with the Gatys texture model, ours with the improved texture model and the pixel-based reference -- it is useful to think in terms of micro- and macro-textures (as introduced in Section~\ref{section:background-texture_synthesis-statistics_based}). For example, in a pebble texture like the one in figure~\ref{section:results-experiments-01-results}, the pebbles themselves form a macro-texture while their surface is a micro-texture. Refer to fig.~\ref{fig:ex02-human-marble-detail} for a detailed overview of the differences between the three methods discussed here.
 
 Starting with our method with the Gatys texture model in fig.~\ref{fig:ex02-human-marble}, we can see that it reproduces micro-texture very well. The resulting appearance contains mostly colors from the input texture and colors of the background, for example the blond hair, are hidden, unlike in the pixel-based reference. On the other hand, macro-texture is recovered rather poorly as the outline of the woman is visible quite clearly. The appearance of large texture features seems to further deteriorate in areas where the background is darker (and thus less reflective), especially in the lower left corner.
 
@@ -520,13 +539,15 @@ The second experiment has shown that statistics-based projection mapping can be 
 \subsection{Results}
 \label{section:results-experiments-03-results}
 
+{\color{red} TODO: is the oversaturation thing in the optimizer covered well?}
+
 \begin{figure}[]
     \centering    
     \begin{subfigure}{\textwidth}
         \centering
         \begin{subfigure}{0.5\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/scene.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/scene_highlighted.jpg}
             \caption{Scene}
             \label{fig:ex03-ball_dof-scene}
         \end{subfigure}
@@ -534,74 +555,74 @@ The second experiment has shown that statistics-based projection mapping can be 
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/ball_pebble_target.jpg}
-            \caption{Input}
-            \label{fig:ex03-ball_dof-pebbles-target}
+            \caption*{\(\bm{y}\)}
+            %\label{fig:ex03-ball_dof-pebbles-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_im.jpg}
-            \caption{O. comp.}
-            \label{fig:ex03-ball_dof-pebbles-stats_im}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_im_label.jpg}
+            \caption*{\(\bm{p}\)}
+            %\label{fig:ex03-ball_dof-pebbles-stats_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_proj.jpg}
-            \caption{O. cam.}
-            \label{fig:ex03-ball_dof-pebbles-stats_proj}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_proj_highlighted2.jpg}
+            \caption*{\(r(\bm{p})\)}
+            %\label{fig:ex03-ball_dof-pebbles-stats_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_im.jpg}
-            \caption{P. comp.}
-            \label{fig:ex03-ball_dof-pebbles-pixel_im}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_im_label.jpg}
+            \caption*{\(\bm{p}\)}
+            %\label{fig:ex03-ball_dof-pebbles-pixel_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_proj.jpg}
-            \caption{P. cam.}
-            \label{fig:ex03-ball_dof-pebbles-pixel_proj}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_proj_highlighted2.jpg}
+            \caption*{\(r(\bm{p})\)}
+            %\label{fig:ex03-ball_dof-pebbles-pixel_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/ball_marble_target.jpg}
-            \caption{Input}
-            \label{fig:ex03-ball_dof-marble-target}
+            \caption*{\(\bm{y}\)}
+            %\label{fig:ex03-ball_dof-marble-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_im.jpg}
-            \caption{O. comp.}
-            \label{fig:ex03-ball_dof-marble-stats_im}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_im_label.jpg}
+            \caption*{\(\bm{p}\)}
+            %\label{fig:ex03-ball_dof-marble-stats_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_proj.jpg}
-            \caption{O. cam.}
-            \label{fig:ex03-ball_dof-marble-stats_proj}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_proj_highlighted2.jpg}
+            \caption*{\(r(\bm{p})\)}
+            %\label{fig:ex03-ball_dof-marble-stats_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_im.jpg}
-            \caption{P. comp.}
-            \label{fig:ex03-ball_dof-marble-pixel_im}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_im_label.jpg}
+            \caption*{\(\bm{p}\)}
+            %\label{fig:ex03-ball_dof-marble-pixel_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_proj.jpg}
-            \caption{P. cam.}
-            \label{fig:ex03-ball_dof-marble-pixel_proj}
+            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_proj_highlighted2.jpg}
+            \caption*{\(r(\bm{p})\)}
+            %\label{fig:ex03-ball_dof-marble-pixel_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{{\color{red} TODO: still a bit hard to parse. emphasize that the loss is only computed in the cropped region!} Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}; marked as "O.") against a pixel-based reference (marked as "P."). \(c = 5\). The scene contains a mirror ball which is being projected onto from the ceiling as suggested in image~\ref{fig:ex03-ball_dof-scene}. The projector has depth of field enabled and the camera image is cropped (see the scissors symbol) before computing the loss to match the input texture image. Overall, our pipeline handles this complex light transport well. Note how the box is missing one wall (the black patch inside the mirror ball) which causes the optimization to leave the corresponding part of the compensation image untouched. Texture source: \citet{Pixar128}}
+    \caption{Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}) against a pixel-based reference. \(c = 5\). The scene contains a mirror ball which is being projected onto from the ceiling as suggested in image~\ref{fig:ex03-ball_dof-scene}. The projector has depth of field enabled and the camera image \(r(\bm{p})\) is cropped before computing the loss and thus only the dashed red rectangles are matched against the desired appearance \(\bm{y}\). Overall, our pipeline handles this complex light transport well. Note how the box is missing one wall (the black patch inside the mirror ball) which causes the optimization to leave the corresponding part of the compensation image \(\bm{p}\) untouched. Texture source: \citet{Pixar128}}
     \label{fig:ex03-ball_dof}
 \end{figure}
 
@@ -611,8 +632,7 @@ The second experiment has shown that statistics-based projection mapping can be 
         \centering
         \begin{subfigure}{0.5\textwidth}
             \centering
-            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene.jpg}
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene_highlighted.jpg}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene_raw_highlighted.jpg}
             \caption{Scene}
             \label{fig:ex03-staircase_illum-scene}
         \end{subfigure}
@@ -620,35 +640,35 @@ The second experiment has shown that statistics-based projection mapping can be 
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/staircase_wood_target.jpg}
-            \caption{Input}
+            \caption{\(\bm{y}\)}
             \label{fig:ex03-staircase_illum-wood-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im.jpg}
-            \caption{O. comp.}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im_label.jpg}
+            \caption{\(\bm{p}\)}
             \label{fig:ex03-staircase_illum-wood-stats_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj.jpg}
-            \caption{O. cam.}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj_label.jpg}
+            \caption{\(r(\bm{y})\)}
             \label{fig:ex03-staircase_illum-wood-stats_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im.jpg}
-            \caption{P. comp.}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im_label.jpg}
+            \caption{\(\bm{p}\)}
             \label{fig:ex03-staircase_illum-wood-pixel_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj.jpg}
-            \caption{P. cam.}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj_label.jpg}
+            \caption{\(r(\bm{y})\)}
             \label{fig:ex03-staircase_illum-wood-pixel_proj}
         \end{subfigure}
         
@@ -656,41 +676,41 @@ The second experiment has shown that statistics-based projection mapping can be 
             \centering
             % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target.jpg}
             \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target_highlighted.jpg}
-            \caption{Input}
+            \caption{\(\bm{y}\)}
             \label{fig:ex03-staircase_illum-beams-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im.jpg}
-            \caption{O. comp.}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im_label.jpg}
+            \caption{\(\bm{p}\)}
             \label{fig:ex03-staircase_illum-beams-stats_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj_highlighted.jpg}
-            \caption{O. cam.}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj_highlighted2.jpg}
+            \caption{\(r(\bm{y})\)}
             \label{fig:ex03-staircase_illum-beams-stats_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im.jpg}
-            \caption{P. comp.}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im_label.jpg}
+            \caption{\(\bm{p}\)}
             \label{fig:ex03-staircase_illum-beams-pixel_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj_highlighted.jpg}
-            \caption{P. cam.}
+            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj_highlighted2.jpg}
+            \caption{\(r(\bm{y})\)}
             \label{fig:ex03-staircase_illum-beams-pixel_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{{\color{red} TODO: what's up with the red rectangle? :D} Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}; marked as "O.") against a pixel-based reference (marked as "P."). \(c = 5\). The scene contains a wooden staircase which is being projected onto from the point of view of the camera as suggested in image~\ref{fig:ex03-staircase_illum-scene}. The projector has depth of field disabled and the camera image is not cropped before computing the loss. Note how the performance of our method corresponds to previous experiments. An example is highlighted by green ellipses. The glossy wooden floor in the lower left corner of the scene is difficult to project onto. The dark patch of the input texture (highlighted) is easy to project onto the corner because it already looks like it. This is what our method does (see image~\ref{fig:ex03-staircase_illum-beams-stats_proj}). On the other hand, the pixel-based reference cannot do this and instead oversaturates corresponding projector image pixels (see image ~\ref{fig:ex03-staircase_illum-beams-pixel_im}). Texture source: \citet{Pixar128}}
+    \caption{Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}) against a pixel-based reference. \(c = 5\). The scene contains a wooden staircase which is being projected onto from the point of view of the camera. The projector has depth of field disabled and the camera image \(r(\bm{p})\) is not cropped before computing the loss and thus all of it is matched against the desired appearance \(\bm{y}\). Note how the performance of our method corresponds to previous experiments. An example is highlighted. The glossy wooden floor in the lower left corner of the scene is difficult to project onto (highlighted in red). Our method deals with it well by reproducing a dark patch of the input texture over it (highlighted in green). On the other hand, the reference pixel-based method has to map texture pixels that are in the same location and as a result it is struggling to reproduce a light patch (highlighted in blue). Texture source: \citet{Pixar128}}
     \label{fig:ex03-staircase_illum}
 \end{figure}
 
@@ -718,49 +738,64 @@ Generated compensated projection images \(\bm{p}\) were \(160 \times 93\) large.
     \centering    
     \begin{subfigure}{\textwidth}
         \centering
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/dof/scene_highlighted.jpg}
+            \caption*{Scene without DoF}
+            %\label{fig:ex03-dof-normal_scene}
+        \end{subfigure}
+        \hspace*{0.5mm}
+        \begin{subfigure}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/04-experiment03/dof/scene_dof_highlighted.jpg}
+            \caption*{Scene with DoF}
+            %\label{fig:ex03-dof-defocused_scene}
+        \end{subfigure}
+
         \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal.jpg}
-            \caption{Normal comp.}
-            \label{fig:ex03-dof-normal_im}
+            \caption*{\(\bm{p_n}\)}
+            %\label{fig:ex03-dof-normal_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal_on_normal.jpg}
-            \caption{Normal cam.}
-            \label{fig:ex03-dof-normal_normal_proj}
+            \caption*{\(r_n(\bm{p_n})\)}
+            %\label{fig:ex03-dof-normal_normal_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal_on_dof.jpg}
-            \caption{DoF cam.}
-            \label{fig:ex03-dof-normal_dof_proj}
+            \caption*{\(r_d(\bm{p_n})\)}
+            %\label{fig:ex03-dof-normal_dof_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused.jpg}
-            \caption{Defocused comp.}
-            \label{fig:ex03-dof-defocused_im}
+            \caption*{\(\bm{p_d}\)}
+            %\label{fig:ex03-dof-defocused_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused_on_normal.jpg}
-            \caption{Normal cam.}
-            \label{fig:ex03-dof-defocused_normal_proj}
+            \caption*{\(r_n(\bm{p_d})\)}
+            %\label{fig:ex03-dof-defocused_normal_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused_on_dof.jpg}
-            \caption{DoF cam.}
-            \label{fig:ex03-dof-defocused_defocused_proj}
+            \caption*{\(r_d(\bm{p_d})\)}
+            %\label{fig:ex03-dof-defocused_defocused_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{{\color{red} TODO: what's the cam. in the labels??} A study of how our pipeline handles defocus in a scene where the projector has depth of field enabled. The upper row shows a compensated projector image which is optimized for a projector without depth field, while the lower row features a projector image which was compensated for depth of field. In the middle column, both images are projected by a projector without depth of field. In the right column, a projector with depth of field is used. Images~\ref{fig:ex03-dof-normal_normal_proj} and~\ref{fig:ex03-dof-defocused_defocused_proj} thus show the optimized appearance, while images~\ref{fig:ex03-dof-defocused_normal_proj} and~\ref{fig:ex03-dof-normal_dof_proj} are sharper and more blurred than they should be, respectively. Texture source: \citet{Pixar128}}
+    \caption{A study of how our pipeline handles defocus in a scene where the projector has depth of field enabled. \(\bm{p_n}\) and \(\bm{p_d}\) are optimized using the reference pixel-based method to for the same scene and projector without depth of field (DoF) and with DoF, respectively. They are then projected using the projector they were intended for (\(r_n(\bm{p_n})\), \(r_d(\bm{p_d})\)) as well as the other one (\(r_n(\bm{p_d})\), \(r_d(\bm{p_n})\)). The visual differences between \(r_n(\bm{p_n})\) and \(r_n(\bm{p_d})\) and between \(r_d(\bm{p_d})\) and \(r_d(\bm{p_n})\) show how effective the light transport model in our pipeline is at compensating blur. Texture source: \citet{Pixar128}}
     \label{fig:ex03-dof}
 \end{figure}
 
