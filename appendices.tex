@@ -437,7 +437,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -448,38 +448,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/gatys_im.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Ours (Gatys)}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/gatys_proj.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Ours (Gatys)}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/improved_im.jpg}};
+                \fill[black] (-1.55, 1.5) rectangle ++(3.1, 0.6);
+                \node [anchor=center] at (0.0, 1.8) {{\color{white} \small{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/improved_proj.jpg}};
+                \fill[black] (-1.55, 1.5) rectangle ++(3.1, 0.6);
+                \node [anchor=center] at (0.0, 1.8) {{\color{white} \small{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/pixel_im.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Reference}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/pixel_proj.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Reference}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
 
@@ -488,7 +518,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -499,38 +529,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/gatys_im.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Ours (Gatys)}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/gatys_proj.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Ours (Gatys)}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/improved_im.jpg}};
+                \fill[black] (-1.55, 1.5) rectangle ++(3.1, 0.6);
+                \node [anchor=center] at (0.0, 1.8) {{\color{white} \small{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/improved_proj.jpg}};
+                \fill[black] (-1.55, 1.5) rectangle ++(3.1, 0.6);
+                \node [anchor=center] at (0.0, 1.8) {{\color{white} \small{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/pixel_im.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Reference}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/pixel_proj.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Reference}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/flowers2/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-02}. Texture source: \citet{Pixar128}}
@@ -545,7 +605,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -556,38 +616,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/gatys_im.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Ours (Gatys)}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/gatys_proj.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Ours (Gatys)}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/improved_im.jpg}};
+                \fill[black] (-1.55, 1.5) rectangle ++(3.1, 0.6);
+                \node [anchor=center] at (0.0, 1.8) {{\color{white} \small{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/improved_proj.jpg}};
+                \fill[black] (-1.55, 1.5) rectangle ++(3.1, 0.6);
+                \node [anchor=center] at (0.0, 1.8) {{\color{white} \small{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/pixel_im.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Reference}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/pixel_proj.jpg}};
+                \fill[black] (-1.05, 1.5) rectangle ++(2.6, 0.6);
+                \node [anchor=center] at (0.25, 1.8) {{\color{white} Reference}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/human/pebbles/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-02}. Texture source: \citet{Pixar128}}
@@ -602,7 +692,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -613,38 +703,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/gatys_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/gatys_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/improved_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/improved_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/pixel_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/pixel_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/marble/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
 
@@ -653,7 +773,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -664,44 +784,74 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/gatys_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/gatys_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/improved_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/improved_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/pixel_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/pixel_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/wood/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
 
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -712,38 +862,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/gatys_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/gatys_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/improved_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/improved_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/pixel_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/pixel_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/pebbles/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-02}. Texture source: \citet{Pixar128}}
@@ -758,7 +938,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -769,38 +949,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/gatys_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/gatys_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/improved_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/improved_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/pixel_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/pixel_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
 
@@ -809,7 +1019,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -820,38 +1030,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/gatys_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/gatys_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/improved_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/improved_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (-0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/pixel_im.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/pixel_proj.jpg}};
+                \fill[black] (-1.6, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (-0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/carpet/flowers2/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-02}. Texture source: \citet{Pixar128}}
@@ -866,7 +1106,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -877,38 +1117,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/gatys_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/gatys_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/improved_im.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/improved_proj.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/pixel_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/pixel_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/marble/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
 
@@ -917,7 +1187,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -928,44 +1198,74 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/gatys_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/gatys_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/improved_im.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/improved_proj.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/pixel_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/pixel_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/wood/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
 
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -976,38 +1276,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/gatys_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/gatys_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/improved_im.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/improved_proj.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/pixel_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/pixel_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/pebbles/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-02}. Texture source: \citet{Pixar128}}
@@ -1022,7 +1352,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -1033,38 +1363,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/gatys_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/gatys_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/improved_im.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/improved_proj.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/pixel_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/pixel_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
 
@@ -1073,7 +1433,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -1084,38 +1444,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/gatys_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/gatys_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/improved_im.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/improved_proj.jpg}};
+                \fill[black] (-1.15, 0.7) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, 0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/pixel_im.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/pixel_proj.jpg}};
+                \fill[black] (-0.8, 0.7) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/sofa/flowers2/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-02}. Texture source: \citet{Pixar128}}
@@ -1130,7 +1520,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -1141,38 +1531,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/gatys_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/gatys_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/improved_im.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/improved_proj.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/pixel_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/pixel_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/marble/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
 
@@ -1181,7 +1601,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -1192,44 +1612,74 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/gatys_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/gatys_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/improved_im.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/improved_proj.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/pixel_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/pixel_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/wood/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
 
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -1240,38 +1690,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/gatys_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/gatys_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/improved_im.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/improved_proj.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/pixel_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/pixel_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/pebbles/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-02}. Texture source: \citet{Pixar128}}
@@ -1286,7 +1766,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -1297,38 +1777,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/gatys_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/gatys_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/improved_im.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/improved_proj.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/pixel_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/pixel_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
 
@@ -1337,7 +1847,7 @@ This appendix contains additional results of our experiments which complement ch
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -1348,38 +1858,68 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/gatys_im.jpg}
-            \caption*{Gatys comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/gatys_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/gatys_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/gatys_proj.jpg}
-            \caption*{Gatys camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/gatys_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Ours (Gatys)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/gatys_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/improved_im.jpg}
-            \caption*{Improved comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/improved_im.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/improved_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/improved_proj.jpg}
-            \caption*{Improved cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/improved_proj.jpg}};
+                \fill[black] (-1.15, -1.2) rectangle ++(2.75, 0.5);
+                \node [anchor=center] at (0.225, -0.95) {{\color{white} \footnotesize{Ours (Improved)}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/improved_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/pixel_im.jpg}
-            \caption*{Pixel comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/pixel_im.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/pixel_proj.jpg}
-            \caption*{Pixel camera}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/pixel_proj.jpg}};
+                \fill[black] (-0.8, -1.2) rectangle ++(2.4, 0.5);
+                \node [anchor=center] at (0.4, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment02/photo/flowers2/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-02}. Texture source: \citet{Pixar128}}
@@ -1405,25 +1945,45 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/stats_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/stats_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/pixel_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/pebbles/pixel_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
         
@@ -1435,25 +1995,45 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/stats_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/stats_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/pixel_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/marble/pixel_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
 
@@ -1465,56 +2045,96 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/stats_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/stats_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/pixel_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/wood/pixel_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
 
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/ball_beams_target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/stats_im.jpg}
-            \caption*{O. comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/stats_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/stats_proj_highlighted.jpg}
-            \caption*{O. cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/stats_proj_highlighted.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/pixel_im.jpg}
-            \caption*{P. comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/pixel_proj_highlighted.jpg}
-            \caption*{P. cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball/beams/pixel_proj_highlighted.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-03}. Texture source: \citet{Pixar128}}
@@ -1540,25 +2160,45 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
         
@@ -1570,25 +2210,45 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
 
@@ -1600,56 +2260,96 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/stats_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/stats_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/pixel_proj_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/wood/pixel_proj_highlighted.jpg}
             \caption*{}
         \end{subfigure}
 
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/ball_beams_target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/stats_im.jpg}
-            \caption*{O. comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/stats_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/stats_proj_highlighted.jpg}
-            \caption*{O. cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/stats_proj_highlighted.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/pixel_im.jpg}
-            \caption*{P. comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/pixel_proj_highlighted.jpg}
-            \caption*{P. cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/beams/pixel_proj_highlighted.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-03}. Texture source: \citet{Pixar128}}
@@ -1766,25 +2466,25 @@ This appendix contains additional results of our experiments which complement ch
 %         \begin{subfigure}{0.19\textwidth}
 %             \centering
 %             \includegraphics[width=\textwidth]{images/04-experiment03/staircase/beams/stats_im.jpg}
-%             \caption*{O. comp.}
+%             \caption*{\(\bm{p}\)}
 %         \end{subfigure}
 %         \hfill
 %         \begin{subfigure}{0.19\textwidth}
 %             \centering
 %             \includegraphics[width=\textwidth]{images/04-experiment03/staircase/beams/stats_proj.jpg}
-%             \caption*{O. cam.}
+%             \caption*{\(r(\bm{p})\)}
 %         \end{subfigure}
 %         \hfill
 %         \begin{subfigure}{0.19\textwidth}
 %             \centering
 %             \includegraphics[width=\textwidth]{images/04-experiment03/staircase/beams/pixel_im.jpg}
-%             \caption*{P. comp.}
+%             \caption*{\(\bm{p}\)}
 %         \end{subfigure}
 %         \hfill
 %         \begin{subfigure}{0.19\textwidth}
 %             \centering
 %             \includegraphics[width=\textwidth]{images/04-experiment03/staircase/beams/pixel_proj.jpg}
-%             \caption*{P. cam.}
+%             \caption*{\(r(\bm{p})\)}
 %         \end{subfigure}
 %     \end{subfigure}
 %     \caption{These results complement section \ref{section:results-experiments-03}. Texture source: \citet{Pixar128}}
@@ -1810,25 +2510,45 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/stats_im.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/stats_proj.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/stats_proj.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/stats_proj.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/pixel_im.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/pixel_proj.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/pixel_proj.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/pebbles/pixel_proj.jpg}
             \caption*{}
         \end{subfigure}
         
@@ -1840,25 +2560,45 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/stats_im.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/stats_proj.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/stats_proj.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/stats_proj.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/pixel_im.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/pixel_proj.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/pixel_proj.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/marble/pixel_proj.jpg}
             \caption*{}
         \end{subfigure}
 
@@ -1870,56 +2610,96 @@ This appendix contains additional results of our experiments which complement ch
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im.jpg}
             \caption*{}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj.jpg}
             \caption*{}
         \end{subfigure}
 
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target.jpg}
-            \caption*{Input}
+            \caption*{\(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im.jpg}
-            \caption*{O. comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}
-            \caption*{O. cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im.jpg}
-            \caption*{P. comp.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im.jpg}
+            \caption*{\(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}
-            \caption*{P. cam.}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Reference}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}
+            \caption*{\(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
     \caption{These results complement section \ref{section:results-experiments-03}. Texture source: \citet{Pixar128}}
