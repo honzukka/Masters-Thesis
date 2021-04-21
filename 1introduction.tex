@@ -283,35 +283,64 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
         \hfill
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-stats_opt_label.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-stats_opt.jpg}};
+                \fill[black] (0.5, -1.45) rectangle ++(1.4, 0.5);
+                \node [anchor=center] at (1.2, -1.2) {{\color{white} Ours}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/01-results_teaser-stats_opt.jpg}
             \caption{\(\bm{p}\)}
             \label{fig:intro_results_teaser_stats_opt}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-pixels_opt_label.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-pixels_opt.jpg}};
+                \fill[black] (-0.3, -1.45) rectangle ++(2.2, 0.5);
+                \node [anchor=center] at (0.8, -1.2) {{\color{white} Reference}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/01-results_teaser-pixels_opt.jpg}
             \caption{\(\bm{p}\)}
             \label{fig:intro_results_teaser_pixels_opt}
         \end{subfigure}
         
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-bg_highlighted.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-bg.jpg}};
+                \draw[line width=0.5mm, white] (-0.75, 0.5) ellipse (0.4cm and 0.55cm);
+                \draw[line width=0.5mm, magenta] (0.25, 1.05) ellipse (0.7cm and 0.45cm);
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/01-results_teaser-bg.jpg}
             \caption{Scene}
             \label{fig:intro_results_teaser_bg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-stats_proj_highlighted2.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-stats_proj.jpg}};
+                \fill[black] (0.5, -1.45) rectangle ++(1.4, 0.5);
+                \node [anchor=center] at (1.2, -1.2) {{\color{white} Ours}};
+                \draw[line width=0.5mm, white] (-0.75, 0.5) ellipse (0.4cm and 0.55cm);
+                \draw[line width=0.5mm, magenta] (0.25, 1.05) ellipse (0.7cm and 0.45cm);
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/01-results_teaser-stats_proj_highlighted.jpg}
             \caption{\(r(\bm{p})\)}
             \label{fig:intro_results_teaser_stats_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-results_teaser-pixels_proj_highlighted2.jpg}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-pixels_proj.jpg}};
+                \fill[black] (-0.3, -1.45) rectangle ++(2.2, 0.5);
+                \node [anchor=center] at (0.8, -1.2) {{\color{white} Reference}};
+                \draw[line width=0.5mm, white] (-0.75, 0.5) ellipse (0.4cm and 0.55cm);
+                \draw[line width=0.5mm, magenta] (0.25, 1.05) ellipse (0.7cm and 0.45cm);
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/01-results_teaser-pixels_proj_highlighted.jpg}
             \caption{\(r(\bm{p})\)}
             \label{fig:intro_results_teaser_pixels_proj}
         \end{subfigure}
