@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{768.3273003bp}%
+    \setlength{\unitlength}{837.40491972bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,14 +50,15 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.65747906)%
+  \begin{picture}(1,0.7036761)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/02-rendering.pdf}}%
-    \put(0.45856063,0.01194249){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}camera\end{tabular}}}}%
-    \put(-0.00141084,0.08654059){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}projector\end{tabular}}}}%
-    \put(0.27735676,0.33156597){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\bm{p}\)\end{tabular}}}}%
-    \put(0.89048102,0.64431052){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(r(\bm{p})\)\end{tabular}}}}%
-    \put(0.62582433,0.36805628){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Huge{?}\end{tabular}}}}%
+    \put(0.47468353,0.05588833){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{Camera}\end{tabular}}}}%
+    \put(0.03495194,0.12433283){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{Projector}\end{tabular}}}}%
+    \put(0.29380281,0.34914609){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\(\bm{p}\)}\end{tabular}}}}%
+    \put(0.79708304,0.63609226){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\(r(\bm{p})\)}\end{tabular}}}}%
+    \put(0.62814963,0.38262626){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Huge{?}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{images/figures/02-rendering.pdf}}%
   \end{picture}%
 \endgroup%

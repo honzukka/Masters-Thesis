@@ -55,8 +55,8 @@
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/02-thin_lens.pdf}}%
     \put(0.26562237,0.48794264){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(f\)\end{tabular}}}}%
-    \put(-0.00163195,0.12205874){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}image\end{tabular}}}}%
-    \put(0.66178222,0.0295477){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}focus plane\end{tabular}}}}%
-    \put(0.3777737,0.02183844){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}lens\end{tabular}}}}%
+    \put(-0.00163195,0.12205874){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Image\end{tabular}}}}%
+    \put(0.66178222,0.0295477){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Focus plane\end{tabular}}}}%
+    \put(0.3777737,0.02183844){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Lens\end{tabular}}}}%
   \end{picture}%
 \endgroup%

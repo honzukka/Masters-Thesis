@@ -262,7 +262,7 @@
          id="tspan1618"
          x="170.7381"
          y="115.71468"
-         style="font-size:4.23333px;stroke-width:0.264583">\(d\omega\)</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">\(\mathrm{d}\omega\)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -273,7 +273,7 @@
          id="tspan1676"
          x="140.67078"
          y="125.35329"
-         style="font-size:4.23333px;stroke-width:0.264583">\(dA^{\perp}\)</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">\(\mathrm{d}A^{\perp}\)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -284,7 +284,7 @@
          id="tspan1676-4"
          x="130.70334"
          y="137.4767"
-         style="font-size:4.23333px;stroke-width:0.264583">\(dA\)</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">\(\mathrm{d}A\)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -295,6 +295,17 @@
          id="tspan1818"
          x="188.34253"
          y="89.091492"
-         style="font-size:4.23333px;stroke-width:0.264583">light</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Light</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="162.76025"
+       y="95.253212"
+       id="text4095"><tspan
+         sodipodi:role="line"
+         id="tspan4093"
+         x="162.76025"
+         y="95.253212"
+         style="font-size:4.23333px;stroke-width:0.264583">\(Q\)</tspan></text>
   </g>
 </svg>

@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{768.3273003bp}%
+    \setlength{\unitlength}{824.5334415bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,20 +50,21 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.65747906)%
+  \begin{picture}(1,0.70617739)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0.47237514,0.12823423){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
+    \put(0.47544175,0.16044056){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/02-projection_mapping.pdf}}%
-    \put(0.45856063,0.01194249){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}camera\end{tabular}}}}%
-    \put(-0.00141084,0.08654059){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}projector\end{tabular}}}}%
-    \put(0.27735676,0.33156597){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\bm{p}\)\end{tabular}}}}%
-    \put(0.89048102,0.64431052){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(r(\bm{p})\)\end{tabular}}}}%
+    \put(0.46256893,0.0520761){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{Camera}\end{tabular}}}}%
+    \put(0.03395244,0.12158906){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{Projector}\end{tabular}}}}%
+    \put(0.29371723,0.34991174){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\(\bm{p}\)}\end{tabular}}}}%
+    \put(0.7767121,0.64211909){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\(r(\bm{p})\)}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{images/figures/02-projection_mapping.pdf}}%
-    \put(0.12331928,0.41922955){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\bm{y}\)\end{tabular}}}}%
-    \put(0.6174353,0.36050612){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Huge{?}\end{tabular}}}}%
-    \put(0.23153823,0.23467017){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}?\end{tabular}}}}%
-    \put(0.93041813,0.40171781){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
-    \put(0.76934805,0.08209439){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
+    \put(0.15877898,0.42300062){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\(\bm{y}\)}\end{tabular}}}}%
+    \put(0.61061357,0.37687912){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Huge{?}\end{tabular}}}}%
+    \put(0.24320481,0.25414903){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}?\end{tabular}}}}%
+    \put(0.90226123,0.41528153){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
+    \put(0.75217084,0.11744594){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\Large{?}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{images/figures/02-projection_mapping.pdf}}%
   \end{picture}%
 \endgroup%

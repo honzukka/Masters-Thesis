@@ -5594,7 +5594,7 @@
          x="69.817413"
          y="129.58534"
          style="font-size:4.23333px;line-height:1.25;stroke-width:0.264583"
-         id="tspan3630">image</tspan></text>
+         id="tspan3630">Image</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -5605,7 +5605,7 @@
          x="216.86836"
          y="150.09114"
          style="font-size:4.23333px;line-height:1.25;stroke-width:0.264583"
-         id="tspan3632">focus plane</tspan></text>
+         id="tspan3632">Focus plane</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -5616,6 +5616,6 @@
          x="153.91565"
          y="151.79996"
          style="font-size:4.23333px;line-height:1.25;stroke-width:0.264583"
-         id="tspan3634">lens</tspan></text>
+         id="tspan3634">Lens</tspan></text>
   </g>
 </svg>

@@ -54,9 +54,10 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/02-radiance.pdf}}%
-    \put(0.6949105,0.31750051){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(d\omega\)\end{tabular}}}}%
-    \put(0.35305758,0.20791361){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(dA^{\perp}\)\end{tabular}}}}%
-    \put(0.23973197,0.07007545){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(dA\)\end{tabular}}}}%
-    \put(0.89506554,0.6201951){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}light\end{tabular}}}}%
+    \put(0.6949105,0.31750051){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\mathrm{d}\omega\)\end{tabular}}}}%
+    \put(0.35305758,0.20791361){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\mathrm{d}A^{\perp}\)\end{tabular}}}}%
+    \put(0.23973197,0.07007545){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\mathrm{d}A\)\end{tabular}}}}%
+    \put(0.89506554,0.6201951){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Light\end{tabular}}}}%
+    \put(0.60420573,0.55013891){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(Q\)\end{tabular}}}}%
   \end{picture}%
 \endgroup%

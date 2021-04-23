@@ -20,7 +20,7 @@ In order to predict projection appearance, we first need to understand how proje
 \subsection{Projectors}
 \label{section:background-projection_mapping-projectors}
 
-Projectors are devices that transfer images onto surfaces such as screens, walls and other physical objects. The more traditional kind of projectors are film projectors, that shine a bright light through a film and a set of lenses. Nowadays, digital projectors are more common, but the core principle of shining a bright light through a device is still the same.
+Projectors are devices that transfer images onto surfaces such as screens, walls and other physical objects. The more traditional kind of projectors are film projectors, that shine a bright light through a film and a set of lenses. Nowadays, digital projectors are more common, but the core principle of shining a bright light through a device is still the same (see fig.~\ref{fig:background_projector}).
 
 \begin{figure}[ht]
     \centering
@@ -46,16 +46,14 @@ Per-pixel intesities of this single-channel image which form its content are con
         \centering
         \includegraphics[width=\textwidth]{images/02-projector_dlp.jpg}
         \caption{Source: \citet{ImageProjectorDLP}}
-        %\label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/02-projector_rainbow.JPG}
         \caption{Source: \citet{ImageProjectorDLPRainbow}}
-        %\label{}
     \end{subfigure}
-    \caption{Image a) shows how a DLP projector works. First, bright white light passes through the color wheel. Then it is reflected off the the DMD (red arrows) into either the lens (yellow arrow), or the heat sink (blue arrows). Image b) shows how a DLP projector with a single DMD chip sends out single channel images in rapid succession. This can result in artifacts which can be fixed by using a separate DMD chip for each primary color}
+    \caption{Image (a) shows how a DLP projector works. First, bright white light passes through the color wheel. Then it is reflected off the the DMD (red arrows) into either the lens (yellow arrow), or the heat sink (blue arrows). Image (b) shows how a DLP projector with a single DMD chip sends out single channel images in rapid succession. This can result in artifacts which can be fixed by using a separate DMD chip for each primary color}
     \label{fig:background_projector_dlp}
 \end{figure}
 
@@ -92,88 +90,76 @@ Even if our projection is in perfect focus and all its colors lie within the gam
 
 The appearance of an object is given by the light it reflects. Light is the visible portion of electromagnetic radiation and consists of photons at various wavelengths. Wavelengths which human vision is sensitive to are approximately between 380 and 780 nm (\citet{PBRT3e}). Shorter wavelengths appear blue, middle ones are green and longer ones are red. Reflectance of an object is defined by the so-called \textit{spectral power distribution} (SPD) which describes what proportion of incoming light is reflected at each wavelength.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-spd_fluorescent_light.png}
-        \caption*{}
-        %\label{}
+        \def\svgwidth{\textwidth}
+        \input{images/figures/02-spd-fluorescent_edit.pdf_tex}
+        \caption{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-spd_lemon_peel.png}
-        \caption*{}
-        %\label{}
+        \def\svgwidth{\textwidth}
+        \input{images/figures/02-spd-lemon_reflectance_edit.pdf_tex}
+        \caption{}
     \end{subfigure}
-    \caption{Image a) shows the SPD of fluorescent light with power on the y-axis. Image b) shows the SPD of a lemon peel. Lemon peel is not an emitter hence the y-axis shows the proportion of wavelengths that are reflected off its surface. Source: \citet{PBRT3e}}
+    \caption{Image (a) shows the SPD of fluorescent light with power on the y-axis. Image (b) shows the SPD of a lemon peel. Lemon peel is not an emitter hence the y-axis shows the proportion of wavelengths that are reflected off its surface. Source: \citet{PBRT3e}, modified}
     \label{fig:background_spd}
 \end{figure}
 
 Projectors are above all light sources. As a matter of fact, each of the millions of tiny mirrors inside the DMD of a DLP projector can be thought of as a separate light source. Projector light has an SPD of its own, describing how much power it carries at each wavelength. When it interacts with a surface, something roughly corresponding to SPD multiplication takes place. If an object does not reflect any light at 450 nm, for example, all of it will be absorbed and will not reach our eyes. See fig.~\ref{fig:background_spd_intuition} for examples of how projection interacts with various backgrounds.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering    
     \begin{subfigure}{\textwidth}
         \centering
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_white.png}
-            \caption*{}
-            \label{fig:background_spd_intuition-white_white}
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_white.jpg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_red.png}
-            \caption*{}
-            \label{fig:background_spd_intuition-white_red}
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_red.jpg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_green.png}
-            \caption*{}
-            \label{fig:background_spd_intuition-white_green}
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_green.jpg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_blue.png}
-            \caption*{}
-            \label{fig:background_spd_intuition-white_blue}
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-white_blue.jpg}
         \end{subfigure}
-        
-        \begin{subfigure}{0.24\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_white.png}
-            \caption*{}
-            \label{fig:background_spd_intuition-palette_white}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.24\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_red.png}
-            \caption*{}
-            \label{fig:background_spd_intuition-palette_red}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.24\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_green.png}
-            \caption*{}
-            \label{fig:background_spd_intuition-palette_green}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.24\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_blue.png}
-            \caption*{}
-            \label{fig:background_spd_intuition-palette_blue}
-        \end{subfigure}
+        \caption{White light projected onto a white, red, green and blue wall, respectively}
     \end{subfigure}
-    \caption{In the upper row, white light is projected onto a pure white, red, green and blue wall respectively. In the lower row, a color palette is projected onto the same backgrounds. Note that summing the last three images in each row gives the first one because each background has maximum reflectivity in one color channel and zero reflectivity in others. If a single-chip DLP projector were to project the first image, it would in fact send out the last three in rapid succession.}
+
+    \begin{subfigure}{\textwidth}
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_white.jpg}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_red.jpg}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_green.jpg}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.24\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_blue.jpg}
+        \end{subfigure}
+        \caption{Color palette projected onto the same backgrounds as in (a)}
+    \end{subfigure}
+    \caption{Intuition on projection appearance and SPDs. Note that summing the last three images in each row gives the first one because each background has maximum reflectivity in one color channel and zero reflectivity in others. If a single-chip DLP projector were to project the first image, it would in fact send out the last three in rapid succession.}
     \label{fig:background_spd_intuition}
 \end{figure}
 
@@ -184,23 +170,11 @@ We will now study this process more carefully using light transport theory.
 
 Light transport theory is the study of how light interacts with matter -- how it travels through space, scatters in fog, reflects from surfaces, refracts in camera lenses and absorbs in black T-shirts in summer. One of the most common uses of light transport is in architectural visualizations (see fig.~\ref{fig:background_light_transport_examples-rendering}) and video game and movie rendering. There, we are interested in the SPD that arrives at each pixel of a virtual camera given geometry, materials and light sources.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
-    \begin{subfigure}[b]{0.56\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/02-rendering.jpg}
-        \caption{Source: \citet{ImageRendering}}
-        \label{fig:background_light_transport_examples-rendering}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.42\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/01-procam.png}
-        \caption{Source: \citet{Grossberg2004}}
-        \label{fig:background_light_transport_examples-procam}
-    \end{subfigure}
-    \caption{Image a) is an architectural visualization which uses light transport theory to solve the following problem: Given scene geometry, materials and light sources and camera position, what will the camera see? Image b) is a projector-camera system calibration from Section~\ref{section:intro-problem_setting} and asks: Given what the camera sees when various patterns are projected onto the scene, what can we say about the geometry and materials of the scene?}
-    \label{fig:background_light_transport_examples}
+    \includegraphics[width=\textwidth]{images/02-rendering.jpg}
+    \caption{A computer-generated architectural visualization which uses light transport theory to solve the following problem: Given scene geometry, materials and light sources and camera position, what will the camera see? Source: \citet{ImageRendering}}
+    \label{fig:background_light_transport_examples-rendering}
 \end{figure}
 
 In this section, we provide a brief overview of light transport theory and explain how it can be used in projection mapping. Note that for the purpose of this these we assume the so-called ray optics model of light. This means that we ignore light polarization, effects such as fluorescence and quantum phenomena that occur on geometry the size of which is similar to light wavelength. For a more comprehensive coverage, we refer the reader to Physically Based Rendering: From Theory to Implementation by \citet{PBRT3e}.
@@ -215,7 +189,7 @@ As mentioned in~\ref{section:background-projection_mapping-projection_intuition}
     L = \frac{\mathrm{d}Q}{\mathrm{d}A^\perp \mathrm{d}\omega \mathrm{d}t}
 \end{equation}
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \def\svgwidth{0.5\textwidth}
     \input{images/figures/02-radiance.pdf_tex}
@@ -266,18 +240,16 @@ In a sense, projection mapping is a more difficult problem than rendering. Where
         \centering
         \def\svgwidth{\textwidth}
         \input{images/figures/02-rendering.pdf_tex}
-        \caption*{}
-        %\label{fig:background_light_transport_examples-rendering}
+        \caption{Rendering}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \def\svgwidth{\textwidth}
         \input{images/figures/02-projection_mapping.pdf_tex}
-        \caption*{}
-        %\label{fig:background_light_transport_examples-procam}
+        \caption{Projection mapping}
     \end{subfigure}
-    \caption{An illustration of the difference between rendering (left) and projection mapping (right). Recall fig.~\ref{fig:intro_procam} that we build on here. When rendering, light sources (here projection \(\bm{p}\)), materials and geometry are known and radiance at the camera sensor (here camera image \(r(\bm{p})\) is unknown). On the other hand, in a projection mapping scenario we know only what our camera image should look like (\(\bm{y}\)) and sometimes we know the relative position of projector and camera. Everything else is unknown}
+    \caption{An illustration of the difference between rendering (left) and projection mapping (right). Recall fig.~\ref{fig:intro_procam} that we build on here. When rendering, light sources (here, projection image \(\bm{p}\)), materials and geometry are known and radiance at the camera sensor (here, camera image \(r(\bm{p})\)) is unknown. On the other hand, in a projection mapping scenario we know only what our camera image should look like (here, desired appearance \(\bm{y}\)) and sometimes we know the relative position of projector and camera. Everything else is unknown.}
     \label{fig:background_proj_map_vs_rendering}
 \end{figure}
 
@@ -418,7 +390,7 @@ The disadvantage of this method is that the linear color mixing matrix is not an
     \centering
     \def\svgwidth{0.4\textwidth}
     \input{images/figures/02-clipping.pdf_tex}
-    \caption{Illustration of reduced contrast due to brightness limitations. Projector gamut is delimited by a triangle. If a compensation model requires a color which is outside the triangle, the closes color on the edge of the triangle is projected instead. Colors inside the triangle are projected as required which results in reduced contrast between the two groups}
+    \caption{Illustration of reduced contrast due to brightness limitations. Projector gamut is delimited by a triangle. If a compensation model requires a color which is outside the triangle, the closest color on the edge of the triangle is projected instead. Colors inside the triangle are projected as required which results in reduced contrast between the two groups. This corresponds to reduced distance between the colors in the above diagram.}
     \label{fig:background_clipping}
 \end{figure}
 
@@ -426,9 +398,9 @@ The disadvantage of this method is that the linear color mixing matrix is not an
 
 Moreover, the paper acknowledges that the contrast issues stem from the way the camera image is matched with the desired appearance pixel by pixel (see eq.~\ref{eq:projection_mapping-per_pixel}). To fix this, it uses a global optimization step which compensates the image based on its higher level content. In this step, a patch size is chosen (typically \(2^n\) pixels) and a color-correcting coefficient is introduced for each patch. The coefficients are set so as to minimize clipping errors caused by limited color gamut of the projector and overall increase image contrast.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
-    \includegraphics[width=0.6\textwidth]{images/02-grundhofer_result_compressed.jpg}
+    \includegraphics[width=0.8\textwidth]{images/02-grundhofer_result.jpg}
     \caption{Results of a projection mapping method by \citet{Grundhofer2015}. (a) original input image. (e) non-uniformly colored projection surface (illuminated  uniformly white). (b) captured projection of (a) on (e). (c) captured  projected  compensation  image shows local clipping errors. (d) reduced clipping errors after applying a global optimization step. (f-h) geometrically warped projection images generating camera images (b-d). Source: \citet{Grundhofer2015}}
     \label{fig:background_grundhofer_result}
 \end{figure}
@@ -444,32 +416,36 @@ Another approach to projection mapping that does not rely on the assumption of 1
     \centering
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-linear_lt_light01.jpg}
+        \begin{tikzpicture}
+            \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/02-linear_lt_light01.jpg}};
+            \draw[line width=0.8mm, white] (0.0, 1.3) ellipse (0.6cm and 0.4cm);
+            \draw (0.35, 0.7) node[white] {a};
+        \end{tikzpicture}
         \caption*{\(a = 1.0\), \(b = 0.0\)}
-        %\label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-linear_lt_light02.jpg}
+        \begin{tikzpicture}
+            \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/02-linear_lt_light02.jpg}};
+            \draw[line width=0.8mm, white] (-1.1, -1.1) ellipse (0.5cm and 0.5cm);
+            \draw (-0.5, -0.6) node[white] {b};
+        \end{tikzpicture}
         \caption*{\(a = 0.0\), \(b = 1.0\)}
-        %\label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/02-linear_lt_comb.jpg}
         \caption*{\(a = 1.0\), \(b = 1.0\)}
-        %\label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/02-linear_lt_comb2.jpg}
         \caption*{\(a = 0.5\), \(b = 2.0\)}
-        %\label{}
     \end{subfigure}
-    \caption{Demonstration of the linearity of light transport. The scene displayed here has two light sources: on the ceiling and in the back corner. This means that its light transport can be captured using two basis images \(x_1\) and \(x_2\). Each of the above images was then created using a linear combination of the basis images: \(a \cdot x_1 + b \cdot x_2\)}
+    \caption{Demonstration of the linearity of light transport. The scene displayed here has two light sources: \(a\) and \(b\). This means that its light transport can be captured using two basis images \(x_1\) and \(x_2\). Each of the above images can be expressed as a linear combination of the basis images: \(a \cdot x_1 + b \cdot x_2\)}
     \label{fig:background_linear_lt}
 \end{figure}
 
@@ -495,7 +471,6 @@ where \(m\) is the number of light sources in a scene, \(n\) is the number of pi
         \def\svgwidth{\textwidth}
         \input{images/figures/02-lt_capture_simple.pdf_tex}
         \caption{}
-        %\label{}
     \end{subfigure}
     
     \begin{subfigure}[b]{\textwidth}
@@ -503,9 +478,8 @@ where \(m\) is the number of light sources in a scene, \(n\) is the number of pi
         \def\svgwidth{\textwidth}
         \input{images/figures/02-lt_capture.pdf_tex}
         \caption{}
-        %\label{}
     \end{subfigure}
-    \caption{Illustration of an LT matrix. In figure a), a white \(2 \times 2\) image is being projected onto a textured wall. In figure b), the same image is being projected from the ceiling onto a mirror ball (area delimited by the red square). The matrix has canonical basis which means that each column corresponds to a camera image obtained by projecting a single white pixel of the projector image. Images in the bottom right corners show how a sum of the columns yields a new image that corresponds to a projection of all four white pixels at once. An arbitrary linear combination can be applied to yield a new image. Lastly, all illumination in a) is direct (hence no interreflection) which consequently leads to the LT matrix being sparse (i.e. basis images at the top have many black pixels). On the other hand, scene b) is illuminated directly only in the red square. The rest is indirect illumination from the mirror ball and therefore the matrix is not sparse anymore. Texture source: \citet{Pixar128}}
+    \caption{Illustration of an LT matrix. In figure (a), a white \(2 \times 2\) image is being projected onto a textured wall. In figure (b), the same image is being projected from the ceiling onto a mirror ball (area delimited by the red square). The matrix has canonical basis which means that each column corresponds to a camera image obtained by projecting a single white pixel of the projector image. Images in the bottom right corners show how a sum of the columns yields a new image that corresponds to a projection of all four white pixels at once. An arbitrary linear combination can be applied to yield a new image. Note that all illumination in a) is direct (hence no interreflection) which consequently leads to the LT matrix being sparse (i.e. basis images at the top have many black pixels). On the other hand, scene b) is illuminated directly only in the red square. The rest is indirect illumination from the mirror ball and therefore the matrix is not sparse anymore. Texture source: \citet{Pixar128}}
     \label{fig:background_lt_capture}
 \end{figure}
 
@@ -522,9 +496,9 @@ Inverting the matrix (or, more precisely, obtaining its pseudo-inverse because i
 
 For example, \citet{Wetzstein2007} use the inverse light transport approach to implement a projection mapping method which works with arbitrary scenes and also compensates projector defocus which previously mentiones methods ignored. The drawbacks of this method are several hours long matrix acquisition process (during and after which the scene needs to stay static) and also the loss of some global illumination effects caused by estimates of both the LT matrix and its pseudo-inverse. Example results can be seen in fig.~\ref{fig:background_wetzstein_result}.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{images/02-wetzstein_result_crop_compressed.jpg}
+    \includegraphics[width=\textwidth]{images/02-wetzstein_result_crop.jpg}
     \caption{Results of a projection mapping method by \citet{Wetzstein2007}. Leftmost image shows a wine glass in front of a colored wallpaper that is being projected onto. Middle image shows the projection compensated with a conventional method. Rightmost image shows the projection compensated with inverse light transport. Source: \citet{Wetzstein2007}}
     \label{fig:background_wetzstein_result}
 \end{figure}
@@ -540,18 +514,16 @@ As mentioned in Section~\ref{section:intro-key_idea}, the aim of this thesis is 
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-flowers1.png}
-        \caption*{}
-        %\label{}
+        \includegraphics[width=\textwidth]{images/02-flowers1.jpg}
+        \caption{Input texture}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-flowers2.png}
-        \caption*{}
-        %\label{}
+        \includegraphics[width=\textwidth]{images/02-flowers2.jpg}
+        \caption{Generated texture}
     \end{subfigure}
-    \caption{An example of two realizations of the same texture. The image on the right was created by a texture synthesis method of \citet{Gatys2015}. Texture source: \citet{Pixar128}, modified}
+    \caption{An example of two realizations of the same texture. Image (b) was created by a texture synthesis method of \citet{Gatys2015}. Texture source: \citet{Pixar128}, modified}
     \label{fig:background_similar_textures}
 \end{figure}
 
@@ -589,9 +561,9 @@ In their texture synthesis method, \citet{Efros1999} generate an image pixel by 
 \subsubsection{Image Quilting}
 \label{section:background-texture_synthesis-patch_based-quilting}
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{images/02-quilting_method_compressed.jpg}
+    \includegraphics[width=\textwidth]{images/02-quilting_method.jpg}
     \caption{Illustration of image quilting. The leftmost image was generated by choosing block \(B_i\) at random. The middle image was generated by choosing a block with low pixel-wise error in an overlap with the previous block. The rightmost image was generated by choosing blocks as in the middle, only the new block is pasted along a minimum error path instead of a straight line.  Source: \citet{Efros2001}}
     \label{fig:background_quilting_method}
 \end{figure}
@@ -605,9 +577,14 @@ This method can achieve stunning visual results when the input texture is unifor
 
 However, it struggles with textures that have non-uniform illumination and that contain very small features, like sand or concrete. Failure cases usually manifest themselves by large areas that are directly copied from the input (so-called \textit{verbatim copying}) or areas that contain the same patch copied over and over (so-called \textit{garbage growing}). See fig.~\ref{fig:background_quilting_pros_cons} for an example.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{images/02-quilting_pros_cons_compressed.jpg}
+    \begin{tikzpicture}
+        \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/02-quilting_pros_cons.jpg}};
+        \draw[line width=0.8mm, blue] (-0.92, -0.1) ellipse (0.43cm and 1.6cm);
+        \draw[line width=0.8mm, red] (2.5, -1.35) ellipse (0.5cm and 0.35cm);
+        \draw[line width=0.8mm, red] (5.7, 0.46) ellipse (0.5cm and 0.35cm);
+    \end{tikzpicture}
     \caption{Examples of image quilting. On the left is a failure with the garbage growing effect highlighted in blue. On the right is a success. However, some verbatim copies (highlighted in red) are clearly visible in the rightmost image. Source: \citet{Raad2018}, highlighting own}
     \label{fig:background_quilting_pros_cons}
 \end{figure}
@@ -621,7 +598,7 @@ Image quilting is surprisingly flexible to adapt for other uses than texture syn
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/02-quilting_transfer_compressed.jpg}
+    \includegraphics[width=0.6\textwidth]{images/02-quilting_transfer.jpg}
     \caption{Example of style transfer using image quilting. The output (right) is generated just like during texture synthesis except for two changes: 1) the output image size is chosen to be that of the target image (left) and 2) an extra term is added to the overlap error. This term represents the difference between the pixel intensities of the candidate patch and a corresponding patch of the target image. Source: \citet{Efros2001}}
     \label{fig:background_quilting_transfer}
 \end{figure}
@@ -635,25 +612,22 @@ One could imagine using this method for projection mapping by modifying the over
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-julesz-1st_order_compressed.jpg}
+        \includegraphics[width=\textwidth]{images/02-julesz-1st_order.jpg}
         \caption{}
-        %\label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.29\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-julesz-2nd_order_compressed.jpg}
+        \includegraphics[width=\textwidth]{images/02-julesz-2nd_order.jpg}
         \caption{}
-        %\label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.39\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-julesz-3rd_order_compressed.jpg}
+        \includegraphics[width=\textwidth]{images/02-julesz-3rd_order.jpg}
         \caption{}
-        %\label{}
     \end{subfigure}
-    \caption{Image a) shows two textures with different first-order statistics. The left half contains black pixels with probabilty \(5/8\) and white pixels with probability \(3/8\) while the right half has the inverse distribution. Image b) shows two textures with identical second-order statistics. Specifically, there are four brightness levels in the image each with equal probability (first-order). Moreover, any two pixels are chosen independently (second-order). However, the probability \(P(k | i,j)\) of a pixel conditioned on two other pixels differs between the left and right half which makes third-order statistics different. Image c) shows two textures with identical third-order statistics, meaning that any three squares are chosen independently. However, the left half has \(2 \times 2\) patches with even number of black squares while the left half has an odd number of black squares per patch. This makes the textures easily distinguishable. Texture sources: \citet{Julesz1962} (a, b) and \citet{Julesz1973} (c)}
+    \caption{Image (a) shows two textures with different first-order statistics. The left half contains black pixels with probabilty \(5/8\) and white pixels with probability \(3/8\) while the right half has the inverse distribution. Image (b) shows two textures with identical second-order statistics. Specifically, there are four brightness levels in the image each with equal probability (first-order). Moreover, any two pixels are chosen independently (second-order). However, the probability \(P(k | i,j)\) of a pixel conditioned on two other pixels differs between the left and right half which makes third-order statistics different. Image (c) shows two textures with identical third-order statistics, meaning that any three squares are chosen independently. However, the left half has \(2 \times 2\) patches with even number of black squares while the left half has an odd number of black squares per patch. This makes the textures easily distinguishable. Texture sources: \citet{Julesz1962} (a), (b) and \citet{Julesz1973} (c)}
     \label{fig:background_julesz_textures}
 \end{figure}
 
@@ -668,7 +642,19 @@ As mentioned in Section~\ref{section:background-texture_synthesis}, a formal tex
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{images/02-statistics_example_compressed.jpg}
+    \begin{tikzpicture}
+        \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/02-statistics_example.jpg}};
+        \draw (-5.7, -3.5) node {\footnotesize{Identical pixels}};
+        \draw (-2.8, -3.5) node {\footnotesize{Identical}};
+        \draw (-2.8, -3.9) node {\footnotesize{average color}};
+        \draw (0.0, -3.5) node {\footnotesize{Identical first-}};
+        \draw (0.0, -3.9) node {\footnotesize{order statistics}};
+        \draw (2.7, -3.5) node {\footnotesize{Identical Fourier}};
+        \draw (2.7, -3.9) node {\footnotesize{modulus}};
+        \draw (5.5, -3.5) node {\footnotesize{Identical Gram}};
+        \draw (5.5, -3.9) node {\footnotesize{matrices of CNN}};
+        \draw (5.5, -4.3) node {\footnotesize{activations}};
+    \end{tikzpicture}
     \caption{Illustration of texture synthesis via global image statistics. The leftmost image shows an example generated by keeping every pixel identical. The middle-left image shows an example that uses identical average color as a descriptive statistic. The middle image uses first-ordr statistics by simply shuffling the pixels of the input. The middle-right image uses a method by \citet{Galerne2011} which keeps Fourier modulus identical while randomizing the phase. The rightmost image shows a recent method by \citet{Gatys2015} that uses the Gram matrices of CNN activations as a descriptive statistic. Texture source: \citet{Gatys2015}}
     \label{fig:background_statistics_example}
 \end{figure}
@@ -694,8 +680,8 @@ It turns out that when a CNN is trained to classify images, filters in individua
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{images/02-gatys_method_compressed.jpg}
-    \caption{Illustration of CNN-based texture synthesis by \citet{Gatys2015}. At the bottom we can see the input texture, the initial white noise image and the progressively refined image. The diagram above represents the computation of the CNN activations and their Gram matrices \(G\). The loss \(\mathcal{L}\) that drives the optimization via gradient descent is defined as a weighted sum of the differences between Gram matrices of individual CNN layers. Source: \citet{Gatys2015}}
+    \includegraphics[width=\textwidth]{images/02-gatys_method.jpg}
+    \caption{Illustration of CNN-based texture synthesis by \citet{Gatys2015}. At the bottom we can see the input texture, the initial white noise image and the progressively refined image. The diagram above represents the computation of the CNN activations and their Gram matrices \(G\). Loss \(\mathcal{L}\) that drives the optimization via gradient descent is defined as a weighted sum of the differences between Gram matrices of individual CNN layers. Source: \citet{Gatys2015}}
     \label{fig:background_gatys_method}
 \end{figure}
 
@@ -704,36 +690,40 @@ To synthesize a new example of a given texture, gradient-based loss optimization
 \subsubsection{Pros and Cons}
 \label{section:background-texture_synthesis-statistics_based-pros_and_cons}
 
-\begin{figure}[ht]
+\begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.8\textwidth}
+    \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-big_comparison_input_compressed.jpg}
-        \caption*{}
-        %\label{}
+        \begin{tikzpicture}
+            \draw (0, 0) node[inner sep=0] {\hspace*{-1mm}\includegraphics[width=0.8\textwidth]{images/02-big_comparison_input.jpg}};
+            \draw (-6.5, 0.0) node {Input};
+        \end{tikzpicture}
     \end{subfigure}
     
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-big_comparison_rpn_compressed.jpg}
-        \caption*{}
-        %\label{}
+        \begin{tikzpicture}
+            \draw (0, 0) node[inner sep=0] {\includegraphics[width=0.8\textwidth]{images/02-big_comparison_rpn.jpeg}};
+            \draw (-6.5, 0.0) node {RPN};
+        \end{tikzpicture}
     \end{subfigure}
     
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-big_comparison_quilting_compressed.jpg}
-        \caption*{}
-        %\label{}
+        \begin{tikzpicture}
+            \draw (0, 0) node[inner sep=0] {\hspace*{4mm}\includegraphics[width=0.8\textwidth]{images/02-big_comparison_quilting.jpg}};
+            \draw (-6.5, 0.0) node {EF};
+        \end{tikzpicture}
     \end{subfigure}
 
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/02-big_comparison_gatys_compressed.jpg}
-        \caption*{}
-        %\label{}
+        \begin{tikzpicture}
+            \draw (0, 0) node[inner sep=0] {\hspace*{-2mm}\includegraphics[width=0.8\textwidth]{images/02-big_comparison_gatys.jpg}};
+            \draw (-6.5, 0.0) node {Gatys};
+        \end{tikzpicture}
     \end{subfigure}
-    \caption{A comparison of Gatys synthesis, Random Phase Noise (RPN, \citet{Galerne2011}) and image quilting (EF, \citet{Efros2001}). The chosen input textures are not very suitable for synthesis with Random Phase Noise as they contain fairly large features. Image quilting and Gatys seem to perform much better. Upon closer inspection, we can see that Gatys suffers from desaturated artifacts in the leftmost texture. Also, Gatys sometimes creates implausible shapes (e.g. deformed flower blooms). On the other hand, it is statistically closer to the input than EF (e.g. the flower texture generated by EF has too few blooms). Source: \citet{Raad2018}}
+    \caption{A comparison of Gatys synthesis, Random Phase Noise (RPN, \citet{Galerne2011}) and image quilting (\citet{Efros2001}). The chosen input textures are not very suitable for synthesis with Random Phase Noise as they contain fairly large features. Image quilting and Gatys seem to perform much better. Upon closer inspection, we can see that Gatys suffers from desaturated artifacts in the leftmost texture. Also, Gatys sometimes creates implausible shapes (e.g. deformed flower blooms). On the other hand, it is statistically closer to the input than EF (e.g. the flower texture generated by EF has too few blooms). Source: \citet{Raad2018}}
     \label{fig:background_synthesis_comparison}
 \end{figure}
 
