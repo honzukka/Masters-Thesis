@@ -19,16 +19,14 @@ Most people nowadays are familiar with \textit{projection}, the act of transferr
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/01-sydney_opera_house_night-edit.jpg}
+        \includegraphics[width=\textwidth]{images/01-sydney_opera_house.jpg}
         \caption{}
-        %\label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/01-sydney_opera_house_projection1.jpg}
+        \includegraphics[width=\textwidth]{images/01-sydney_opera_house_projection.jpg}
         \caption{Source: \citet{ImageProjectionMappingExampleSydney}}
-        %\label{}
     \end{subfigure}
     \caption{The Sydney Opera House without (a) and with (b) projection mapping.}
     \label{fig:intro_example_sydney}
@@ -38,30 +36,30 @@ One of the first uses of projection mapping (also sometimes called \textit{video
 
 \begin{figure}
     \centering
-    \begin{subfigure}{0.6\textwidth}
+    \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/01-Leota.jpg}
-        \caption{Final appearance \(\bm{y}\)}
-        \label{fig:intro_example_leota-full}
+        \caption{Final appearance \(r(\bm{p})\)}
+        %\label{fig:intro_example_leota-full}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.39\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
         \begin{subfigure}{\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-Leota-no_head.jpg}
             \caption{Background}
-            \label{fig:intro_example_leota-scene}
+            %\label{fig:intro_example_leota-scene}
         \end{subfigure}
         
         \begin{subfigure}{\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-Leota-only_head.jpg}
             \caption{Projection image \(\bm{p}\)}
-            \label{fig:intro_example_leota-head}
+            %\label{fig:intro_example_leota-head}
         \end{subfigure}
     \end{subfigure}
-    \caption{The character of Madame Leota in Disneyland's Haunted Mansion ride is one of the earliest examples of projection mapping. A video of her face is projected onto a neutrally colored static form inside a glass ball to give an illusion that the form speaks (\citet{MadameLeota}). Included is our simplified decomposition of the final appearance \(\bm{y}\) (\ref{fig:intro_example_leota-full}) into background (\ref{fig:intro_example_leota-scene}) and projection image \(\bm{p}\) (\ref{fig:intro_example_leota-head})}
+    \caption{The character of Madame Leota in Disneyland's Haunted Mansion ride is one of the earliest examples of projection mapping. A video of her face is projected onto a neutrally colored static form inside a glass ball to give an illusion that the form speaks (\citet{MadameLeota}). Included is our simplified decomposition of the final appearance \(r(\bm{p})\) into background and projection image \(\bm{p}\)}
     \label{fig:intro_example_leota}
 \end{figure}
 
@@ -83,50 +81,50 @@ There is a wide body of research focusing on creating such compensated images \(
 
 \begin{figure}
     \centering    
-    \begin{subfigure}{0.8\textwidth}
+    \begin{subfigure}{0.9\textwidth}
         \centering
         \begin{subfigure}{0.34\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-desired_appearance.png}
-            \caption{\(\bm{y}\)}
+            \includegraphics[width=\textwidth]{images/01-grossberg-desired_appearance.jpg}
+            \caption{Desired appearance \(\bm{y}\)}
             \label{fig:intro_grossberg-desired_appearance}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-background.png}
+            \includegraphics[width=\textwidth]{images/01-grossberg-background.jpg}
             \caption{Background}
             \label{fig:intro_grossberg-background}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.34\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-uncompensated.png}
-            \caption{\(\bm{y} \rightarrow\) background}
+            \includegraphics[width=\textwidth]{images/01-grossberg-uncompensated.jpg}
+            \caption{Uncompensated appearance \(r(\bm{y})\)}
             \label{fig:intro_grossberg-uncompensated}
         \end{subfigure}
         
         \begin{subfigure}{0.34\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-compensation_image.png}
-            \caption{\(\bm{p}\)}
+            \includegraphics[width=\textwidth]{images/01-grossberg-compensation_image.jpg}
+            \caption{Compensated projection image \(\bm{p}\)}
             \label{fig:intro_grossberg-compensation}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.34\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/01-new_appearance.png}
-            \caption{\(\bm{p} \rightarrow\) background}
+            \includegraphics[width=\textwidth]{images/01-grossberg-new_appearance.jpg}
+            \caption{Final appearance \(r(\bm{p})\)}
             \label{fig:intro_grossberg-new_appearance}
         \end{subfigure}
     \end{subfigure}
-    \caption{Automatic projection mapping as presented in \citet{Grossberg2004}}
+    \caption{Automatic projection mapping from \citet{Grossberg2004}}
     \label{fig:intro_grossberg}
 \end{figure}
 
 \begin{figure}
     \centering
-    \def\svgwidth{0.6\textwidth}
+    \def\svgwidth{0.8\textwidth}
     \input{images/figures/01-procam.pdf_tex}
     \caption{An illustration of a projector-camera system. An (uncompensated) image \(\bm{p}\) is projected onto a scene. Its appearance \(r(\bm{p})\) is captured by the camera. The desired appearance \(\bm{y}\) is shown in the top-left corner}
     \label{fig:intro_procam}
@@ -168,7 +166,8 @@ See fig.~\ref{fig:intro_pixels_vs_stats} for examples.
         \begin{subfigure}{0.2\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-pixels_vs_stats-pixels_target.jpg}
-            \caption*{\(\bm{y_1}\)}
+            \caption*{Desired apperance \(\bm{y_1}\)}
+            \vspace*{5mm}
             \label{fig:intro_pixels_vs_stats-pixels_target}
         \end{subfigure}
         \hfill
@@ -176,27 +175,29 @@ See fig.~\ref{fig:intro_pixels_vs_stats} for examples.
             \centering
             \includegraphics[width=\textwidth]{images/01-pixels_vs_stats-bg.jpg}
             \caption*{Scene}
+            \vspace*{10mm}
             \label{fig:intro_pixels_vs_stats-pixels_bg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.2\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-pixels_vs_stats-pixels_opt.jpg}
-            \caption*{\(\bm{p_1}\)}
+            \caption*{Compensated projection image \(\bm{p_1}\)}
             \label{fig:intro_pixels_vs_stats-pixels_opt}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.2\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-pixels_vs_stats-pixels_proj.jpg}
-            \caption*{\(r(\bm{p_1})\)}
+            \caption*{Final appearance \(r(\bm{p_1})\)}
             \label{fig:intro_pixels_vs_stats-pixels_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.2\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-pixels_vs_stats-stats_target.jpg}
-            \caption*{\(\bm{y_2}\)}
+            \caption*{Desired appearance \(\bm{y_2}\)}
+            \vspace*{5mm}
             \label{fig:intro_pixels_vs_stats-stats_target}
         \end{subfigure}
         \hfill
@@ -204,20 +205,21 @@ See fig.~\ref{fig:intro_pixels_vs_stats} for examples.
             \centering
             \includegraphics[width=\textwidth]{images/01-pixels_vs_stats-bg.jpg}
             \caption*{Scene}
+            \vspace*{10mm}
             \label{fig:intro_pixels_vs_stats-stats_bg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.2\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-pixels_vs_stats-stats_opt.jpg}
-            \caption*{\(\bm{p_2}\)}
+            \caption*{Compensated projection image \(\bm{p_2}\)}
             \label{fig:intro_pixels_vs_stats-stats_opt}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.2\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-pixels_vs_stats-stats_proj.jpg}
-            \caption*{\(r(\bm{p_2})\)}
+            \caption*{Final appearance \(r(\bm{p_2})\)}
             \label{fig:intro_pixels_vs_stats-stats_proj}
         \end{subfigure}
     \end{subfigure}
@@ -274,79 +276,79 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
     \centering    
     \begin{subfigure}{\textwidth}
         \centering
-        \begin{subfigure}{0.3\textwidth}
+        \begin{subfigure}{0.25\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/01-results_teaser-target.jpg}
-            \caption{\(\bm{y}\)}
+            \caption{Desired appearance \(\bm{y}\)}
             \label{fig:intro_results_teaser_target}
         \end{subfigure}
         \hfill
-        \begin{subfigure}{0.3\textwidth}
+        \vrule
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
             \centering
             \begin{tikzpicture}
                 \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-stats_opt.jpg}};
-                \fill[black] (0.5, -1.45) rectangle ++(1.4, 0.5);
-                \node [anchor=center] at (1.2, -1.2) {{\color{white} Ours}};
+                \fill[black] (0.65, -1.55) rectangle ++(1.4, 0.5);
+                \node [anchor=center] at (1.35, -1.3) {{\color{white} Ours}};
             \end{tikzpicture}
-            %\includegraphics[width=\textwidth]{images/01-results_teaser-stats_opt.jpg}
-            \caption{\(\bm{p}\)}
+            \caption{Compensated projection image \(\bm{p}\)}
             \label{fig:intro_results_teaser_stats_opt}
         \end{subfigure}
         \hfill
-        \begin{subfigure}{0.3\textwidth}
+        \begin{subfigure}{0.32\textwidth}
             \centering
             \begin{tikzpicture}
                 \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-pixels_opt.jpg}};
-                \fill[black] (-0.3, -1.45) rectangle ++(2.2, 0.5);
-                \node [anchor=center] at (0.8, -1.2) {{\color{white} Reference}};
+                \fill[black] (-0.15, -1.55) rectangle ++(2.2, 0.5);
+                \node [anchor=center] at (0.95, -1.3) {{\color{white} Baseline}};
             \end{tikzpicture}
-            %\includegraphics[width=\textwidth]{images/01-results_teaser-pixels_opt.jpg}
-            \caption{\(\bm{p}\)}
+            \caption{Compensated projection image \(\bm{p}\)}
             \label{fig:intro_results_teaser_pixels_opt}
         \end{subfigure}
         
-        \begin{subfigure}{0.3\textwidth}
+        \begin{subfigure}{0.25\textwidth}
             \centering
             \begin{tikzpicture}
                 \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-bg.jpg}};
-                \draw[line width=0.5mm, white] (-0.75, 0.5) ellipse (0.4cm and 0.55cm);
-                \draw[line width=0.5mm, magenta] (0.25, 1.05) ellipse (0.7cm and 0.45cm);
+                \draw[line width=0.6mm, white] (-0.6, 0.4) ellipse (0.3cm and 0.45cm);
+                \draw[line width=0.6mm, magenta] (0.2, 0.85) ellipse (0.55cm and 0.3cm);
             \end{tikzpicture}
-            %\includegraphics[width=\textwidth]{images/01-results_teaser-bg.jpg}
             \caption{Scene}
+            \vspace*{5mm}
             \label{fig:intro_results_teaser_bg}
         \end{subfigure}
         \hfill
-        \begin{subfigure}{0.3\textwidth}
+        \vrule
+        \hfill
+        \begin{subfigure}{0.32\textwidth}
             \centering
             \begin{tikzpicture}
                 \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-stats_proj.jpg}};
-                \fill[black] (0.5, -1.45) rectangle ++(1.4, 0.5);
-                \node [anchor=center] at (1.2, -1.2) {{\color{white} Ours}};
-                \draw[line width=0.5mm, white] (-0.75, 0.5) ellipse (0.4cm and 0.55cm);
-                \draw[line width=0.5mm, magenta] (0.25, 1.05) ellipse (0.7cm and 0.45cm);
+                \fill[black] (0.65, -1.55) rectangle ++(1.4, 0.5);
+                \node [anchor=center] at (1.35, -1.3) {{\color{white} Ours}};
+                \draw[line width=0.8mm, white] (-0.75, 0.5) ellipse (0.4cm and 0.55cm);
+                \draw[line width=0.8mm, magenta] (0.25, 1.05) ellipse (0.7cm and 0.45cm);
             \end{tikzpicture}
-            %\includegraphics[width=\textwidth]{images/01-results_teaser-stats_proj_highlighted.jpg}
-            \caption{\(r(\bm{p})\)}
+            \caption{Final appearance \(r(\bm{p})\)}
             \label{fig:intro_results_teaser_stats_proj}
         \end{subfigure}
         \hfill
-        \begin{subfigure}{0.3\textwidth}
+        \begin{subfigure}{0.32\textwidth}
             \centering
             \begin{tikzpicture}
                 \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/01-results_teaser-pixels_proj.jpg}};
-                \fill[black] (-0.3, -1.45) rectangle ++(2.2, 0.5);
-                \node [anchor=center] at (0.8, -1.2) {{\color{white} Reference}};
-                \draw[line width=0.5mm, white] (-0.75, 0.5) ellipse (0.4cm and 0.55cm);
-                \draw[line width=0.5mm, magenta] (0.25, 1.05) ellipse (0.7cm and 0.45cm);
+                \fill[black] (-0.15, -1.55) rectangle ++(2.2, 0.5);
+                \node [anchor=center] at (0.95, -1.3) {{\color{white} Baseline}};
+                \draw[line width=0.8mm, white] (-0.75, 0.5) ellipse (0.4cm and 0.55cm);
+                \draw[line width=0.8mm, magenta] (0.25, 1.05) ellipse (0.7cm and 0.45cm);
             \end{tikzpicture}
-            %\includegraphics[width=\textwidth]{images/01-results_teaser-pixels_proj_highlighted.jpg}
-            \caption{\(r(\bm{p})\)}
+            \caption{Final appearance \(r(\bm{p})\)}
             \label{fig:intro_results_teaser_pixels_proj}
         \end{subfigure}
         
     \end{subfigure}
-    \caption{Result from one of our experiments. Our scene is a photograph with a dark background (highlighted in pink) and a bright yellow sign (highlighted in white). The goal is to make it look like the flower texture \(\bm{y}\) by projecting an image \(\bm{p}\) onto it. This is difficult to achieve in the highlighted areas where the scene is still visible when using a conventional per-pixel projection mapping approach (see image~\ref{fig:intro_results_teaser_pixels_proj}). Our method, on the other hand, handles these areas better by aligning a red bloom with the yellow sign (in white) and darker leaves with the background (in pink). As a result, appearance \ref{fig:intro_results_teaser_stats_proj} is a more faithful reproduction of the desired our final appearance \(\bm{y}\) than the reference \ref{fig:intro_results_teaser_pixels_proj}. Texture source: \citet{Pixar128}, modified}
+    \caption{Result from one of our experiments. Highlighted in pink is an area where our scene reflects little light. Highlighted in white is a saturated area which mostly reflects orange hues. Image~\ref{fig:intro_results_teaser_pixels_proj} shows that this presents a challenge for the baseline method which performs conventional per-pixel projection mapping. Colors of the corresponding areas in the desired appearance \(\bm{y}\) mostly get absorbed and colors from the scene are visible even after compensation. On the other hand, image~\ref{fig:intro_results_teaser_stats_proj} shows that our method deals with this situation better by rearranging the desired appearance \(\bm{y}\) and thus achieving better overall compensation. Texture source: \citet{Pixar128}, modified}
     \label{fig:intro_result_teaser}
 \end{figure}
 
