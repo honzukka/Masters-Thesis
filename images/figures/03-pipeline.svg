@@ -659,7 +659,7 @@
          id="tspan1703"
          x="50.294361"
          y="29.73811"
-         style="font-size:4.23333px;stroke-width:0.264583">desired appearance \(\bm{y}\)</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Desired appearance \(\bm{y}\)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -670,7 +670,7 @@
          id="tspan1703-8"
          x="48.731842"
          y="88.119156"
-         style="font-size:4.23333px;stroke-width:0.264583">projector image \(\bm{p}\)</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Projector image \(\bm{p}\)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -681,7 +681,7 @@
          id="tspan1703-8-7-3"
          x="43.602085"
          y="219.92209"
-         style="font-size:4.23333px;stroke-width:0.264583">step 0*</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Step 0*</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -692,7 +692,7 @@
          id="tspan1703-8-7-3-4"
          x="96.595322"
          y="220.12123"
-         style="font-size:4.23333px;stroke-width:0.264583">step 1000</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Step 1000</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -703,7 +703,7 @@
          id="tspan1703-8-7-3-8"
          x="44.267044"
          y="146.9635"
-         style="font-size:4.23333px;stroke-width:0.264583">step 0</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Step 0</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -714,7 +714,7 @@
          id="tspan1703-8-7-3-4-3"
          x="95.406921"
          y="146.67583"
-         style="font-size:4.23333px;stroke-width:0.264583">step 1000</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Step 1000</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -725,7 +725,7 @@
          id="tspan1703-8-7-3-4-6"
          x="220.47998"
          y="215.48055"
-         style="font-size:4.23333px;stroke-width:0.264583">step 1000</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Step 1000</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -736,7 +736,7 @@
          id="tspan1703-8-7-3-6"
          x="168.68289"
          y="214.20708"
-         style="font-size:4.23333px;stroke-width:0.264583">step 0</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Step 0</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -747,7 +747,7 @@
          id="tspan1703-8-7-1"
          x="175.63611"
          y="167.77826"
-         style="font-size:4.23333px;stroke-width:0.264583">camera image \(r(\bm{p})\)</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">Camera image \(r(\bm{p})\)</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker1927)"
        d="m 114.35206,45.839403 c 22.45445,-0.219068 44.90864,-0.438133 67.36257,-0.657196"

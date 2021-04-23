@@ -54,14 +54,14 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/03-system.pdf}}%
-    \put(0.87984829,0.62798113){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\bm{y}\)\end{tabular}}}}%
-    \put(0.4309117,0.25241904){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(\bm{p}\)\end{tabular}}}}%
-    \put(0.01290498,0.12066542){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{projector \& camera}\end{tabular}}}}%
-    \put(0.55845299,0.11890224){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{compensation pipeline}\end{tabular}}}}%
-    \put(0.59803662,0.36992052){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}rendering function \(r\)\end{tabular}}}}%
+    \put(0.89046832,0.62798113){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\(\bm{y}\)}\end{tabular}}}}%
+    \put(0.4309117,0.25241904){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\(\bm{p}\)}\end{tabular}}}}%
+    \put(0.02255953,0.12066542){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\textbf{Projector \& camera}}\end{tabular}}}}%
+    \put(0.58355483,0.11793677){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\textbf{Compensation pipeline}}\end{tabular}}}}%
+    \put(0.6134839,0.36992052){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{Rendering function \(r\)}\end{tabular}}}}%
     \put(0.43670449,0.06801735){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}LT\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{images/figures/03-system.pdf}}%
-    \put(0.3111953,0.63280833){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(r^\prime(\bm{p}) \sim \bm{y}\)\end{tabular}}}}%
+    \put(0.32278081,0.63280833){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\footnotesize{\(r^\prime(\bm{p}) \sim \bm{y}\)}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{images/figures/03-system.pdf}}%
   \end{picture}%
 \endgroup%

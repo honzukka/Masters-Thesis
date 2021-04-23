@@ -56,15 +56,15 @@
     \put(0,0){\includegraphics[width=\unitlength,page=1]{images/figures/03-pipeline.pdf}}%
     \put(-0.00867618,0.50320006){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}OUTPUT\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{images/figures/03-pipeline.pdf}}%
-    \put(0.22791616,0.80060667){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}desired appearance \(\bm{y}\)\end{tabular}}}}%
-    \put(0.22225836,0.58921196){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}projector image \(\bm{p}\)\end{tabular}}}}%
-    \put(0.20368378,0.11196046){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0*\end{tabular}}}}%
-    \put(0.39556951,0.11123937){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
-    \put(0.20609156,0.37613967){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0\end{tabular}}}}%
-    \put(0.39126637,0.37718133){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
-    \put(0.84414935,0.12804305){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 1000\end{tabular}}}}%
-    \put(0.65659481,0.13265421){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}step 0\end{tabular}}}}%
-    \put(0.68177205,0.30077053){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}camera image \(r(\bm{p})\)\end{tabular}}}}%
+    \put(0.22791616,0.80060667){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Desired appearance \(\bm{y}\)\end{tabular}}}}%
+    \put(0.22225836,0.58921196){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Projector image \(\bm{p}\)\end{tabular}}}}%
+    \put(0.20368378,0.11196046){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Step 0*\end{tabular}}}}%
+    \put(0.39556951,0.11123937){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Step 1000\end{tabular}}}}%
+    \put(0.20609156,0.37613967){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Step 0\end{tabular}}}}%
+    \put(0.39126637,0.37718133){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Step 1000\end{tabular}}}}%
+    \put(0.84414935,0.12804305){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Step 1000\end{tabular}}}}%
+    \put(0.65659481,0.13265421){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Step 0\end{tabular}}}}%
+    \put(0.68177205,0.30077053){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Camera image \(r(\bm{p})\)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{images/figures/03-pipeline.pdf}}%
     \put(0.75494496,0.80001175){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(f(\bm{y})\)\end{tabular}}}}%
     \put(0.74855233,0.54998289){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\(f(r(\bm{p}))\)\end{tabular}}}}%

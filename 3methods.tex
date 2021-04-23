@@ -7,7 +7,7 @@ We now have all the building blocks needed to construct our method that implemen
     \centering
     \def\svgwidth{0.8\textwidth}
     \input{images/figures/03-system.pdf_tex}
-    \caption{An overview of a complete projector-camera system. It receives desired appearance \(\bm{y}\) as input and outputs actual appearance \(r^\prime(\bm{p})\) by projecting a compensated projector image \(\bm{p}\) onto a given scene. Note that in order to perform the compensation a function \(r\) which approximates \(r^\prime\) is needed. \(r\) is parameterized by information about the scene like geometry, materials and projector and camera properties. These parameters are marked LT and need to be provided by the projector and camera themselves via a calibration procedure. Texture source: \citet{Pixar128}}
+    \caption{An overview of a complete projector-camera system. It receives desired appearance \(\bm{y}\) as input and outputs actual appearance \(r^\prime(\bm{p})\) by projecting a compensated projector image \(\bm{p}\) onto a given scene. Note that in order to perform the compensation, a function \(r\) which approximates \(r^\prime\) is needed. \(r\) is parameterized by information about the scene like geometry, materials and projector and camera properties. These parameters are marked LT and need to be provided by the projector and camera themselves via a calibration procedure. Texture source: \citet{Pixar128}}
     \label{fig:methods_system}
 \end{figure}
 
@@ -18,13 +18,11 @@ We will first present an overview of our projection mapping pipeline and then fo
 
 \begin{figure}[]
     \centering
-    % \def\svgwidth{\textwidth}
-    % \input{images/figures/03-pipeline.pdf_tex}
     \hspace*{-8mm}\makebox[\textwidth][c]{
         \def\svgwidth{1.1\textwidth}
         \input{images/figures/03-pipeline.pdf_tex}
     }\hspace*{8mm}
-    \caption{An overview of our compensation pipeline with \(\bm{y}\) as input and \(\bm{p}\) that minimizes eq.~\ref{eq:projection_mapping-statistics} as output. The upper part of the diagram is essentially a texture synthesis pipeline by \citet{Gatys2015}. The lower green part (the rendering function) is our extension that enables projection mapping. Instead of computing a set of statistics \(f\) on the synthesized image \(\bm{p}\) directly as \citet{Gatys2015} does, we first project \(\bm{p}\) to obtain \(r(\bm{p})\) and only then compute \(f\). The red projector symbol shows how \(\bm{p}\) is projected onto a mirror ball in our scene and the white scissors symbol shows how the camera image is cropped because we only want to match a portion of the scene. The whole process is an optimization loop with \(\bm{p}\) initialized to white noise and progressively refined until \(r(\bm{p})\) is a realization of the same texture as \(\bm{y}\) is. Texture source: \citet{Pixar128}}
+    \caption{An overview of our compensation pipeline with desired appearance \(\bm{y}\) as input and compensated projection image \(\bm{p}\) that minimizes eq.~\ref{eq:projection_mapping-statistics} as output. The upper part of the diagram is essentially a texture synthesis pipeline by \citet{Gatys2015}. The lower green part (the rendering function) is our extension that enables projection mapping. Instead of computing a set of statistics \(f\) on the synthesized image \(\bm{p}\) directly as \citet{Gatys2015} does, we first project \(\bm{p}\) to obtain \(r(\bm{p})\) and only then compute \(f\). The red projector symbol shows how \(\bm{p}\) is projected onto a mirror ball in our scene and the white scissors symbol shows how the camera image is cropped because we only want to match a portion of the scene. The whole process is an optimization loop with \(\bm{p}\) initialized to white noise and progressively refined until \(r(\bm{p})\) is a realization of the same texture as \(\bm{y}\) is. Texture source: \citet{Pixar128}}
     \label{fig:methods_pipeline}
 \end{figure}
 
@@ -171,24 +169,25 @@ Rectangular projection frustum is necessary because we want to project rectagula
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-projector_features-spotlight.jpg}
-        \caption{}
+        \caption{Original Mitsuba projector}
         \label{fig:methods_projector_features_spotlight}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-projector_features-frustum.jpg}
-        \caption{}
+        \caption{Added rectangular projection frustum}
         \label{fig:methods_projector_features_frustum}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-projector_features-thin_lens.jpg}
-        \caption{}
+        \caption{Added thin lens model}
+        \vspace*{5mm}
         \label{fig:methods_projector_features_thin_lens}
     \end{subfigure}
-    \caption{Projector features that we have implemented in Mitsuba to support the needs of our projection mapping pipeline. Image~\ref{fig:methods_projector_features_spotlight} shows  a spotlight with a projective texture that Mitsuba already supported but was not sufficient for us. Image~\ref{fig:methods_projector_features_frustum} shows a rectangular projection frustum that we have added to support rectangular projections. Image~\ref{fig:methods_projector_features_thin_lens} shows our final projector implementation with a thin lens optics model that enables the depth of field effect}
+    \caption{Projector features that we have implemented in Mitsuba to support the needs of our projection mapping pipeline. Image~(a) shows  a spotlight with a projective texture that Mitsuba already supported but was not sufficient for us. Image~(b) shows a rectangular projection frustum that we have added to support rectangular projections. Image~(c) shows our final projector implementation with a thin lens optics model that enables the depth of field effect}
     \label{fig:methods_projector_features}
 \end{figure}
 
@@ -198,29 +197,31 @@ However, while some path sampling techniques build path starting from the camera
 
 Another issue is with sampling a point on the projector where a path could start from. If uniform sampling is used, the only active pixel would be sampled in 1 out of \(m \cdot n\) samples on average where \(m\) and \(n\) are the dimensions of \(\bm{p}\). This would again yield many paths with zero contribution. To fix this, we have implemented a common variance reduction technique technique used in Monte Carlo integration called \textit{importance sampling}. Importance sampling chooses samples with larger contribution with higher probability. In our case, we base the probability of choosing a projector pixel on the relative contribution of the pixel to the brightness of the whole projector image. This means that when capturing the canonical basis of an LT matrix, the only active pixel is sampled with probability 1 and other pixels are not sampled at all. See fig.~\ref{fig:methods_sampling_bdpt_importance} for an example.
 
-\begin{figure}[]
+\begin{figure}[ht]
     \centering
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-sampling_path.jpg}
-        \caption{}
+        \caption{Path tracer}
+        \vspace*{5mm}
         \label{fig:methods_sampling_path}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-sampling_bdpt.jpg}
-        \caption{}
+        \caption{BDPT}
+        \vspace*{5mm}
         \label{fig:methods_sampling_bdpt}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-sampling_bdpt_importance.jpg}
-        \caption{}
+        \caption{BDPT with importance sampling}
         \label{fig:methods_sampling_bdpt_importance}
     \end{subfigure}
-    \caption{A comparison of various sampling techniques to solve the rendering equation. The scene is being projected onto by a \(640 \times 480\) image with only a small \(20 \times 20\) patch of active pixels. All images were rendered using 16 path samples per pixel. Image~\ref{fig:methods_sampling_path} shows a basic path tracer which samples random light-carrying paths starting from the camera. Image~\ref{fig:methods_sampling_bdpt} is bi-directional path tracing (BDPT), a better technique which combines paths from both camera and light sources. Image~\ref{fig:methods_sampling_bdpt_importance} shows BDPT with importance sampling of the projector image which greatly reduces noise. This is the method we use in our pipeline}
+    \caption{A comparison of various sampling techniques to solve the rendering equation. The scene is being projected onto by a \(640 \times 480\) image with only a small \(20 \times 20\) patch of active pixels. All images were rendered using 16 path samples per pixel. Image~(a) shows a basic path tracer which samples random light-carrying paths starting from the camera. Image~(b) is bi-directional path tracing (BDPT), a better technique which combines paths from both camera and light sources. Image~(c) shows BDPT with importance sampling of the projector image which greatly reduces noise. This is the method we use in our pipeline.}
     \label{fig:methods_sampling}
 \end{figure}
 
@@ -240,17 +241,17 @@ This means that an LT matrix for projector and camera image of size \(160 \times
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-floating_point16.jpg}
-        \caption{}
+        \caption{16-bit float}
         \label{fig:methods_float16}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-floating_point32.jpg}
-        \caption{}
+        \caption{32-bit float}
         \label{fig:methods_float32}
     \end{subfigure}
-    \caption{An illustration of how pixel value precision influences noise level in basis images. The scene is illuminated by a \(640 \times 480\) image where only a single pixel is active. The resulting images are scaled by \(1000000\) for visualization purposes. Image~\ref{fig:methods_float16} is stored in 16-bit floating point, while image~\ref{fig:methods_float32} is stored in 32-bit floating point}
+    \caption{An illustration of how pixel value precision influences noise level in basis images. The scene is illuminated by a \(640 \times 480\) projection image where only a single pixel is active. The resulting images are scaled by \(10^6\) for visualization purposes. Image~(a) is stored in 16-bit floating point, while image~(b) is stored in 32-bit floating point}
     \label{fig:methods_float}
 \end{figure}
 
@@ -325,22 +326,22 @@ where \(l = 1 \dots L - 1\), \(L\) is the number of chosen layers, \(k = l + 1\)
 
 \citet{Snelgrove2017} has observed that the performance of Gatys synthesis is greatly limited by the receptive fields of the underlying VGG-19 network. The network was trained on images of size \(224 \times 224\) and its capability to capture information about large features is larger images is thus limited (see~\ref{fig:methods_receptive_field} for an illustration).
 
-\begin{figure}[]
+\begin{figure}[ht]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-receptive_field-level0.jpg}
-        \caption{}
+        \caption{VGG-19 receptive fields on a \(640 \times 480\) image}
         \label{fig:methods_receptive_field_lvl0}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/03-receptive_field-level1.jpg}
-        \caption{}
+        \caption{VGG-19 receptive fields on a \(320 \times 240\) image}
         \label{fig:methods_receptive_field_lvl1}
     \end{subfigure}
-    \caption{A comparison of the receptive fields of the last layer of VGG-19 used in the Gatys texture model. A receptive field of a network layer activation is essentially a patch of pixels of the input image which has an effect on that particular activation. If a texture feature is larger than the receptive field of a given activation, then it cannot be captured by statistics computed on the activation. Figure~\ref{fig:methods_receptive_field_lvl0} uses an input image of size \(640 \times 480\) while figure~\ref{fig:methods_receptive_field_lvl1} uses size \(320 \times 240\). Texture source: \citet{Pixar128}}
+    \caption{A comparison of the receptive fields (depicted as colorful squares) of the last convolutional layer of VGG-19 used in the Gatys texture model. A receptive field of a network layer activation is essentially a patch of pixels of the input image which has an effect on that particular activation (recall fig.~\ref{fig:background_cnn}). If a texture feature is larger than the receptive field of a given activation, then it cannot be captured by statistics computed on the activation. Figure~(a) uses an input image of size \(640 \times 480\) while figure~(b) uses size \(320 \times 240\). Texture source: \citet{Pixar128}}
     \label{fig:methods_receptive_field}
 \end{figure}
 
@@ -359,8 +360,12 @@ where \(\bm{y_i}\) is image \(\bm{y_{i - 1}}\) downsampled by half using proper 
         \centering
         \begin{subfigure}{0.32\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/03-comparison_small_target.jpg}
-            \caption{Input}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/03-comparison_small_target.jpg}};
+                \fill[black] (-1.7, 1.2) rectangle ++(2.2, 0.5);
+                \node [anchor=center] at (-0.6, 1.42) {{\color{white} \(256 \times 256\)}};
+            \end{tikzpicture}
+            \caption{\textbf{Input}}
             \label{fig:methods_comparison_small-target}
         \end{subfigure}
         \hfill
@@ -402,8 +407,12 @@ where \(\bm{y_i}\) is image \(\bm{y_{i - 1}}\) downsampled by half using proper 
         % -------------------------------------------
         \begin{subfigure}{0.32\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/03-comparison_large_target.jpg}
-            \caption{Input}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/03-comparison_large_target.jpg}};
+                \fill[black] (-1.7, 1.2) rectangle ++(2.2, 0.5);
+                \node [anchor=center] at (-0.6, 1.42) {{\color{white} \(512 \times 512\)}};
+            \end{tikzpicture}
+            \caption{\textbf{Input}}
             \label{fig:methods_comparison_large-target}
         \end{subfigure}
         \hfill
@@ -442,7 +451,7 @@ where \(\bm{y_i}\) is image \(\bm{y_{i - 1}}\) downsampled by half using proper 
             \label{fig:methods_comparison_large-pyramid_shift}
         \end{subfigure}
     \end{subfigure}
-    \caption{A comparison of synthesis under various texture models described in this section. The upper two rows contain images of size \(256 \times 256\) while the lower two rows contain images of size \(512 \times 512\). Note desaturated patches and inaccurate colors when Shift is not used and large feature distortion under the Gatys texture model. Lastly, note that Pyramid describes the small texture so accurately that it synthesizes an image identical to the input. Texture source: \citet{Pixar128}}
+    \caption{A comparison of texture synthesis under various models described in this section. The goal is to generate a new example of the input texture. The upper two rows contain images of size \(256 \times 256\) while the lower two rows contain images of size \(512 \times 512\). Note desaturated patches and inaccurate colors when Shift is not used and large feature distortion under the Gatys texture model. Lastly, note that Pyramid describes the small texture so accurately that it synthesizes an image nearly identical to the input. Texture source: \citet{Pixar128}}
     \label{fig:methods_comparison_small}
 \end{figure}
 
