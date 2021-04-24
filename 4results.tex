@@ -231,8 +231,6 @@ In the first experiment, we have shown that our method is able to converge to th
 \subsection{Results}
 \label{section:results-experiments-02-results}
 
-{\color{red} TODO: more results here?}
-
 \begin{figure}[]
     \centering    
     \begin{subfigure}{\textwidth}
@@ -422,109 +420,130 @@ Generated compensated projection images \(\bm{p}\) were \(640 \times 480\) large
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/target.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-255-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/255_bg.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-255-bg}
         \end{subfigure}
         \hfill
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}{0.6\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/255_gatys.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-255-gatys}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.19\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/255_improved.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-255-improved}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.19\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/255_pixel.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-255-pixel}
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/255_gatys.jpg}};
+                    \fill[black] (-1.2, 0.45) rectangle ++(2.4, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\footnotesize{\color{white} Ours (Gatys)}}};
+                \end{tikzpicture}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/255_improved.jpg}};
+                    \fill[black] (-1.25, 0.45) rectangle ++(2.5, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\scriptsize{\color{white} Ours (Improved)}}};
+                \end{tikzpicture}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/255_pixel.jpg}};
+                    \fill[black] (-1.2, 0.45) rectangle ++(2.4, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\footnotesize{\color{white} Baseline}}};
+                \end{tikzpicture}
+            \end{subfigure}
         \end{subfigure}
         
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/target.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-210-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/210_bg.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-210-bg}
         \end{subfigure}
         \hfill
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}{0.6\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/210_gatys.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-210-gatys}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.19\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/210_improved.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-210-improved}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.19\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/210_pixel.jpg}
-            \caption*{}
-            %\label{fig:ex02-issues-210-pixel}
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/210_gatys.jpg}};
+                    \fill[black] (-1.2, 0.45) rectangle ++(2.4, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\footnotesize{\color{white} Ours (Gatys)}}};
+                \end{tikzpicture}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/210_improved.jpg}};
+                    \fill[black] (-1.25, 0.45) rectangle ++(2.5, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\scriptsize{\color{white} Ours (Improved)}}};
+                \end{tikzpicture}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/210_pixel.jpg}};
+                    \fill[black] (-1.2, 0.45) rectangle ++(2.4, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\footnotesize{\color{white} Baseline}}};
+                \end{tikzpicture}
+            \end{subfigure}
         \end{subfigure}
 
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/target.jpg}
-            \caption*{\(\bm{y}\)}
-            %\label{fig:ex02-issues-190-target}
+            \caption*{Desired appearance \(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_bg.jpg}
             \caption*{Background}
-            %\label{fig:ex02-issues-190-bg}
+            \vspace*{5mm}
         \end{subfigure}
         \hfill
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}{0.6\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_gatys.jpg}
-            \caption*{\textbf{Ours (Gatys)}}
-            %\label{fig:ex02-issues-190-gatys}
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_gatys.jpg}};
+                    \fill[black] (-1.2, 0.45) rectangle ++(2.4, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\footnotesize{\color{white} Ours (Gatys)}}};
+                \end{tikzpicture}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_improved.jpg}};
+                    \fill[black] (-1.25, 0.45) rectangle ++(2.5, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\scriptsize{\color{white} Ours (Improved)}}};
+                \end{tikzpicture}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.32\textwidth}
+                \centering
+                \begin{tikzpicture}
+                    \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_pixel.jpg}};
+                    \fill[black] (-1.2, 0.45) rectangle ++(2.4, 0.5);
+                    \node [anchor=center] at (0.0, 0.69) {{\footnotesize{\color{white} Baseline}}};
+                \end{tikzpicture}
+            \end{subfigure}
+            \caption*{Final appearance \(r(\bm{p})\)}
+            \vspace*{5mm}
         \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.19\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_improved.jpg}
-            \caption*{\textbf{Ours (Imp.)}}
-            %\label{fig:ex02-issues-190-improved}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}{0.19\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/04-experiment02/isolating_issues/190_pixel.jpg}
-            \caption*{Baseline}
-            %\label{fig:ex02-issues-190-pixel}
-        \end{subfigure}
+        
     \end{subfigure}
-    \caption{A study of convergence of our method when the overall intensity of the input cannot be recovered by the projector due to dark background. \(c = 1\) in this case. The last three images in each row show \(r(\bm{p})\) for each compared method. The upper row corresponds to pure texture synthesis since the background is white. Background in the middle row has gray level of 210 out of 255, while background in the lower row has gray level of 190 out of 255. Note how the ability to recover large texture features rapidly degrades with darkening background. Also note how the improved texture model performs better than the Gatys model. The pixel-based baseline handles these extreme situations better since it only tries to match the intensity of each pixel while texture features are simply equal to the input. Texture source: \citet{Pixar128}}
+    \caption{A study of convergence of our method when the overall intensity of the input cannot be recovered by the projector due to dark background. \(c = 1\) in this case. The last three images in each row show the final appearance \(r(\bm{p})\) for each compared method. The upper row corresponds to texture synthesis since the background is pure white. Background in the middle row has gray level of 210 out of 255, while background in the lower row has gray level of 190 out of 255. Note how the ability to recover large texture features rapidly degrades with darkening background. Also note how the improved texture model performs better than the Gatys model. The pixel-based baseline handles these extreme situations better since it only tries to match the intensity of each pixel while texture features are simply equal to the input. Texture source: \citet{Pixar128}}
     \label{fig:ex02-issues}
 \end{figure}
 
@@ -555,81 +574,98 @@ The second experiment has shown that statistics-based projection mapping can be 
         \begin{subfigure}{0.5\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/scene_highlighted.jpg}
-            \caption{Scene}
-            \label{fig:ex03-ball_dof-scene}
+            \caption*{Scene}
         \end{subfigure}
 
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/ball_pebble_target.jpg}
-            \caption*{\(\bm{y}\)}
-            %\label{fig:ex03-ball_dof-pebbles-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_im_label.jpg}
-            \caption*{\(\bm{p}\)}
-            %\label{fig:ex03-ball_dof-pebbles-stats_im}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_proj_highlighted2.jpg}
-            \caption*{\(r(\bm{p})\)}
-            %\label{fig:ex03-ball_dof-pebbles-stats_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_im_label.jpg}
-            \caption*{\(\bm{p}\)}
-            %\label{fig:ex03-ball_dof-pebbles-pixel_im}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Baseline}}};
+            \end{tikzpicture}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_proj_highlighted2.jpg}
-            \caption*{\(r(\bm{p})\)}
-            %\label{fig:ex03-ball_dof-pebbles-pixel_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/pebbles/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Baseline}}};
+            \end{tikzpicture}
         \end{subfigure}
         
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/ball_marble_target.jpg}
-            \caption*{\(\bm{y}\)}
-            %\label{fig:ex03-ball_dof-marble-target}
+            \vspace*{1mm}
+            \caption*{Desired appearance \(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_im_label.jpg}
-            \caption*{\(\bm{p}\)}
-            %\label{fig:ex03-ball_dof-marble-stats_im}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            \caption*{Compensated projection image \(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_proj_highlighted2.jpg}
-            \caption*{\(r(\bm{p})\)}
-            %\label{fig:ex03-ball_dof-marble-stats_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/stats_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (-0.6, -0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            \caption*{Final appearance \(r(\bm{p})\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_im_label.jpg}
-            \caption*{\(\bm{p}\)}
-            %\label{fig:ex03-ball_dof-marble-pixel_im}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_im.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Baseline}}};
+            \end{tikzpicture}
+            \caption*{Compensated projection image \(\bm{p}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_proj_highlighted2.jpg}
-            \caption*{\(r(\bm{p})\)}
-            %\label{fig:ex03-ball_dof-marble-pixel_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/ball_dof/marble/pixel_proj_highlighted.jpg}};
+                \fill[black] (-1.2, -1.2) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (-0.3, -0.95) {{\color{white} \small{Baseline}}};
+            \end{tikzpicture}
+            \caption*{Final appearance \(r(\bm{p})\)}
         \end{subfigure}
     \end{subfigure}
-    \caption{Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}) against a pixel-based baseline. \(c = 5\). The scene contains a mirror ball which is being projected onto from the ceiling as suggested in image~\ref{fig:ex03-ball_dof-scene}. The projector has depth of field enabled and the camera image \(r(\bm{p})\) is cropped before computing the loss and thus only the dashed red rectangles are matched against the desired appearance \(\bm{y}\). Overall, our pipeline handles this complex light transport well. Note how the box is missing one wall (the black patch inside the mirror ball) which causes the optimization to leave the corresponding part of the compensation image \(\bm{p}\) untouched. Texture source: \citet{Pixar128}}
+    \caption{Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}) against a pixel-based baseline. \(c = 5\). The scene contains a mirror ball which is being projected onto from the ceiling as suggested in the scene image. The projector has depth of field enabled and the camera image \(r(\bm{p})\) is cropped before computing the loss and thus only the dashed red rectangles are matched against the desired appearance \(\bm{y}\). Overall, our pipeline handles this complex light transport well. Note how the box is missing one wall (the black patch inside the mirror ball) which causes the optimization to leave the corresponding part of the compensation image \(\bm{p}\) untouched. Texture source: \citet{Pixar128}}
     \label{fig:ex03-ball_dof}
 \end{figure}
 
@@ -639,85 +675,139 @@ The second experiment has shown that statistics-based projection mapping can be 
         \centering
         \begin{subfigure}{0.5\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene_raw_highlighted.jpg}
-            \caption{Scene}
-            \label{fig:ex03-staircase_illum-scene}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene_raw.jpg}};
+                \draw[line width=0.8mm, red] (-1.5, -2.7) ellipse (1.5cm and 0.65cm);
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/scene_raw_highlighted.jpg}
+            \caption*{Scene}
+            %\label{fig:ex03-staircase_illum-scene}
         \end{subfigure}
 
         \begin{subfigure}{0.19\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/staircase_wood_target.jpg}
-            \caption{\(\bm{y}\)}
-            \label{fig:ex03-staircase_illum-wood-target}
+            %\caption{\(\bm{y}\)}
+            %\label{fig:ex03-staircase_illum-wood-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im_label.jpg}
-            \caption{\(\bm{p}\)}
-            \label{fig:ex03-staircase_illum-wood-stats_im}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_im.jpg}
+            %\caption{\(\bm{p}\)}
+            %\label{fig:ex03-staircase_illum-wood-stats_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj_label.jpg}
-            \caption{\(r(\bm{y})\)}
-            \label{fig:ex03-staircase_illum-wood-stats_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/stats_proj.jpg}
+            %\caption{\(r(\bm{y})\)}
+            %\label{fig:ex03-staircase_illum-wood-stats_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im_label.jpg}
-            \caption{\(\bm{p}\)}
-            \label{fig:ex03-staircase_illum-wood-pixel_im}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Baseline}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_im.jpg}
+            %\caption{\(\bm{p}\)}
+            %\label{fig:ex03-staircase_illum-wood-pixel_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj_label.jpg}
-            \caption{\(r(\bm{y})\)}
-            \label{fig:ex03-staircase_illum-wood-pixel_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Baseline}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/wood/pixel_proj.jpg}
+            %\caption{\(r(\bm{y})\)}
+            %\label{fig:ex03-staircase_illum-wood-pixel_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.19\textwidth}
             \centering
             % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target.jpg}
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target_highlighted.jpg}
-            \caption{\(\bm{y}\)}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target.jpg}};
+                \draw[line width=0.8mm, blue] (-0.75, -0.75) ellipse (0.5cm and 0.5cm);
+                \draw[line width=0.8mm, green] (0.35, -0.55) ellipse (0.7cm and 0.5cm);
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_beams_target_highlighted.jpg}
+            \caption{Desired appearance \(\bm{y}\)}
+            \vspace*{10mm}
             \label{fig:ex03-staircase_illum-beams-target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im_label.jpg}
-            \caption{\(\bm{p}\)}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_im.jpg}
+            \caption{Compensated projection image \(\bm{p}\)}
             \label{fig:ex03-staircase_illum-beams-stats_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj_highlighted2.jpg}
-            \caption{\(r(\bm{y})\)}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj.jpg}};
+                \fill[black] (0.0, 0.7) rectangle ++(1.2, 0.5);
+                \node [anchor=center] at (0.6, 0.95) {{\color{white} \small{Ours}}};
+                \draw[line width=0.8mm, green] (-0.45, -1.0) ellipse (0.75cm and 0.3cm);
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/stats_proj_highlighted.jpg}
+            \caption{Final appearance \(r(\bm{y})\)}
+            \vspace*{5.0mm}
             \label{fig:ex03-staircase_illum-beams-stats_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im_label.jpg}
-            \caption{\(\bm{p}\)}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Baseline}}};
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_im.jpg}
+            \caption{Compensated projection image \(\bm{p}\)}
             \label{fig:ex03-staircase_illum-beams-pixel_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.19\textwidth}
             \centering
             % \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}
-            \includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj_highlighted2.jpg}
-            \caption{\(r(\bm{y})\)}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj.jpg}};
+                \fill[black] (-0.6, 0.7) rectangle ++(1.8, 0.5);
+                \node [anchor=center] at (0.3, 0.95) {{\color{white} \small{Baseline}}};
+                \draw[line width=0.8mm, blue] (-0.75, -0.75) ellipse (0.5cm and 0.5cm);
+            \end{tikzpicture}
+            %\includegraphics[width=\textwidth]{images/04-experiment03/staircase_illum/beams/pixel_proj_highlighted.jpg}
+            \caption{Final appearance \(r(\bm{y})\)}
+            \vspace*{5.0mm}
             \label{fig:ex03-staircase_illum-beams-pixel_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{Results of experiment 3. We use the general rendering function (see section ~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}) against a pixel-based baseline. \(c = 5\). The scene contains a wooden staircase which is being projected onto from the point of view of the camera. The projector has depth of field disabled and the camera image \(r(\bm{p})\) is not cropped before computing the loss and thus all of it is matched against the desired appearance \(\bm{y}\). Note how the performance of our method corresponds to previous experiments. An example is highlighted. The glossy wooden floor in the lower left corner of the scene is difficult to project onto (highlighted in red). Our method deals with it well by reproducing a dark patch of the input texture over it (highlighted in green). On the other hand, the baseline pixel-based method has to map texture pixels that are in the same location and as a result it is struggling to reproduce a light patch (highlighted in blue). Texture source: \citet{Pixar128}}
+    \caption{Results of experiment 3. We use the general rendering function (see Section~\ref{section:methods-rendering_function-general}) and compare our method with the improved texture model (see Section~\ref{section:methods-texture_model-improvements}) against a pixel-based baseline. \(c = 5\). The scene contains a wooden staircase which is being projected onto from the point of view of the camera. The projector has depth of field disabled and the camera image \(r(\bm{p})\) is not cropped before computing the loss and thus all of it is matched against the desired appearance \(\bm{y}\). Note how the performance of our method corresponds to previous experiments. An example is highlighted. The glossy wooden floor in the lower left corner of the scene is difficult to project onto (highlighted in red). Our method deals with it well by reproducing a dark patch of the input texture over it (highlighted in green). On the other hand, the baseline pixel-based method has to map texture pixels that are in the same location and as a result it is struggling to reproduce a light patch (highlighted in blue). Texture source: \citet{Pixar128}}
     \label{fig:ex03-staircase_illum}
 \end{figure}
 
@@ -749,63 +839,91 @@ Generated compensated projection images \(\bm{p}\) were \(160 \times 160\) large
         \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/dof/scene_highlighted.jpg}
-            \caption*{Scene without DoF}
-            %\label{fig:ex03-dof-normal_scene}
+            \caption{Scene \(s_n\) without DoF}
+            \label{fig:ex03-dof-normal_scene}
         \end{subfigure}
         \hspace*{0.5mm}
         \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment03/dof/scene_dof_highlighted.jpg}
-            \caption*{Scene with DoF}
-            %\label{fig:ex03-dof-defocused_scene}
+            \caption{Scene \(s_d\) with DoF}
+            \label{fig:ex03-dof-defocused_scene}
         \end{subfigure}
 
         \begin{subfigure}{0.32\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal.jpg}
-            \caption*{\(\bm{p_n}\)}
-            %\label{fig:ex03-dof-normal_im}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/dof/normal.jpg}};
+                \fill[black] (-2.0, -2.0) rectangle ++(2.0, 0.6);
+                \node [anchor=center] at (-1.0, -1.7) {{\color{white} Baseline}};
+            \end{tikzpicture}
+            \caption{Compensated projection image \(\bm{p_n}\) without defocus}
+            \label{fig:ex03-dof-normal_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.32\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal_on_normal.jpg}
-            \caption*{\(r_n(\bm{p_n})\)}
-            %\label{fig:ex03-dof-normal_normal_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/dof/normal_on_normal.jpg}};
+                \fill[black] (-2.0, -2.0) rectangle ++(2.0, 0.6);
+                \node [anchor=center] at (-1.0, -1.7) {{\color{white} Baseline}};
+            \end{tikzpicture}
+            \caption{Final appearance of \(\bm{p_n}\) in \(s_n\)}
+            \vspace*{5mm}
+            \label{fig:ex03-dof-normal_normal_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.32\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/dof/normal_on_dof.jpg}
-            \caption*{\(r_d(\bm{p_n})\)}
-            %\label{fig:ex03-dof-normal_dof_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/dof/normal_on_dof.jpg}};
+                \fill[black] (-2.0, -2.0) rectangle ++(2.0, 0.6);
+                \node [anchor=center] at (-1.0, -1.7) {{\color{white} Baseline}};
+            \end{tikzpicture}
+            \caption{Final appearance of \(\bm{p_n}\) in \(s_d\)}
+            \vspace*{5mm}
+            \label{fig:ex03-dof-normal_dof_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.32\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused.jpg}
-            \caption*{\(\bm{p_d}\)}
-            %\label{fig:ex03-dof-defocused_im}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused.jpg}};
+                \fill[black] (-2.0, -2.0) rectangle ++(2.0, 0.6);
+                \node [anchor=center] at (-1.0, -1.7) {{\color{white} Baseline}};
+            \end{tikzpicture}
+            \caption{Compensated projection image \(\bm{p_d}\) with defocus}
+            \label{fig:ex03-dof-defocused_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.32\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused_on_normal.jpg}
-            \caption*{\(r_n(\bm{p_d})\)}
-            %\label{fig:ex03-dof-defocused_normal_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused_on_normal.jpg}};
+                \fill[black] (-2.0, -2.0) rectangle ++(2.0, 0.6);
+                \node [anchor=center] at (-1.0, -1.7) {{\color{white} Baseline}};
+            \end{tikzpicture}
+            \caption{Final appearance of \(\bm{p_d}\) in \(s_n\)}
+            \vspace*{5mm}
+            \label{fig:ex03-dof-defocused_normal_proj}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.32\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused_on_dof.jpg}
-            \caption*{\(r_d(\bm{p_d})\)}
-            %\label{fig:ex03-dof-defocused_defocused_proj}
+            \begin{tikzpicture}
+                \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/04-experiment03/dof/defocused_on_dof.jpg}};
+                \fill[black] (-2.0, -2.0) rectangle ++(2.0, 0.6);
+                \node [anchor=center] at (-1.0, -1.7) {{\color{white} Baseline}};
+            \end{tikzpicture}
+            \caption{Final appearance of \(\bm{p_d}\) in \(s_d\)}
+            \vspace*{5mm}
+            \label{fig:ex03-dof-defocused_defocused_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{A study of how our pipeline handles defocus in a scene where the projector has depth of field enabled. \(\bm{p_n}\) and \(\bm{p_d}\) are optimized using the baseline pixel-based method to for the same scene and projector without depth of field (DoF) and with DoF, respectively. They are then projected using the projector they were intended for (\(r_n(\bm{p_n})\), \(r_d(\bm{p_d})\)) as well as the other one (\(r_n(\bm{p_d})\), \(r_d(\bm{p_n})\)). The visual differences between \(r_n(\bm{p_n})\) and \(r_n(\bm{p_d})\) and between \(r_d(\bm{p_d})\) and \(r_d(\bm{p_n})\) show how effective the light transport model in our pipeline is at compensating blur. Texture source: \citet{Pixar128}}
+    \caption{A study of how our pipeline handles defocus in a scene where the projector has depth of field enabled. Compensated projection images \(\bm{p_n}\) and \(\bm{p_d}\) are optimized using the baseline pixel-based method for a projector without depth of field (DoF) and with DoF, respectively. They are then projected using the projector they were intended for, as well as the other one. The visual differences between \ref{fig:ex03-dof-normal_normal_proj} and \ref{fig:ex03-dof-defocused_normal_proj} and between \ref{fig:ex03-dof-normal_dof_proj} and \ref{fig:ex03-dof-defocused_defocused_proj} show how effective the light transport model in our pipeline is at compensating blur. Texture source: \citet{Pixar128}}
     \label{fig:ex03-dof}
 \end{figure}
 
 Figure~\ref{fig:ex03-ball_dof} shows that our pipeline is able to handle complex light transport well. We analyzed the amount of defocus which is performed in more detail by running an alternative version of this experiment with a projector with disabled depth of field effect (see fig.~\ref{fig:ex03-complete-ball} for complete results). We have then projected the compensated images from both experiments using both projectors. The resulted in four camera images which demonstrate how our pipeline performs defocus (see fig.~\ref{fig:ex03-dof}).
 
-In the staircase scene (fig.~\ref{fig:ex03-staircase_illum}), we see similar trends as in the previous experiments. Compared to the pixel-based baseline, our method performs worse in recovering large features, but it is better at recovering micro-texture. For example, in the lower left corner of the scene, there is a glossy floor which is difficult to project onto and at the same time the input texture~\ref{fig:ex03-staircase_illum-beams-target} is very bright. Whereas the pixel-based baseline struggles to achieve the desired appearance and oversaturates corresponding projector pixels (see image~\ref{fig:ex03-staircase_illum-wood-pixel_im}), our method moves the darker part of the texture into this area which provides a more satisfying result (see image~\ref{fig:ex03-staircase_illum-beams-stats_proj}).
+In the staircase scene (fig.~\ref{fig:ex03-staircase_illum}), we see similar trends as in the previous experiments. Compared to the pixel-based baseline, our method performs worse in recovering large features, but it is better at recovering micro-texture. For example, in the lower left corner of the scene, there is a glossy floor which is difficult to project onto and at the same time the input texture~\ref{fig:ex03-staircase_illum-beams-target} is very bright. Whereas the pixel-based baseline struggles to achieve the desired appearance and oversaturates corresponding projector pixels (see image~\ref{fig:ex03-staircase_illum-beams-pixel_im}), our method moves the darker part of the texture into this area which provides a more satisfying result (see image~\ref{fig:ex03-staircase_illum-beams-stats_proj}).
