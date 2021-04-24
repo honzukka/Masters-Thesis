@@ -126,15 +126,11 @@ Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
-            \caption{Desired appearance \(\bm{y}\)}
-            \label{fig:ex01-pebbles-5steps-some_target}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/some_bg.jpg}
-            \caption{Background}
-            \label{fig:ex01-pebbles-5steps-some_bg}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -144,8 +140,6 @@ Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large
                 \fill[black] (-1.55, 1.0) rectangle ++(2.6, 0.6);
                 \node [anchor=center] at (-0.25, 1.3) {{\color{white} Ours (Gatys)}};
             \end{tikzpicture}
-            \caption{Projection image \(\bm{p}\)}
-            \label{fig:ex01-pebbles-5steps-some_im}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -155,22 +149,19 @@ Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large
                 \fill[black] (-1.55, 1.0) rectangle ++(2.6, 0.6);
                 \node [anchor=center] at (-0.25, 1.3) {{\color{white} Ours (Gatys)}};
             \end{tikzpicture}
-            \caption{Appearance \(r(\bm{p})\)}
-            \label{fig:ex01-pebbles-5steps-some_proj}
         \end{subfigure}
         
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/target.jpg}
-            \caption{Desired appearance \(\bm{y}\)}
-            \label{fig:ex01-pebbles-5steps-threshold_target}
+            \caption*{Desired appearance \(\bm{y}\)}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/04-experiment01/pebbles/threshold_bg.jpg}
-            \caption{Background}
-            \label{fig:ex01-pebbles-5steps-threshold_bg}
+            \caption*{Background}
+            \vspace*{5mm}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -180,8 +171,8 @@ Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large
                 \fill[black] (-1.55, 1.0) rectangle ++(2.6, 0.6);
                 \node [anchor=center] at (-0.25, 1.3) {{\color{white} Ours (Gatys)}};
             \end{tikzpicture}
-            \caption{Projection image\(\bm{p}\)}
-            \label{fig:ex01-pebbles-5steps-threshold_im}
+            \caption*{Projection image \(\bm{p}\)}
+            \vspace*{5mm}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.24\textwidth}
@@ -191,8 +182,8 @@ Generated compensated projection images \(\bm{p}\) were \(256 \times 256\) large
                 \fill[black] (-1.55, 1.0) rectangle ++(2.6, 0.6);
                 \node [anchor=center] at (-0.25, 1.3) {{\color{white} Ours (Gatys)}};
             \end{tikzpicture}
-            \caption{Appearance\(r(\bm{p})\)}
-            \label{fig:ex01-pebbles-5steps-threshold_proj}
+            \caption*{Appearance \(r(\bm{p})\)}
+            \vspace*{5mm}
         \end{subfigure}
     \end{subfigure}
     \caption{A snapshot of experiment 1 after the first five optimization steps which illustrates how the algorithm is initialized and how it converges. Texture source: \citet{Gatys2015}}
