@@ -61,7 +61,7 @@ The rendering function in our pipeline has the following form:
     r(\bm{p}, \phi) = \bm{y}  
 \end{equation}
 
-where \(\bm{p}\) is the projector image, \(\phi\) are scene parameters, such as geometry, materials, projector and camera position and orientation and so on. \(\bm{y}\) is the camera image whose statistics are matched against those of the input texture image (i.e. desired appearance). \(r\) needs to be differentiable because the statistics matching is done via gradient-based optimization.
+where \(\bm{p}\) is the projector image, \(\phi\) are scene parameters, such as geometry, materials, projector and camera position and orientation and so on. \(\bm{y}\) is the camera image whose statistics are matched against those of the input texture image (i.e.~desired appearance). \(r\) needs to be differentiable because the statistics matching is done via gradient-based optimization.
 
 \(r\) represents the act of projecting an image onto a scene and then capturing that projection. This is a fairly complex task, especially if the scene has arbitrary geometry, materials and external illumination. Luckily, in certain special scenarios, \(r\) can be very simple to formulate and fast to compute. We take advantage of this and use two different versions of \(r\) in our pipeline, a simple one to verify basic functionality and obtain reference results, and a general one to support arbitrary scenes.
 
@@ -271,7 +271,7 @@ These shortcomings are well known and have been studied by several authors who h
 
 As discussed in Section~\ref{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}, the original Gatys algorithm synthesizes a texture \(\bm{y_2}\) from an example \(\bm{y_1}\) by minimizing the difference between their statistics \(f(\bm{y_2})\) and \(f(\bm{y_1})\) which fully describe a texture under the Gatys texture model. The specific form of \(f\) determines the performance of the synthesis algorithm.
 
-We have implemented three different improvements to the original Gatys statistics. In general, all of them tend to reduce the ambiguity of the texture description (i.e. reduce the size of texture classes as defined by their texture model) and thus better enforce texture structure while maintaining high variance of reasonable outputs. We now briefly describe each of the three improvements.
+We have implemented three different improvements to the original Gatys statistics. In general, all of them tend to reduce the ambiguity of the texture description (i.e.~reduce the size of texture classes as defined by their texture model) and thus better enforce texture structure while maintaining high variance of reasonable outputs. We now briefly describe each of the three improvements.
 
 \subsubsection{Activation Shift}
 \label{section:methods-texture_model-improvements-activation_shift}
@@ -461,7 +461,7 @@ where \(\bm{y_i}\) is image \(\bm{y_{i - 1}}\) downsampled by half using proper 
 
 In eq.~\ref{eq:projection_mapping-limitations}, we have formally expressed that projections cannot be arbitrarily bright nor arbitrarily dark because there are limits set by both the projector gamut and the scene. However, our pipeline as we have described it thus far does not take this into account because we have no restrictions on what the values of \(\bm{p}\) can be. Let us now briefly discuss how we treat this issue in our pipeline.
 
-The first observation we make is that in our model, the bounds of \(\bm{p}\) can be the same for all projectors and scenes because of the way we use the constant \(c\) in eqs.~\ref{eq:rendering_function-simple} and \ref{eq:rendering_function-lt_matrix} and because we mainly focus on the upper gamut limit, i.e. maximum projector brightness. If \(\bm{p}\) has fixed bounds, we can modify \(c\) to adjust the overall brightness of the projection. The bounds can be thus set arbitrarily and we set them as follows:
+The first observation we make is that in our model, the bounds of \(\bm{p}\) can be the same for all projectors and scenes because of the way we use the constant \(c\) in eqs.~\ref{eq:rendering_function-simple} and \ref{eq:rendering_function-lt_matrix} and because we mainly focus on the upper gamut limit, i.e.~maximum projector brightness. If \(\bm{p}\) has fixed bounds, we can modify \(c\) to adjust the overall brightness of the projection. The bounds can be thus set arbitrarily and we set them as follows:
 
 \begin{equation}
     \label{eq:optimization_restrictions}

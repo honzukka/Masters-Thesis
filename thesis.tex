@@ -92,7 +92,7 @@
 % going to use.
 % Examples of valid language codes: english (or USenglish), british, 
 % finnish, swedish; and so on.
-\usepackage[finnish,swedish,english]{babel}
+\usepackage[english]{babel}
 
 
 % Font selection
@@ -283,7 +283,7 @@
 \newcommand{\SUBTITLE}{}
 %\newcommand{\FSUBTITLE}{Uusi organisaatio, uudet pyörät}
 %\newcommand{\SSUBTITLE}{Lilla Vargens universum}
-\newcommand{\DATE}{March 3, 2021}
+\newcommand{\DATE}{April 25, 2021}
 %\newcommand{\FDATE}{14. helmikuuta 2018}
 %\newcommand{\SDATE}{Den 18 februari 2018}
 
@@ -432,11 +432,11 @@ convolutional neural networks,  optimization, light transport}
 % Abstract in English
 % ------------------------------------------------------------------
 \thesisabstract{english}{
-Projection mapping is a widespread reality augmentation technique used by artists all over the world. It can be done automatically using a projector and a camera which captures the appearance of a projection in a scene. The actual appearance is then matched with a desired apparance pixel by pixel. However, this approach is limited by projector brightness when some pixels cannot be made as bright (or dark) as would be required to match those appearances.
+Projection mapping is a widespread reality augmentation technique used by artists all over the world. It can be done automatically using a projector and a camera which captures the appearance of a projection in a scene. This appearance is then matched with a desired apparance pixel by pixel. However, this approach is limited by projector brightness when some pixels cannot be made as bright (or dark) as would be required to match the two appearances.
 
-In this thesis, we propose a method which focuses on projecting textures to overcome this problem to a certain extent. Simply put, textures are images with repetitive structure such as pebble beach, tree bark or brick wall. Modern techniques for texture synthesis based on neural networks can be used to generate new examples of an input texture that look the same but their pixel values may be radically different. We use such a technique to require that the actual appearance of a projection is merely a realization of the same texture as the desired appearance instead of a per-pixel match. As a result, our method is more flexible and thus able to reproduce a larger variety of appearances for a given scene.
+In this thesis, we propose a method which focuses on projecting textures and overcomes this problem to a certain extent. Simply put, textures are images with repetitive structure such as pebble beach, tree bark or brick wall. Nowadays, it is possible to automatically generate new examples of a given texture which look the same but their pixel values may be radically different. This problem is called texture synthesis. Instead of per-pixel matching, we thus use an existing synthesis technique based on a neural network to ensure that the actual appearance of a projection is a realization of the same texture as the desired appearance. As a result, our method is more flexible and thus able to reproduce a larger variety of appearances for a given scene.
 
-We guide the reader through three experiments in which we evaluate our method in a software simulator, both on simple flat surfaces and arbitrary 3D scenes. We highlight cases where our method outperforms conventional projection mapping techniques, discuss its limitations and outline steps which are needed to achieve real world deployment.
+We guide the reader through three experiments in which we evaluate our method in a software simulation, both on simple flat surfaces and arbitrary 3D scenes. We highlight cases where our method outperforms conventional projection mapping techniques, discuss its limitations and outline steps which are needed to achieve real world deployment.
 }
 
 % Abstract in Finnish
@@ -526,6 +526,12 @@ Special thanks belong to Ida, Lenka and Petr for their love and support.
 % The contents of the thesis are separated to their own files.
 % Edit the content in these files, rename them as necessary.
 % ------------------------------------------------------------------
+
+% if boxes are overfull, they are given another chance with this
+% amount of stretch on top of badness
+% (doesn't influence good paragraphs and gives a warning anyway!)
+\setlength{\emergencystretch}{3em}
+
 \input{1introduction.tex}
 
 \input{2background.tex}
