@@ -44,7 +44,7 @@ One of the first uses of projection mapping (also sometimes called \textit{video
             \caption*{Projection image \(\bm{p}\)}
         \end{subfigure}
     \end{subfigure}
-    \caption{The character of Madame Leota in Disneyland's Haunted Mansion ride is one of the earliest examples of projection mapping. A video of her face is projected onto a neutrally colored static form inside a glass ball to give an illusion that the form speaks (\citet{MadameLeota}). Included is our simplified decomposition of the final appearance \(r(\bm{p})\) into background and projection image \(\bm{p}\).}
+    \caption{The character of Madame Leota in Disneyland's Haunted Mansion ride is one of the earliest examples of projection mapping. A video of her face is projected onto a neutrally coloured static form inside a glass ball to give an illusion that the form speaks (\citet{MadameLeota}). Included is our simplified decomposition of the final appearance \(r(\bm{p})\) into background and projection image \(\bm{p}\).}
     \label{fig:intro_example_leota}
 \end{figure}
 
@@ -210,7 +210,7 @@ See fig.~\ref{fig:intro_pixels_vs_stats} for examples.
             \label{fig:intro_pixels_vs_stats-stats_proj}
         \end{subfigure}
     \end{subfigure}
-    \caption{This illustration shows two examples of projection mapping. In the top row, image \(\bm{y_1}\) cannot be mapped onto the given scene because of the dark areas that reflect little light. Even when projector brightness is set to maximum in those areas (white pixels in image \(\bm{p_1}\)) according to eq.~\ref{eq:projection_mapping-per_pixel}, the final appearance \(r(\bm{p_1})\) does not match the desired appearance \(\bm{y_1}\). In other terms, \(\bm{y_1}\) fulfills eq.~\ref{eq:projection_mapping-hard_image}. On the other hand, image \(\bm{y_2}\) can be mapped without issues because its bright areas are well aligned with highly reflective parts of the scene and vice versa. Texture source: \citet{Gatys2015}, modified}
+    \caption{This illustration shows two examples of projection mapping. In the top row, image \(\bm{y_1}\) cannot be mapped onto the given scene because of the dark areas that reflect little light. Even when projector brightness is set to maximum in those areas (white pixels in image \(\bm{p_1}\)) according to eq.~\ref{eq:projection_mapping-per_pixel}, the final appearance \(r(\bm{p_1})\) does not match the desired appearance \(\bm{y_1}\). In other terms, \(\bm{y_1}\) fulfils eq.~\ref{eq:projection_mapping-hard_image}. On the other hand, image \(\bm{y_2}\) can be mapped without issues because its bright areas are well aligned with highly reflective parts of the scene and vice versa. Texture source: \citet{Gatys2015}, modified}
     \label{fig:intro_pixels_vs_stats}
 \end{figure}
 
@@ -224,7 +224,7 @@ In this section we outline the main idea of overcoming hardware limitations of p
 Textures (e.g.~a pebble beach) have the interesting property that when their features (e.g.~individual pebbles) are shuffled, the texture still looks the same. We say that a texture has multiple \textit{realizations}. Figure~\ref{fig:intro_pixels_vs_stats} shows an example of two different realizations (\(\bm{y_1}\) and \(\bm{y_2}\)) of the same texture. Moreover, in that particular example, one can be mapped onto a given scene, while the other cannot. This is the key idea of our thesis and here is how we apply it:
 
 \begin{itemize}
-    \item We assume a texture \(\bm{y}\) whose given realization is difficult to map onto a given scene because of projector limitations (\(\bm{y}\) fulfills eq.~\ref{eq:projection_mapping-hard_image}) %(\(\nexists \bm{p}:\; r(\bm{p}) = \bm{y}\))
+    \item We assume a texture \(\bm{y}\) whose given realization is difficult to map onto a given scene because of projector limitations (\(\bm{y}\) fulfils eq.~\ref{eq:projection_mapping-hard_image})
     \item Out of all possible realizations \(\bm{y_i}\) of that texture we find \(\bm{y^\prime}\) that is the easiest to map (\(||r(\bm{p^\prime}) - \bm{y^\prime}|| \leq ||r(\bm{p}) - \bm{y_i}||\) for all \(\bm{p}\), \(\bm{p^\prime}\) and \(i\))
     \item We find the appropriate compensated projection image \(\bm{p^\prime}\) that minimizes \(||r(\bm{p^\prime}) - \bm{y^\prime}||\)
 \end{itemize}
@@ -341,11 +341,11 @@ This thesis focuses on a problem of projection mapping exemplified in the upper 
             \end{subfigure}
         \end{subfigure}
     \end{subfigure}
-    \caption{Result from one of our experiments. Highlighted in pink is an area where our scene reflects little light. Highlighted in white is a saturated area which mostly reflects orange hues. Image~\ref{fig:intro_results_teaser_pixels_proj} shows that this presents a challenge for the baseline method which performs conventional per-pixel projection mapping. Colors of the corresponding areas in the desired appearance \(\bm{y}\) mostly get absorbed and colors from the scene are visible even after compensation. On the other hand, image~\ref{fig:intro_results_teaser_stats_proj} shows that our method deals with this situation better by rearranging the desired appearance \(\bm{y}\) and thus achieving better overall compensation. Texture source: \citet{Pixar128}, modified}
+    \caption{Result from one of our experiments. Highlighted in pink is an area where our scene reflects little light. Highlighted in white is a saturated area which mostly reflects orange hues. Image~\ref{fig:intro_results_teaser_pixels_proj} shows that this presents a challenge for the baseline method which performs conventional per-pixel projection mapping. Colours of the corresponding areas in the desired appearance \(\bm{y}\) mostly get absorbed and colours from the scene are visible even after compensation. On the other hand, image~\ref{fig:intro_results_teaser_stats_proj} shows that our method deals with this situation better by rearranging the desired appearance \(\bm{y}\) and thus achieving better overall compensation. Texture source: \citet{Pixar128}, modified}
     \label{fig:intro_result_teaser}
 \end{figure}
 
 \section{Thesis Structure}
 \label{section:intro-thesis_structure}
 
-This thesis is organized as follows. In chapter~\ref{chapter:background}, we provide an overview of the state of the art in projection mapping and texture synthesis and explain in detail the methods which we build on. In chapter~\ref{chapter:methods}, we describe our method and its implementation. In chapter~\ref{chapter:results}, we present the experiments and analyze their results. Lastly, in chapter~\ref{chapter:conclusions} we conclude the thesis and discuss future work, particularly with respect to application in real-world projector-camera systems.
+This thesis is organized as follows. In chapter~\ref{chapter:background}, we provide an overview of the state of the art in projection mapping and texture synthesis and explain in detail the methods which we build on. In chapter~\ref{chapter:methods}, we describe our method and its implementation. In chapter~\ref{chapter:results}, we present the experiments and analyse their results. Lastly, in chapter~\ref{chapter:conclusions} we conclude the thesis and discuss future work, particularly with respect to application in real-world projector-camera systems.

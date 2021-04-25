@@ -29,16 +29,16 @@ Projectors are devices that transfer images onto surfaces such as screens, walls
     \label{fig:background_projector}
 \end{figure}
 
-As briefly mentioned in Section~\ref{section:intro-problem_setting}, no projector is capable of reproducing arbitrary appearance. Each projector can only reproduce a subset of all possible colors, called \textit{gamut}. Limited projector gamuts have a large impact on how projection mapping is done. To get a better intuition of this impact, we will now explain how a particular type of projector works. We will focus on the so-called Digital Light Processing (DLP) projector which is widely used in cinemas as well as home setups.
+As briefly mentioned in Section~\ref{section:intro-problem_setting}, no projector is capable of reproducing arbitrary appearance. Each projector can only reproduce a subset of all possible colours, called \textit{gamut}. Limited projector gamuts have a large impact on how projection mapping is done. To get a better intuition of this impact, we will now explain how a particular type of projector works. We will focus on the so-called Digital Light Processing (DLP) projector which is widely used in cinemas as well as home setups.
 
 \subsubsection{DLP Projectors}
 \label{section:background-projection_mapping-projectors-DLP}
 
 Film projectors shine a bright light through film to project its contents onto a screen. But what happens when our movie is digital? What does a DLP projector shine its light through? And what impact does it have on its gamut?
 
-DLP projectors project images by filtering the bright white light of their lamp. First, the light goes through a rapidly spinning color wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the lamp passes through a single color filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image.
+DLP projectors project images by filtering the bright white light of their lamp. First, the light goes through a rapidly spinning colour wheel which is split into a number of sectors: red, green, blue and sometimes also transparent. At any point, all light from the lamp passes through a single colour filter, sending a single-channel image towards the lens. By sending out many single-channel images in rapid succession, however, the projector creates the illusion of sending a three-channel image.
 
-Per-pixel intesities of this single-channel image which form its content are controlled by the Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can reflect light from the color wheel either directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Grayscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity is exactly between full and zero.
+Per-pixel intensities of this single-channel image which form its content are controlled by the Digital Micromirror Device (DMD). This device is divided into many tiny mirrors which roughly correspond to individual pixels of the projected image. Each of these mirrors can reflect light from the colour wheel either directly into the lens, or into a heat sink which absorbs it and does not let it through. This allows the projector to turn pixels off and on. Greyscales (pixel intensities between full and zero) are produced by rapidly toggling the mirror between the lens and the heat sink. If, for example, a pixel is on 50\% of the time and off 50\% of the time, the resulting intensity is exactly between full and zero.
 
 \begin{figure}[ht]
     \centering
@@ -53,7 +53,7 @@ Per-pixel intesities of this single-channel image which form its content are con
         \includegraphics[width=\textwidth]{images/02-projector_rainbow.JPG}
         \caption{Source: \citet{ImageProjectorDLPRainbow}}
     \end{subfigure}
-    \caption{Image (a) shows how a DLP projector works. First, bright white light passes through the color wheel. Then it is reflected off the the DMD (red arrows) into either the lens (yellow arrow), or the heat sink (blue arrows). Image (b) shows how a DLP projector with a single DMD chip sends out single channel images in rapid succession. This can result in artifacts which can be fixed by using a separate DMD chip for each primary color}
+    \caption{Image (a) shows how a DLP projector works. First, bright white light passes through the colour wheel. Then it is reflected off the the DMD (red arrows) into either the lens (yellow arrow), or the heat sink (blue arrows). Image (b) shows how a DLP projector with a single DMD chip sends out single channel images in rapid succession. This can result in artefacts which can be fixed by using a separate DMD chip for each primary colour}
     \label{fig:background_projector_dlp}
 \end{figure}
 
@@ -64,9 +64,9 @@ Based on the way DLPs work, it is easy to see that the process of projecting an 
 
 Maximum brightness is simply limited by the brightness of the lamp. The brighter the lamp, the more energy it consumes and the less efficient it becomes when dark images are being projected.
 
-Minimum brightness is related to the ability of the projector to absorb light which is not reflected directly towards the lens. The more light is absorbed inside the projector, the more the projector heats up. This is why DLP projectors with deep blacks need to be large enough to cool themselves down efficiently. If a DLP projector is not able to absorb all the light, some of it is let through towards the screen and results in dim gray instead of the intended black.
+Minimum brightness is related to the ability of the projector to absorb light which is not reflected directly towards the lens. The more light is absorbed inside the projector, the more the projector heats up. This is why DLP projectors with deep blacks need to be large enough to cool themselves down efficiently. If a DLP projector is not able to absorb all the light, some of it is let through towards the screen and results in dim grey instead of the intended black.
 
-Different projector technologies have different limitations. For example, laser projectors are generally more efficient and brighter because they produce exactly the light color which is needed, as opposed to filtering out white light. But even laser projectors cannot be infinitely bright nor can they subtract light from externally illuminated scenes.
+Different projector technologies have different limitations. For example, laser projectors are generally more efficient and brighter because they produce exactly the light colour which is needed, as opposed to filtering out white light. But even laser projectors cannot be infinitely bright nor can they subtract light from externally illuminated scenes.
 
 \subsubsection{Depth of Field}
 \label{section:background-projection_mapping-projectors-dof}
@@ -75,7 +75,7 @@ Different projector technologies have different limitations. For example, laser 
     \centering
     \def\svgwidth{0.8\textwidth}
     \input{images/figures/02-thin_lens.pdf_tex}
-    \caption{Projector depth of field illustrated using the thin lens model. The red and blue point can be thought of as tiny light sources that shine light of a particular color into a hemisphere of directions. The portion of this light that exits the projector through the aperture and lens is highlighted. The lens focuses all this light onto the focus plane. The blue point is projected onto a point that coincides with this plane and is thus sharp. The red point is projected slightly further which causes it to blur over a larger area. The amount of this blur depends on the size of the aperture diameter. The smaller it is, the sharper all points that are projected outside the focus plane are.}
+    \caption{Projector depth of field illustrated using the thin lens model. The red and blue point can be thought of as tiny light sources that shine light of a particular colour into a hemisphere of directions. The portion of this light that exits the projector through the aperture and lens is highlighted. The lens focuses all this light onto the focus plane. The blue point is projected onto a point that coincides with this plane and is thus sharp. The red point is projected slightly further which causes it to blur over a larger area. The amount of this blur depends on the size of the aperture diameter. The smaller it is, the sharper all points that are projected outside the focus plane are.}
     \label{fig:background_thin_lens}
 \end{figure}
 
@@ -83,7 +83,7 @@ Another limitation of projectors is their depth of field. In order to be suffici
 
 Figure~\ref{fig:background_thin_lens} illustrates this phenomenon on a \textit{thin lens model} of projector optics. This model assumes that light rays parallel with the optical axis bend towards the focus point and light rays that pass through the center of the lens continue in a straight line. It is powerful enough to capture most of the behaviour of a lens while being simple to reason about.
 
-Even if our projection is in perfect focus and all its colors lie within the gamut of our projector, the scene that we are projecting onto might prevent us from reproducing that color faithfully. The study of how light interacts with matter to influence what we see around us is called \textit{light transport theory}. We provide a brief introduction to it in order to understand what our projections look like and which colors are and are not reproducible with a particular scene and projector. But because this theory is rather complex, we begin by building intuition on what to roughly expect when we install a projector and press Play.
+Even if our projection is in perfect focus and all its colours lie within the gamut of our projector, the scene that we are projecting onto might prevent us from reproducing that colour faithfully. The study of how light interacts with matter to influence what we see around us is called \textit{light transport theory}. We provide a brief introduction to it in order to understand what our projections look like and which colours are and are not reproducible with a particular scene and projector. But because this theory is rather complex, we begin by building intuition on what to roughly expect when we install a projector and press Play.
 
 \subsection{Intuition on Projection Appearance}
 \label{section:background-projection_mapping-projection_intuition}
@@ -157,9 +157,9 @@ Projectors are, above all, light sources. As a matter of fact, each of the milli
             \centering
             \includegraphics[width=\textwidth]{images/02-spd_intuition-palette_blue.jpg}
         \end{subfigure}
-        \caption{Color palette projected onto the same backgrounds as in (a)}
+        \caption{Colour palette projected onto the same backgrounds as in (a)}
     \end{subfigure}
-    \caption{Intuition on projection appearance and SPDs. Note that summing the last three images in each row gives the first one because each background has maximum reflectivity in one color channel and zero reflectivity in others. If a single-chip DLP projector were to project the first image, it would in fact send out the last three in rapid succession.}
+    \caption{Intuition on projection appearance and SPDs. Note that summing the last three images in each row gives the first one because each background has maximum reflectivity in one colour channel and zero reflectivity in others. If a single-chip DLP projector were to project the first image, it would in fact send out the last three in rapid succession.}
     \label{fig:background_spd_intuition}
 \end{figure}
 
@@ -197,7 +197,7 @@ As mentioned in~\ref{section:background-projection_mapping-projection_intuition}
     \label{fig:background_radiance}
 \end{figure}
 
-As suggested in fig.~\ref{fig:background_spd}, to see the full picture, we need to consider radiance at each visible wavelength. A common approach to simplifying this is decompose the space of all visible SPDs into three basis functions which roughly correspond to red, green and blue colors. In that case, we would be interested in radiance in each of these channels. To simplify our explanations even further, we only talk about radiance \(L\). It is, however, important to realize that there is a layer of complexity hidden behing that notation.
+As suggested in fig.~\ref{fig:background_spd}, to see the full picture, we need to consider radiance at each visible wavelength. A common approach to simplifying this is decompose the space of all visible SPDs into three basis functions which roughly correspond to red, green and blue colours. In that case, we would be interested in radiance in each of these channels. To simplify our explanations even further, we only talk about radiance \(L\). It is, however, important to realize that there is a layer of complexity hidden behind that notation.
 
 Another issue with radiance is that it is a purely physical quantity but how we perceive something is to do with psychology. Luckily, for each radiometric measurement, such as radiance, there is a corresponding \(photometric\) measurement which expresses how a stimulus is perceived by the human visual system. The photometric counterpart to radiance is \(luminance\) and can be obtained from radiance by integrating against an empirically constructed spectral response curve which describes how the human eye reacts to various wavelengths. Because luminance can be easily computed from radiance, we only discuss radiance in this thesis.
 
@@ -279,7 +279,7 @@ On a high level, projection mapping methods can be split into two groups:
 
 The first group usually has two smaller tasks to perform. First, they need to establish those correspondencies geometrically in a step called \textit{geometric calibration}. Then, they need to model how the intensity of a projector pixel affects the intensity of the corresponding camera pixel in a step called \textit{radiometric calibration}. Despite the original assumption of 1:1 pixel correspondence, these methods are reasonably general and work quite well. They are also the most common. We will therefore review a few of them and focus on how projector hardware (along with scene complexity) limits their performance.
 
-The second group typically uses \textit{inverse light transport} to model the relationship between projector and camera as generally as possible. These methods are mostly limited by the computational complexity of such a task. Some, for example \citet{Siegl2017}, achieve real time performance at the cost of using an additional depth camera to gain more information about the scene and projecting only on matte objects of constant color. We will focus on an older method by \citet{Wetzstein2007} that works with arbitrarily complex scenes and will thus be useful for us when constructing our reference method.
+The second group typically uses \textit{inverse light transport} to model the relationship between projector and camera as generally as possible. These methods are mostly limited by the computational complexity of such a task. Some, for example \citet{Siegl2017}, achieve real time performance at the cost of using an additional depth camera to gain more information about the scene and projecting only on matte objects of constant colour. We will focus on an older method by \citet{Wetzstein2007} that works with arbitrarily complex scenes and will thus be useful for us when constructing our reference method.
 
 For a complete overview of the state of the art in projection mapping, see \citet{Grundhofer2018}.
 
@@ -333,7 +333,7 @@ We will now outline two recent methods to perform geometric calibration. The fir
 \subsubsection{Radiometric Calibration}
 \label{section:background-projection_mapping-procams-radiometric_calibration}
 
-Once correspondencies between projector and camera pixels have been established, radiometric calibration can be performed. In general, the goal is to find a color-mapping function \(f\) such that
+Once correspondencies between projector and camera pixels have been established, radiometric calibration can be performed. In general, the goal is to find a colour-mapping function \(f\) such that
 
 \begin{equation}
     \label{eq:radiometric_calibration}
@@ -350,12 +350,12 @@ Once correspondencies between projector and camera pixels have been established,
     )
 \end{equation}
 
-where \(C\) is the color of a camera pixel and \(P\) is the color of the corresponding projector pixel. We describe one method that assumes \(f\) to be linear and one method that allows for arbitrary \(f\).
+where \(C\) is the colour of a camera pixel and \(P\) is the colour of the corresponding projector pixel. We describe one method that assumes \(f\) to be linear and one method that allows for arbitrary \(f\).
 
-\textbf{Linear color-mapping function \(f\).} One of the first projection mapping methods was presented by \citet{Grossberg2004}. There, the relationship between \(c_c\) and \(c_p\) is specified as follows:
+\textbf{Linear colour-mapping function \(f\).} One of the first projection mapping methods was presented by \citet{Grossberg2004}. There, the relationship between \(c_c\) and \(c_p\) is specified as follows:
 
 \begin{equation}
-    \label{eq:linear_color_mapping}
+    \label{eq:linear_colour_mapping}
     \begin{bmatrix}
         C_R \\
         C_G \\
@@ -380,32 +380,32 @@ where \(C\) is the color of a camera pixel and \(P\) is the color of the corresp
     )
 \end{equation}
 
-where \(p_p\) is a non-linear projector response function which turns input pixel values into projector brightness, \(p_c\) is a non-linear camera response that converts radiance arriving at the camera sensor to output pixel value, \(F = [F_R, F_G, F_B]^T\) is the environment light term which is independent of the projector, and finally \(V\) is a \(3 \times 3\) color mixing matrix which captures the relationship between projector and camera channels and their interactions with spectral reflectance.
+where \(p_p\) is a non-linear projector response function which turns input pixel values into projector brightness, \(p_c\) is a non-linear camera response that converts radiance arriving at the camera sensor to output pixel value, \(F = [F_R, F_G, F_B]^T\) is the environment light term which is independent of the projector, and finally \(V\) is a \(3 \times 3\) colour mixing matrix which captures the relationship between projector and camera channels and their interactions with spectral reflectance.
 
 Both \(p_p\) and \(p_c\) are independent of the scene and can be estimated separately. \(V\) and \(F\) are per-pixel and scene-dependent and can be estimated by projecting and capturing 6 calibration images.
 
-The disadvantage of this method is that the linear color mixing matrix is not an accurate model for example when using DLP projectors described in Section~\ref{section:background-projection_mapping-projectors-DLP}. DLP projectors sometimes form an image by composing red, green, blue and white channels together. The extra white channel may result in non-linear behavior. Another disadvantage is related to projector brightness limitations. If the color gamut of the projector struggles to reproduce the color required by the compensation model, it results in clipping artifacts and lowered contrast. See fig.~\ref{fig:background_clipping} for an illustration.
+The disadvantage of this method is that the linear colour mixing matrix is not an accurate model for example when using DLP projectors described in Section~\ref{section:background-projection_mapping-projectors-DLP}. DLP projectors sometimes form an image by composing red, green, blue and white channels together. The extra white channel may result in non-linear behaviour. Another disadvantage is related to projector brightness limitations. If the colour gamut of the projector struggles to reproduce the colour required by the compensation model, it results in clipping artefacts and lowered contrast. See fig.~\ref{fig:background_clipping} for an illustration.
 
 \begin{figure}[ht]
     \centering
     \def\svgwidth{0.4\textwidth}
     \input{images/figures/02-clipping.pdf_tex}
-    \caption{Illustration of reduced contrast due to brightness limitations. Projector gamut is delimited by a triangle. If a compensation model requires a color which is outside the triangle, the closest color on the edge of the triangle is projected instead. Colors inside the triangle are projected as required which results in reduced contrast between the two groups. This corresponds to reduced distance between the colors in the above diagram.}
+    \caption{Illustration of reduced contrast due to brightness limitations. Projector gamut is delimited by a triangle. If a compensation model requires a colour which is outside the triangle, the closest colour on the edge of the triangle is projected instead. Colours inside the triangle are projected as required which results in reduced contrast between the two groups. This corresponds to reduced distance between the colours in the above diagram.}
     \label{fig:background_clipping}
 \end{figure}
 
-\textbf{Non-linear color-mapping function \(f\) with a global optimization step.} To solve these problems, \citet{Grundhofer2015} presented an improved method which allows for an arbitrary color-mixing function. This function is estimated by obtaining up to \(6^3\) samples and then applying thin-plate spline interpolation on them. This sampling process takes several minutes but once it is completed, compensation can be performed in real time.
+\textbf{Non-linear colour-mapping function \(f\) with a global optimization step.} To solve these problems, \citet{Grundhofer2015} presented an improved method which allows for an arbitrary colour-mixing function. This function is estimated by obtaining up to \(6^3\) samples and then applying thin-plate spline interpolation on them. This sampling process takes several minutes but once it is completed, compensation can be performed in real time.
 
-Moreover, the paper acknowledges that the contrast issues stem from the way the camera image is matched with the desired appearance pixel by pixel (see eq.~\ref{eq:projection_mapping-per_pixel}). To fix this, it uses a global optimization step which compensates the image based on its high-level content. In this step, a patch size is chosen (typically \(2^n\) pixels) and a color-correcting coefficient is introduced for each patch. The coefficients are set so as to minimize clipping errors caused by limited color gamut of the projector and overall increase image contrast.
+Moreover, the paper acknowledges that the contrast issues stem from the way the camera image is matched with the desired appearance pixel by pixel (see eq.~\ref{eq:projection_mapping-per_pixel}). To fix this, it uses a global optimization step which compensates the image based on its high-level content. In this step, a patch size is chosen (typically \(2^n\) pixels) and a colour-correcting coefficient is introduced for each patch. The coefficients are set so as to minimize clipping errors caused by limited colour gamut of the projector and overall increase image contrast.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/02-grundhofer_result.jpg}
-    \caption{Results of a projection mapping method by \citet{Grundhofer2015}. (a) original input image. (e) non-uniformly colored projection surface (illuminated  uniformly white). (b) captured projection of (a) on (e). (c) captured  projected  compensation  image shows local clipping errors. (d) reduced clipping errors after applying a global optimization step. (f-h) geometrically warped projection images generating camera images (b-d). Source: \citet{Grundhofer2015}}
+    \caption{Results of a projection mapping method by \citet{Grundhofer2015}. (a) original input image. (e) non-uniformly coloured projection surface (illuminated  uniformly white). (b) captured projection of (a) on (e). (c) captured  projected  compensation  image shows local clipping errors. (d) reduced clipping errors after applying a global optimization step. (f-h) geometrically warped projection images generating camera images (b-d). Source: \citet{Grundhofer2015}}
     \label{fig:background_grundhofer_result}
 \end{figure}
 
-As a result, this method achieves very good results in scenes which have minimal interreflection that cannot be modeled when 1:1 correspondence between projector and camera pixels is assumed (see fig.~\ref{fig:background_grundhofer_result}). The idea of the global optimization step is important because it goes in the same direction as our method -- compensating the projection image not pixel by pixel, but based on higher-level content instead.
+As a result, this method achieves very good results in scenes which have minimal interreflection that cannot be modelled when 1:1 correspondence between projector and camera pixels is assumed (see fig.~\ref{fig:background_grundhofer_result}). The idea of the global optimization step is important because it goes in the same direction as our method -- compensating the projection image not pixel by pixel, but based on higher-level content instead.
 
 \subsubsection{Inverse Light Transport}
 \label{section:background-projection_mapping-procams-inverse_lt}
@@ -445,7 +445,7 @@ Another approach to projection mapping that does not rely on the assumption of 1
         \includegraphics[width=\textwidth]{images/02-linear_lt_comb2.jpg}
         \caption*{\(a = 0.5\), \(b = 2.0\)}
     \end{subfigure}
-    \caption{Demonstration of the linearity of light transport. The scene displayed here has two light sources: \(a\) and \(b\). This means that its light transport can be captured using two basis images: \(x_1\) and \(x_2\). Each of the above images can be expressed as a linear combination of the basis images: \(a \cdot x_1 + b \cdot x_2\). Scene by \citet*{Bitterli16}, rendered in Mitsuba (\citet*{Mitsuba})}
+    \caption{Demonstration of the linearity of light transport. The scene displayed here has two light sources: \(a\) and \(b\). This means that its light transport can be captured using two basis images: \(x_1\) and \(x_2\). Each of the above images can be expressed as a linear combination of the basis images: \(a \cdot x_1 + b \cdot x_2\). Scene by \citet{Bitterli16}, rendered in Mitsuba (\citet{Mitsuba})}
     \label{fig:background_linear_lt}
 \end{figure}
 
@@ -483,7 +483,7 @@ where \(m\) is the number of light sources in a scene, \(n\) is the number of pi
     \label{fig:background_lt_capture}
 \end{figure}
 
-In projection mapping, this matrix is usually extremely large because \(n\) corresponds to camera resolution and \(m\) corresponds to projector resolution. Also, in color images, each \(c_{ij}\) is a 3-dimensional vector. The two main challenges are therefore:
+In projection mapping, this matrix is usually extremely large because \(n\) corresponds to camera resolution and \(m\) corresponds to projector resolution. Also, in colour images, each \(c_{ij}\) is a 3-dimensional vector. The two main challenges are therefore:
 
 \begin{itemize}
     \item Capturing the matrix
@@ -499,7 +499,7 @@ For example, \citet{Wetzstein2007} use the inverse light transport approach to i
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/02-wetzstein_result_crop.jpg}
-    \caption{Results of a projection mapping method by \citet{Wetzstein2007}. Leftmost image shows a wine glass in front of a colored wallpaper that is being projected onto. Middle image shows the projection compensated with a conventional method. Rightmost image shows the projection compensated with inverse light transport. Source: \citet{Wetzstein2007}}
+    \caption{Results of a projection mapping method by \citet{Wetzstein2007}. Leftmost image shows a wine glass in front of a coloured wallpaper that is being projected onto. Middle image shows the projection compensated with a conventional method. Rightmost image shows the projection compensated with inverse light transport. Source: \citet{Wetzstein2007}}
     \label{fig:background_wetzstein_result}
 \end{figure}
 
@@ -532,11 +532,11 @@ But what exactly is a texture and what kind of image modifications can be done w
 \subsection{Textures}
 \label{section:background-texture_synthesis-textures}
 
-Figures~\ref{fig:intro_pixels_vs_stats} and~\ref{fig:background_similar_textures} show examples of textures. Unfortunately, there is no currently no universally accepted mathematical definition of what constitues a texture (\citet{Raad2018}). Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field, has defined textures as classes of images that cannot be discriminated in preattantive (i.e.~effortless or instantaneous) vision and then attempted to characterize them mathematically.
+Figures~\ref{fig:intro_pixels_vs_stats} and~\ref{fig:background_similar_textures} show examples of textures. Unfortunately, there is no currently no universally accepted mathematical definition of what constitutes a texture (\citet{Raad2018}). Researchers who have attempted to characterize textures have usually defined them in terms of human vision. For example, \citet{Julesz1962}, one of the most prominent researchers in this field, has defined textures as classes of images that cannot be discriminated in preattentive (i.e.~effortless or instantaneous) vision and then attempted to characterize them mathematically.
 
-Various formal texture definitons agree on the fact that they are two-dimesional random fields which are \textit{stationary}, meaning that their joint probability distribution is not spatially dependent. For example, in fig.~\ref{fig:background_similar_textures}, a single leaf is equally likely to be anywhere in the image. If the image was not stationary, there would be areas where the leaf would be more likely to appear. Also note that textures under uneven illumination are not stationary. Furthermore, the probability of a single texture value typically depends only on a fairly small neighbourhood (comprising a \textit{feature}). For example, a leaf in fig.~\ref{fig:background_similar_textures} can be anywhere in the texture, but when a contour of a leaf is found somewhere, it is very likely that the inside of it will be green. 
+Various formal texture definitions agree on the fact that they are two-dimensional random fields which are \textit{stationary}, meaning that their joint probability distribution is not spatially dependent. For example, in fig.~\ref{fig:background_similar_textures}, a single leaf is equally likely to be anywhere in the image. If the image was not stationary, there would be areas where the leaf would be more likely to appear. Also note that textures under uneven illumination are not stationary. Furthermore, the probability of a single texture value typically depends only on a fairly small neighbourhood (comprising a \textit{feature}). For example, a leaf in fig.~\ref{fig:background_similar_textures} can be anywhere in the texture, but when a contour of a leaf is found somewhere, it is very likely that the inside of it will be green. 
 
-To summarize, there are many similar texture defintions, but not a single prevalent one. Based on this, texture synthesis methods which generate new examples of a given texture class can be divided into two categories. Here is the common recipe which methods in each category follow:
+To summarize, there are many similar texture definitions, but not a single prevalent one. Based on this, texture synthesis methods which generate new examples of a given texture class can be divided into two categories. Here is the common recipe which methods in each category follow:
 
 \begin{enumerate}
     \item Find a set of summary statistics such that two texture images belong to the same texture class \textit{iff} they share them. Then create new examples of an input texture by drawing random samples and imposing the statistics of the input onto them. This category is also called \textit{parametric texture synthesis} or \textit{statistics-based texture synthesis}. Note that the summary statistics define a texture
@@ -550,13 +550,13 @@ In the following sections we explain the theoretical background of both approach
 
 We begin with patch-based texture synthesis because it is conceptually simpler and achieves very good results for particular kinds of textures. The basic idea was introduced by \citet{Efros1999}, inspired by \citet{Shannon1948} and his use of a Markov chain to generate English text. Here is an example from Shannon's method (taken from \citet{Raad2018}):
 
-\begin{itemize}
-    \item in no ist lat whey cratict froure birs grocid pondenome of demonstures of the reptagin is regoactiona of cre
-\end{itemize}
+\begin{displayquote}
+    in no ist lat whey cratict froure birs grocid pondenome of demonstures of the reptagin is regoactiona of cre
+\end{displayquote}
 
 Analogously to two different texture realizations not being identical but looking alike, this sentence is not English, but looks like it. It is generated letter by letter by sampling from a probability distribution of an English text sample conditioned on the previous \(n = 3\) letters.
 
-In their texture synthesis method, \citet{Efros1999} generate an image pixel by pixel based on a probability distribution of a given texture sample. We will desribe how exactly this method works on an improved version of it, called \textit{image quilting}, which was introduced by \citet{Efros2001}.
+In their texture synthesis method, \citet{Efros1999} generate an image pixel by pixel based on a probability distribution of a given texture sample. We will describe how exactly this method works on an improved version of it, called \textit{image quilting}, which was introduced by \citet{Efros2001}.
 
 \subsubsection{Image Quilting}
 \label{section:background-texture_synthesis-patch_based-quilting}
@@ -570,13 +570,6 @@ In their texture synthesis method, \citet{Efros1999} generate an image pixel by 
 
 Image quilting starts by splitting the input texture image into overlapping square blocks \(B_i\) of size \(k\) (a user-controlled parameter). Then it builds a new texture block by block in raster scan order (from the top left corner to the bottom right corner, row by row). A new block \(B^{\prime}\) is chosen at random from all \(B_i\) such that the pixel-wise error in overlapping areas (they use 1/6 of block area along the edge) with the block above \(B^{\prime}\) and to the left of \(B^{\prime}\) is below a certain threshold in the output image. Since many blocks usually satisfy this overlap constraint, one is picked at random. If \(B^{\prime}\) was pasted into the output image directly, the result would look blocky. Therefore \(B^{\prime}\) is pasted into the output image along a minimum error path inside the overlapping areas. This ensures that seams between blocks are as subtle as possible. See fig.~\ref{fig:background_quilting_method} for an illustration of the method.
 
-\subsubsection{Pros and Cons}
-\label{section:background-texture_synthesis-patch_based-pros_and_cons}
-
-This method can achieve stunning visual results when the input texture is uniformly lit and contains large features, like pebbles or coffee beans. It is especially powerful when used on textures with regular structure, like a brick wall. See fig.~\ref{fig:background_quilting_pros_cons} for an example.
-
-However, it struggles with textures that have non-uniform illumination and that contain very small features, like sand or concrete. Failure cases usually manifest themselves by large areas that are directly copied from the input (so-called \textit{verbatim copying}) or areas that contain the same patch copied over and over (so-called \textit{garbage growing}). See fig.~\ref{fig:background_quilting_pros_cons} for an example.
-
 \begin{figure}
     \centering
     \begin{tikzpicture}
@@ -589,26 +582,33 @@ However, it struggles with textures that have non-uniform illumination and that 
     \label{fig:background_quilting_pros_cons}
 \end{figure}
 
+\subsubsection{Pros and Cons}
+\label{section:background-texture_synthesis-patch_based-pros_and_cons}
+
+This method can achieve stunning visual results when the input texture is uniformly lit and contains large features, like pebbles or coffee beans. It is especially powerful when used on textures with regular structure, like a brick wall. See fig.~\ref{fig:background_quilting_pros_cons} for an example.
+
+However, it struggles with textures that have non-uniform illumination and that contain very small features, like sand or concrete. Failure cases usually manifest themselves by large areas that are directly copied from the input (so-called \textit{verbatim copying}) or areas that contain the same patch copied over and over (so-called \textit{garbage growing}). See fig.~\ref{fig:background_quilting_pros_cons} for an example.
+
 Another drawback of this method is that its parameters need to be manually tuned based on the feature sizes and other properties of the input texture. There is also no underlying texture model that this method would work with which means that reasoning about it is somewhat less robust and limited to measuring heuristics such as the amount of verbatim copies and garbage in the output.
 
 \subsubsection{Potential Usage in Projection Mapping}
 \label{section:background-texture_synthesis-patch_based-projection_mapping}
 
-Image quilting is surprisingly flexible to adapt for uses other than texture synthesis. The authors themselves showcase the possibility of using the method for style transfer. This is a problem that considers two input images and produces a third one which has the content of one image and style of the other. This can be achieved by adding a new term to the overlap error. In the case of style transfer, it takes the form of the difference in pixel intensities of the candidate patch and a corresponding patch of the target image. See fig.~\ref{fig:background_quilting_transfer} for an example.
-
-\begin{figure}[ht]
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.6\textwidth]{images/02-quilting_transfer.jpg}
     \caption{Example of style transfer using image quilting. The output (right) is generated just like during texture synthesis except for two changes: 1) the output image size is chosen to be that of the target image (left) and 2) an extra term is added to the overlap error. This term represents the difference between the pixel intensities of the candidate patch and a corresponding patch of the target image. Source: \citet{Efros2001}}
     \label{fig:background_quilting_transfer}
 \end{figure}
 
+Image quilting is surprisingly flexible to adapt for uses other than texture synthesis. The authors themselves showcase the possibility of using the method for style transfer. This is a problem that considers two input images and produces a third one which has the content of one image and style of the other. This can be achieved by adding a new term to the overlap error. In the case of style transfer, it takes the form of the difference in pixel intensities of the candidate patch and a corresponding patch of the target image. See fig.~\ref{fig:background_quilting_transfer} for an example.
+
 One could imagine using this method for projection mapping by modifying the overlap error term. Roughly speaking, the additional error term could be proportional to how difficult it would be to radiometrically compensate the candidate patch. More specifically, the candidate patch would first be radiometrically compensated and then the error would be set to the inverse distance between the compensation and the limit of the projector gamut. This could be built on top of methods such as \citet{Grundhofer2015} that assume 1:1 correspondence between projector image and camera image.
 
 \subsection{Statistics-Based Texture Synthesis}
 \label{section:background-texture_synthesis-statistics_based}
 
-\begin{figure}[ht]
+\begin{figure}[t]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
@@ -627,7 +627,7 @@ One could imagine using this method for projection mapping by modifying the over
         \includegraphics[width=\textwidth]{images/02-julesz-3rd_order.jpg}
         \caption{}
     \end{subfigure}
-    \caption{Image (a) shows two textures with different first-order statistics. The left half contains black pixels with probabilty \(5/8\) and white pixels with probability \(3/8\) while the right half has the inverse distribution. Image (b) shows two textures with identical second-order statistics. Specifically, there are four brightness levels in the image, each with equal probability (first-order). Moreover, any two pixels are chosen independently (second-order). However, the probability \(P(k | i,j)\) of a pixel conditioned on two other pixels differs between the left and right half which makes third-order statistics different. Image (c) shows two textures with identical third-order statistics, meaning that any three squares are chosen independently. However, the left half has \(2 \times 2\) patches with even number of black squares while the left half has an odd number of black squares per patch. This makes the textures easily distinguishable. Texture sources: \citet{Julesz1962} (a), (b) and \citet{Julesz1973} (c)}
+    \caption{Image (a) shows two textures with different first-order statistics. The left half contains black pixels with probability \(5/8\) and white pixels with probability \(3/8\) while the right half has the inverse distribution. Image (b) shows two textures with identical second-order statistics. Specifically, there are four brightness levels in the image, each with equal probability (first-order). Moreover, any two pixels are chosen independently (second-order). However, the probability \(P(k | i,j)\) of a pixel conditioned on two other pixels differs between the left and right half which makes third-order statistics different. Image (c) shows two textures with identical third-order statistics, meaning that any three squares are chosen independently. However, the left half has \(2 \times 2\) patches with even number of black squares while the left half has an odd number of black squares per patch. This makes the textures easily distinguishable. Texture sources: \citet{Julesz1962} (a), (b) and \citet{Julesz1973} (c)}
     \label{fig:background_julesz_textures}
 \end{figure}
 
@@ -638,7 +638,7 @@ Statistics-based texture synthesis is an older and more established approach to 
     \item Synthesizing new texture examples based on that characterization
 \end{itemize}
 
-As mentioned in Section~\ref{section:background-texture_synthesis}, a formal texture model should be compatible with the notion that textures are classes of images that are indistinguishable in preattentive vision. A famous attempt at such a model was introduced by \citet{Julesz1962} who formulated a hypothesis that two textures with identical second-order statistics are preattentively indistinguishable from each other (see fig.~\ref{fig:background_julesz_textures} for an example). This hypothesis was later disproved in \citet{Julesz1973} by counter-examples of distinguishable textures with identical third-order statistics (also fig.~\ref{fig:background_julesz_textures}). However, the distinguishing features in those counter-examples are local. A modified Julesz hypothesis says that "the pre-attentive textural system cannot globally compute third- or higher-order statistics" (\citet{Julesz1981}) and the idea that global statistics characterize textures well is still prevalent today. See fig.~\ref{fig:background_statistics_example} for an illustration of how global statistics can be used for texture synthesis.
+As mentioned in Section~\ref{section:background-texture_synthesis}, a formal texture model should be compatible with the notion that textures are classes of images that are indistinguishable in preattentive vision. A famous attempt at such a model was introduced by \citet{Julesz1962} who formulated a hypothesis that two textures with identical second-order statistics are preattentively indistinguishable from each other (see fig.~\ref{fig:background_julesz_textures} for an example). This hypothesis was later disproved in \citet{Julesz1973} by counter-examples of distinguishable textures with identical third-order statistics (also fig.~\ref{fig:background_julesz_textures}). However, the distinguishing features in those counter-examples are local. A modified Julesz hypothesis says that \textquote[\citet{Julesz1981}]{the pre-attentive textural system cannot globally compute third- or higher-order statistics} and the idea that global statistics characterize textures well is still prevalent today. See fig.~\ref{fig:background_statistics_example} for an illustration of how global statistics can be used for texture synthesis.
 
 \begin{figure}[ht]
     \centering
@@ -646,7 +646,7 @@ As mentioned in Section~\ref{section:background-texture_synthesis}, a formal tex
         \draw (0, 0) node[inner sep=0] {\includegraphics[width=\textwidth]{images/02-statistics_example.jpg}};
         \draw (-5.7, -3.5) node {\footnotesize{Identical pixels}};
         \draw (-2.8, -3.5) node {\footnotesize{Identical}};
-        \draw (-2.8, -3.9) node {\footnotesize{average color}};
+        \draw (-2.8, -3.9) node {\footnotesize{average colour}};
         \draw (0.0, -3.5) node {\footnotesize{Identical first-}};
         \draw (0.0, -3.9) node {\footnotesize{order statistics}};
         \draw (2.7, -3.5) node {\footnotesize{Identical Fourier}};
@@ -655,7 +655,7 @@ As mentioned in Section~\ref{section:background-texture_synthesis}, a formal tex
         \draw (5.5, -3.9) node {\footnotesize{matrices of CNN}};
         \draw (5.5, -4.3) node {\footnotesize{activations}};
     \end{tikzpicture}
-    \caption{Illustration of texture synthesis via global image statistics. The leftmost image shows an example generated by keeping every pixel identical. The middle-left image shows an example that uses identical average color as a descriptive statistic. The middle image uses first-order statistics by simply shuffling the pixels of the input. The middle-right image uses a method by \citet{Galerne2011} which keeps Fourier modulus identical while randomizing the phase. The rightmost image shows a recent method by \citet{Gatys2015} that uses the Gram matrices of CNN activations as a descriptive statistic. Texture source: \citet{Gatys2015}}
+    \caption{Illustration of texture synthesis via global image statistics. The leftmost image shows an example generated by keeping every pixel identical. The middle-left image shows an example that uses identical average colour as a descriptive statistic. The middle image uses first-order statistics by simply shuffling the pixels of the input. The middle-right image uses a method by \citet{Galerne2011} which keeps Fourier modulus identical while randomizing the phase. The rightmost image shows a recent method by \citet{Gatys2015} that uses the Gram matrices of CNN activations as a descriptive statistic. Texture source: \citet{Gatys2015}}
     \label{fig:background_statistics_example}
 \end{figure}
 
@@ -676,7 +676,7 @@ The set of statistics is computed using a \textit{convolutional neural network} 
     \label{fig:background_cnn}
 \end{figure}
 
-It turns out that when a CNN is trained to classify images, filters in individual layers tend to specialize to detect particular types of features. Initial layers typically detect colors and small features while later layers detect larger features. \citet{Gatys2015} use the fact that activations contain information about whether a particular feature is detected in an image to define a set of statistics that describe a texture. Specifically, the statistics are determined by the activations after each pooling layer of the VGG-19 CNN by \citet{Simonyan2014}. These activations, however, contain spatial information of where each feature is located in the texture. This is not desirable because textures are stationary (i.e.~their features can be shuffled around without making them a different texture). In order to remove this spatial information, activations are correlated with each other within each layer, forming a so-called \textit{Gram matrix}. Gram matrices of VGG-19 activations therefore constitute a set of statistics completely describing a texture.
+It turns out that when a CNN is trained to classify images, filters in individual layers tend to specialize to detect particular types of features. Initial layers typically detect colours and small features while later layers detect larger features. \citet{Gatys2015} use the fact that activations contain information about whether a particular feature is detected in an image to define a set of statistics that describe a texture. Specifically, the statistics are determined by the activations after each pooling layer of the VGG-19 CNN by \citet{Simonyan2014}. These activations, however, contain spatial information of where each feature is located in the texture. This is not desirable because textures are stationary (i.e.~their features can be shuffled around without making them a different texture). In order to remove this spatial information, activations are correlated with each other within each layer, forming a so-called \textit{Gram matrix}. Gram matrices of VGG-19 activations therefore constitute a set of statistics completely describing a texture.
 
 \begin{figure}[ht]
     \centering
@@ -723,7 +723,7 @@ To synthesize a new example of a given texture, gradient-based loss optimization
             \draw (-6.5, 0.0) node {Gatys};
         \end{tikzpicture}
     \end{subfigure}
-    \caption{A comparison of Gatys synthesis, Random Phase Noise (RPN, \citet{Galerne2011}) and image quilting (EF, \citet{Efros2001}). The chosen input textures are not very suitable for synthesis with Random Phase Noise as they contain fairly large features. Image quilting and Gatys seem to perform much better. Upon closer inspection, we can see that Gatys suffers from desaturated artifacts in the leftmost texture. Also, Gatys sometimes creates implausible shapes (e.g.~deformed flower blooms). On the other hand, it is statistically closer to the input than EF (e.g.~the flower texture generated by EF has too few blooms). Source: \citet{Raad2018}}
+    \caption{A comparison of Gatys synthesis, Random Phase Noise (RPN, \citet{Galerne2011}) and image quilting (EF, \citet{Efros2001}). The chosen input textures are not very suitable for synthesis with Random Phase Noise as they contain fairly large features. Image quilting and Gatys seem to perform much better. Upon closer inspection, we can see that Gatys suffers from desaturated artefacts in the leftmost texture. Also, Gatys sometimes creates implausible shapes (e.g.~deformed flower blooms). On the other hand, it is statistically closer to the input than EF (e.g.~the flower texture generated by EF has too few blooms). Source: \citet{Raad2018}}
     \label{fig:background_synthesis_comparison}
 \end{figure}
 
@@ -732,4 +732,4 @@ This method of synthesizing textures leads to high-quality results for a large v
 \subsubsection{Potential Usage in Projection Mapping}
 \label{section:background-texture_synthesis-statistics_based-projection_mapping}
 
-This method can easily be adapted to projection mapping by modifying the optimization pipeline. The idea would be to first project an initial white noise image onto a scene using a differentiable rendering function. Then the resulting camera image would be fed into the CNN and ultimately compared against the input texture image. The loss gradients would flow through both the CNN and the rendering function to update the initial image. The result of this process would be an image would look like a new example of the input texture once projected.
+This method can easily be adapted to projection mapping by modifying the optimization pipeline. The idea would be to first project an initial white noise image onto a scene using a differentiable rendering function. Then the resulting camera image would be fed into the CNN and ultimately compared against the input texture image. The loss gradients would flow through both the CNN and the rendering function to update the initial image. The result of this process would be an image which looks like a new example of the input texture once projected.

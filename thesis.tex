@@ -219,6 +219,8 @@
 \usepackage{wrapfig}
 % Footnotes at the bottom of the page
 \usepackage[bottom]{footmisc}
+% Quotes
+\usepackage{csquotes}
 
 % The aalto-thesis package provides typesetting instructions for the
 % standard master's thesis parts (abstracts, front page, and so on)
@@ -232,10 +234,10 @@
 %                     first page of the first chapter
 %   twoinstructors  - changes the title of instructors to plural form
 %   twosupervisors  - changes the title of supervisors to plural form
-\usepackage[mydraft]{aalto-thesis}
+%\usepackage[mydraft]{aalto-thesis}
 %\usepackage[mydraft,twosupervisors]{aalto-thesis}
 %\usepackage[mydraft,doublenumbering]{aalto-thesis}
-%\usepackage{aalto-thesis}
+\usepackage{aalto-thesis}
 
 
 
@@ -432,7 +434,7 @@ convolutional neural networks,  optimization, light transport}
 % Abstract in English
 % ------------------------------------------------------------------
 \thesisabstract{english}{
-Projection mapping is a widespread reality augmentation technique used by artists all over the world. It can be done automatically using a projector and a camera which captures the appearance of a projection in a scene. This appearance is then matched with a desired apparance pixel by pixel. However, this approach is limited by projector brightness when some pixels cannot be made as bright (or dark) as would be required to match the two appearances.
+Projection mapping is a widespread reality augmentation technique used by artists all over the world. It can be done automatically using a projector and a camera which captures the appearance of a projection in a scene. This appearance is then matched with a desired appearance pixel by pixel. However, this approach is limited by projector brightness when some pixels cannot be made as bright (or dark) as would be required to match the two appearances.
 
 In this thesis, we propose a method which focuses on projecting textures and overcomes this problem to a certain extent. Simply put, textures are images with repetitive structure such as pebble beach, tree bark or brick wall. Nowadays, it is possible to automatically generate new examples of a given texture which look the same but their pixel values may be radically different. This problem is called texture synthesis. Instead of per-pixel matching, we thus use an existing synthesis technique based on a neural network to ensure that the actual appearance of a projection is a realization of the same texture as the desired appearance. As a result, our method is more flexible and thus able to reproduce a larger variety of appearances for a given scene.
 
@@ -456,14 +458,14 @@ We guide the reader through three experiments in which we evaluate our method in
 %Om ditt skolespråk är svenska, måste din diplomarbetet  ha en svenskspråkig sammanfattning. Sammanfattningen måste passa på en sida.}
 
 
-% Acknowledgements
+% Acknowledgments
 % ------------------------------------------------------------------
 % Select the language you use in your acknowledgements
 \selectlanguage{english}
 
 % Uncomment this line if you wish acknoledgements to appear in the 
 % table of contents
-%\addcontentsline{toc}{chapter}{Acknowledgements}
+%\addcontentsline{toc}{chapter}{Acknowledgments}
 
 % The star means that the chapter isn't numbered and does not 
 % show up in the TOC

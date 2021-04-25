@@ -7,7 +7,7 @@ We now have all the building blocks needed to construct our method that implemen
     \centering
     \def\svgwidth{0.8\textwidth}
     \input{images/figures/03-system.pdf_tex}
-    \caption{An overview of a complete projector-camera system. It receives desired appearance \(\bm{y}\) as input and outputs actual appearance \(r^\prime(\bm{p})\) by projecting a compensated projector image \(\bm{p}\) onto a given scene. Note that in order to perform the compensation, a function \(r\) which approximates \(r^\prime\) is needed. \(r\) is parameterized by information about the scene like geometry, materials and projector and camera properties. These parameters are marked LT and need to be provided by the projector and camera themselves via a calibration procedure. Texture source: \citet{Pixar128}}
+    \caption{An overview of a complete projector-camera system. It receives desired appearance \(\bm{y}\) as input and outputs actual appearance \(r^\prime(\bm{p})\) where \(r^{\prime}\) is the process of projecting a compensated projector image \(\bm{p}\) onto a given scene. Note that in order to perform the compensation, a function \(r\) which approximates \(r^\prime\) is needed. \(r\) is parameterized by information about the scene like geometry, materials and projector and camera properties. These parameters are marked LT and need to be provided by the projector and camera themselves via a calibration procedure. Texture source: \citet{Pixar128}}
     \label{fig:methods_system}
 \end{figure}
 
@@ -22,7 +22,7 @@ We will first present an overview of our projection mapping pipeline and then fo
         \def\svgwidth{1.1\textwidth}
         \input{images/figures/03-pipeline.pdf_tex}
     }\hspace*{8mm}
-    \caption{An overview of our compensation pipeline with desired appearance \(\bm{y}\) as input and compensated projection image \(\bm{p}\) that minimizes eq.~\ref{eq:projection_mapping-statistics} as output. The upper part of the diagram is essentially a texture synthesis pipeline by \citet{Gatys2015}. The lower green part (the rendering function) is our extension that enables projection mapping. Instead of computing a set of statistics \(f\) on the synthesized image \(\bm{p}\) directly as \citet{Gatys2015} does, we first project \(\bm{p}\) to obtain \(r(\bm{p})\) and only then compute \(f\). The red projector symbol shows how \(\bm{p}\) is projected onto a mirror ball in our scene and the white scissors symbol shows how the camera image is cropped because we only want to match a portion of the scene. The whole process is an optimization loop with \(\bm{p}\) initialized to white noise and progressively refined until \(r(\bm{p})\) is a realization of the same texture as \(\bm{y}\) is. Texture source: \citet{Pixar128}}
+    \caption{An overview of our compensation pipeline with desired appearance \(\bm{y}\) as input and compensated projection image \(\bm{p}\) that minimizes eq.~\ref{eq:projection_mapping-statistics} as output. The upper part of the diagram is essentially a texture synthesis pipeline by \citet{Gatys2015}. The lower green part (the rendering function) is our extension that enables projection mapping. Instead of computing a set of statistics \(f\) on the synthesized image \(\bm{p}\) directly as \citet{Gatys2015} does, we first project \(\bm{p}\) to obtain \(r(\bm{p})\) and only then compute \(f\). The red projector symbol shows how \(\bm{p}\) is projected onto a mirror ball in our scene and the white scissors symbol shows how the camera image is cropped because we only want to match a portion of the scene. The whole process is an optimization loop with \(\bm{p}\) initialized to white noise and progressively refined until \(r(\bm{p})\) is a realization of the same texture as \(\bm{y}\). Texture source: \citet{Pixar128}}
     \label{fig:methods_pipeline}
 \end{figure}
 
@@ -30,15 +30,15 @@ Projection mapping is typically done with a projector-camera system (see fig.~\r
 
 \begin{itemize}
     \item A software implementation serves as necessary reference for future work. If something does not work in the controlled environment of a simulator, it will not work in the real world either
-    \item Hardware systems come with challenges of its own, like signal-to-noise ratio, dynamic environment and time constraints. We want to focus on solving one challenge at a time, starting with projection quality
+    \item Hardware systems come with challenges of their own, like signal-to-noise ratio, dynamic environment and time constraints. We want to focus on solving one challenge at a time, starting with projection quality
     \item Software pipelines are easier to modify and allow for rapid prototyping and experimentation
 \end{itemize}
 
 Note that as a consequence, we now use a light transport model both in the compensation component (function \(r\) in fig.~\ref{fig:methods_system}) and the projector-camera component (function \(r^\prime\) in fig.~\ref{fig:methods_system}).
 
-Let us focus on the compensation pipeline first. Its goal is to minimize the expression in eq.~\ref{eq:projection_mapping-statistics}. The main input is an image \(\bm{y}\) which represents the desired appearance for our scene. Other inputs are the scene and projector (marked as LT in fig.~\ref{fig:methods_system}) which determine a rendering function \(r\) which creates a camera image \(r(\bm{p})\) out of a projector image \(\bm{p}\). A projector image \(\bm{p}\) which minimizes eq.~\ref{eq:projection_mapping-statistics} is the output of the pipeline. See fig.~\ref{fig:methods_pipeline} an illustration of how the pipeline works.
+Let us focus on the compensation pipeline first. Its goal is to minimize the expression in eq.~\ref{eq:projection_mapping-statistics}. The main input is an image \(\bm{y}\) which represents the desired appearance of our scene. Other inputs are the scene and projector (marked as LT in fig.~\ref{fig:methods_system}) which determine a rendering function \(r\) which creates a camera image \(r(\bm{p})\) out of a projector image \(\bm{p}\). A projector image \(\bm{p}\) which minimizes eq.~\ref{eq:projection_mapping-statistics} is the output of the pipeline. See fig.~\ref{fig:methods_pipeline} an illustration of how the pipeline works.
 
-We build on top of a pipeline for texture synthesis used in \citet{Gatys2015} and extend it by the rendering function \(r\). The original synthesis pipeline is differentiable and relies on the gradient-based L-BFGS optimizer to synthesize a texture. Therefore, it is key that our \(r\) differentiable as well. This allows us to rely on L-BFGS to minimize eq.~\ref{eq:projection_mapping-statistics}.
+We build on top of a pipeline for texture synthesis used in \citet{Gatys2015} and extend it by the rendering function \(r\). The original synthesis pipeline is differentiable and relies on the gradient-based L-BFGS optimizer to synthesize a texture. Therefore, it is key that our \(r\) differentiable as well. This allows us to also rely on L-BFGS to minimize eq.~\ref{eq:projection_mapping-statistics}.
 
 In Section~\ref{section:background-texture_synthesis}, we have reviewed several texture synthesis methods that could potentially be used in our method. We have decided to use \citet{Gatys2015} over a patch-based method such as \citet{Efros2001} for the following reasons:
 
@@ -106,14 +106,14 @@ This leads us to the following straightforward and differentiable rendering func
     r(\bm{p}, \bm{b}) = c \cdot \bm{p} \cdot \bm{b} = \bm{y}
 \end{equation}
 
-where \(\bm{p}\) and \(\bm{y}\) are again the projector and camera image, respectively, \(\bm{b}\) is the background -- an image (texture) representing the surface of the wall -- and \(c\) is a constant that roughly accounts for \(\cos \theta / \pi r^2\). Here is where we perform the last simplification. \(r\) and \(\theta\) vary over the background and depend on how far the projector is from the background. However, we are only interested in simulating situations where the projector cannot be bright enough to compensate the projection with conventional methods but where it is still capable of compensating with our method. We thus set \(r\) ourselves to adjust the distance and the brightness of the projector according to our needs as part of a single constant \(c\). The variation of \(\cos \theta\) can be accounted for after the fact by darkening \(\bm{p}\) towards the center. This means that we also have to assume that the minimum brightness of our projector is not limited by the scenario.
+where \(\bm{p}\) and \(\bm{y}\) are again the projector and camera image, respectively, \(\bm{b}\) is the background -- an image (texture) representing the surface of the wall -- and \(c\) is a constant that roughly accounts for \(\cos \theta / \pi r^2\). Here is where we perform the last simplification. \(r\) and \(\theta\) vary over the background and depend on how far the projector is from the background. However, we are only interested in simulating situations where the projector cannot be bright enough to compensate the projection with conventional methods but where it is still capable of compensating with our method. We thus set \(r\) ourselves to adjust the distance and the brightness of the projector according to our needs as part of a single constant \(c\). The variation of \(\cos \theta\) can be accounted for after the fact by darkening \(\bm{p}\) towards the centre. This means that we also have to assume that the minimum brightness of our projector is not limited by the scenario.
 
 To summarize, the simple rendering function \(r\) can be very easily integrated into Gatys' synthesis pipeline and represents negligible computational overhead. This allows for rapid experimentation that yields reference results for a reasonable subset of projection scenarios. However, a more general solution for projection mapping on arbitrary 3D scenes is also needed. We cover it in the next section.
 
 \subsection{General Scenario}
 \label{section:methods-rendering_function-general}
 
-A possible candidate for a general rendering function that computes camera images from projector image for arbitrary 3D scenes is simply a renderer such as PBRT (\citet{PBRT3e}) or Mitsuba (\citet{Mitsuba}). These renderers are programs that accept a scene configuration file as input and output an image of the scene as seen from the point of view of a virtual camera. For example, fig.~\ref{fig:background_linear_lt} was created using Mitsuba. Renderers often implement a large variety of materials, camera effect, rendering equation solvers and other features that make them incredibly versatile. And indeed, they match the signature of our rendering function well:
+A possible candidate for a general rendering function that computes camera images from projector image for arbitrary 3D scenes is simply a renderer such as PBRT (\citet{PBRT3e}) or Mitsuba (\citet{Mitsuba}). These renderers are programs that accept a scene configuration file as input and output an image of the scene as seen from the point of view of a virtual camera. For example, fig.~\ref{fig:background_linear_lt} was created using Mitsuba. Renderers often implement a large variety of materials, camera effects, rendering equation solvers and other features that make them incredibly versatile. And indeed, they match the signature of our rendering function well:
 
 \begin{equation}
     \label{eq:rendering_function-renderer}
@@ -134,7 +134,7 @@ Both points are nowadays being addressed by differentiable renderers such as Mit
     r(\bm{p}, A) = c \cdot A\bm{p} = \bm{y}
 \end{equation}
 
-where \(A\) is the light transport matrix (see~\ref{eq:lt_matrix}) and \(\bm{p}\) is supposed to be a vector representing the light sources in the scene. But this is exactly our projector image where each pixel corresponds to a light source that we can control separately. \(c\) is the same multiplier as in eq.~\ref{eq:rendering_function-simple} whose purpose is to tune the overall brightness of the projector.
+where \(A\) is the light transport matrix (see eq.~\ref{eq:lt_matrix}) and \(\bm{p}\) is supposed to be a vector representing the light sources in the scene. But this is exactly our projector image where each pixel corresponds to a light source that we can control separately. \(c\) is the same multiplier as in eq.~\ref{eq:rendering_function-simple} whose purpose is to tune the overall brightness of the projector.
 
 Multiplication by large matrices is differentiable, very fast on modern GPUs and the matrix size (and thus the computation time) depends only on the resolution of the projector and camera images, not on scene complexity. This makes them easy to use in a texture synthesis pipeline. However, the process of acquiring them is not entirely straightforward. We focus on it in the next section.
 
@@ -162,7 +162,7 @@ We now describe the capture process in more detail, focusing on how to configure
     \item Thin lens optics (see fig.~\ref{fig:methods_projector_features_thin_lens})
 \end{itemize}
 
-Rectangular projection frustum is necessary because we want to project rectagular images. The thin lens model (described in Section~\ref{section:background-projection_mapping-projectors-dof}) allows us to simulate the depth of field effect with sufficient accuracy. We focus on the upper limit of projector gamut by simply restricting the values of projector image \(\bm{p}\) to \([0, 1]\) and a suitable choice of multiplier \(c\) (see eq.~\ref{eq:rendering_function-lt_matrix}).
+Rectangular projection frustum is necessary because we want to project rectangular images. The thin lens model (described in Section~\ref{section:background-projection_mapping-projectors-dof}) allows us to simulate the depth of field effect with sufficient accuracy. We focus on the upper limit of projector gamut by simply restricting the values of projector image \(\bm{p}\) to \([0, 1]\) and choosing a suitable multiplier \(c\) (see eq.~\ref{eq:rendering_function-lt_matrix}).
 
 \begin{figure}[]
     \centering
@@ -187,7 +187,7 @@ Rectangular projection frustum is necessary because we want to project rectagula
         \vspace*{5mm}
         \label{fig:methods_projector_features_thin_lens}
     \end{subfigure}
-    \caption{Projector features that we have implemented in Mitsuba to support the needs of our projection mapping pipeline. Image~(a) shows  a spotlight with a projective texture that Mitsuba already supported but was not sufficient for us. Image~(b) shows a rectangular projection frustum that we have added to support rectangular projections. Image~(c) shows our final projector implementation with a thin lens optics model that enables the depth of field effect}
+    \caption{Projector features that we have implemented in Mitsuba to support the needs of our projection mapping pipeline. Image~(a) shows  a spotlight with a projective texture that Mitsuba already supported but was not sufficient for us. Image~(b) shows a rectangular projection frustum that we have added to support rectangular projections. Image~(c) shows our final projector implementation with a thin lens optics model that enables the depth of field effect. Scene by \citet{Bitterli16}}
     \label{fig:methods_projector_features}
 \end{figure}
 
@@ -195,9 +195,9 @@ Rectangular projection frustum is necessary because we want to project rectagula
 
 However, while some path sampling techniques build path starting from the camera, others start from the emitter. When emitters are very small, like points lights or projectors with only a single white pixel, it is important to start building the path from the light. We therefore use the bi-directional path tracing (BDPT) algorithm which combines paths that start both from the camera and from emitters and which is already implemented in Mitsuba. More on BDPT can be found in \citet{Veach1997}. See fig.~\ref{fig:methods_sampling_bdpt} for an example.
 
-Another issue is with sampling a point on the projector where a path could start from. If uniform sampling is used, the only active pixel would be sampled in 1 out of \(m \cdot n\) samples on average where \(m\) and \(n\) are the dimensions of \(\bm{p}\). This would again yield many paths with zero contribution. To fix this, we have implemented a common variance reduction technique technique used in Monte Carlo integration called \textit{importance sampling}. Importance sampling chooses samples with larger contribution with higher probability. In our case, we base the probability of choosing a projector pixel on the relative contribution of the pixel to the brightness of the whole projector image. This means that when capturing the canonical basis of an LT matrix, the only active pixel is sampled with probability 1 and other pixels are not sampled at all. See fig.~\ref{fig:methods_sampling_bdpt_importance} for an example.
+Another issue is with sampling a point on the projector where a path could start from. If uniform sampling is used, the only active pixel would be sampled in 1 out of \(m \times n\) samples on average where \(m\) and \(n\) are the dimensions of \(\bm{p}\). This would again yield many paths with zero contribution. To fix this, we have implemented a common variance reduction technique technique used in Monte Carlo integration called \textit{importance sampling}. Importance sampling chooses samples with larger contribution with higher probability. In our case, we base the probability of choosing a projector pixel on the relative contribution of the pixel to the brightness of the whole projector image. This means that when capturing the canonical basis of an LT matrix, the only active pixel is sampled with probability 1 and other pixels are not sampled at all. See fig.~\ref{fig:methods_sampling_bdpt_importance} for an example.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
@@ -221,7 +221,7 @@ Another issue is with sampling a point on the projector where a path could start
         \caption{BDPT with importance sampling}
         \label{fig:methods_sampling_bdpt_importance}
     \end{subfigure}
-    \caption{A comparison of various sampling techniques to solve the rendering equation. The scene is being projected onto by a \(640 \times 480\) image with only a small \(20 \times 20\) patch of active pixels. All images were rendered using 16 path samples per pixel. Image~(a) shows a basic path tracer which samples random light-carrying paths starting from the camera. Image~(b) is bi-directional path tracing (BDPT), a better technique which combines paths from both camera and light sources. Image~(c) shows BDPT with importance sampling of the projector image which greatly reduces noise. This is the method we use in our pipeline.}
+    \caption{A comparison of various sampling techniques to solve the rendering equation. The scene is being projected onto by a \(640 \times 480\) image with only a small \(20 \times 20\) patch of active pixels. All images were rendered using 16 path samples per pixel. Image~(a) shows a basic path tracer which samples random light-carrying paths starting from the camera. Image~(b) is bi-directional path tracing (BDPT), a better technique which combines paths from both camera and light sources. Image~(c) shows BDPT with importance sampling of the projector image which greatly reduces noise. This is the method we use in our pipeline. Scene by \citet{Bitterli16}}
     \label{fig:methods_sampling}
 \end{figure}
 
@@ -232,9 +232,9 @@ Another issue is with sampling a point on the projector where a path could start
     S = p_w \cdot p_h \cdot c_w \cdot c_h \cdot 3 \cdot 4
 \end{equation}
 
-where \(S\) is the matrix size in bytes, \(p_w\) and \(p_h\) is the width and height of the projector image, respectively, \(c_w\) and \(c_h\) are the dimensions of the camera image. We then assume three color channels and four bytes to store each intensity value. It is important to store the intensity values as 32-bit floating point numbers to capture the tiny signal coming from individual projector pixels. See an example of how value precision influences the noise level of basis images in fig.~\ref{fig:methods_float}.
+where \(S\) is the matrix size in bytes, \(p_w\) and \(p_h\) is the width and height of the projector image, respectively, and \(c_w\) and \(c_h\) are the dimensions of the camera image. We then assume three colour channels and four bytes to store each intensity value. It is important to store the intensity values as 32-bit floating point numbers to capture the tiny signal coming from individual projector pixels. See an example of how value precision influences the noise level of basis images in fig.~\ref{fig:methods_float}.
 
-This means that an LT matrix for projector and camera image of size \(160 \times 160\) is over 7.8 GB large. This is the size we have used in our experiments because it is sufficient to demonstrate the performance of our method and because it fit well into the memory of our GPUs. However, it is clear that this approach to implementing the rendering function is not very scalable. For our purposes, this approach has the advantage of being simple and accurate which is important when evaluating the basic functionality of a new method. For practical use, more data-efficient methods like those mentioned in Section~\ref{section:background-projection_mapping-procams-inverse_lt} are needed.
+This means that an LT matrix for projector and camera image of size \(160 \times 160\) is over 7.8 GB large. This is the size we have used in our experiments because it is sufficient to demonstrate the performance of our method and because it fit well into the memory of our GPUs. However, it is clear that this approach to implementing the rendering function is not very scalable. For our purposes, it has the advantage of being simple and accurate which is important when evaluating the basic functionality of a new method. For practical use, more data-efficient methods like those mentioned in Section~\ref{section:background-projection_mapping-procams-inverse_lt} are needed.
 
 \begin{figure}[]
     \centering
@@ -251,7 +251,7 @@ This means that an LT matrix for projector and camera image of size \(160 \times
         \caption{32-bit float}
         \label{fig:methods_float32}
     \end{subfigure}
-    \caption{An illustration of how pixel value precision influences noise level in basis images. The scene is illuminated by a \(640 \times 480\) projection image where only a single pixel is active. The resulting images are scaled by \(10^6\) for visualization purposes. Image~(a) is stored in 16-bit floating point, while image~(b) is stored in 32-bit floating point}
+    \caption{An illustration of how pixel value precision influences noise level in basis images. The scene is illuminated by a \(640 \times 480\) projection image where only a single pixel is active. The resulting images are scaled by \(10^6\) for visualization purposes. Image~(a) is stored in 16-bit floating point, while image~(b) is stored in 32-bit floating point. Scene by \citet{Bitterli16}}
     \label{fig:methods_float}
 \end{figure}
 
@@ -262,7 +262,7 @@ This concludes the section on our rendering function \(r\). In the following sec
 
 Our texture model is built on top of that used in \citet{Gatys2015} and described in Section~\ref{section:background-texture_synthesis-statistics_based-synthesis_using_cnns}. While the vanilla Gatys model achieves very good results, it also has several shortcomings, such as desaturated patches when synthesizing textures larger than input or physically implausible feature deformation (see figs.~\ref{fig:methods_comparison_small-vanilla} and~\ref{fig:methods_comparison_large-vanilla} for examples).
 
-These shortcomings are well known and have been studied by several authors who have introduced improvements to the original model which result in higher quality texture synthesis. It is unclear, however, whether improvements in texture synthesis also translate into improvements in the projection mapping of textures. We have thus decided to reimplement the original Gatys model along with the improvements and evaluate how each of them peforms in our setup.
+These shortcomings are well known and have been studied by several authors who have introduced improvements to the original model which result in higher quality texture synthesis. It is unclear, however, whether improvements in texture synthesis also translate into improvements in the projection mapping of textures. We have thus decided to reimplement the original Gatys model along with the improvements and evaluate how each of them performs in our setup.
 
 \citet{Gatys2015} have provided an implementation of their algorithm in the Caffe (\citet{Jia2014}) deep learning framework. Because this framework is not very commonly used anymore (last stable version was released in 2017, according to \citet{CaffeGitHub}), we have ported the algorithm to PyTorch which is currently more actively maintained and therefore easier to work with.
 
@@ -276,21 +276,21 @@ We have implemented three different improvements to the original Gatys statistic
 \subsubsection{Activation Shift}
 \label{section:methods-texture_model-improvements-activation_shift}
 
-In the original Gatys model, a set Gram matrices of VGG-19 layer activations form the set of descriptive statistics \(f\):
+In the original Gatys model, a set of Gram matrices of VGG-19 layer activations form the set of descriptive statistics \(f\):
 
 \begin{equation}
     \label{eq:gatys_statistics}
     f(\bm{y}) = \{G^1(\bm{y}), \dots, G^L(\bm{y})\}
 \end{equation}
 
-where \(L\) is a chosen number of VGG-19 layers that are used for synthesis and a Gram matrix \(G^l(\bm{y})\) is defined as
+where \(L\) is a chosen number of VGG-19 layers that are used for synthesis and Gram matrix \(G^l(\bm{y})\) is defined as
 
 \begin{equation}
     \label{eq:gram_style}
     G_{ij}^l(\bm{y}) = \sum_k F_{ik}^l(\bm{y}) F_{jk}^l(\bm{y})
 \end{equation}
 
-where \(i\) and \(j\) are filters in layer \(l\) and \(F_{jk}^l\) is the activation of the \(j\)-th filter at position \(k\) in layer \(l\). A Gram matrix thus represents the correlations between feature reponses in a network layer.
+where \(i\) and \(j\) are filters in layer \(l\) and \(F_{jk}^l\) is the activation of the \(j\)-th filter at position \(k\) in layer \(l\). A Gram matrix thus represents the correlations between feature responses in a network layer.
 
 \citet{Novak2016} have introduced a number of simple improvements to the way Gram matrices are calculated from VGG-19 activations. One of them is called \textit{activation shift}. In the original Gatys model, activations \(F_{jk}^l\) are non-negative with mean 1. Also, the resulting Gram matrices \(G^l\) tend to be very sparse with many zero entries. \citet{Novak2016} argue that these zero entries are a source of ambiguity in texture description because they could have many causes:
 
@@ -324,7 +324,7 @@ where \(l = 1 \dots L - 1\), \(L\) is the number of chosen layers, \(k = l + 1\)
 \subsubsection{Gaussian Pyramid}
 \label{section:methods-texture_model-improvements-gaussian_pyramid}
 
-\citet{Snelgrove2017} has observed that the performance of Gatys synthesis is greatly limited by the receptive fields of the underlying VGG-19 network. The network was trained on images of size \(224 \times 224\) and its capability to capture information about large features is larger images is thus limited (see~\ref{fig:methods_receptive_field} for an illustration).
+\citet{Snelgrove2017} has observed that the performance of Gatys synthesis is greatly limited by the receptive fields of the underlying VGG-19 network. The network was trained on images of size \(224 \times 224\) and its capability to capture information about large features in larger images is thus limited (see~\ref{fig:methods_receptive_field} for an illustration).
 
 \begin{figure}[ht]
     \centering
@@ -341,11 +341,11 @@ where \(l = 1 \dots L - 1\), \(L\) is the number of chosen layers, \(k = l + 1\)
         \caption{VGG-19 receptive fields on a \(320 \times 240\) image}
         \label{fig:methods_receptive_field_lvl1}
     \end{subfigure}
-    \caption{A comparison of the receptive fields (depicted as colorful squares) of the last convolutional layer of VGG-19 used in the Gatys texture model. A receptive field of a network layer activation is essentially a patch of pixels of the input image which has an effect on that particular activation (recall fig.~\ref{fig:background_cnn}). If a texture feature is larger than the receptive field of a given activation, then it cannot be captured by statistics computed on the activation. Figure~(a) uses an input image of size \(640 \times 480\) while figure~(b) uses size \(320 \times 240\). Texture source: \citet{Pixar128}}
+    \caption{A comparison of the receptive fields (depicted as colourful squares) of the last convolutional layer of VGG-19 used in the Gatys texture model. A receptive field of a network layer activation is essentially a patch of pixels of the input image which has an effect on that particular activation (recall fig.~\ref{fig:background_cnn}). If a texture feature is larger than the receptive field of a given activation, then it cannot be captured by statistics computed on the activation. Figure~(a) uses an input image of size \(640 \times 480\) while figure~(b) uses size \(320 \times 240\). Texture source: \citet{Pixar128}}
     \label{fig:methods_receptive_field}
 \end{figure}
 
-To fix this, he proposes to not compute the Gram matrices on images, but rather on Gaussian pyramids of images. This means that instead of eq.~\ref{eq:gatys_statistics}, he uses
+To fix this, \citet{Snelgrove2017} proposes to not compute the Gram matrices on images, but rather on Gaussian pyramids of images. This means that instead of eq.~\ref{eq:gatys_statistics}, he uses
 
 \begin{equation}
     \label{eq:snelgrove_statistics}
@@ -452,7 +452,7 @@ where \(\bm{y_i}\) is image \(\bm{y_{i - 1}}\) downsampled by half using proper 
             \label{fig:methods_comparison_large-pyramid_shift}
         \end{subfigure}
     \end{subfigure}
-    \caption{A comparison of texture synthesis under various models described in this section. The goal is to generate a new example of the input texture. The upper two rows contain images of size \(256 \times 256\) while the lower two rows contain images of size \(512 \times 512\). Note desaturated patches and inaccurate colors when Shift is not used and large feature distortion under the Gatys texture model. Lastly, note that Pyramid describes the small texture so accurately that it synthesizes an image nearly identical to the input. Texture source: \citet{Pixar128}}
+    \caption{A comparison of texture synthesis under various models described in this section. The goal is to generate a new example of the input texture. The upper two rows contain images of size \(256 \times 256\) while the lower two rows contain images of size \(512 \times 512\). Note desaturated patches and inaccurate colours when Shift is not used and large feature distortion under the Gatys texture model. Lastly, note that Pyramid describes the small texture so accurately that it synthesizes an image nearly identical to the input. Texture source: \citet{Pixar128}}
     \label{fig:methods_comparison_small}
 \end{figure}
 
@@ -477,4 +477,4 @@ The second problem we need to address is how to implement the bounds in our opti
     s(x) = \frac{1}{1 + e^{-x}}
 \end{equation}
 
-In our experiments, however, we have found that using the sigmoid sometimes leads to poor convergence because gradients get very small when values are close to the bounds. We have seen better convergence with a variant of L-BFGS called L-BFGS-B (\citet{Byrd1995}) which supports bounds and is also used in the original texture synthesis paper by \citet{Gatys2015}. Since L-BFGS-B is only implemented in SciPy and not in PyTorch, we have created a wrapper for it to integrate it into our PyTorch pipeline.
+In our experiments, however, we have found that using the sigmoid sometimes leads to poor convergence because gradients get very small when values are close to the bounds. We have seen better convergence with a variant of L-BFGS called L-BFGS-B (\citet{Byrd1995}) which supports bounds and is also used in the original texture synthesis paper by \citet{Gatys2015}. Since L-BFGS-B is only implemented in SciPy and not in PyTorch, we have created a wrapper to integrate it into our PyTorch pipeline.
