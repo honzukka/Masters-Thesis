@@ -2,7 +2,7 @@
 
 This repository contains LaTeX source files as well as the final PDF of my Master's thesis written in 2021 at Aalto University, Finland, under the supervision of Prof. Jaakko Lehtinen.
 
-<img src="https://github.com/honzukka/Masters-Thesis/blob/main/images/01-results_teaser-target.jpg" width="300" alt="teaser - target texture"> <img src="https://github.com/honzukka/Masters-Thesis/blob/main/images/01-results_teaser-bg.jpg" width="300" alt="teaser - background"> <img src="https://github.com/honzukka/Masters-Thesis/blob/main/images/01-results_teaser-stats_proj.jpg" width="300" alt="teaser - compensated texture projected onto background">
+<img src="https://github.com/honzukka/Masters-Thesis/blob/main/images/01-results_teaser-target.jpg" width="250" alt="teaser - target texture"> <img src="https://github.com/honzukka/Masters-Thesis/blob/main/images/01-results_teaser-bg.jpg" width="250" alt="teaser - background"> <img src="https://github.com/honzukka/Masters-Thesis/blob/main/images/01-results_teaser-stats_proj.jpg" width="250" alt="teaser - compensated texture projected onto background">
 
 ## Abstract
 
